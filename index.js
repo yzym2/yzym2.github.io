@@ -24,13 +24,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ========== 导航滚动阴影 ==========
+// ========== 导航滚动毛玻璃 ==========
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
-    if (window.scrollY > 100) {
-        header.style.boxShadow = "0 2px 20px rgba(0,0,0,0.2)";
+    if (window.scrollY > 60) {
+        header.classList.add('scrolled');
     } else {
-        header.style.boxShadow = "none";
+        header.classList.remove('scrolled');
     }
 });
 
@@ -76,7 +76,7 @@ window.addEventListener('scroll', () => {
     animateOutline();
 
     // 悬停效果
-    const hoverTargets = document.querySelectorAll('a, button, .btn, .glass-card, nav a, .theme-toggle');
+    const hoverTargets = document.querySelectorAll('a, button, .btn, .glass-card, nav a, .theme-toggle, .lang-toggle, .btn-fast-start');
     hoverTargets.forEach(el => {
         el.addEventListener('mouseenter', () => outline.classList.add('hover'));
         el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
@@ -90,5 +90,40 @@ window.addEventListener('scroll', () => {
     document.addEventListener('mouseup', () => {
         dot.style.transform = 'scale(1)';
         outline.style.transform = 'scale(1)';
+    });
+})();
+
+// ========== 卡片 3D 倾斜动态响应 ==========
+(function() {
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+    if (isTouchDevice) return;
+
+    const cards = document.querySelectorAll('.tilt-card');
+    cards.forEach(function(card) {
+        const inner = card.querySelector('.tilt-inner');
+        if (!inner) return;
+        card.addEventListener('mousemove', function(e) {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
+            inner.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+        });
+        card.addEventListener('mouseleave', function() {
+            inner.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
+        });
+    });
+})();
+
+// ========== 极速开始下载 ==========
+(function() {
+    const btn = document.getElementById('fastStartBtn');
+    if (!btn) return;
+
+    btn.addEventListener('click', function() {
+        window.open('https://pan.huang1111.cn/s/5X7xqUl', '_blank');
     });
 })();

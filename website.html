@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>常用网站导航</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="stylesheet" href="minecraft.css">
     <link rel="stylesheet" href="website.css">
     <base target="_blank">
@@ -15,9 +16,16 @@
 <div class="cursor-glow" id="cursorGlow"></div>
 
 <!-- 左上角返回按钮 -->
-<a href="index.html" class="back-btn magnetic-btn">← 返回首页</a>
+<a href="index.html" class="back-btn magnetic-btn" data-i18n="common.back">← 返回首页</a>
 
-<!-- 右上角主题切换 -->
+<!-- 右上角语言切换 + 主题切换 -->
+<button class="lang-toggle magnetic-btn fixed" id="langToggle" aria-label="切换语言">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/>
+        <ellipse cx="12" cy="12" rx="4" ry="9"/>
+        <ellipse cx="12" cy="12" rx="9" ry="3"/>
+    </svg>
+</button>
 <button class="theme-toggle magnetic-btn" id="themeToggle" aria-label="切换明暗主题">
     <svg class="sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
@@ -30,55 +38,55 @@
 <!-- 镜像站选择弹窗（仅 mcjs.cc 弹出） -->
 <div class="mirror-modal" id="mirrorModal">
     <div class="mirror-modal-content glass-card">
-        <h3>选择访问节点</h3>
-        <p class="mirror-desc">主站若无法访问请尝试镜像站</p>
+        <h3 data-i18n="web.mirror.title">选择访问节点</h3>
+        <p class="mirror-desc" data-i18n="web.mirror.desc">主站若无法访问请尝试镜像站</p>
         <div class="mirror-options">
             <label class="mirror-option">
                 <input type="radio" name="mirror" value="main" checked>
-                <span class="mirror-label">主站</span>
+                <span class="mirror-label" data-i18n="web.mirror.main">主站</span>
             </label>
             <label class="mirror-option">
                 <input type="radio" name="mirror" value="mirror1">
-                <span class="mirror-label">镜像站 1</span>
+                <span class="mirror-label" data-i18n="web.mirror.m1">镜像站 1</span>
             </label>
             <label class="mirror-option">
                 <input type="radio" name="mirror" value="mirror2">
-                <span class="mirror-label">镜像站 2</span>
+                <span class="mirror-label" data-i18n="web.mirror.m2">镜像站 2</span>
             </label>
             <label class="mirror-option">
                 <input type="radio" name="mirror" value="mirror3">
-                <span class="mirror-label">镜像站 3 (IPv6)</span>
+                <span class="mirror-label" data-i18n="web.mirror.m3">镜像站 3 (IPv6)</span>
             </label>
         </div>
         <div class="mirror-actions">
-            <button class="mirror-cancel" id="mirrorCancel">取消</button>
-            <button class="mirror-confirm" id="mirrorConfirm">前往游玩</button>
+            <button class="mirror-cancel" id="mirrorCancel" data-i18n="web.mirror.cancel">取消</button>
+            <button class="mirror-confirm" id="mirrorConfirm" data-i18n="web.mirror.confirm">前往游玩</button>
         </div>
     </div>
 </div>
 
 <div class="container">
-    <h1 class="hero-title">常用网站导航</h1>
-    <p class="subtitle">精选实用网站，一键直达</p>
+    <h1 class="hero-title" data-i18n="web.title">常用网站导航</h1>
+    <p class="subtitle" data-i18n="web.subtitle">精选实用网站，一键直达</p>
 
     <!-- 网盘网站 -->
     <ul class="file-list" id="fileList"></ul>
 
     <!-- Minecraft 网页版 -->
     <div class="mc-web-section">
-        <h2 class="section-title">🎮 Minecraft 网页版</h2>
+        <h2 class="section-title" data-i18n="web.section">🎮 Minecraft 网页版</h2>
 
         <!-- 选择器卡片 -->
         <div class="selector-card glass-card">
             <div class="selector-row">
-                <label for="mcSite">选择站点：</label>
+                <label for="mcSite" data-i18n="web.label.site">选择站点：</label>
                 <select id="mcSite" class="mc-select">
                     <option value="mcjs">mcjs.cc</option>
                     <option value="eagler">eaglercraft.ir</option>
                 </select>
             </div>
             <div class="selector-row">
-                <label for="mcVersion">选择版本：</label>
+                <label for="mcVersion" data-i18n="web.label.version">选择版本：</label>
                 <select id="mcVersion" class="mc-select">
                     <option value="1.8.8">1.8.8</option>
                     <option value="1.12.2">1.12.2</option>
@@ -86,7 +94,7 @@
                     <option value="1.12.2wasm">1.12.2 WASM</option>
                 </select>
             </div>
-            <button class="go-btn magnetic-btn" id="mcGoBtn">前往游玩</button>
+            <button class="go-btn magnetic-btn" id="mcGoBtn" data-i18n="web.go">前往游玩</button>
         </div>
 
         <!-- 1.20 版卡片 -->
@@ -94,8 +102,8 @@
             <div class="version-info">
                 <div class="version-icon">🌟</div>
                 <div class="version-text">
-                    <div class="version-name">Minecraft 1.20 网页版</div>
-                    <div class="version-desc">最新版本体验</div>
+                    <div class="version-name" data-i18n="web.mc120.name">Minecraft 1.20 网页版</div>
+                    <div class="version-desc" data-i18n="web.mc120.desc">基于1.8.8版本内核，仅供体验</div>
                 </div>
             </div>
             <div class="version-selector">
@@ -103,12 +111,13 @@
                     <option value="wasm">WASM</option>
                     <option value="js">JS</option>
                 </select>
-                <button class="go-btn magnetic-btn" id="mc120Btn">前往游玩</button>
+                <button class="go-btn magnetic-btn" id="mc120Btn" data-i18n="web.go">前往游玩</button>
             </div>
         </div>
     </div>
 </div>
 
+<script src="lang.js"></script>
 <script src="website.js"></script>
 </body>
 </html>

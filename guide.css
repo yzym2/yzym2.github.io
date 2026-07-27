@@ -39,8 +39,8 @@
 }
 /* 动态光效 */
 .cursor-glow {
-    width: 300px;
-    height: 300px;
+    width: 180px;
+    height: 180px;
     background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
     border-radius: 50%;
     position: fixed;
@@ -87,7 +87,7 @@ body {
     --accent-white: #ffffff;
     --glass-bg: rgba(255,255,255,0.03);
     --glass-border: rgba(255,255,255,0.08);
-    --glass-blur: 20px;
+    --glass-blur: 30px;
 }
 [data-theme="light"] {
     --bg-primary: #f5f5f5;
@@ -112,7 +112,7 @@ body {
     --accent-white: #111111;
     --glass-bg: rgba(255,255,255,0.5);
     --glass-border: rgba(0,0,0,0.08);
-    --glass-blur: 20px;
+    --glass-blur: 30px;
 }
 
 html {
@@ -132,7 +132,7 @@ body {
 
 /* ========== 主题切换按钮（新风格） ========== */
 .theme-toggle {
-    position: fixed;
+    position: fixed !important;
     top: 20px;
     right: 20px;
     width: 44px;

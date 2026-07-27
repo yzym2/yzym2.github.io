@@ -53,7 +53,7 @@ toggleBtn.addEventListener('click', function() {
     }
     animateOutline();
 
-    const hoverTargets = document.querySelectorAll('a, button, .back-btn, .theme-toggle, .file-item, .download-btn, .go-btn, .mc-select, .mirror-option, .mirror-cancel, .mirror-confirm');
+    const hoverTargets = document.querySelectorAll('a, button, .back-btn, .theme-toggle, .lang-toggle, .file-item, .download-btn, .go-btn, .mc-select, .mirror-option, .mirror-cancel, .mirror-confirm');
     hoverTargets.forEach(el => {
         el.addEventListener('mouseenter', () => outline.classList.add('hover'));
         el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
@@ -71,23 +71,30 @@ toggleBtn.addEventListener('click', function() {
 
 // ========== 网站列表 ==========
 const sites = [
-    { displayName: 'huang1111 网盘', icon: '☁️', url: 'https://pan.huang1111.cn' },
-    { displayName: '123 网盘', icon: '💾', url: 'https://123pan.com' }
+    { nameKey: 'web.s1', icon: '☁️', url: 'https://pan.huang1111.cn' },
+    { nameKey: 'web.s2', icon: '💾', url: 'https://123pan.com' }
 ];
 
 const fileListEl = document.getElementById('fileList');
-sites.forEach(site => {
-    const li = document.createElement('li');
-    li.className = 'file-item';
-    li.innerHTML = `
-        <div class="file-info">
-            <div class="file-icon">${site.icon}</div>
-            <div class="file-name">${site.displayName}</div>
-        </div>
-        <a class="download-btn" href="${site.url}" target="_blank">前往访问</a>
-    `;
-    fileListEl.appendChild(li);
-});
+
+function renderSites() {
+    fileListEl.innerHTML = '';
+    sites.forEach(site => {
+        const li = document.createElement('li');
+        li.className = 'file-item';
+        li.innerHTML = `
+            <div class="file-info">
+                <div class="file-icon">${site.icon}</div>
+                <div class="file-name">${window.t(site.nameKey)}</div>
+            </div>
+            <a class="download-btn" href="${site.url}" target="_blank">${window.t('web.visit')}</a>
+        `;
+        fileListEl.appendChild(li);
+    });
+}
+
+renderSites();
+if (window.onLangChange) window.onLangChange(renderSites);
 
 // ========== Minecraft 网页版 URL 映射 ==========
 const mcjsUrls = {
@@ -177,14 +184,14 @@ document.getElementById('mcGoBtn').addEventListener('click', function() {
         if (urls && urls.main) {
             showMirrorModal(urls);
         } else {
-            alert('该选项的网址尚未配置。');
+            alert(window.t('web.alert.nocfg'));
         }
     } else {
         const url = eaglerUrls[version];
         if (url) {
             window.open(url, '_blank');
         } else {
-            alert('eaglercraft.ir 的网址尚未配置。');
+            alert(window.t('web.alert.noeagler'));
         }
     }
 });
@@ -195,6 +202,6 @@ document.getElementById('mc120Btn').addEventListener('click', function() {
     if (url) {
         window.open(url, '_blank');
     } else {
-        alert('1.20 版网址尚未配置。');
+        alert(window.t('web.alert.nomc120'));
     }
 });

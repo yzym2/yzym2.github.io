@@ -49,7 +49,7 @@
         }
         animateOutline();
 
-        const hoverTargets = document.querySelectorAll('a, button, .back-home-btn, .theme-toggle, .toc a');
+        const hoverTargets = document.querySelectorAll('a, button, .back-home-btn, .theme-toggle, .lang-toggle, .toc a');
         hoverTargets.forEach(el => {
             el.addEventListener('mouseenter', () => outline.classList.add('hover'));
             el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
@@ -90,6 +90,18 @@
         tocHTML += '<li><a href="#' + id + '" class="' + liClass + '" data-target="' + id + '">' + text + '</a></li>';
     });
     tocList.innerHTML = tocHTML;
+
+    // 语言切换时更新目录文字
+    function updateTOCText() {
+        tocList.querySelectorAll('a').forEach(function(link) {
+            const targetId = link.getAttribute('data-target');
+            const heading = document.getElementById(targetId);
+            if (heading) {
+                link.textContent = heading.textContent.trim();
+            }
+        });
+    }
+    if (window.onLangChange) window.onLangChange(updateTOCText);
 
     // ========== 平滑滚动 & 高亮 ==========
     const tocLinks = tocList.querySelectorAll('a');

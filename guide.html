@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>新手引导</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="stylesheet" href="guide.css">
     <base target="_blank">
 </head>
@@ -13,7 +14,14 @@
 <div class="cursor-outline" id="cursorOutline"></div>
 <div class="cursor-glow" id="cursorGlow"></div>
 
-<!-- 主题切换按钮 -->
+<!-- 语言切换 + 主题切换按钮 -->
+<button class="lang-toggle magnetic-btn fixed" id="langToggle" aria-label="切换语言">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/>
+        <ellipse cx="12" cy="12" rx="4" ry="9"/>
+        <ellipse cx="12" cy="12" rx="9" ry="3"/>
+    </svg>
+</button>
 <button class="theme-toggle magnetic-btn" id="themeToggle" aria-label="切换明暗主题">
     <svg class="sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
@@ -26,8 +34,8 @@
 <!-- ===== 侧边栏 ===== -->
 <aside class="sidebar glass-card" id="sidebar">
     <div class="sidebar-header">
-        <a href="minecraft.html" class="back-home-btn magnetic-btn">← 返回上一级</a>
-        <h2><span>目录</span></h2>
+        <a href="minecraft.html" class="back-home-btn magnetic-btn" data-i18n="guide.back">← 返回上一级</a>
+        <h2><span data-i18n="guide.toc">目录</span></h2>
     </div>
     <nav>
         <ul class="toc" id="tocList">
@@ -39,51 +47,47 @@
 <!-- ===== 主内容 ===== -->
 <main class="main">
     <div class="content-wrapper" id="contentWrapper">
-        <h1 id="新手引导">新手引导</h1>
+        <h1 id="新手引导" data-i18n="guide.title">新手引导</h1>
         <!-- ===== 1. 阅读悉知 ===== -->
-        <h2 id="1-阅读悉知">1. 阅读悉知</h2>
-        <h3 id="11-注意事项">1.1. 注意事项</h3>
-        <p>请注意，阅读该新手引导需要一定时间。在此之前，如果您正在上信息课，请返回点击下载"JiYuTrainer.exe"和"Survival_MC1.21.11压缩包"2个文件。</p>
-        <div class="highlight-box glass-card">
+        <h2 id="1-阅读悉知" data-i18n="guide.h2.read">1. 阅读悉知</h2>
+        <h3 id="11-注意事项" data-i18n="guide.h3.notes">1.1. 注意事项</h3>
+        <p data-i18n="guide.note1">请注意，阅读该新手引导需要一定时间。在此之前，如果您正在上信息课，请返回点击下载"JiYuTrainer.exe"和"Survival_MC1.21.11压缩包"2个文件。</p>
+        <div class="highlight-box glass-card" data-i18n="guide.note2">
             <strong>⚠️ 如果您正在上信息课，请返回点击下载"<u>JiYuTrainer.exe</u>"和"<u>Survival_MC1.21.11压缩包</u>"2个文件。</strong>
         </div>
-        <h3 id="12-介绍">1.2. 介绍</h3>
-        <p>你可以阅读本章，这对你有很大帮助。当然你也可以直接跳转到<strong>下载安装&amp;使用步骤</strong>那里。</p>
-        <h4 id="121-关于本网页">1.2.1. 关于本网页</h4>
-        <p>本网页是 yuanzhiyuming.github.io，是 github 账户 YuanZhiYuMing 的 github pages。</p>
-        <p>本网页将信息课启动 Minecraft 所要用到的全部文件进行整合，包含极域控制、多线程下载、Minecraft 游戏和资源包。是的，专门为 SHSSIP 的信息课设计。</p>
-        <p>作者 QQ：3860517347，微信：stardragon142857</p>
-        <h4 id="122-关于jiyutrainer">1.2.2. 关于 JiYuTrainer</h4>
-        <p>JiYuTrainer 是 imengyu（快乐的梦鱼）在 github 上的一个开源项目（<a href="https://github.com/imengyu/JiYuTrainer" target="_blank">https://github.com/imengyu/JiYuTrainer</a>）。</p>
-        <p>以下是原网页介绍（已停止更新）：</p>
+        <h3 id="12-介绍" data-i18n="guide.h3.intro">1.2. 介绍</h3>
+        <p data-i18n="guide.intro.skip">你可以阅读本章，这对你有很大帮助。当然你也可以直接跳转到<strong>下载安装&amp;使用步骤</strong>那里。</p>
+        <h4 id="121-关于jiyutrainer" data-i18n="guide.h4.jyt">1.2.1. 关于 JiYuTrainer</h4>
+        <p data-i18n="guide.jyt.p1">JiYuTrainer 是 imengyu（快乐的梦鱼）在 github 上的一个开源项目（<a href="https://github.com/imengyu/JiYuTrainer" target="_blank">https://github.com/imengyu/JiYuTrainer</a>）。</p>
+        <p data-i18n="guide.jyt.intro">以下是原网页介绍（已停止更新）：</p>
         <blockquote>
-            <p>本软件研发目的就是为了对抗极域电子教室，如果您的学校机房使用极域电子教室来控制学生电脑的话，本软件很可能会帮到你。</p>
-            <p>讲师讲课无聊啰嗦缓慢？想自己试试操作，却被老师全屏广播控制，什么都不能干？拔掉网线后虽然自由了但是又看不到老师的演示了？</p>
-            <p>如果你被以上问题困扰，本软件可能是您非常想要的。</p>
-            <p>这是一个可以使 <strong>极域电子教室全屏广播失效</strong> 的软件，也就是说，在被老师全屏广播时，会将其自动调整为窗口模式，你不仅可以自由操作电脑，也还可以看老师的演示，自由+学习两不误，这不是很爽的事情吗？其还可以防止被老师控制（有点狠），以及自动关闭 "黑屏安静" 这种东西；由于本软件是将全屏调整为窗口，因此老师并不会发现你断线或是进行了非法操作。</p>
-            <p>如果你喜欢这个软件，不妨向你的好友推荐一下吧！</p>
-            <p>如果你觉得这个软件不错，不妨加个小星星⭐吧，你的喜欢是对我最大的支持！</p>
+            <p data-i18n="guide.jyt.q1">本软件研发目的就是为了对抗极域电子教室，如果您的学校机房使用极域电子教室来控制学生电脑的话，本软件很可能会帮到你。</p>
+            <p data-i18n="guide.jyt.q2">讲师讲课无聊啰嗦缓慢？想自己试试操作，却被老师全屏广播控制，什么都不能干？拔掉网线后虽然自由了但是又看不到老师的演示了？</p>
+            <p data-i18n="guide.jyt.q3">如果你被以上问题困扰，本软件可能是您非常想要的。</p>
+            <p data-i18n="guide.jyt.q4">这是一个可以使 <strong>极域电子教室全屏广播失效</strong> 的软件，也就是说，在被老师全屏广播时，会将其自动调整为窗口模式，你不仅可以自由操作电脑，也还可以看老师的演示，自由+学习两不误，这不是很爽的事情吗？其还可以防止被老师控制（有点狠），以及自动关闭 "黑屏安静" 这种东西；由于本软件是将全屏调整为窗口，因此老师并不会发现你断线或是进行了非法操作。</p>
+            <p data-i18n="guide.jyt.q5">如果你喜欢这个软件，不妨向你的好友推荐一下吧！</p>
+            <p data-i18n="guide.jyt.q6">如果你觉得这个软件不错，不妨加个小星星⭐吧，你的喜欢是对我最大的支持！</p>
         </blockquote>
-        <p><strong>功能：</strong></p>
+        <p data-i18n="guide.jyt.features"><strong>功能：</strong></p>
         <ul>
-            <li>在不影响极域正常运行的情况下将 全屏的广播 转为 窗口广播 模式，您不仅可自己操作，也可看老师讲解课程。</li>
-            <li>内置强杀、启停极域 StudentMain.exe 进程功能，无需依赖其他软件。</li>
-            <li>内置破解极域解锁卸载密码功能，支持新版极域。</li>
-            <li>反监视功能，经测试，开启反监视，教师端就无法监视您所用的电脑。</li>
-            <li>防控制功能，防止教师通过极域控制您所用的电脑。</li>
-            <li>监控极域远程执行命令，您可以自由选择是否允许教师端远程执行的命令。</li>
-            <li>通过极域电子教室对同学的电脑远程发送信息或远程执行命令。</li>
+            <li data-i18n="guide.jyt.f1">在不影响极域正常运行的情况下将 全屏的广播 转为 窗口广播 模式，您不仅可自己操作，也可看老师讲解课程。</li>
+            <li data-i18n="guide.jyt.f2">内置强杀、启停极域 StudentMain.exe 进程功能，无需依赖其他软件。</li>
+            <li data-i18n="guide.jyt.f3">内置破解极域解锁卸载密码功能，支持新版极域。</li>
+            <li data-i18n="guide.jyt.f4">反监视功能，经测试，开启反监视，教师端就无法监视您所用的电脑。</li>
+            <li data-i18n="guide.jyt.f5">防控制功能，防止教师通过极域控制您所用的电脑。</li>
+            <li data-i18n="guide.jyt.f6">监控极域远程执行命令，您可以自由选择是否允许教师端远程执行的命令。</li>
+            <li data-i18n="guide.jyt.f7">通过极域电子教室对同学的电脑远程发送信息或远程执行命令。</li>
         </ul>
-        <p><strong>提示：</strong>由于本软件会对极域电子教室进行必要的操作（远程注入、替换模块），某些杀毒软件可能会报毒，您可能需要关闭杀毒软件或添加白名单。</p>
-        <p><strong>操作方法：</strong></p>
-        <p>本软件专为小白设计，默认情况下，您不需要修改任何参数，直接运行 exe，并最小化即可，软件会自动进行操作。</p>
-        <p><strong>附加说明：</strong>本软件不依赖任何运行库，您只需复制一个 JiYuTrainer.exe 至目标电脑即可运行，本软件已将需要的 DLL 打包，它会自动进行安装。</p>
-        <h4 id="123-关于idminternetdownloadmanager">1.2.3. 关于 IDM（Internet Download Manager）</h4>
-        <p>IDM 是 TONEC 公司的一款下载加速器，可将下载速度提升最多 8 倍，恢复下载、组织和调度下载。（<a href="https://www.internetdownloadmanager.com" target="_blank">https://www.internetdownloadmanager.com</a>）</p>
-        <p>功能如下（依旧官网，Edge 翻译不一定准确）：</p>
+        <p data-i18n="guide.jyt.tip"><strong>提示：</strong>由于本软件会对极域电子教室进行必要的操作（远程注入、替换模块），某些杀毒软件可能会报毒，您可能需要关闭杀毒软件或添加白名单。</p>
+        <p data-i18n="guide.jyt.usage"><strong>操作方法：</strong></p>
+        <p data-i18n="guide.jyt.usage.p">本软件专为小白设计，默认情况下，您不需要修改任何参数，直接运行 exe，并最小化即可，软件会自动进行操作。</p>
+        <p data-i18n="guide.jyt.addition"><strong>附加说明：</strong>本软件不依赖任何运行库，您只需复制一个 JiYuTrainer.exe 至目标电脑即可运行，本软件已将需要的 DLL 打包，它会自动进行安装。</p>
+        <h4 id="122-关于idminternetdownloadmanager" data-i18n="guide.h4.idm">1.2.2. 关于 IDM（Internet Download Manager）</h4>
+        <p data-i18n="guide.idm.p1">IDM 是 TONEC 公司的一款下载加速器，可将下载速度提升最多 8 倍，恢复下载、组织和调度下载。（<a href="https://www.internetdownloadmanager.com" target="_blank">https://www.internetdownloadmanager.com</a>）</p>
+        <p data-i18n="guide.idm.p2">功能如下（依旧官网，Edge 翻译不一定准确）：</p>
         <div class="feature-card glass-card">
-            <h5>下载速度加速</h5>
-            <p>互联网下载管理器凭借其智能动态文件分段技术，将下载速度提升最多 8 倍。与其他下载管理器和加速器不同，互联网下载管理器在下载过程中动态地下载文件， 并且它在没有额外连接和登录阶段的情况下，重新利用可用连接，以实现最佳的加速性能。</p>
+            <h5 data-i18n="guide.fc1">下载速度加速</h5>
+            <p data-i18n="guide.fc1.p">互联网下载管理器凭借其智能动态文件分段技术，将下载速度提升最多 8 倍。与其他下载管理器和加速器不同，互联网下载管理器在下载过程中动态地下载文件， 并且它在没有额外连接和登录阶段的情况下，重新利用可用连接，以实现最佳的加速性能。</p>
             <div class="img-container">
                 <img src="https://www.internetdownloadmanager.com/images/idm_screenshot_6_35.jpg" alt="Internet Download Manager screenshot" loading="lazy" />
             </div>
@@ -92,12 +96,12 @@
             </div>
         </div>
         <div class="feature-card glass-card">
-            <h5>从你喜欢的网站下载文件</h5>
-            <p>安装"IDM集成模块"浏览器扩展后，继续上网，你会惊讶于从你喜欢的网站下载所有想要的东西是多么简单。</p>
+            <h5 data-i18n="guide.fc2">从你喜欢的网站下载文件</h5>
+            <p data-i18n="guide.fc2.p">安装"IDM集成模块"浏览器扩展后，继续上网，你会惊讶于从你喜欢的网站下载所有想要的东西是多么简单。</p>
         </div>
         <div class="feature-card glass-card">
-            <h5>所有流行的浏览器都被支持</h5>
-            <p>IDM 无缝集成到 Microsoft Edge、Google Chrome、Mozilla Firefox、Opera、Internet Explorer、Safari、MSN Explorer、AOL、Mozilla Firebird、Avant Browser、Maxthon 以及所有其他流行浏览器，自动处理您的下载。</p>
+            <h5 data-i18n="guide.fc3">所有流行的浏览器都被支持</h5>
+            <p data-i18n="guide.fc3.p">IDM 无缝集成到 Microsoft Edge、Google Chrome、Mozilla Firefox、Opera、Internet Explorer、Safari、MSN Explorer、AOL、Mozilla Firebird、Avant Browser、Maxthon 以及所有其他流行浏览器，自动处理您的下载。</p>
             <div class="img-container">
                 <img src="https://www.internetdownloadmanager.com/images/skpscr.jpeg" alt="用IDM下载浏览器右键菜单项" loading="lazy" />
             </div>
@@ -106,12 +110,12 @@
             </div>
         </div>
         <div class="feature-card glass-card">
-            <h5>一键下载</h5>
-            <p>当你在浏览器中点击下载链接时，IDM会接管并加速下载过程。你不需要做什么特别的事，只要像平时一样浏览互联网就行。 IDM会捕捉你的下载并加速。IDM支持HTTP、FTP、HTTPS和MMS协议。</p>
+            <h5 data-i18n="guide.fc4">一键下载</h5>
+            <p data-i18n="guide.fc4.p">当你在浏览器中点击下载链接时，IDM会接管并加速下载过程。你不需要做什么特别的事，只要像平时一样浏览互联网就行。 IDM会捕捉你的下载并加速。IDM支持HTTP、FTP、HTTPS和MMS协议。</p>
         </div>
         <div class="feature-card glass-card">
-            <h5>黑暗主题</h5>
-            <p>IDM暗色主题在其大部分界面上显示暗色表面。它被设计为默认（或轻量）主题的补充模式。暗色调降低了屏幕发出的亮度，同时仍能达到最低的色彩对比度。 它通过减少眼睛疲劳、根据当前光线调整亮度、便于在黑暗环境中使用屏幕同时节省电力，有助于改善视觉人体工学。</p>
+            <h5 data-i18n="guide.fc5">黑暗主题</h5>
+            <p data-i18n="guide.fc5.p">IDM暗色主题在其大部分界面上显示暗色表面。它被设计为默认（或轻量）主题的补充模式。暗色调降低了屏幕发出的亮度，同时仍能达到最低的色彩对比度。 它通过减少眼睛疲劳、根据当前光线调整亮度、便于在黑暗环境中使用屏幕同时节省电力，有助于改善视觉人体工学。</p>
             <div class="img-container">
                 <img src="https://www.internetdownloadmanager.com/images/dark_th.jpg" alt="Dark Theme for Internet Download Manager" loading="lazy" />
             </div>
@@ -120,13 +124,13 @@
             </div>
         </div>
         <div class="feature-card glass-card">
-            <h5>动态分割</h5>
-            <p>Internet Download Manager 优化了文件下载逻辑。IDM将下载文件动态划分为文件段，不同于其他下载加速器在下载开始前将下载文件分割一次。 动态分段显著提升下载性能。文件下载开始时，不清楚能打开多少连接。当新连接可用时，IDM会找到最大的段进行下载并将其一分为二。 因此，新连接开始从最大文件段的一半下载文件。IDM最大限度地减少了与服务器协商所需的时间，并保持所有连接的繁忙。</p>
-            <p><a href="https://www.internetdownloadmanager.com/support/segmentation.html" target="_blank">更多关于动态分割的信息</a></p>
+            <h5 data-i18n="guide.fc6">动态分割</h5>
+            <p data-i18n="guide.fc6.p">Internet Download Manager 优化了文件下载逻辑。IDM将下载文件动态划分为文件段，不同于其他下载加速器在下载开始前将下载文件分割一次。 动态分段显著提升下载性能。文件下载开始时，不清楚能打开多少连接。当新连接可用时，IDM会找到最大的段进行下载并将其一分为二。 因此，新连接开始从最大文件段的一半下载文件。IDM最大限度地减少了与服务器协商所需的时间，并保持所有连接的繁忙。</p>
+            <p data-i18n="guide.fc6.p2"><a href="https://www.internetdownloadmanager.com/support/segmentation.html" target="_blank">更多关于动态分割的信息</a></p>
         </div>
         <div class="feature-card glass-card">
-            <h5>下载简历</h5>
-            <p>互联网下载管理器会从中断处恢复未完成的下载。全面的错误恢复和恢复功能将重启因连接丢失或断开而中断的下载， 网络问题、电脑关机或意外停电。</p>
+            <h5 data-i18n="guide.fc7">下载简历</h5>
+            <p data-i18n="guide.fc7.p">互联网下载管理器会从中断处恢复未完成的下载。全面的错误恢复和恢复功能将重启因连接丢失或断开而中断的下载， 网络问题、电脑关机或意外停电。</p>
             <div class="img-container">
                 <img src="https://www.internetdownloadmanager.com/images/resume.gif" alt="Resume downloads in Internet Download Manager" loading="lazy" />
             </div>
@@ -135,12 +139,12 @@
             </div>
         </div>
         <div class="feature-card glass-card">
-            <h5>内置调度器</h5>
-            <p>Internet Download Manager可以在指定时间连接互联网，下载你想要的文件，断开连接，完成后关闭电脑。你也可以通过文件的周期性同步来同步变更。 可以创建并安排多个下载队列用于下载或同步。</p>
+            <h5 data-i18n="guide.fc8">内置调度器</h5>
+            <p data-i18n="guide.fc8.p">Internet Download Manager可以在指定时间连接互联网，下载你想要的文件，断开连接，完成后关闭电脑。你也可以通过文件的周期性同步来同步变更。 可以创建并安排多个下载队列用于下载或同步。</p>
         </div>
         <div class="feature-card glass-card">
-            <h5>IDM包含网站蜘蛛和抓取器</h5>
-            <p>IDM下载所有通过筛选器指定的网站文件，例如网站的所有图片、网站子集，或完整网站供离线浏览。 你可以安排多个抓取项目在指定时间运行一次，在指定时间停止，或定期运行以同步变更。</p>
+            <h5 data-i18n="guide.fc9">IDM包含网站蜘蛛和抓取器</h5>
+            <p data-i18n="guide.fc9.p">IDM下载所有通过筛选器指定的网站文件，例如网站的所有图片、网站子集，或完整网站供离线浏览。 你可以安排多个抓取项目在指定时间运行一次，在指定时间停止，或定期运行以同步变更。</p>
             <div class="img-container">
                 <img src="https://www.internetdownloadmanager.com/images/grabber.jpg" alt="Internet Download Manager Grabber" loading="lazy" />
             </div>
@@ -149,13 +153,13 @@
             </div>
         </div>
         <div class="feature-card glass-card">
-            <h5>可定制界面</h5>
-            <p>你可以选择在主IDM窗口中显示的顺序、按钮和列。工具栏有几种不同的皮肤，按键样式各异。所有皮肤都可以从IDM主页下载。用户也可以设计自己的皮肤。</p>
-            <p><a href="https://www.internetdownloadmanager.com/support/toolbar2.html" target="_blank">选择并设置新的IDM工具栏</a></p>
+            <h5 data-i18n="guide.fc10">可定制界面</h5>
+            <p data-i18n="guide.fc10.p">你可以选择在主IDM窗口中显示的顺序、按钮和列。工具栏有几种不同的皮肤，按键样式各异。所有皮肤都可以从IDM主页下载。用户也可以设计自己的皮肤。</p>
+            <p data-i18n="guide.fc10.p2"><a href="https://www.internetdownloadmanager.com/support/toolbar2.html" target="_blank">选择并设置新的IDM工具栏</a></p>
         </div>
         <div class="feature-card glass-card">
-            <h5>下载分类</h5>
-            <p>互联网下载管理器可用于根据定义的下载类别自动组织下载。</p>
+            <h5 data-i18n="guide.fc11">下载分类</h5>
+            <p data-i18n="guide.fc11.p">互联网下载管理器可用于根据定义的下载类别自动组织下载。</p>
             <div class="img-container">
                 <img src="https://www.internetdownloadmanager.com/images/categories.gif" alt="互联网下载管理器下载类别" loading="lazy" />
             </div>
@@ -164,12 +168,12 @@
             </div>
         </div>
         <div class="feature-card glass-card">
-            <h5>下载全部功能</h5>
-            <p>IDM可以添加所有链接到当前页面的下载内容。使用这个功能很容易下载多个文件。</p>
+            <h5 data-i18n="guide.fc12">下载全部功能</h5>
+            <p data-i18n="guide.fc12.p">IDM可以添加所有链接到当前页面的下载内容。使用这个功能很容易下载多个文件。</p>
         </div>
         <div class="feature-card glass-card">
-            <h5>IDM是多语言的</h5>
-            <p>IDM已被翻译成阿尔巴尼亚语、阿拉伯语、阿塞拜疆语、波斯尼亚语、保加利亚语、中文、克罗地亚语、捷克语、丹麦语、荷兰语、波斯语、法语、德语、希腊语、希伯来语、匈牙利语、意大利语、日语、韩语、立陶宛语、马其顿语、挪威语、波兰语、葡萄牙语， 罗马尼亚语、俄罗斯语、塞尔维亚语、斯洛伐克语、斯洛文尼亚语、西班牙语等。</p>
+            <h5 data-i18n="guide.fc13">IDM是多语言的</h5>
+            <p data-i18n="guide.fc13.p">IDM已被翻译成阿尔巴尼亚语、阿拉伯语、阿塞拜疆语、波斯尼亚语、保加利亚语、中文、克罗地亚语、捷克语、丹麦语、荷兰语、波斯语、法语、德语、希腊语、希伯来语、匈牙利语、意大利语、日语、韩语、立陶宛语、马其顿语、挪威语、波兰语、葡萄牙语， 罗马尼亚语、俄罗斯语、塞尔维亚语、斯洛伐克语、斯洛文尼亚语、西班牙语等。</p>
             <div class="img-container">
                 <img src="https://www.internetdownloadmanager.com/images/multilingual.gif" alt="Internet Download Manager 中的多语言" loading="lazy" />
             </div>
@@ -178,12 +182,12 @@
             </div>
         </div>
         <div class="feature-card glass-card">
-            <h5>快速更新</h5>
-            <p>快速更新可能会检查IDM的新版本，并每周更新一次IDM。快速更新功能列出所有新增到最新版本的功能，并询问用户是否想将IDM更新到最新版本。</p>
+            <h5 data-i18n="guide.fc14">快速更新</h5>
+            <p data-i18n="guide.fc14.p">快速更新可能会检查IDM的新版本，并每周更新一次IDM。快速更新功能列出所有新增到最新版本的功能，并询问用户是否想将IDM更新到最新版本。</p>
         </div>
         <div class="feature-card glass-card">
-            <h5>下载限制</h5>
-            <p>带配额的渐进下载功能限制下载次数为每小时定义的数兆字节。该功能对使用公平接入政策（FAP）的连接非常有用，如Direcway、Direct PC、Hughes等。</p>
+            <h5 data-i18n="guide.fc15">下载限制</h5>
+            <p data-i18n="guide.fc15.p">带配额的渐进下载功能限制下载次数为每小时定义的数兆字节。该功能对使用公平接入政策（FAP）的连接非常有用，如Direcway、Direct PC、Hughes等。</p>
             <div class="img-container">
                 <img src="https://www.internetdownloadmanager.com/images/limits.png" alt="Internet Download Manager 调度器中的下载限制设置" loading="lazy" />
             </div>
@@ -192,141 +196,142 @@
             </div>
         </div>
         <div class="feature-card glass-card">
-            <h5>自动杀毒检查</h5>
-            <p>杀毒检测让你的下载完全没有病毒和木马。IDM可以在下载完成时自动运行扫描器，如AdAware、Avast、Spybot、AVG杀毒软件、McAfee、Norton Internet Security、Norton 360、SpywareBlaster， CCleaner 等保护用户免受有害下载文件侵害。</p>
+            <h5 data-i18n="guide.fc16">自动杀毒检查</h5>
+            <p data-i18n="guide.fc16.p">杀毒检测让你的下载完全没有病毒和木马。IDM可以在下载完成时自动运行扫描器，如AdAware、Avast、Spybot、AVG杀毒软件、McAfee、Norton Internet Security、Norton 360、SpywareBlaster， CCleaner 等保护用户免受有害下载文件侵害。</p>
         </div>
         <div class="feature-card glass-card">
-            <h5>简单安装向导</h5>
-            <p>快速简便的安装程序会为你设置必要的设置，并在结束时检查连接情况，确保安装互联网下载管理器顺利。</p>
+            <h5 data-i18n="guide.fc17">简单安装向导</h5>
+            <p data-i18n="guide.fc17.p">快速简便的安装程序会为你设置必要的设置，并在结束时检查连接情况，确保安装互联网下载管理器顺利。</p>
             <div class="img-container">
                 <img src="https://www.internetdownloadmanager.com/images/wizard.gif" alt="互联网下载管理器安装向导" loading="lazy" />
             </div>
         </div>
         <div class="feature-card glass-card">
-            <h5>IDM 支持多种类型的代理服务器</h5>
-            <p>例如，IDM 可与 Microsoft ISA 和 FTP 代理服务器合作。</p>
+            <h5 data-i18n="guide.fc18">IDM 支持多种类型的代理服务器</h5>
+            <p data-i18n="guide.fc18.p">例如，IDM 可与 Microsoft ISA 和 FTP 代理服务器合作。</p>
         </div>
         <div class="feature-card glass-card">
-            <h5>IDM 支持主要认证协议：Basic、Negotiate、NTLM 和 Kerberos</h5>
-            <p>因此，IDM可以通过登录名和密码访问许多互联网和代理服务器。</p>
+            <h5 data-i18n="guide.fc19">IDM 支持主要认证协议：Basic、Negotiate、NTLM 和 Kerberos</h5>
+            <p data-i18n="guide.fc19.p">因此，IDM可以通过登录名和密码访问许多互联网和代理服务器。</p>
         </div>
         <div class="feature-card glass-card">
-            <h5>拖放</h5>
-            <p>你只需拖拽链接到 IDM，然后将下载文件拖拽出 Internet Download Manager。</p>
+            <h5 data-i18n="guide.fc20">拖放</h5>
+            <p data-i18n="guide.fc20.p">你只需拖拽链接到 IDM，然后将下载文件拖拽出 Internet Download Manager。</p>
         </div>
         <div class="feature-card glass-card">
-            <h5>高级浏览器集成</h5>
-            <p>启用后，该功能可用于捕获任何应用程序的下载。没有任何下载管理器具备此功能。</p>
+            <h5 data-i18n="guide.fc21">高级浏览器集成</h5>
+            <p data-i18n="guide.fc21.p">启用后，该功能可用于捕获任何应用程序的下载。没有任何下载管理器具备此功能。</p>
         </div>
-        <h4 id="124-关于minecraft整合包">1.2.4. 关于 Minecraft 整合包</h4>
-        <p>嗯……这里并不介绍 Minecraft 游戏，不过感谢 Mojang Studios（才怪！）（<a href="https://www.minecraft.net/" target="_blank">https://www.minecraft.net/</a>）</p>
-        <p>该整合包的游戏版本为 1.21.11 Java 版，是 Mojang 更改版本号命名方式前的最后一个正式版，主要更新了矛这一种战斗武器（详见 <a href="https://zh.minecraft.wiki/w/Java%E7%89%881.21.11?variant=zh-cn" target="_blank">https://zh.minecraft.wiki/w/Java版1.21.11</a>），使用 Oracle 的 JRE 21。</p>
-        <p>该整合包使用 HMCL（Hello! Minecraft Launcher）的较新版本。</p>
-        <p>该整合包的一大亮点在于：专为信息课设计。这是一个精简包，将音频文件删除，反正信息课的电脑没有扬声器。这大大减少了下载它所需要的时间，使用 IDM 在 5 分钟以内即可下载完毕。而且这对游戏的正常游玩没有任何影响。需要注意的是，就算你把声音字幕打开，你也照样看不到任何内容。</p>
-        <p>整合包里没有任何模组，是纯原版，只默认附带了一个 Full Bright 资源包。其他资源包敬请期待。</p>
-        <h4 id="125-关于huang1111网盘">1.2.5. 关于 huang1111 网盘</h4>
-        <p>声明：huang1111 网盘是最好的网盘！！！（<a href="https://pan.huang1111.cn" target="_blank">https://pan.huang1111.cn</a>）没有之一！！！</p>
-        <p>为什么 (O_o)?? 亮点如下：</p>
+        <h4 id="123-关于minecraft整合包" data-i18n="guide.h4.mc">1.2.3. 关于 Minecraft 整合包</h4>
+        <p data-i18n="guide.mc.p1">嗯……这里并不介绍 Minecraft 游戏，不过感谢 Mojang Studios（才怪！）（<a href="https://www.minecraft.net/" target="_blank">https://www.minecraft.net/</a>）</p>
+        <p data-i18n="guide.mc.p2">该整合包的游戏版本为 1.21.11 Java 版，是 Mojang 更改版本号命名方式前的最后一个正式版，主要更新了矛这一种战斗武器（详见 <a href="https://zh.minecraft.wiki/w/Java%E7%89%881.21.11?variant=zh-cn" target="_blank">https://zh.minecraft.wiki/w/Java版1.21.11</a>），使用 Oracle 的 JRE 21。</p>
+        <p data-i18n="guide.mc.p3">该整合包使用 HMCL（Hello! Minecraft Launcher）的较新版本。</p>
+        <p data-i18n="guide.mc.p4">该整合包的一大亮点在于：专为信息课设计。这是一个精简包，将音频文件删除，反正信息课的电脑没有扬声器。这大大减少了下载它所需要的时间，使用 IDM 在 5 分钟以内即可下载完毕。而且这对游戏的正常游玩没有任何影响。需要注意的是，就算你把声音字幕打开，你也照样看不到任何内容。</p>
+        <p data-i18n="guide.mc.p5">整合包里没有任何模组，是纯原版，只默认附带了一个 Full Bright 资源包。其他资源包敬请期待。</p>
+        <h4 id="124-关于huang1111网盘" data-i18n="guide.h4.huang">1.2.4. 关于 huang1111 网盘</h4>
+        <p data-i18n="guide.huang.p1">声明：huang1111 网盘是最好的网盘！！！（<a href="https://pan.huang1111.cn" target="_blank">https://pan.huang1111.cn</a>）没有之一！！！</p>
+        <p data-i18n="guide.huang.p2">为什么 (O_o)?? 亮点如下：</p>
         <ol>
-            <li>无需登录即可下载（完爆一堆）</li>
-            <li>网盘免费容量 35G（也够用了）</li>
-            <li>支持上传任意格式、任意大小的文件（完爆蓝奏云）</li>
-            <li>UI 界面美观无广（完爆一堆）</li>
-            <li>无提取流量限制（完爆 123）</li>
-            <li>下载不限速（完爆一堆）</li>
-            <li>登录无需手机验证码</li>
+            <li data-i18n="guide.huang.l1">无需登录即可下载（完爆一堆）</li>
+            <li data-i18n="guide.huang.l2">网盘免费容量 35G（也够用了）</li>
+            <li data-i18n="guide.huang.l3">支持上传任意格式、任意大小的文件（完爆蓝奏云）</li>
+            <li data-i18n="guide.huang.l4">UI 界面美观无广（完爆一堆）</li>
+            <li data-i18n="guide.huang.l5">无提取流量限制（完爆 123）</li>
+            <li data-i18n="guide.huang.l6">下载不限速（完爆一堆）</li>
+            <li data-i18n="guide.huang.l7">登录无需手机验证码</li>
         </ol>
-        <p>赶紧注册一个吧~</p>
+        <p data-i18n="guide.huang.p3">赶紧注册一个吧~</p>
         <!-- ===== 2. 下载安装&使用步骤 ===== -->
-        <h2 id="2-下载安装使用步骤">2. 下载安装 &amp; 使用步骤</h2>
-        <h3 id="21-下载步骤">2.1. 下载步骤</h3>
-        <h4 id="211-使用idm的下载安装步骤">2.1.1. 使用 IDM 的下载安装步骤</h4>
-        <p>你需要下载名为 <code>idm642build63.exe</code> 的安装程序。</p>
-        <div class="highlight-box glass-card">
+        <h2 id="2-下载安装使用步骤" data-i18n="guide.h2.download">2. 下载安装 &amp; 使用步骤</h2>
+        <h3 id="21-下载步骤" data-i18n="guide.h3.dlsteps">2.1. 下载步骤</h3>
+        <h4 id="211-使用idm的下载安装步骤" data-i18n="guide.h4.idmsteps">2.1.1. 使用 IDM 的下载安装步骤</h4>
+        <p data-i18n="guide.idmsteps.p1">你需要下载名为 <code>idm642build63.exe</code> 的安装程序。</p>
+        <div class="highlight-box glass-card" data-i18n="guide.idmsteps.tip">
             <strong>💡 提示：如果你是新手，先不下载这个，这属于进阶操作，特别是如果你已经开始下载我的 Survival_MC1.21.11 压缩包过半了。</strong>
         </div>
-        <p>安装步骤如下：</p>
+        <p data-i18n="guide.idmsteps.p2">安装步骤如下：</p>
         <ul>
-            <li><strong>下载完成后，按照提示安装，一路点击"确定""我同意"即可。</strong></li>
-            <li><strong>安装完成后打开，关闭提示，点击"新建任务"，将网址粘贴进去。如果你的剪贴板有网址他会自动识别。</strong></li>
-            <li><strong>什么 (O_o)?? 你说网址在哪里？要先下载文件，再在浏览器的下载里先右键取消下载，再右键复制下载链接啊……</strong></li>
+            <li data-i18n="guide.idmsteps.l1"><strong>下载完成后，按照提示安装，一路点击"确定""我同意"即可。</strong></li>
+            <li data-i18n="guide.idmsteps.l2"><strong>安装完成后打开，关闭提示，点击"新建任务"，将网址粘贴进去。如果你的剪贴板有网址他会自动识别。</strong></li>
+            <li data-i18n="guide.idmsteps.l3"><strong>什么 (O_o)?? 你说网址在哪里？要先下载文件，再在浏览器的下载里先右键取消下载，再右键复制下载链接啊……</strong></li>
         </ul>
-        <h4 id="212-不使用idm的下载步骤">2.1.2. 不使用 IDM 的下载步骤</h4>
-        <p>正常浏览器下载还用我教？</p>
-        <h4 id="213-报毒的解决方法">2.1.3. 报毒的解决方法</h4>
-        <p>浏览器报毒点"保留""仍然保留"。</p>
-        <p>Windows 报毒点"运行""仍然运行"。</p>
-        <p>找不到按钮，通常要先点"更多信息"。</p>
-        <h3 id="22-使用步骤">2.2. 使用步骤</h3>
-        <h4 id="221-jiyutrainer的使用步骤">2.2.1. JiYuTrainer 的使用步骤</h4>
-        <p>双击运行，会吧？点个"我同意"。</p>
-        <h4 id="222-游戏启动步骤">2.2.2. 游戏启动步骤</h4>
+        <h4 id="212-不使用idm的下载步骤" data-i18n="guide.h4.noidm">2.1.2. 不使用 IDM 的下载步骤</h4>
+        <p data-i18n="guide.noidm.p">正常浏览器下载还用我教？</p>
+        <h4 id="213-报毒的解决方法" data-i18n="guide.h4.virus">2.1.3. 报毒的解决方法</h4>
+        <p data-i18n="guide.virus.p1">浏览器报毒点"保留""仍然保留"。</p>
+        <p data-i18n="guide.virus.p2">Windows 报毒点"运行""仍然运行"。</p>
+        <p data-i18n="guide.virus.p3">找不到按钮，通常要先点"更多信息"。</p>
+        <h3 id="22-使用步骤" data-i18n="guide.h3.usesteps">2.2. 使用步骤</h3>
+        <h4 id="221-jiyutrainer的使用步骤" data-i18n="guide.h4.jytuse">2.2.1. JiYuTrainer 的使用步骤</h4>
+        <p data-i18n="guide.jytuse.p">双击运行，会吧？点个"我同意"。</p>
+        <h4 id="222-游戏启动步骤" data-i18n="guide.h4.gamestart">2.2.2. 游戏启动步骤</h4>
         <ol>
-            <li>双击自解压程序 SURVIVAL_hmcl_1.21.11.exe，点击 Extract 继续；</li>
-            <li>解压完成后，打开文件夹，双击 HMCL.exe；</li>
-            <li>跳出弹窗点击"同意"；</li>
-            <li>在左侧"账户"一栏点击添加账户；</li>
-            <li>点击"离线模式"，随便起一个符合要求的名字，点击"登录"；</li>
-            <li>点击左上角返回键，在左侧"通用"一栏点击"设置"；</li>
-            <li>在"全局游戏设置"中找到"不检查游戏完整性"并开启；</li>
-            <li>返回点击"启动游戏 1.21.11"等待即可。</li>
+            <li data-i18n="guide.gamestart.l1">双击自解压程序 SURVIVAL_hmcl_1.21.11.exe，点击 Extract 继续；</li>
+            <li data-i18n="guide.gamestart.l2">解压完成后，打开文件夹，双击 HMCL.exe；</li>
+            <li data-i18n="guide.gamestart.l3">跳出弹窗点击"同意"；</li>
+            <li data-i18n="guide.gamestart.l4">在左侧"账户"一栏点击添加账户；</li>
+            <li data-i18n="guide.gamestart.l5">点击"离线模式"，随便起一个符合要求的名字，点击"登录"；</li>
+            <li data-i18n="guide.gamestart.l6">点击左上角返回键，在左侧"通用"一栏点击"设置"；</li>
+            <li data-i18n="guide.gamestart.l7">在"全局游戏设置"中找到"不检查游戏完整性"并开启；</li>
+            <li data-i18n="guide.gamestart.l8">返回点击"启动游戏 1.21.11"等待即可。</li>
         </ol>
-        <h4 id="223-如何加载资源包">2.2.3. 如何加载资源包</h4>
+        <h4 id="223-如何加载资源包" data-i18n="guide.h4.resource">2.2.3. 如何加载资源包</h4>
         <ol>
-            <li>进入游戏点击"选项"；</li>
-            <li>点击"资源包"；</li>
-            <li>将资源包文件拖入（已拖入请忽略）；</li>
-            <li>鼠标移动到左侧"可用"一栏你将要加载的资源包图标上，点击三角形箭头移入；</li>
-            <li>点击"完成"。</li>
+            <li data-i18n="guide.resource.l1">进入游戏点击"选项"；</li>
+            <li data-i18n="guide.resource.l2">点击"资源包"；</li>
+            <li data-i18n="guide.resource.l3">将资源包文件拖入（已拖入请忽略）；</li>
+            <li data-i18n="guide.resource.l4">鼠标移动到左侧"可用"一栏你将要加载的资源包图标上，点击三角形箭头移入；</li>
+            <li data-i18n="guide.resource.l5">点击"完成"。</li>
         </ol>
-        <h4 id="224-如何加载数据包">2.2.4 如何加载数据包</h4>
-        <p>TPA 就是一个数据包，以下是添加方法：</p>
+        <h4 id="224-如何加载数据包" data-i18n="guide.h4.datapack">2.2.4 如何加载数据包</h4>
+        <p data-i18n="guide.datapack.p">TPA 就是一个数据包，以下是添加方法：</p>
         <ol>
-            <li>在单人游戏里，打开创建新的世界的界面；</li>
-            <li>找到"更多"一栏，点击"数据包"；</li>
-            <li>将数据包文件拖入（已拖入请忽略）；</li>
-            <li>鼠标移动到左侧"可用"一栏你将要加载的数据包图标上，点击三角形箭头移入；</li>
-            <li>点击"完成"；</li>
-            <li>点击"创建新的世界"，点击"我知道我在做什么"。</li>
+            <li data-i18n="guide.datapack.l1">在单人游戏里，打开创建新的世界的界面；</li>
+            <li data-i18n="guide.datapack.l2">找到"更多"一栏，点击"数据包"；</li>
+            <li data-i18n="guide.datapack.l3">将数据包文件拖入（已拖入请忽略）；</li>
+            <li data-i18n="guide.datapack.l4">鼠标移动到左侧"可用"一栏你将要加载的数据包图标上，点击三角形箭头移入；</li>
+            <li data-i18n="guide.datapack.l5">点击"完成"；</li>
+            <li data-i18n="guide.datapack.l6">点击"创建新的世界"，点击"我知道我在做什么"。</li>
         </ol>
-        <h3 id="23-如何上传世界">2.3. 如何上传世界</h3>
-        <p>前提是你得去注册一个网盘。考虑到学校不能带手机，以下是一些不需要手机验证码的网盘：</p>
+        <h3 id="23-如何上传世界" data-i18n="guide.h3.upload">2.3. 如何上传世界</h3>
+        <p data-i18n="guide.upload.p1">前提是你得去注册一个网盘。考虑到学校不能带手机，以下是一些不需要手机验证码的网盘：</p>
         <ol>
-            <li>123 网盘（<a href="https://123pan.cn" target="_blank">https://123pan.cn</a>）</li>
-            <li>huang1111 网盘</li>
-            <li>蓝奏云（<a href="https://www.lanzoui.com" target="_blank">https://www.lanzoui.com</a>）</li>
+            <li data-i18n="guide.upload.l1">123 网盘（<a href="https://123pan.cn" target="_blank">https://123pan.cn</a>）</li>
+            <li data-i18n="guide.upload.l2">huang1111 网盘</li>
+            <li data-i18n="guide.upload.l3">蓝奏云（<a href="https://www.lanzoui.com" target="_blank">https://www.lanzoui.com</a>）</li>
         </ol>
-        <p>接下来是详细步骤：</p>
+        <p data-i18n="guide.upload.p2">接下来是详细步骤：</p>
         <ol>
-            <li>在单人游戏里，单击选中世界（勿进入世界）；</li>
-            <li>点击左下角"编辑"按钮；</li>
-            <li>点击"进行备份"；</li>
-            <li>备份完成后，再次点击"编辑"，再点击"打开备份文件夹"；</li>
-            <li>备份是一个 .zip 压缩文件，将该备份上传到网盘上。</li>
+            <li data-i18n="guide.upload.s1">在单人游戏里，单击选中世界（勿进入世界）；</li>
+            <li data-i18n="guide.upload.s2">点击左下角"编辑"按钮；</li>
+            <li data-i18n="guide.upload.s3">点击"进行备份"；</li>
+            <li data-i18n="guide.upload.s4">备份完成后，再次点击"编辑"，再点击"打开备份文件夹"；</li>
+            <li data-i18n="guide.upload.s5">备份是一个 .zip 压缩文件，将该备份上传到网盘上。</li>
         </ol>
-        <h3 id="24-如何加载世界">2.4. 如何加载世界</h3>
+        <h3 id="24-如何加载世界" data-i18n="guide.h3.loadworld">2.4. 如何加载世界</h3>
         <ol>
-            <li>启动游戏；</li>
-            <li>将世界文件解压后，放入 <code>/.minecraft/saves</code> 中。</li>
+            <li data-i18n="guide.loadworld.l1">启动游戏；</li>
+            <li data-i18n="guide.loadworld.l2">将世界文件解压后，放入 <code>/.minecraft/saves</code> 中。</li>
         </ol>
-        <p><strong>注意：</strong>解压后确保点开文件夹就能看到 advancements 等文件夹和文件。</p>
-        <h3 id="25-如何加入服务器">2.5. 如何加入服务器</h3>
+        <p data-i18n="guide.loadworld.note"><strong>注意：</strong>解压后确保点开文件夹就能看到 advancements 等文件夹和文件。</p>
+        <h3 id="25-如何加入服务器" data-i18n="guide.h3.server">2.5. 如何加入服务器</h3>
         <ol>
-            <li>启动游戏后，打开"多人游戏"；</li>
-            <li>输入服务器地址并加入。</li>
+            <li data-i18n="guide.server.l1">启动游戏后，打开"多人游戏"；</li>
+            <li data-i18n="guide.server.l2">输入服务器地址并加入。</li>
         </ol>
         <!-- ===== 3. 鸣谢 ===== -->
-        <h2 id="3-鸣谢">3. 鸣谢</h2>
+        <h2 id="3-鸣谢" data-i18n="guide.h2.thanks">3. 鸣谢</h2>
         <ul>
-            <li>感谢 bwe1211 的支持（<a href="https://bwe1211.github.io" target="_blank">https://bwe1211.github.io</a>）；</li>
-            <li>感谢 Internet Download Manager；</li>
-            <li>感谢 imengyu 的 JiYuTrainer；</li>
-            <li>感谢 huang1111 网盘；</li>
-            <li>感谢 HMCL，详细使用文档见 <a href="https://docs.hmcl.net/" target="_blank">新手导航 - HMCL 文档</a>；</li>
-            <li>不感谢 Mojang Studios！</li>
+            <li data-i18n="guide.thanks.l1">感谢 bwe1211 的支持（<a href="https://bwe1211.github.io" target="_blank">https://bwe1211.github.io</a>）；</li>
+            <li data-i18n="guide.thanks.l2">感谢 Internet Download Manager；</li>
+            <li data-i18n="guide.thanks.l3">感谢 imengyu 的 JiYuTrainer；</li>
+            <li data-i18n="guide.thanks.l4">感谢 huang1111 网盘；</li>
+            <li data-i18n="guide.thanks.l5">感谢 HMCL，详细使用文档见 <a href="https://docs.hmcl.net/" target="_blank">新手导航 - HMCL 文档</a>；</li>
+            <li data-i18n="guide.thanks.l6">不感谢 Mojang Studios！</li>
         </ul>
     </div>
 </main>
+<script type="text/javascript" src="lang.js"></script>
 <script type="text/javascript" src="guide.js"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YZYM Download Centre</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="stylesheet" href="index.css">
     <base target="_blank">
 </head>
@@ -15,54 +16,178 @@
 
 <!-- 导航头部 -->
 <header>
-    <div class="logo">渊之鱼冥下载站</div>
+    <div class="logo">
+        <img src="icon.svg" alt="YZYM" class="logo-icon">
+        <span data-i18n="index.logo">渊之鱼冥下载站</span>
+    </div>
     <nav>
         <ul>
-            <li><a href="#home">首页</a></li>
-            <li><a href="minecraft.html">Minecraft 专区</a></li>
-            <li><a href="study.html">学习资源</a></li>
-            <li><a href="website.html">常用网站</a></li>
-            <li><a href="guide.html">新手引导</a></li>
-            <li><a href="#about">关于本站</a></li>
+            <li><a href="#home" data-i18n="index.nav.home">首页</a></li>
+            <li><a href="minecraft.html" data-i18n="index.nav.mc">Minecraft 专区</a></li>
+            <li><a href="study.html" data-i18n="index.nav.study">学习资源</a></li>
+            <li><a href="website.html" data-i18n="index.nav.web">常用网站</a></li>
+            <li><a href="guide.html" data-i18n="index.nav.guide">新手引导</a></li>
+            <li><a href="#about" data-i18n="index.nav.about">关于本站</a></li>
         </ul>
     </nav>
-    <button class="theme-toggle magnetic-btn" id="themeToggle" aria-label="切换明暗主题">
-        <svg class="sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-        </svg>
-        <svg class="moon-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-        </svg>
-    </button>
+    <div class="header-actions">
+        <button class="lang-toggle magnetic-btn" id="langToggle" aria-label="切换语言">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <ellipse cx="12" cy="12" rx="4" ry="9"/>
+                <ellipse cx="12" cy="12" rx="9" ry="3"/>
+            </svg>
+        </button>
+        <button class="theme-toggle magnetic-btn" id="themeToggle" aria-label="切换明暗主题">
+            <svg class="sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <svg class="moon-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+        </button>
+    </div>
 </header>
 
 <section class="hero" id="home">
     <!-- 通栏通知栏 -->
-    <div class="notice glass-card">
+    <div class="notice glass-card" data-i18n="index.notice">
         <span class="notice-icon">📢</span>
         <span><strong>新站上线！</strong> 所有资源已迁移至本站，后续更新请关注这里，感谢支持！</span>
     </div>
 
-    <h1 class="hero-title">渊之鱼冥文件下载站</h1>
-    <p class="subhead">—— 专为校园信息课与游戏爱好者准备 ——</p>
+    <h1 class="hero-title" data-i18n="index.title">渊之鱼冥文件下载站</h1>
+    <p class="subhead" data-i18n="index.subhead">—— 专为校园信息课与游戏爱好者准备 ——</p>
 
     <div class="intro glass-card">
-        <p>欢迎来到 <strong>渊之鱼冥</strong> 的个人文件仓库！本站专注收录各类实用资源，核心为 <strong>Minecraft 游戏资源</strong>，同时涵盖常用工具、扩展包及校园信息课必备软件。</p>
-        <p>所有文件均经过精心整理，适配学校机房环境（无音频、轻量化、免安装），无需登录即可高速下载，让您的信息课体验更流畅、更自由。</p>
-        <p>👇 点击下方按钮，快速进入 <strong>Minecraft 资源专区</strong>，获取您需要的资源！</p>
+        <p data-i18n="index.intro1">欢迎来到 <strong>渊之鱼冥</strong> 的个人文件仓库！本站专注收录各类实用资源，核心为 <strong>Minecraft 游戏资源</strong>，同时涵盖常用工具、扩展包及校园信息课必备软件。</p>
+        <p data-i18n="index.intro2">所有文件均经过精心整理，适配学校机房环境（无音频、轻量化、免安装），无需登录即可高速下载，让您的信息课体验更流畅、更自由。</p>
+        <p data-i18n="index.intro3">👇 点击下方按钮，快速进入 <strong>Minecraft 资源专区</strong>，获取您需要的资源！</p>
+    </div>
+
+    <div class="fast-start-section">
+        <button class="btn-fast-start magnetic-btn" id="fastStartBtn">
+            <svg class="fast-start-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"></path>
+            </svg>
+            <span class="fast-start-text" data-i18n="index.faststart">极速开始</span>
+            <span class="beta-badge">Beta</span>
+        </button>
+        <p class="fast-start-hint" data-i18n="index.fasthint">一键下载 自动下载程序(Specified).exe</p>
     </div>
 
     <div class="btn-group">
-        <a href="minecraft.html" class="btn magnetic-btn">Minecraft 相关</a>
-        <a href="study.html" class="btn magnetic-btn">学习资源</a>
-        <a href="website.html" class="btn magnetic-btn">常用网站</a>
+        <a href="minecraft.html" class="btn magnetic-btn" data-i18n="index.btn.mc">Minecraft 相关</a>
+        <a href="study.html" class="btn magnetic-btn" data-i18n="index.btn.study">学习资源</a>
+        <a href="website.html" class="btn magnetic-btn" data-i18n="index.btn.web">常用网站</a>
     </div>
 </section>
 
 <footer id="about">
-    <p>© 2026 YuanZhiYuMing · 站点由 <a href="https://pages.github.com/" target="_blank">Github Pages</a> 驱动</p>
+    <div class="about-section">
+        <h2 class="about-section-title" data-i18n="index.about.title">关于本站</h2>
+        <div class="about-grid">
+            <div class="about-card glass-card tilt-card">
+                <div class="tilt-inner">
+                    <div class="card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                </div>
+                <h3 data-i18n="index.about.card1.title">关于本站</h3>
+                <p data-i18n="index.about.card1.text">渊之鱼冥下载站是 GitHub 账户 YuanZhiYuMing 的 Pages 站点，专门为 SHSSIP 信息课设计，整合了启动 Minecraft 所需的全部资源，包含极域控制、多线程下载器、游戏整合包与资源包，无需登录即可高速下载。</p>
+                <div class="card-visual visual-1">
+                    <svg class="visual-pattern" viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                        <circle cx="40" cy="30" r="50" fill="rgba(255,255,255,0.08)"/>
+                        <circle cx="170" cy="90" r="40" fill="rgba(255,255,255,0.06)"/>
+                        <path d="M0 80 Q50 60 100 80 T200 80" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/>
+                    </svg>
+                    <svg class="visual-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                </div>
+                </div>
+            </div>
+            <div class="about-card glass-card tilt-card">
+                <div class="tilt-inner">
+                    <div class="card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                        <line x1="8" y1="21" x2="16" y2="21"/>
+                        <line x1="12" y1="17" x2="12" y2="21"/>
+                    </svg>
+                </div>
+                <h3 data-i18n="index.about.card2.title">核心功能</h3>
+                <p data-i18n="index.about.card2.text">整合极域控制（JiYuTrainer）、多线程下载加速（IDM）、Minecraft 1.21.11 游戏整合包与资源包，适配学校机房环境（无音频、轻量化、免安装），让信息课体验更流畅、更自由。</p>
+                <div class="card-visual visual-2">
+                    <svg class="visual-pattern" viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                        <rect x="20" y="20" width="30" height="30" fill="rgba(255,255,255,0.10)"/>
+                        <rect x="150" y="60" width="35" height="35" fill="rgba(255,255,255,0.08)"/>
+                        <rect x="90" y="10" width="20" height="20" fill="rgba(255,255,255,0.06)"/>
+                        <line x1="0" y1="100" x2="200" y2="100" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+                    </svg>
+                    <svg class="visual-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                    </svg>
+                </div>
+                </div>
+            </div>
+            <div class="about-card glass-card tilt-card">
+                <div class="tilt-inner">
+                    <div class="card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6"/>
+                        <polyline points="8 6 2 12 8 18"/>
+                        <line x1="14" y1="4" x2="10" y2="20"/>
+                    </svg>
+                </div>
+                <h3 data-i18n="index.about.card3.title">技术特性</h3>
+                <p data-i18n="index.about.card3.text">采用毛玻璃（Glassmorphism）界面设计，支持明暗主题自动切换与中/繁/英三语，多线程加速下载，所有文件轻量化免安装运行，由 GitHub Pages 驱动，安全可靠。</p>
+                <div class="card-visual visual-3">
+                    <svg class="visual-pattern" viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                        <polyline points="10,100 40,70 70,85 100,40 130,60 160,30 190,50" stroke="rgba(255,255,255,0.18)" stroke-width="2" fill="none"/>
+                        <circle cx="40" cy="70" r="3" fill="rgba(255,255,255,0.25)"/>
+                        <circle cx="100" cy="40" r="3" fill="rgba(255,255,255,0.25)"/>
+                        <circle cx="160" cy="30" r="3" fill="rgba(255,255,255,0.25)"/>
+                    </svg>
+                    <svg class="visual-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/>
+                    </svg>
+                </div>
+                </div>
+            </div>
+            <div class="about-card glass-card tilt-card">
+                <div class="tilt-inner">
+                    <div class="card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        <line x1="8" y1="9" x2="16" y2="9"/>
+                        <line x1="12" y1="13" x2="12" y2="13"/>
+                    </svg>
+                </div>
+                <h3 data-i18n="index.about.card4.title">联系作者</h3>
+                <p data-i18n="index.about.card4.text">QQ：3860517347 · 微信：stardragon142857<br/>如有问题、建议或合作，欢迎随时联系！</p>
+                <div class="card-visual visual-4">
+                    <svg class="visual-pattern" viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                        <circle cx="100" cy="60" r="45" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+                        <circle cx="100" cy="60" r="30" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="1.5"/>
+                        <circle cx="100" cy="60" r="15" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+                    </svg>
+                    <svg class="visual-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="about-footer">
+        <p data-i18n="index.footer">© 2026 YuanZhiYuMing · 站点由 <a href="https://pages.github.com/" target="_blank">Github Pages</a> 驱动</p>
+    </div>
 </footer>
 
+<script type="text/javascript" src="lang.js"></script>
 <script type="text/javascript" src="index.js"></script>
 </body>
 </html>

@@ -39,8 +39,8 @@
 }
 /* 动态光效 */
 .cursor-glow {
-    width: 300px;
-    height: 300px;
+    width: 180px;
+    height: 180px;
     background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
     border-radius: 50%;
     position: fixed;
@@ -71,7 +71,7 @@
     --accent-white: #ffffff;
     --glass-bg: rgba(255,255,255,0.03);
     --glass-border: rgba(255,255,255,0.08);
-    --glass-blur: 20px;
+    --glass-blur: 30px;
 }
 [data-theme="light"] {
     --bg-body: #f5f5f5;
@@ -92,7 +92,7 @@
     --accent-white: #111111;
     --glass-bg: rgba(255,255,255,0.5);
     --glass-border: rgba(0,0,0,0.08);
-    --glass-blur: 20px;
+    --glass-blur: 30px;
 }
 
 /* 页面淡入加载动画 */
