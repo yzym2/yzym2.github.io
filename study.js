@@ -46,7 +46,7 @@ toggleBtn.addEventListener('click', function() {
     }
     animateOutline();
 
-    const hoverTargets = document.querySelectorAll('a, button, .back-btn, .theme-toggle, .file-item, .download-btn');
+    const hoverTargets = document.querySelectorAll('a, button, .back-btn, .theme-toggle, .lang-toggle, .file-item, .download-btn');
     hoverTargets.forEach(el => {
         el.addEventListener('mouseenter', () => outline.classList.add('hover'));
         el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
@@ -64,19 +64,26 @@ toggleBtn.addEventListener('click', function() {
 
 // ========== 文件列表 ==========
 const files = [
-    { displayName: '2026初高中新教材', icon: '📚', url: 'https://pan.huang1111.cn/s/75EEjhg' }
+    { nameKey: 'study.f1', icon: '📚', url: 'https://pan.huang1111.cn/s/75EEjhg' }
 ];
 
 const fileListEl = document.getElementById('fileList');
-files.forEach(file => {
-    const li = document.createElement('li');
-    li.className = 'file-item';
-    li.innerHTML = `
-        <div class="file-info">
-            <div class="file-icon">${file.icon}</div>
-            <div class="file-name">${file.displayName}</div>
-        </div>
-        <a class="download-btn" href="${file.url}" target="_blank">前往下载</a>
-    `;
-    fileListEl.appendChild(li);
-});
+
+function renderFiles() {
+    fileListEl.innerHTML = '';
+    files.forEach(file => {
+        const li = document.createElement('li');
+        li.className = 'file-item';
+        li.innerHTML = `
+            <div class="file-info">
+                <div class="file-icon">${file.icon}</div>
+                <div class="file-name">${window.t(file.nameKey)}</div>
+            </div>
+            <a class="download-btn" href="${file.url}" target="_blank">${window.t('common.dl')}</a>
+        `;
+        fileListEl.appendChild(li);
+    });
+}
+
+renderFiles();
+if (window.onLangChange) window.onLangChange(renderFiles);

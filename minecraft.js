@@ -1,7 +1,7 @@
 // 页面加载完成延迟弹出提示
 window.addEventListener('load', function() {
     setTimeout(() => {
-        alert("如果您第一次来到此网站，请务必阅读新手引导");
+        alert(window.t('mc.alert'));
     }, 800);
 });
 
@@ -53,7 +53,7 @@ toggleBtn.addEventListener('click', function() {
     }
     animateOutline();
 
-    const hoverTargets = document.querySelectorAll('a, button, .back-btn, .theme-toggle, .file-item, .download-btn, .guide-btn');
+    const hoverTargets = document.querySelectorAll('a, button, .back-btn, .theme-toggle, .lang-toggle, .file-item, .download-btn, .guide-btn');
     hoverTargets.forEach(el => {
         el.addEventListener('mouseenter', () => outline.classList.add('hover'));
         el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
@@ -71,27 +71,34 @@ toggleBtn.addEventListener('click', function() {
 
 // ========== 文件列表 ==========
 const files = [
-    { displayName: 'SURVIVAL_hmcl_1.21.11.exe(普通整合包)', icon: '📦', url: 'https://pan.huang1111.cn/s/byL59iY' },
-    { displayName: 'idman642build63.exe(IDM 多线程下载器安装程序)', icon: '📥', url: 'https://pan.huang1111.cn/s/QzQgbcm' },
-    { displayName: 'JiYuTrainer(极域管理程序)', icon: '🎮', url: 'https://pan.huang1111.cn/s/we9GxfK' },
-    { displayName: 'Resourcepacks(资源包)', icon: '🖼️', url: 'https://pan.huang1111.cn/s/YLA3QsA' },
-    { displayName: 'Shaderpacks(光影包)', icon: '☀️', url: 'https://pan.huang1111.cn/s/aEGznTG' },
-    { displayName: 'Mods(模组)', icon: '🔧', url: 'https://pan.huang1111.cn/s/VLv2ntd' },
-    { displayName: 'Datapacks(数据包)', icon: '📊', url: 'https://pan.huang1111.cn/s/XqbZXUl' },
-    { displayName: 'BUILDING_hmcl_1.21.11.exe(建筑党整合包)', icon: '🏗️', url: 'https://pan.huang1111.cn/s/DVYA5f4' },
-    { displayName: '1.21.11-Fabric.exe(含 Fabric 加载器的整合包)', icon: '🧵', url: 'https://pan.huang1111.cn/s/6el76SN' }
+    { nameKey: 'mc.f1', icon: '📦', url: 'https://pan.huang1111.cn/s/byL59iY' },
+    { nameKey: 'mc.f2', icon: '📥', url: 'https://pan.huang1111.cn/s/QzQgbcm' },
+    { nameKey: 'mc.f3', icon: '🎮', url: 'https://pan.huang1111.cn/s/we9GxfK' },
+    { nameKey: 'mc.f4', icon: '🖼️', url: 'https://pan.huang1111.cn/s/YLA3QsA' },
+    { nameKey: 'mc.f5', icon: '☀️', url: 'https://pan.huang1111.cn/s/aEGznTG' },
+    { nameKey: 'mc.f6', icon: '🔧', url: 'https://pan.huang1111.cn/s/VLv2ntd' },
+    { nameKey: 'mc.f7', icon: '📊', url: 'https://pan.huang1111.cn/s/XqbZXUl' },
+    { nameKey: 'mc.f8', icon: '🏗️', url: 'https://pan.huang1111.cn/s/DVYA5f4' },
+    { nameKey: 'mc.f9', icon: '🧵', url: 'https://pan.huang1111.cn/s/6el76SN' }
 ];
 
 const fileListEl = document.getElementById('fileList');
-files.forEach(file => {
-    const li = document.createElement('li');
-    li.className = 'file-item';
-    li.innerHTML = `
-        <div class="file-info">
-            <div class="file-icon">${file.icon}</div>
-            <div class="file-name">${file.displayName}</div>
-        </div>
-        <a class="download-btn" href="${file.url}" target="_blank">前往下载</a>
-    `;
-    fileListEl.appendChild(li);
-});
+
+function renderFiles() {
+    fileListEl.innerHTML = '';
+    files.forEach(file => {
+        const li = document.createElement('li');
+        li.className = 'file-item';
+        li.innerHTML = `
+            <div class="file-info">
+                <div class="file-icon">${file.icon}</div>
+                <div class="file-name">${window.t(file.nameKey)}</div>
+            </div>
+            <a class="download-btn" href="${file.url}" target="_blank">${window.t('common.dl')}</a>
+        `;
+        fileListEl.appendChild(li);
+    });
+}
+
+renderFiles();
+if (window.onLangChange) window.onLangChange(renderFiles);

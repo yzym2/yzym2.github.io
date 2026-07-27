@@ -43,8 +43,8 @@ html {
 }
 /* 动态光效 */
 .cursor-glow {
-    width: 300px;
-    height: 300px;
+    width: 180px;
+    height: 180px;
     background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
     border-radius: 50%;
     position: fixed;
@@ -81,6 +81,8 @@ body {
     --glass-bg: rgba(255,255,255,0.03);
     --glass-border: rgba(255,255,255,0.08);
     --glass-blur: 20px;
+    --title-glow: rgba(255,255,255,0.045);
+    --title-glow-far: rgba(255,255,255,0.018);
 }
 [data-theme="light"] {
     --bg-body: #f5f5f5;
@@ -98,14 +100,26 @@ body {
     --glass-bg: rgba(255,255,255,0.5);
     --glass-border: rgba(0,0,0,0.08);
     --glass-blur: 20px;
+    --title-glow: rgba(0,0,0,0.024);
+    --title-glow-far: rgba(0,0,0,0.009);
 }
 
 body {
     color: var(--text-primary);
-    background: var(--bg-body);
+    background:
+        radial-gradient(circle at 15% 20%, rgba(0,68,255,0.10), transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(170,0,255,0.10), transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03), transparent 60%),
+        var(--bg-body);
     line-height: 1.7;
     overflow-x: hidden;
     transition: background 0.3s ease, color 0.3s ease;
+}
+[data-theme="light"] body {
+    background:
+        radial-gradient(circle at 15% 20%, rgba(0,68,255,0.08), transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(170,0,255,0.08), transparent 45%),
+        var(--bg-body);
 }
 
 /* ========== 毛玻璃卡片通用样式 ========== */
@@ -119,50 +133,70 @@ body {
 }
 .glass-card:hover {
     border-color: var(--border-color);
-    transform: translateY(-4px);
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 [data-theme="light"] .glass-card:hover {
     box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
-/* ========== 固定导航栏 ========== */
+/* ========== 导航栏 ========== */
 header {
     width: 100%;
-    padding: 1.5rem 8%;
+    padding: 0.85rem 8%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 2rem;
+    gap: 1.5rem;
     position: fixed;
     top: 0;
     left: 0;
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
+    background: rgba(20,20,20,0);
+    backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(0);
     z-index: 999;
     transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
+}
+header.scrolled {
+    background: rgba(20,20,20,0.25);
+    backdrop-filter: blur(24px) saturate(1.8);
+    -webkit-backdrop-filter: blur(24px) saturate(1.8);
     border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+}
+[data-theme="light"] header.scrolled {
+    background: rgba(245,245,245,0.3);
+    backdrop-filter: blur(24px) saturate(1.8);
+    -webkit-backdrop-filter: blur(24px) saturate(1.8);
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: 2px;
     color: var(--accent-white);
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.logo .logo-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: 8px;
 }
 
 nav ul {
     display: flex;
-    gap: 3rem;
+    gap: 2rem;
     list-style: none;
     white-space: nowrap;
 }
 nav a {
     text-decoration: none;
     color: var(--text-primary);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     position: relative;
     transition: 0.2s;
 }
@@ -180,7 +214,7 @@ nav a:hover::after {
     width: 100%;
 }
 
-/* ========== 主题切换按钮（新风格） ========== */
+/* ========== 主题切换按钮 ========== */
 .theme-toggle {
     width: 44px;
     height: 44px;
@@ -232,7 +266,7 @@ nav a:hover::after {
     transform: rotate(-90deg) scale(0.5);
 }
 
-/* ========== 通栏通知栏 ========== */
+/* ========== 通知栏 ========== */
 .notice {
     width: 100%;
     padding: 14px 8%;
@@ -243,7 +277,7 @@ nav a:hover::after {
     align-items: center;
     gap: 12px;
     margin: 0 0 2.5rem 0;
-    margin-top: 92px;
+    margin-top: 71px;
     border-radius: 0;
     border-left: none;
     border-right: none;
@@ -270,6 +304,10 @@ nav a:hover::after {
     margin-bottom: 1.2rem;
     letter-spacing: 3px;
     color: var(--accent-white);
+    text-shadow:
+        0 0 30px var(--title-glow),
+        0 0 60px var(--title-glow-far),
+        0 0 100px var(--title-glow-far);
     opacity: 0;
     transform: translateY(40px);
     animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -377,23 +415,233 @@ nav a:hover::after {
     flex-wrap: wrap;
 }
 
-/* ========== 页脚 ========== */
-footer {
-    padding: 3rem 8%;
-    text-align: center;
-    border-top: 1px solid var(--glass-border);
+/* ========== 关于本站区域 ========== */
+footer#about {
+    padding: 0;
+    border-top: none;
     color: var(--text-secondary);
     font-size: 0.9rem;
 }
-footer a {
+.about-section {
+    padding: 5rem 8% 3rem;
+    text-align: center;
+}
+.about-section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 3rem;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+}
+.about-section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(135deg, #0044ff, #aa00ff);
+    border-radius: 3px;
+    margin: 0.8rem auto 0;
+}
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.about-card {
+    text-align: left;
+    padding: 2rem;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.about-card:hover {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+[data-theme="light"] .about-card:hover {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+.tilt-inner {
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+}
+.about-card .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(0,68,255,0.15), rgba(170,0,255,0.15));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    color: var(--text-primary);
+    transform: translateZ(30px);
+}
+.about-card .card-icon svg {
+    width: 24px;
+    height: 24px;
+}
+.about-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
+    transform: translateZ(20px);
+}
+.about-card p {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1.2rem;
+    transform: translateZ(10px);
+}
+.about-card .card-visual {
+    border-radius: 10px;
+    overflow: hidden;
+    transform: translateZ(15px);
+    border: 1px solid var(--glass-border);
+    height: 140px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.about-card .card-visual .visual-pattern {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+.about-card .card-visual .visual-icon {
+    width: 48px;
+    height: 48px;
+    color: rgba(255,255,255,0.85);
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+}
+[data-theme="light"] .about-card .card-visual .visual-icon {
+    color: rgba(255,255,255,0.95);
+}
+/* 4 种独特渐变背景 */
+.about-card .visual-1 {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #0044ff 100%);
+}
+.about-card .visual-2 {
+    background: linear-gradient(135deg, #434343 0%, #6b6b6b 50%, #8e9eab 100%);
+}
+.about-card .visual-3 {
+    background: linear-gradient(135deg, #aa00ff 0%, #6a11cb 50%, #2575fc 100%);
+}
+.about-card .visual-4 {
+    background: linear-gradient(135deg, #0044ff 0%, #44a0ff 50%, #aa00ff 100%);
+}
+.about-footer {
+    padding: 2rem 8% 3rem;
+    text-align: center;
+    border-top: 1px solid var(--glass-border);
+}
+.about-footer a {
     color: var(--text-secondary);
     text-decoration: none;
     border-bottom: 1px dotted var(--border-color);
     transition: all 0.3s ease;
 }
-footer a:hover {
+.about-footer a:hover {
     color: var(--accent-white);
     border-bottom-color: var(--accent-white);
+}
+@media(max-width:768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+    .about-section {
+        padding: 3rem 5% 2rem;
+    }
+    .about-section-title {
+        font-size: 1.5rem;
+    }
+    .about-card {
+        padding: 1.5rem;
+    }
+    .about-card .card-visual {
+        height: 110px;
+    }
+}
+
+/* ========== 极速开始按钮 ========== */
+.fast-start-section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.btn-fast-start {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 1rem 2.8rem;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    border: none;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.2em;
+    cursor: none;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: inherit;
+}
+.btn-fast-start::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+    pointer-events: none;
+}
+.btn-fast-start:hover::before {
+    transform: translateX(100%);
+}
+.btn-fast-start:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+.btn-fast-start:active {
+    transform: scale(0.98);
+}
+.fast-start-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+.fast-start-hint {
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+.btn-fast-start.loading {
+    pointer-events: none;
+    opacity: 0.75;
+}
+
+/* ========== Beta 徽章（蓝紫渐变） ========== */
+.beta-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.55em;
+    font-weight: 800;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #0044ff 0%, #aa00ff 100%);
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    line-height: 1.4;
+    vertical-align: middle;
 }
 
 /* ========== 移动端适配 ========== */
@@ -418,6 +666,10 @@ footer a:hover {
     .btn {
         padding: 0.8rem 2.2rem;
         font-size: 1.1em;
+    }
+    .btn-fast-start {
+        padding: 0.9rem 2.4rem;
+        font-size: 1.15em;
     }
     .theme-toggle {
         width: 40px;

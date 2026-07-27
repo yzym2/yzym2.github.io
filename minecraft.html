@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minecraft 资源下载</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="stylesheet" href="minecraft.css">
     <base target="_blank">
 </head>
@@ -14,9 +15,16 @@
 <div class="cursor-glow" id="cursorGlow"></div>
 
 <!-- 左上角返回按钮 -->
-<a href="index.html" class="back-btn magnetic-btn">← 返回首页</a>
+<a href="index.html" class="back-btn magnetic-btn" data-i18n="common.back">← 返回首页</a>
 
-<!-- 右上角主题切换 -->
+<!-- 右上角语言切换 + 主题切换 -->
+<button class="lang-toggle magnetic-btn fixed" id="langToggle" aria-label="切换语言">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/>
+        <ellipse cx="12" cy="12" rx="4" ry="9"/>
+        <ellipse cx="12" cy="12" rx="9" ry="3"/>
+    </svg>
+</button>
 <button class="theme-toggle magnetic-btn" id="themeToggle" aria-label="切换明暗主题">
     <svg class="sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
@@ -27,12 +35,13 @@
 </button>
 
 <div class="container">
-    <h1 class="hero-title">Minecraft 1.21.11 资源下载</h1>
-    <p class="subtitle">专为学校信息课打造</p>
+    <h1 class="hero-title" data-i18n="mc.title">Minecraft 1.21.11 资源下载</h1>
+    <p class="subtitle" data-i18n="mc.subtitle">专为学校信息课打造</p>
     <ul class="file-list" id="fileList"></ul>
-    <a href="guide.html" class="guide-btn magnetic-btn">新手引导</a>
+    <a href="guide.html" class="guide-btn magnetic-btn" data-i18n="mc.guide">新手引导</a>
 </div>
 
+<script src="lang.js"></script>
 <script src="minecraft.js"></script>
 </body>
 </html>
