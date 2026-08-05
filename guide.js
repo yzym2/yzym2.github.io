@@ -1,7 +1,6 @@
 (function() {
     'use strict';
 
-    // ========== 明暗主题切换 ==========
     const toggleBtn = document.getElementById('themeToggle');
     const html = document.documentElement;
     const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -14,7 +13,6 @@
         localStorage.setItem('theme', next);
     });
 
-    // ========== 自定义光标 + 动态光效 ==========
     (function() {
         const dot = document.getElementById('cursorDot');
         const outline = document.getElementById('cursorOutline');
@@ -65,7 +63,6 @@
         });
     })();
 
-    // ========== 生成目录 ==========
     const content = document.getElementById('contentWrapper');
     const tocList = document.getElementById('tocList');
     const headings = content.querySelectorAll('h2, h3, h4');
@@ -91,7 +88,6 @@
     });
     tocList.innerHTML = tocHTML;
 
-    // 语言切换时更新目录文字
     function updateTOCText() {
         tocList.querySelectorAll('a').forEach(function(link) {
             const targetId = link.getAttribute('data-target');
@@ -103,7 +99,6 @@
     }
     if (window.onLangChange) window.onLangChange(updateTOCText);
 
-    // ========== 平滑滚动 & 高亮 ==========
     const tocLinks = tocList.querySelectorAll('a');
     const allHeadings = content.querySelectorAll('h2, h3, h4');
 
@@ -131,7 +126,6 @@
         });
     }
 
-    // ========== 滚动监听 ==========
     let scrollTimeout = null;
     function getVisibleHeading() {
         let minDist = Infinity;

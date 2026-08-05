@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>新手引导</title>
     <link rel="icon" type="image/svg+xml" href="icon.svg">
-    <link rel="stylesheet" href="guide.css">
+    <link rel="stylesheet" href="style.css">
     <base target="_blank">
 </head>
-<body>
+<body class="page-guide">
 <!-- 自定义光标 -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-outline" id="cursorOutline"></div>
@@ -35,7 +35,8 @@
 <aside class="sidebar glass-card" id="sidebar">
     <div class="sidebar-header">
         <a href="minecraft.html" class="back-home-btn magnetic-btn" data-i18n="guide.back">← 返回上一级</a>
-        <h2><span data-i18n="guide.toc">目录</span></h2>
+        <a href="index.html" class="back-home-btn magnetic-btn" data-i18n="guide.home">返回首页</a>
+        <h2><span data-i18n="guide.toc">大纲</span></h2>
     </div>
     <nav>
         <ul class="toc" id="tocList">
@@ -228,7 +229,75 @@
         <p data-i18n="guide.mc.p3">该整合包使用 HMCL（Hello! Minecraft Launcher）的较新版本。</p>
         <p data-i18n="guide.mc.p4">该整合包的一大亮点在于：专为信息课设计。这是一个精简包，将音频文件删除，反正信息课的电脑没有扬声器。这大大减少了下载它所需要的时间，使用 IDM 在 5 分钟以内即可下载完毕。而且这对游戏的正常游玩没有任何影响。需要注意的是，就算你把声音字幕打开，你也照样看不到任何内容。</p>
         <p data-i18n="guide.mc.p5">整合包里没有任何模组，是纯原版，只默认附带了一个 Full Bright 资源包。其他资源包敬请期待。</p>
-        <h4 id="124-关于huang1111网盘" data-i18n="guide.h4.huang">1.2.4. 关于 huang1111 网盘</h4>
+        <h4 id="124-关于模组" data-i18n="guide.h4.mod">1.2.4. 关于模组</h4>
+        <p data-i18n="guide.mod.p1">考虑到网络连接问题，于是上线模组资源下载。</p>
+        <p data-i18n="guide.mod.p2">以下列举了新上线的精选模组：</p>
+        <ul>
+            <li data-i18n="guide.mod.appleskin">AppleSkin (苹果皮)</li>
+            <li>Architecture</li>
+            <li>Axiom</li>
+            <li>Balm</li>
+            <li data-i18n="guide.mod.craftingtweaks">Crafting Tweaks (合成辅助)</li>
+            <li>CustomSkinLoader Bootstrap</li>
+            <li>Fabric API</li>
+            <li>Fabric Language Kotlin</li>
+            <li data-i18n="guide.mod.ferritecore">FerriteCore (铁氧体磁芯)</li>
+            <li>Forge Config API Port</li>
+            <li>Iris</li>
+            <li data-i18n="guide.mod.jade">Jade (玉)</li>
+            <li data-i18n="guide.mod.jechars">Just Enough Characters (通用拼音搜索)</li>
+            <li data-i18n="guide.mod.jei">Just Enough Items (JEI物品管理器)</li>
+            <li data-i18n="guide.mod.journeymap">Journeymap (旅行地图)</li>
+            <li data-i18n="guide.mod.lambdynamiclights">LambDynamicLights (Lambd的动态光源)</li>
+            <li data-i18n="guide.mod.litematica">Litematica (投影)</li>
+            <li data-i18n="guide.mod.lithium">Lithium (锂)</li>
+            <li>MaLiLib</li>
+            <li data-i18n="guide.mod.minihud">MiniHUD (迷你HUD)</li>
+            <li data-i18n="guide.mod.modmenu">Mod Menu (模组菜单)</li>
+            <li data-i18n="guide.mod.mousetweaks">Mouse Tweaks (鼠标手势)</li>
+            <li data-i18n="guide.mod.nochatreports">No Chat Reports (禁用聊天举报)</li>
+            <li data-i18n="guide.mod.notenoughanimations">NotEnoughAnimations (更多动画)</li>
+            <li>Open Parties and Claims</li>
+            <li data-i18n="guide.mod.placeholderapi">Placeholder API (文本占位符 API)</li>
+            <li data-i18n="guide.mod.reesesodium">Reese's Sodium Options (Reese的钠视频界面)</li>
+            <li data-i18n="guide.mod.replaymod">Replay Mod (录像回放)</li>
+            <li data-i18n="guide.mod.sodiumextra">Sodium Extra (钠 · 扩展)</li>
+            <li data-i18n="guide.mod.sodium">Sodium (钠)</li>
+            <li>Tweakeroo</li>
+            <li>Veinminer Client</li>
+            <li data-i18n="guide.mod.veinminer">Veinminer (连锁采矿/矿脉矿工)</li>
+            <li>ViaFabricPlus</li>
+            <li data-i18n="guide.mod.worldedit">WorldEdit (创世神)</li>
+            <li>WorldEditCUI</li>
+            <li>Wurst Client</li>
+        </ul>
+        <p data-i18n="guide.mod.p3">你说要模组的功能以及关系（必选/可选的支持库）吗，只能上 <a href="https://modrinth.com" target="_blank">modrinth</a> / <a href="https://www.curseforge.com" target="_blank">curseforge</a> 去查找了，不过这些模组的兼容性无须担忧哈~</p>
+        <p data-i18n="guide.mod.p4">好消息是：你直接在 HMCL 上看不就行了……</p>
+        <h4 id="125-关于资源包光影包数据包" data-i18n="guide.h4.resourcepack">1.2.5. 关于资源包/光影包/数据包</h4>
+        <p data-i18n="guide.rp.p1">考虑到网络连接问题，于是上线资源包/光影包/数据包资源下载。</p>
+        <p data-i18n="guide.rp.p2">以下列举了新上线的精选资源包：</p>
+        <ul>
+            <li>Dramatic Skys Demo</li>
+            <li>Fast Better Grass</li>
+            <li>Low On Fire</li>
+            <li data-i18n="guide.rp.fullbright">Fullbright UB（全亮）</li>
+            <li>Snowy Rework</li>
+            <li>Sodium Traslations</li>
+            <li data-i18n="guide.rp.xkredstone">XK Redstone Display（XK红显）</li>
+            <li data-i18n="guide.rp.xray">Xray Ultimate（矿透）</li>
+            <li>CozyUI+</li>
+            <li data-i18n="guide.rp.protecteyes">Protect Your Eyes（护眼大补丸）</li>
+        </ul>
+        <p data-i18n="guide.rp.p3">以下列举了新上线的精选光影包：</p>
+        <ul>
+            <li>Complementary Unbound</li>
+            <li data-i18n="guide.rp.iterationt">iterationT 3.2.0（性能开销较大）</li>
+        </ul>
+        <p data-i18n="guide.rp.p4">以下列举了新上线的精选数据包：</p>
+        <ul>
+            <li data-i18n="guide.rp.tpa">TPA（传送）</li>
+        </ul>
+        <h4 id="126-关于huang1111网盘" data-i18n="guide.h4.huang">1.2.6. 关于 huang1111 网盘</h4>
         <p data-i18n="guide.huang.p1">声明：huang1111 网盘是最好的网盘！！！（<a href="https://pan.huang1111.cn" target="_blank">https://pan.huang1111.cn</a>）没有之一！！！</p>
         <p data-i18n="guide.huang.p2">为什么 (O_o)?? 亮点如下：</p>
         <ol>

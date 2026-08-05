@@ -1,11 +1,9 @@
-// 页面加载完成
 window.addEventListener('load', function() {
     setTimeout(() => {
         console.log("常用网站导航页加载完成");
     }, 800);
 });
 
-// ========== 主题切换功能 ==========
 const toggleBtn = document.getElementById('themeToggle');
 const html = document.documentElement;
 const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -18,7 +16,6 @@ toggleBtn.addEventListener('click', function() {
     localStorage.setItem('theme', next);
 });
 
-// ========== 自定义光标 + 动态光效 ==========
 (function() {
     const dot = document.getElementById('cursorDot');
     const outline = document.getElementById('cursorOutline');
@@ -69,10 +66,10 @@ toggleBtn.addEventListener('click', function() {
     });
 })();
 
-// ========== 网站列表 ==========
 const sites = [
-    { nameKey: 'web.s1', icon: '☁️', url: 'https://pan.huang1111.cn' },
-    { nameKey: 'web.s2', icon: '💾', url: 'https://123pan.com' }
+    { nameKey: 'web.s1', url: 'https://pan.huang1111.cn' },
+    { nameKey: 'web.s2', url: 'https://123pan.com' },
+    { nameKey: 'web.s3', url: 'https://www.lanzoui.com' }
 ];
 
 const fileListEl = document.getElementById('fileList');
@@ -81,14 +78,7 @@ function renderSites() {
     fileListEl.innerHTML = '';
     sites.forEach(site => {
         const li = document.createElement('li');
-        li.className = 'file-item';
-        li.innerHTML = `
-            <div class="file-info">
-                <div class="file-icon">${site.icon}</div>
-                <div class="file-name">${window.t(site.nameKey)}</div>
-            </div>
-            <a class="download-btn" href="${site.url}" target="_blank">${window.t('web.visit')}</a>
-        `;
+        li.innerHTML = `<a href="${site.url}" target="_blank" data-i18n="${site.nameKey}">${window.t(site.nameKey)}</a>`;
         fileListEl.appendChild(li);
     });
 }
@@ -96,7 +86,6 @@ function renderSites() {
 renderSites();
 if (window.onLangChange) window.onLangChange(renderSites);
 
-// ========== Minecraft 网页版 URL 映射 ==========
 const mcjsUrls = {
     '1.8.8': {
         main: 'https://play.mcjs.cc/1.8.8',
@@ -124,7 +113,6 @@ const mcjsUrls = {
     }
 };
 
-// eaglercraft.ir 的 URL
 const eaglerUrls = {
     '1.8.8': 'https://eaglercraft.ir/zh/play/1.8.8',
     '1.12.2': 'https://eaglercraft.ir/zh/play/1.12.2',
@@ -132,13 +120,11 @@ const eaglerUrls = {
     '1.12.2wasm': 'https://eaglercraft.ir/zh/play/1.12.2wasm'
 };
 
-// 1.20 版 URL
 const mc120Urls = {
     wasm: 'https://eaglercraft.dev/clients/EaglyMC%201.20%20WASM/index.html',
     js: 'https://eaglercraft.dev/clients/EaglyMC%201.20%20JS/index.html'
 };
 
-// ========== 镜像站弹窗 ==========
 const mirrorModal = document.getElementById('mirrorModal');
 const mirrorCancel = document.getElementById('mirrorCancel');
 const mirrorConfirm = document.getElementById('mirrorConfirm');
@@ -174,7 +160,6 @@ mirrorConfirm.addEventListener('click', function() {
     hideMirrorModal();
 });
 
-// ========== 前往游玩按钮 ==========
 document.getElementById('mcGoBtn').addEventListener('click', function() {
     const site = document.getElementById('mcSite').value;
     const version = document.getElementById('mcVersion').value;

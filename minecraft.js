@@ -1,11 +1,9 @@
-// 页面加载完成延迟弹出提示
 window.addEventListener('load', function() {
     setTimeout(() => {
         alert(window.t('mc.alert'));
     }, 800);
 });
 
-// ========== 主题切换功能 ==========
 const toggleBtn = document.getElementById('themeToggle');
 const html = document.documentElement;
 const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -18,7 +16,6 @@ toggleBtn.addEventListener('click', function() {
     localStorage.setItem('theme', next);
 });
 
-// ========== 自定义光标 + 动态光效 ==========
 (function() {
     const dot = document.getElementById('cursorDot');
     const outline = document.getElementById('cursorOutline');
@@ -69,7 +66,6 @@ toggleBtn.addEventListener('click', function() {
     });
 })();
 
-// ========== 文件列表 ==========
 const files = [
     { nameKey: 'mc.f1', icon: '📦', url: 'https://pan.huang1111.cn/s/byL59iY' },
     { nameKey: 'mc.f2', icon: '📥', url: 'https://pan.huang1111.cn/s/QzQgbcm' },

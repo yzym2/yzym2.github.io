@@ -1,4 +1,3 @@
-// ========== 明暗主题切换 ==========
 (function() {
     const toggleBtn = document.getElementById('themeToggle');
     const html = document.documentElement;
@@ -13,7 +12,6 @@
     });
 })();
 
-// ========== 平滑锚点滚动 ==========
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -24,7 +22,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ========== 导航滚动毛玻璃 ==========
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
     if (window.scrollY > 60) {
@@ -34,13 +31,11 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ========== 自定义光标 + 动态光效 ==========
 (function() {
     const dot = document.getElementById('cursorDot');
     const outline = document.getElementById('cursorOutline');
     const glow = document.getElementById('cursorGlow');
 
-    // 检测是否为触摸设备
     const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
     if (isTouchDevice) {
         dot.style.display = 'none';
@@ -56,16 +51,13 @@ window.addEventListener('scroll', () => {
         mouseX = e.clientX;
         mouseY = e.clientY;
 
-        // 小圆点直接跟随
         dot.style.left = mouseX - 4 + 'px';
         dot.style.top = mouseY - 4 + 'px';
 
-        // 光效跟随
         glow.style.left = mouseX + 'px';
         glow.style.top = mouseY + 'px';
     });
 
-    // 外圈平滑跟随
     function animateOutline() {
         outlineX += (mouseX - outlineX) * 0.15;
         outlineY += (mouseY - outlineY) * 0.15;
@@ -75,14 +67,12 @@ window.addEventListener('scroll', () => {
     }
     animateOutline();
 
-    // 悬停效果
     const hoverTargets = document.querySelectorAll('a, button, .btn, .glass-card, nav a, .theme-toggle, .lang-toggle, .btn-fast-start');
     hoverTargets.forEach(el => {
         el.addEventListener('mouseenter', () => outline.classList.add('hover'));
         el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
     });
 
-    // 点击效果
     document.addEventListener('mousedown', () => {
         dot.style.transform = 'scale(0.5)';
         outline.style.transform = 'scale(0.8)';
@@ -93,32 +83,24 @@ window.addEventListener('scroll', () => {
     });
 })();
 
-// ========== 卡片 3D 倾斜动态响应 ==========
 (function() {
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-    if (isTouchDevice) return;
-
-    const cards = document.querySelectorAll('.tilt-card');
-    cards.forEach(function(card) {
-        const inner = card.querySelector('.tilt-inner');
-        if (!inner) return;
-        card.addEventListener('mousemove', function(e) {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -8;
-            const rotateY = ((x - centerX) / centerX) * 8;
-            inner.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+    const reveals = document.querySelectorAll('.reveal');
+    if (!reveals.length) return;
+    if (!('IntersectionObserver' in window)) {
+        reveals.forEach(function(el) { el.classList.add('is-visible'); });
+        return;
+    }
+    const io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
+            }
         });
-        card.addEventListener('mouseleave', function() {
-            inner.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
-        });
-    });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+    reveals.forEach(function(el) { io.observe(el); });
 })();
 
-// ========== 极速开始下载 ==========
 (function() {
     const btn = document.getElementById('fastStartBtn');
     if (!btn) return;

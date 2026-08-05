@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>常用网站导航</title>
     <link rel="icon" type="image/svg+xml" href="icon.svg">
-    <link rel="stylesheet" href="minecraft.css">
-    <link rel="stylesheet" href="website.css">
+    <link rel="stylesheet" href="style.css">
     <base target="_blank">
 </head>
-<body>
+<body class="page-website">
 <!-- 自定义光标 -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-outline" id="cursorOutline"></div>
@@ -69,12 +68,15 @@
     <h1 class="hero-title" data-i18n="web.title">常用网站导航</h1>
     <p class="subtitle" data-i18n="web.subtitle">精选实用网站，一键直达</p>
 
-    <!-- 网盘网站 -->
-    <ul class="file-list" id="fileList"></ul>
+    <!-- 云盘网站 -->
+    <div class="game-section">
+        <h2 class="section-title" data-i18n="web.cloud">云盘</h2>
+        <ul class="game-list" id="fileList"></ul>
+    </div>
 
     <!-- Minecraft 网页版 -->
     <div class="mc-web-section">
-        <h2 class="section-title" data-i18n="web.section">🎮 Minecraft 网页版</h2>
+        <h2 class="section-title" data-i18n="web.section">Minecraft 网页版</h2>
 
         <!-- 选择器卡片 -->
         <div class="selector-card glass-card">
@@ -100,7 +102,6 @@
         <!-- 1.20 版卡片 -->
         <div class="version-card glass-card">
             <div class="version-info">
-                <div class="version-icon">🌟</div>
                 <div class="version-text">
                     <div class="version-name" data-i18n="web.mc120.name">Minecraft 1.20 网页版</div>
                     <div class="version-desc" data-i18n="web.mc120.desc">基于1.8.8版本内核，仅供体验</div>
@@ -114,6 +115,47 @@
                 <button class="go-btn magnetic-btn" id="mc120Btn" data-i18n="web.go">前往游玩</button>
             </div>
         </div>
+    </div>
+
+    <!-- HTML 小游戏 -->
+    <div class="game-section">
+        <h2 class="section-title" data-i18n="web.game">小游戏合集</h2>
+
+        <h3 class="game-category" data-i18n="web.game.open">开放小游戏平台</h3>
+        <ul class="game-list">
+            <li><a href="https://www.crazygames.com" target="_blank" data-i18n="web.game.crazy">Crazygames</a></li>
+            <li><a href="https://www.html5games.com/" target="_blank" data-i18n="web.game.html5games">HTML5 Games 集合</a></li>
+            <li><a href="https://js13kgames.com/games" target="_blank" data-i18n="web.game.js13k">js13kGames 大赛作品</a></li>
+        </ul>
+
+        <h3 class="game-category" data-i18n="web.game.casual">休闲益智类</h3>
+        <ul class="game-list">
+            <li><a href="https://play2048.co/" target="_blank" data-i18n="web.game.2048">2048 经典版</a></li>
+            <li><a href="https://doge2048.com/" target="_blank" data-i18n="web.game.doge2048">2048 Doge 版</a></li>
+            <li><a href="https://hextris.io/" target="_blank">Hextris</a></li>
+            <li><a href="https://www.solitr.com/" target="_blank" data-i18n="web.game.solitaire">纸牌接龙 Solitaire</a></li>
+            <li><a href="https://www.puzzle15.com/" target="_blank">Puzzle15</a></li>
+            <li><a href="https://websudoku.com/" target="_blank" data-i18n="web.game.sudoku">数独 Sudoku</a></li>
+        </ul>
+
+        <h3 class="game-category" data-i18n="web.game.action">动作/反应类</h3>
+        <ul class="game-list">
+            <li><a href="https://googlepacman.com/" target="_blank" data-i18n="web.game.pacman">吃豆人 Pacman</a></li>
+            <li><a href="https://chromedino.com/" target="_blank" data-i18n="web.game.dino">恐龙游戏 Dino Runner</a></li>
+        </ul>
+
+        <h3 class="game-category" data-i18n="web.game.strategy">策略/经典游戏</h3>
+        <ul class="game-list">
+            <li><a href="https://www.chess.com/play/online" target="_blank" data-i18n="web.game.chess">国际象棋</a></li>
+            <li><a href="https://chessboardjs.com/examples#5003" target="_blank">ChessboardJS</a></li>
+            <li><a href="https://playtictactoe.org/" target="_blank" data-i18n="web.game.tictactoe">井字棋 TicTacToe</a></li>
+        </ul>
+
+        <h3 class="game-category" data-i18n="web.game.fun">趣味与创新小游戏</h3>
+        <ul class="game-list">
+            <li><a href="http://hexgl.bkcore.com/play/" target="_blank" data-i18n="web.game.hexgl">未来赛车 HexGL</a></li>
+            <li><a href="https://www.linerider.com/" target="_blank" data-i18n="web.game.linerider">画轨道 Line Rider</a></li>
+        </ul>
     </div>
 </div>
 

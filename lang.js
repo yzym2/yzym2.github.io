@@ -1,8 +1,6 @@
-// ========== 多语言切换系统 ==========
 (function() {
     'use strict';
 
-    // ========== CSS 注入 ==========
     const style = document.createElement('style');
     style.textContent = `
 .lang-toggle {
@@ -34,14 +32,14 @@
     width: 20px;
     height: 20px;
 }
-/* 固定定位变体（子页面） */
+
 .lang-toggle.fixed {
     position: fixed;
     top: 20px;
     right: 74px;
     z-index: 999;
 }
-/* header 内联变体 */
+
 header .lang-toggle {
     position: relative;
 }
@@ -51,7 +49,7 @@ header .lang-toggle {
     align-items: center;
     flex-shrink: 0;
 }
-/* 语言下拉菜单 */
+
 .lang-dropdown {
     position: fixed;
     background: var(--glass-bg);
@@ -82,36 +80,80 @@ header .lang-toggle {
     transition: background 0.2s, opacity 0.2s;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 10px;
     white-space: nowrap;
 }
 .lang-dropdown-item:hover {
     background: var(--glass-border);
 }
-.lang-dropdown-item.active {
-    opacity: 0.5;
+.lang-dropdown-item .lang-flag {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: block;
+    box-shadow: 0 0 0 1px var(--glass-border);
+}
+.lang-dropdown-item .lang-flag svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.lang-dropdown-item .lang-name {
+    flex: 1;
 }
 .lang-dropdown-item .check {
     font-size: 14px;
-    opacity: 0.8;
+    opacity: 0;
+    color: var(--accent-white);
+}
+.lang-dropdown-item.active .check {
+    opacity: 0.9;
 }
 `;
     document.head.appendChild(style);
 
-    // ========== 语言定义 ==========
-    const LANGS = ['zh-CN', 'zh-TW', 'en'];
-    const LANG_ATTRS = { 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', 'en': 'en' };
-    const LANG_SHORT = { 'zh-CN': '簡', 'zh-TW': '繁', 'en': 'EN' };
-    const LANG_NAMES = { 'zh-CN': '简体中文', 'zh-TW': '繁體中文', 'en': 'English' };
+    const LANGS = ['zh-CN', 'zh-TW', 'en', 'ru', 'ja'];
+    const LANG_ATTRS = { 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', 'en': 'en', 'ru': 'ru', 'ja': 'ja' };
+    const LANG_SHORT = { 'zh-CN': '簡', 'zh-TW': '繁', 'en': 'EN', 'ru': 'RU', 'ja': '日' };
+    const LANG_NAMES = { 'zh-CN': '简体中文', 'zh-TW': '繁體中文', 'en': 'English', 'ru': 'Русский', 'ja': '日本語' };
+    const FLAG_CN = '<span class="lang-flag">'
+        + '<svg viewBox="0 0 30 30" preserveAspectRatio="xMidYMid slice">'
+        + '<rect width="30" height="30" fill="#de2910"/>'
+        + '<polygon points="6,5 7.2,8.7 11,8.7 7.9,11 9.1,14.7 6,12.3 2.9,14.7 4.1,11 1,8.7 4.8,8.7" fill="#ffde00"/>'
+        + '<circle cx="12" cy="3" r="0.9" fill="#ffde00"/>'
+        + '<circle cx="14" cy="6" r="0.9" fill="#ffde00"/>'
+        + '<circle cx="14" cy="10" r="0.9" fill="#ffde00"/>'
+        + '<circle cx="12" cy="13" r="0.9" fill="#ffde00"/>'
+        + '</svg></span>';
+    const FLAG_EN = '<span class="lang-flag">'
+        + '<svg viewBox="0 0 30 30" preserveAspectRatio="xMidYMid slice">'
+        + '<rect width="30" height="30" fill="#012169"/>'
+        + '<path d="M0,0 L30,30 M30,0 L0,30" stroke="#ffffff" stroke-width="6"/>'
+        + '<path d="M0,0 L30,30 M30,0 L0,30" stroke="#c8102e" stroke-width="3"/>'
+        + '<path d="M15,0 L15,30 M0,15 L30,15" stroke="#ffffff" stroke-width="10"/>'
+        + '<path d="M15,0 L15,30 M0,15 L30,15" stroke="#c8102e" stroke-width="6"/>'
+        + '</svg></span>';
+    const FLAG_RU = '<span class="lang-flag">'
+        + '<svg viewBox="0 0 30 30" preserveAspectRatio="xMidYMid slice">'
+        + '<rect width="30" height="10" fill="#ffffff"/>'
+        + '<rect y="10" width="30" height="10" fill="#0039a6"/>'
+        + '<rect y="20" width="30" height="10" fill="#d52b1e"/>'
+        + '</svg></span>';
+    const FLAG_JA = '<span class="lang-flag">'
+        + '<svg viewBox="0 0 30 30" preserveAspectRatio="xMidYMid slice">'
+        + '<rect width="30" height="30" fill="#ffffff"/>'
+        + '<circle cx="15" cy="15" r="9" fill="#bc002d"/>'
+        + '</svg></span>';
+    const LANG_FLAGS = { 'zh-CN': FLAG_CN, 'zh-TW': FLAG_CN, 'en': FLAG_EN, 'ru': FLAG_RU, 'ja': FLAG_JA };
 
-    // ========== 翻译字典 ==========
     const I18N = {
         'zh-CN': {
-            // ---- 通用 ----
+
             'common.back': '← 返回首页',
             'common.dl': '前往下载',
-            // ---- index.html ----
+
             'index.logo': '渊之鱼冥下载站',
             'index.nav.home': '首页',
             'index.nav.mc': 'Minecraft 专区',
@@ -119,29 +161,33 @@ header .lang-toggle {
             'index.nav.web': '常用网站',
             'index.nav.guide': '新手引导',
             'index.nav.about': '关于本站',
-            'index.notice': '<span class="notice-icon">📢</span>\n<span><strong>新站上线！</strong> 所有资源已迁移至本站，后续更新请关注这里，感谢支持！</span>',
+            'index.notice': '<svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l15-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><line x1="2" y1="6" x2="2" y2="18"/></svg>\n<span><strong>自动下载程序开启公测！</strong> 欢迎前来测试！</span>',
             'index.title': '渊之鱼冥文件下载站',
             'index.subhead': '—— 专为校园信息课与游戏爱好者准备 ——',
             'index.intro1': '欢迎来到 <strong>渊之鱼冥</strong> 的个人文件仓库！本站专注收录各类实用资源，核心为 <strong>Minecraft 游戏资源</strong>，同时涵盖常用工具、扩展包及校园信息课必备软件。',
             'index.intro2': '所有文件均经过精心整理，适配学校机房环境（无音频、轻量化、免安装），无需登录即可高速下载，让您的信息课体验更流畅、更自由。',
-            'index.intro3': '👇 点击下方按钮，快速进入 <strong>Minecraft 资源专区</strong>，获取您需要的资源！',
+            'index.intro3': '👇 点击下方<strong>「极速开始」</strong>按钮，下载自动下载程序吧！',
             'index.faststart': '极速开始',
             'index.fasthint': '一键下载 自动下载程序(Specified).exe',
             'index.btn.mc': 'Minecraft 相关',
             'index.btn.study': '学习资源',
             'index.btn.web': '常用网站',
             'index.footer': '© 2026 YuanZhiYuMing · 站点由 <a href="https://pages.github.com/" target="_blank">Github Pages</a> 驱动',
-            // ---- index.html about ----
+
             'index.about.title': '关于本站',
-            'index.about.card1.title': '关于本站',
-            'index.about.card1.text': '渊之鱼冥下载站是 GitHub 账户 YuanZhiYuMing 的 Pages 站点，专门为 SHSSIP 信息课设计，整合了启动 Minecraft 所需的全部资源，包含极域控制、多线程下载器、游戏整合包与资源包，无需登录即可高速下载。',
-            'index.about.card2.title': '核心功能',
-            'index.about.card2.text': '整合极域控制（JiYuTrainer）、多线程下载加速（IDM）、Minecraft 1.21.11 游戏整合包与资源包，适配学校机房环境（无音频、轻量化、免安装），让信息课体验更流畅、更自由。',
-            'index.about.card3.title': '技术特性',
-            'index.about.card3.text': '采用毛玻璃（Glassmorphism）界面设计，支持明暗主题自动切换与中/繁/英三语，多线程加速下载，所有文件轻量化免安装运行，由 GitHub Pages 驱动，安全可靠。',
-            'index.about.card4.title': '联系作者',
-            'index.about.card4.text': 'QQ：3860517347 · 微信：stardragon142857<br/>如有问题、建议或合作，欢迎随时联系！',
-            // ---- minecraft.html ----
+            'index.about.card1.title': '关于本网页',
+            'index.about.card1.text': '本网页是 yuanzhiyuming.github.io，是 GitHub 账户 YuanZhiYuMing 的 GitHub Pages。网页采用毛玻璃设计，简约美观。',
+            'index.about.card2.title': 'Minecraft 板块',
+            'index.about.card2.text': '将信息课启动 Minecraft 所要用到的全部文件进行整合，包含极域控制、多线程下载、Minecraft 游戏和资源包，专门为 SHSSIP 的信息课设计。',
+            'index.about.card3.title': '学习资源',
+            'index.about.card3.text': '点击“学习资源”，这里分享了 2026 初高中苏州用新教材的电子档，免费无偿分享，欢迎大家下载。',
+            'index.about.card4.title': '网址导航',
+            'index.about.card4.text': '包含了一些常用网站，如 huang1111 网盘、123 网盘、蓝奏云等（持续更新中），以及 Minecraft 网页版（eaglercraft.ir/mcjs.cc），一个访问不上就换另一个试试。此外还有 HTML 小游戏合集，包括休闲益智、动作反应、策略经典等多种类型，Crazygames 平台首选。',
+            'index.about.card5.title': '极速开始',
+            'index.about.card5.text': '近期更新了“极速开始”功能，点击下载自动下载程序，运行即可开始多线程下载，速度更快。本软件目前处于测试阶段，欢迎反馈问题。仅支持 Windows 系统，下载特定资源：Minecraft 1.21.11 精简版。',
+            'index.about.card6.title': '备用网站 & 联系',
+            'index.about.card6.text': '若 github.io 不能访问请访问我的备用网站：https://yzym.netlify.app （更新不一定及时）。作者 QQ：3860517347，微信：stardragon142857',
+
             'mc.title': 'Minecraft 1.21.11 资源下载',
             'mc.subtitle': '专为学校信息课打造',
             'mc.guide': '新手引导',
@@ -155,14 +201,14 @@ header .lang-toggle {
             'mc.f7': 'Datapacks(数据包)',
             'mc.f8': 'BUILDING_hmcl_1.21.11.exe(建筑党整合包)',
             'mc.f9': '1.21.11-Fabric.exe(含 Fabric 加载器的整合包)',
-            // ---- study.html ----
+
             'study.title': '学习资源下载',
             'study.subtitle': '专为校园学习准备',
             'study.f1': '2026初高中新教材',
-            // ---- website.html ----
+
             'web.title': '常用网站导航',
             'web.subtitle': '精选实用网站，一键直达',
-            'web.section': '🎮 Minecraft 网页版',
+            'web.section': 'Minecraft 网页版',
             'web.label.site': '选择站点：',
             'web.label.version': '选择版本：',
             'web.go': '前往游玩',
@@ -182,9 +228,31 @@ header .lang-toggle {
             'web.alert.nomc120': '1.20 版网址尚未配置。',
             'web.s1': 'huang1111 网盘',
             'web.s2': '123 网盘',
-            // ---- guide.html ----
+            'web.s3': '蓝奏云',
+            'web.cloud': '云盘',
+            'web.game': '小游戏合集',
+            'web.game.open': '开放小游戏平台',
+            'web.game.crazy': 'Crazygames',
+            'web.game.html5games': 'HTML5 Games 集合',
+            'web.game.js13k': 'js13kGames 大赛作品',
+            'web.game.casual': '休闲益智类',
+            'web.game.2048': '2048 经典版',
+            'web.game.doge2048': '2048 Doge 版',
+            'web.game.solitaire': '纸牌接龙 Solitaire',
+            'web.game.sudoku': '数独 Sudoku',
+            'web.game.action': '动作/反应类',
+            'web.game.pacman': '吃豆人 Pacman',
+            'web.game.dino': '恐龙游戏 Dino Runner',
+            'web.game.strategy': '策略/经典游戏',
+            'web.game.chess': '国际象棋',
+            'web.game.tictactoe': '井字棋 TicTacToe',
+            'web.game.fun': '趣味与创新小游戏',
+            'web.game.hexgl': '未来赛车 HexGL',
+            'web.game.linerider': '画轨道 Line Rider',
+
             'guide.back': '← 返回上一级',
-            'guide.toc': '目录',
+            'guide.home': '返回首页',
+            'guide.toc': '大纲',
             'guide.title': '新手引导',
             'guide.h2.read': '1. 阅读悉知',
             'guide.h3.notes': '1.1. 注意事项',
@@ -194,7 +262,45 @@ header .lang-toggle {
             'guide.h4.jyt': '1.2.1. 关于 JiYuTrainer',
             'guide.h4.idm': '1.2.2. 关于 IDM（Internet Download Manager）',
             'guide.h4.mc': '1.2.3. 关于 Minecraft 整合包',
-            'guide.h4.huang': '1.2.4. 关于 huang1111 网盘',
+            'guide.h4.mod': '1.2.4. 关于模组',
+            'guide.h4.resourcepack': '1.2.5. 关于资源包/光影包/数据包',
+            'guide.h4.huang': '1.2.6. 关于 huang1111 网盘',
+            'guide.mod.p1': '考虑到网络连接问题，于是上线模组资源下载。',
+            'guide.mod.p2': '以下列举了新上线的精选模组：',
+            'guide.mod.p3': '你说要模组的功能以及关系（必选/可选的支持库）吗，只能上 <a href="https://modrinth.com" target="_blank">modrinth</a> / <a href="https://www.curseforge.com" target="_blank">curseforge</a> 去查找了，不过这些模组的兼容性无须担忧哈~',
+            'guide.mod.p4': '好消息是：你直接在 HMCL 上看不就行了……',
+            'guide.rp.p1': '考虑到网络连接问题，于是上线资源包/光影包/数据包资源下载。',
+            'guide.rp.p2': '以下列举了新上线的精选资源包：',
+            'guide.rp.p3': '以下列举了新上线的精选光影包：',
+            'guide.rp.p4': '以下列举了新上线的精选数据包：',
+            'guide.mod.appleskin': 'AppleSkin (苹果皮)',
+            'guide.mod.craftingtweaks': 'Crafting Tweaks (合成辅助)',
+            'guide.mod.ferritecore': 'FerriteCore (铁氧体磁芯)',
+            'guide.mod.jade': 'Jade (玉)',
+            'guide.mod.jechars': 'Just Enough Characters (通用拼音搜索)',
+            'guide.mod.jei': 'Just Enough Items (JEI物品管理器)',
+            'guide.mod.journeymap': 'Journeymap (旅行地图)',
+            'guide.mod.lambdynamiclights': 'LambDynamicLights (Lambd的动态光源)',
+            'guide.mod.litematica': 'Litematica (投影)',
+            'guide.mod.lithium': 'Lithium (锂)',
+            'guide.mod.minihud': 'MiniHUD (迷你HUD)',
+            'guide.mod.modmenu': 'Mod Menu (模组菜单)',
+            'guide.mod.mousetweaks': 'Mouse Tweaks (鼠标手势)',
+            'guide.mod.nochatreports': 'No Chat Reports (禁用聊天举报)',
+            'guide.mod.notenoughanimations': 'NotEnoughAnimations (更多动画)',
+            'guide.mod.placeholderapi': 'Placeholder API (文本占位符 API)',
+            'guide.mod.reesesodium': "Reese's Sodium Options (Reese的钠视频界面)",
+            'guide.mod.replaymod': 'Replay Mod (录像回放)',
+            'guide.mod.sodiumextra': 'Sodium Extra (钠 · 扩展)',
+            'guide.mod.sodium': 'Sodium (钠)',
+            'guide.mod.veinminer': 'Veinminer (连锁采矿/矿脉矿工)',
+            'guide.mod.worldedit': 'WorldEdit (创世神)',
+            'guide.rp.fullbright': 'Fullbright UB（全亮）',
+            'guide.rp.xkredstone': 'XK Redstone Display（XK红显）',
+            'guide.rp.xray': 'Xray Ultimate（矿透）',
+            'guide.rp.protecteyes': 'Protect Your Eyes（护眼大补丸）',
+            'guide.rp.iterationt': 'iterationT 3.2.0（性能开销较大）',
+            'guide.rp.tpa': 'TPA（传送）',
             'guide.h2.download': '2. 下载安装 &amp; 使用步骤',
             'guide.h3.dlsteps': '2.1. 下载步骤',
             'guide.h4.idmsteps': '2.1.1. 使用 IDM 的下载安装步骤',
@@ -209,7 +315,7 @@ header .lang-toggle {
             'guide.h3.loadworld': '2.4. 如何加载世界',
             'guide.h3.server': '2.5. 如何加入服务器',
             'guide.h2.thanks': '3. 鸣谢',
-            // guide feature cards (h5)
+
             'guide.fc1': '下载速度加速',
             'guide.fc2': '从你喜欢的网站下载文件',
             'guide.fc3': '所有流行的浏览器都被支持',
@@ -231,7 +337,7 @@ header .lang-toggle {
             'guide.fc19': 'IDM 支持主要认证协议：Basic、Negotiate、NTLM 和 Kerberos',
             'guide.fc20': '拖放',
             'guide.fc21': '高级浏览器集成',
-            // guide body content
+
             'guide.intro.skip': '你可以阅读本章，这对你有很大帮助。当然你也可以直接跳转到<strong>下载安装&amp;使用步骤</strong>那里。',
             'guide.jyt.p1': 'JiYuTrainer 是 imengyu（快乐的梦鱼）在 github 上的一个开源项目（<a href="https://github.com/imengyu/JiYuTrainer" target="_blank">https://github.com/imengyu/JiYuTrainer</a>）。',
             'guide.jyt.intro': '以下是原网页介绍（已停止更新）：',
@@ -348,10 +454,10 @@ header .lang-toggle {
         },
 
         'zh-TW': {
-            // ---- 通用 ----
+
             'common.back': '← 返回首頁',
             'common.dl': '前往下載',
-            // ---- index.html ----
+
             'index.logo': '淵之魚冥下載站',
             'index.nav.home': '首頁',
             'index.nav.mc': 'Minecraft 專區',
@@ -359,29 +465,33 @@ header .lang-toggle {
             'index.nav.web': '常用網站',
             'index.nav.guide': '新手引導',
             'index.nav.about': '關於本站',
-            'index.notice': '<span class="notice-icon">📢</span>\n<span><strong>新站上線！</strong> 所有資源已遷移至本站，後續更新請關注這裡，感謝支持！</span>',
+            'index.notice': '<svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l15-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><line x1="2" y1="6" x2="2" y2="18"/></svg>\n<span><strong>自動下載程式開啟公測！</strong> 歡迎前來測試！</span>',
             'index.title': '淵之魚冥檔案下載站',
             'index.subhead': '—— 專為校園資訊課與遊戲愛好者準備 ——',
             'index.intro1': '歡迎來到 <strong>淵之魚冥</strong> 的個人檔案倉庫！本站專注收錄各類實用資源，核心為 <strong>Minecraft 遊戲資源</strong>，同時涵蓋常用工具、擴充包及校園資訊課必備軟體。',
             'index.intro2': '所有檔案均經過精心整理，適配學校機房環境（無音訊、輕量化、免安裝），無需登入即可高速下載，讓您的資訊課體驗更流暢、更自由。',
-            'index.intro3': '👇 點擊下方按鈕，快速進入 <strong>Minecraft 資源專區</strong>，獲取您需要的資源！',
+            'index.intro3': '👇 點擊下方<strong>「極速開始」</strong>按鈕，下載自動下載程式吧！',
             'index.faststart': '極速開始',
             'index.fasthint': '一鍵下載 自動下載程式(Specified).exe',
             'index.btn.mc': 'Minecraft 相關',
             'index.btn.study': '學習資源',
             'index.btn.web': '常用網站',
             'index.footer': '© 2026 YuanZhiYuMing · 站點由 <a href="https://pages.github.com/" target="_blank">Github Pages</a> 驅動',
-            // ---- index.html about ----
+
             'index.about.title': '關於本站',
-            'index.about.card1.title': '關於本站',
-            'index.about.card1.text': '淵之魚冥下載站是 GitHub 賬戶 YuanZhiYuMing 的 Pages 站點，專門為 SHSSIP 資訊課設計，整合了啟動 Minecraft 所需的全部資源，包含極域控制、多執行緒下載器、遊戲整合包與資源包，無需登入即可高速下載。',
-            'index.about.card2.title': '核心功能',
-            'index.about.card2.text': '整合極域控制（JiYuTrainer）、多執行緒下載加速（IDM）、Minecraft 1.21.11 遊戲整合包與資源包，適配學校機房環境（無音訊、輕量化、免安裝），讓資訊課體驗更流暢、更自由。',
-            'index.about.card3.title': '技術特性',
-            'index.about.card3.text': '採用毛玻璃（Glassmorphism）介面設計，支援明暗主題自動切換與中/繁/英三語，多執行緒加速下載，所有檔案輕量化免安裝執行，由 GitHub Pages 驅動，安全可靠。',
-            'index.about.card4.title': '聯絡作者',
-            'index.about.card4.text': 'QQ：3860517347 · 微信：stardragon142857<br/>如有問題、建議或合作，歡迎隨時聯絡！',
-            // ---- minecraft.html ----
+            'index.about.card1.title': '關於本網頁',
+            'index.about.card1.text': '本網頁是 yuanzhiyuming.github.io，是 GitHub 賬戶 YuanZhiYuMing 的 GitHub Pages。網頁採用毛玻璃設計，簡約美觀。',
+            'index.about.card2.title': 'Minecraft 板塊',
+            'index.about.card2.text': '將資訊課啟動 Minecraft 所要用到的全部檔案進行整合，包含極域控制、多執行緒下載、Minecraft 遊戲和資源包，專門為 SHSSIP 的資訊課設計。',
+            'index.about.card3.title': '學習資源',
+            'index.about.card3.text': '點擊「學習資源」，這裡分享了 2026 初高中蘇州用新教材的電子檔，免費無償分享，歡迎大家下載。',
+            'index.about.card4.title': '網址導航',
+            'index.about.card4.text': '包含了一些常用網站，如 huang1111 網盤、123 網盤、藍奏雲等（持續更新中），以及 Minecraft 網頁版（eaglercraft.ir/mcjs.cc），一個存取不上就換另一個試試。此外還有 HTML 小遊戲合集，包括休閒益智、動作反應、策略經典等多種類型，Crazygames 平台首選。',
+            'index.about.card5.title': '極速開始',
+            'index.about.card5.text': '近期更新了「極速開始」功能，點擊下載自動下載程式，執行即可開始多執行緒下載，速度更快。本軟體目前處於測試階段，歡迎回饋問題。僅支援 Windows 系統，下載特定資源：Minecraft 1.21.11 精簡版。',
+            'index.about.card6.title': '備用網站 & 聯絡',
+            'index.about.card6.text': '若 github.io 不能存取請存取我的備用網站：https://yzym.netlify.app （更新不一定及時）。作者 QQ：3860517347，微信：stardragon142857',
+
             'mc.title': 'Minecraft 1.21.11 資源下載',
             'mc.subtitle': '專為學校資訊課打造',
             'mc.guide': '新手引導',
@@ -395,14 +505,14 @@ header .lang-toggle {
             'mc.f7': 'Datapacks(資料包)',
             'mc.f8': 'BUILDING_hmcl_1.21.11.exe(建築黨整合包)',
             'mc.f9': '1.21.11-Fabric.exe(含 Fabric 載入器的整合包)',
-            // ---- study.html ----
+
             'study.title': '學習資源下載',
             'study.subtitle': '專為校園學習準備',
             'study.f1': '2026初高中新教材',
-            // ---- website.html ----
+
             'web.title': '常用網站導航',
             'web.subtitle': '精選實用網站，一鍵直達',
-            'web.section': '🎮 Minecraft 網頁版',
+            'web.section': 'Minecraft 網頁版',
             'web.label.site': '選擇站點：',
             'web.label.version': '選擇版本：',
             'web.go': '前往遊玩',
@@ -422,9 +532,31 @@ header .lang-toggle {
             'web.alert.nomc120': '1.20 版網址尚未配置。',
             'web.s1': 'huang1111 網盤',
             'web.s2': '123 網盤',
-            // ---- guide.html ----
+            'web.s3': '藍奏雲',
+            'web.cloud': '雲盤',
+            'web.game': '小遊戲合集',
+            'web.game.open': '開放小遊戲平台',
+            'web.game.crazy': 'Crazygames',
+            'web.game.html5games': 'HTML5 Games 集合',
+            'web.game.js13k': 'js13kGames 大賽作品',
+            'web.game.casual': '休閒益智類',
+            'web.game.2048': '2048 經典版',
+            'web.game.doge2048': '2048 Doge 版',
+            'web.game.solitaire': '紙牌接龍 Solitaire',
+            'web.game.sudoku': '數獨 Sudoku',
+            'web.game.action': '動作/反應類',
+            'web.game.pacman': '吃豆人 Pacman',
+            'web.game.dino': '恐龍遊戲 Dino Runner',
+            'web.game.strategy': '策略/經典遊戲',
+            'web.game.chess': '國際象棋',
+            'web.game.tictactoe': '井字棋 TicTacToe',
+            'web.game.fun': '趣味與創新小遊戲',
+            'web.game.hexgl': '未來賽車 HexGL',
+            'web.game.linerider': '畫軌道 Line Rider',
+
             'guide.back': '← 返回上一級',
-            'guide.toc': '目錄',
+            'guide.home': '返回首頁',
+            'guide.toc': '大綱',
             'guide.title': '新手引導',
             'guide.h2.read': '1. 閱讀悉知',
             'guide.h3.notes': '1.1. 注意事項',
@@ -434,7 +566,45 @@ header .lang-toggle {
             'guide.h4.jyt': '1.2.1. 關於 JiYuTrainer',
             'guide.h4.idm': '1.2.2. 關於 IDM（Internet Download Manager）',
             'guide.h4.mc': '1.2.3. 關於 Minecraft 整合包',
-            'guide.h4.huang': '1.2.4. 關於 huang1111 網盤',
+            'guide.h4.mod': '1.2.4. 關於模組',
+            'guide.h4.resourcepack': '1.2.5. 關於資源包/光影包/資料包',
+            'guide.h4.huang': '1.2.6. 關於 huang1111 網盤',
+            'guide.mod.p1': '考慮到網路連線問題，於是上線模組資源下載。',
+            'guide.mod.p2': '以下列舉了新上線的精選模組：',
+            'guide.mod.p3': '你說要模組的功能以及關係（必選/可選的支援庫）嗎，只能上 <a href="https://modrinth.com" target="_blank">modrinth</a> / <a href="https://www.curseforge.com" target="_blank">curseforge</a> 去查找了，不過這些模組的相容性無須擔憂哈~',
+            'guide.mod.p4': '好消息是：你直接在 HMCL 上看不就行了……',
+            'guide.rp.p1': '考慮到網路連線問題，於是上線資源包/光影包/資料包資源下載。',
+            'guide.rp.p2': '以下列舉了新上線的精選資源包：',
+            'guide.rp.p3': '以下列舉了新上線的精選光影包：',
+            'guide.rp.p4': '以下列舉了新上線的精選資料包：',
+            'guide.mod.appleskin': 'AppleSkin (蘋果皮)',
+            'guide.mod.craftingtweaks': 'Crafting Tweaks (合成輔助)',
+            'guide.mod.ferritecore': 'FerriteCore (鐵氧體磁芯)',
+            'guide.mod.jade': 'Jade (玉)',
+            'guide.mod.jechars': 'Just Enough Characters (通用拼音搜尋)',
+            'guide.mod.jei': 'Just Enough Items (JEI物品管理器)',
+            'guide.mod.journeymap': 'Journeymap (旅行地圖)',
+            'guide.mod.lambdynamiclights': 'LambDynamicLights (Lambd的動態光源)',
+            'guide.mod.litematica': 'Litematica (投影)',
+            'guide.mod.lithium': 'Lithium (鋰)',
+            'guide.mod.minihud': 'MiniHUD (迷你HUD)',
+            'guide.mod.modmenu': 'Mod Menu (模組選單)',
+            'guide.mod.mousetweaks': 'Mouse Tweaks (滑鼠手勢)',
+            'guide.mod.nochatreports': 'No Chat Reports (禁用聊天檢舉)',
+            'guide.mod.notenoughanimations': 'NotEnoughAnimations (更多動畫)',
+            'guide.mod.placeholderapi': 'Placeholder API (文字佔位符 API)',
+            'guide.mod.reesesodium': "Reese's Sodium Options (Reese的鈉影片介面)",
+            'guide.mod.replaymod': 'Replay Mod (錄影回放)',
+            'guide.mod.sodiumextra': 'Sodium Extra (鈉 · 擴展)',
+            'guide.mod.sodium': 'Sodium (鈉)',
+            'guide.mod.veinminer': 'Veinminer (連鎖採礦/礦脈礦工)',
+            'guide.mod.worldedit': 'WorldEdit (創世神)',
+            'guide.rp.fullbright': 'Fullbright UB（全亮）',
+            'guide.rp.xkredstone': 'XK Redstone Display（XK紅顯）',
+            'guide.rp.xray': 'Xray Ultimate（礦透）',
+            'guide.rp.protecteyes': 'Protect Your Eyes（護眼大補丸）',
+            'guide.rp.iterationt': 'iterationT 3.2.0（效能開銷較大）',
+            'guide.rp.tpa': 'TPA（傳送）',
             'guide.h2.download': '2. 下載安裝 &amp; 使用步驟',
             'guide.h3.dlsteps': '2.1. 下載步驟',
             'guide.h4.idmsteps': '2.1.1. 使用 IDM 的下載安裝步驟',
@@ -470,7 +640,7 @@ header .lang-toggle {
             'guide.fc19': 'IDM 支援主要認證協議：Basic、Negotiate、NTLM 和 Kerberos',
             'guide.fc20': '拖放',
             'guide.fc21': '進階瀏覽器整合',
-            // guide body content
+
             'guide.intro.skip': '你可以閱讀本章，這對你有很大幫助。當然你也可以直接跳轉到<strong>下載安裝&amp;使用步驟</strong>那裡。',
             'guide.jyt.p1': 'JiYuTrainer 是 imengyu（快樂的夢魚）在 github 上的一個開源專案（<a href="https://github.com/imengyu/JiYuTrainer" target="_blank">https://github.com/imengyu/JiYuTrainer</a>）。',
             'guide.jyt.intro': '以下是原網頁介紹（已停止更新）：',
@@ -587,10 +757,10 @@ header .lang-toggle {
         },
 
         'en': {
-            // ---- common ----
+
             'common.back': '← Back to Home',
             'common.dl': 'Download',
-            // ---- index.html ----
+
             'index.logo': 'YuanZhiYuMing Downloads',
             'index.nav.home': 'Home',
             'index.nav.mc': 'Minecraft',
@@ -598,29 +768,33 @@ header .lang-toggle {
             'index.nav.web': 'Websites',
             'index.nav.guide': 'Beginner Guide',
             'index.nav.about': 'About',
-            'index.notice': '<span class="notice-icon">📢</span>\n<span><strong>New site launched!</strong> All resources have been migrated here. Follow for future updates. Thanks for your support!</span>',
+            'index.notice': '<svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l15-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><line x1="2" y1="6" x2="2" y2="18"/></svg>\n<span><strong>Auto-downloader public beta is open!</strong> Welcome to test it!</span>',
             'index.title': 'YuanZhiYuMing File Download Hub',
             'index.subhead': '—— For campus IT classes & game enthusiasts ——',
             'index.intro1': 'Welcome to <strong>YuanZhiYuMing</strong>\'s personal file repository! This site focuses on practical resources, primarily <strong>Minecraft game assets</strong>, along with common tools, extension packs, and essential software for campus IT classes.',
             'index.intro2': 'All files are carefully organized and optimized for school computer lab environments (no audio, lightweight, portable). No login required for high-speed downloads, making your IT class experience smoother and freer.',
-            'index.intro3': '👇 Click the buttons below to quickly enter the <strong>Minecraft Resource Hub</strong> and get what you need!',
+            'index.intro3': '👇 Click the <strong>"Quick Start"</strong> button below to download the auto-downloader!',
             'index.faststart': 'Quick Start',
             'index.fasthint': 'One-click download Auto Downloader (Specified).exe',
             'index.btn.mc': 'Minecraft',
             'index.btn.study': 'Study Resources',
             'index.btn.web': 'Websites',
             'index.footer': '© 2026 YuanZhiYuMing · Powered by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>',
-            // ---- index.html about ----
+
             'index.about.title': 'About This Site',
             'index.about.card1.title': 'About This Site',
-            'index.about.card1.text': 'YuanZhiYuMing Download Centre is a GitHub Pages site designed for SHSSIP IT classes, integrating all resources needed to launch Minecraft, including JiYuTrainer, multi-thread downloader, game packs and resource packs — no login required.',
-            'index.about.card2.title': 'Core Features',
-            'index.about.card2.text': 'JiYuTrainer (classroom control bypass), IDM multi-thread download acceleration, Minecraft 1.21.11 game packs and resource packs. Optimized for school computer labs (no audio, lightweight, portable).',
-            'index.about.card3.title': 'Tech Highlights',
-            'index.about.card3.text': 'Glassmorphism UI design, dark/light theme switching, trilingual support (CN/TC/EN), multi-threaded download acceleration, portable lightweight files, powered by GitHub Pages.',
-            'index.about.card4.title': 'Contact',
-            'index.about.card4.text': 'QQ: 3860517347 · WeChat: stardragon142857<br/>Feel free to reach out with questions, suggestions or collaborations!',
-            // ---- minecraft.html ----
+            'index.about.card1.text': 'This site is yuanzhiyuming.github.io, the GitHub Pages of the GitHub account YuanZhiYuMing. The site uses a glassmorphism design — clean and elegant.',
+            'index.about.card2.title': 'Minecraft Section',
+            'index.about.card2.text': 'Integrates all files needed to launch Minecraft in IT class, including JiYuTrainer (classroom control bypass), multi-thread download, the Minecraft game and resource packs — designed specifically for SHSSIP IT classes.',
+            'index.about.card3.title': 'Study Resources',
+            'index.about.card3.text': 'Click "Study Resources" to find the 2026 middle & high school new textbooks (Suzhou edition) in digital form — shared for free, everyone is welcome to download.',
+            'index.about.card4.title': 'Website Directory',
+            'index.about.card4.text': 'Includes common websites such as huang1111 Cloud, 123 Cloud, Lanzou Cloud (continuously updated), plus Minecraft web editions (eaglercraft.ir / mcjs.cc) — if one fails, try another. Also features an HTML mini games collection with casual, action, strategy and classic games, with Crazygames as the top platform choice.',
+            'index.about.card5.title': 'Quick Start',
+            'index.about.card5.text': 'Recently added the "Quick Start" feature — click to download the auto-downloader, run it to start multi-thread downloading at higher speeds. This software is currently in beta; feedback is welcome. Windows only; downloads a specific resource: Minecraft 1.21.11 slim edition.',
+            'index.about.card6.title': 'Backup Site & Contact',
+            'index.about.card6.text': 'If github.io is inaccessible, visit my backup site: https://yzym.netlify.app (updates may be delayed). Author QQ: 3860517347, WeChat: stardragon142857',
+
             'mc.title': 'Minecraft 1.21.11 Downloads',
             'mc.subtitle': 'Built for school IT classes',
             'mc.guide': 'Beginner Guide',
@@ -634,14 +808,14 @@ header .lang-toggle {
             'mc.f7': 'Datapacks',
             'mc.f8': 'BUILDING_hmcl_1.21.11.exe (Builder Pack)',
             'mc.f9': '1.21.11-Fabric.exe (Fabric Modded Pack)',
-            // ---- study.html ----
+
             'study.title': 'Study Resources',
             'study.subtitle': 'For campus learning',
             'study.f1': '2026 Middle & High School New Textbooks',
-            // ---- website.html ----
+
             'web.title': 'Useful Websites',
             'web.subtitle': 'Curated useful websites, one click away',
-            'web.section': '🎮 Minecraft Web',
+            'web.section': 'Minecraft Web',
             'web.label.site': 'Select site:',
             'web.label.version': 'Select version:',
             'web.go': 'Play Now',
@@ -661,9 +835,31 @@ header .lang-toggle {
             'web.alert.nomc120': '1.20 version URL not configured.',
             'web.s1': 'huang1111 Cloud',
             'web.s2': '123 Cloud',
-            // ---- guide.html ----
+            'web.s3': 'Lanzou Cloud',
+            'web.cloud': 'Cloud Storage',
+            'web.game': 'Mini Games Collection',
+            'web.game.open': 'Open Game Platforms',
+            'web.game.crazy': 'Crazygames',
+            'web.game.html5games': 'HTML5 Games Collection',
+            'web.game.js13k': 'js13kGames Contest Entries',
+            'web.game.casual': 'Casual & Puzzle',
+            'web.game.2048': '2048 Classic',
+            'web.game.doge2048': '2048 Doge',
+            'web.game.solitaire': 'Solitaire',
+            'web.game.sudoku': 'Sudoku',
+            'web.game.action': 'Action & Arcade',
+            'web.game.pacman': 'Pacman',
+            'web.game.dino': 'Dino Runner',
+            'web.game.strategy': 'Strategy & Classic',
+            'web.game.chess': 'Chess',
+            'web.game.tictactoe': 'TicTacToe',
+            'web.game.fun': 'Fun & Innovative',
+            'web.game.hexgl': 'HexGL',
+            'web.game.linerider': 'Line Rider',
+
             'guide.back': '← Back',
-            'guide.toc': 'Contents',
+            'guide.home': 'Home',
+            'guide.toc': 'Outline',
             'guide.title': 'Beginner Guide',
             'guide.h2.read': '1. Read Me First',
             'guide.h3.notes': '1.1. Important Notes',
@@ -673,7 +869,45 @@ header .lang-toggle {
             'guide.h4.jyt': '1.2.1. About JiYuTrainer',
             'guide.h4.idm': '1.2.2. About IDM (Internet Download Manager)',
             'guide.h4.mc': '1.2.3. About Minecraft Modpack',
-            'guide.h4.huang': '1.2.4. About huang1111 Cloud',
+            'guide.h4.mod': '1.2.4. About Mods',
+            'guide.h4.resourcepack': '1.2.5. About Resource Packs/Shaders/Data Packs',
+            'guide.h4.huang': '1.2.6. About huang1111 Cloud',
+            'guide.mod.p1': 'Considering network connectivity issues, mod resource downloads are now available.',
+            'guide.mod.p2': 'The following lists the newly available featured mods:',
+            'guide.mod.p3': 'Want to know about mod features and dependencies (required/optional support libraries)? You can look them up on <a href="https://modrinth.com" target="_blank">modrinth</a> / <a href="https://www.curseforge.com" target="_blank">curseforge</a>, but don\'t worry about compatibility~',
+            'guide.mod.p4': 'Good news: you can just check them directly in HMCL...',
+            'guide.rp.p1': 'Considering network connectivity issues, resource pack/shader/data pack downloads are now available.',
+            'guide.rp.p2': 'The following lists the newly available featured resource packs:',
+            'guide.rp.p3': 'The following lists the newly available featured shaders:',
+            'guide.rp.p4': 'The following lists the newly available featured data packs:',
+            'guide.mod.appleskin': 'AppleSkin',
+            'guide.mod.craftingtweaks': 'Crafting Tweaks',
+            'guide.mod.ferritecore': 'FerriteCore',
+            'guide.mod.jade': 'Jade',
+            'guide.mod.jechars': 'Just Enough Characters',
+            'guide.mod.jei': 'Just Enough Items',
+            'guide.mod.journeymap': 'Journeymap',
+            'guide.mod.lambdynamiclights': 'LambDynamicLights',
+            'guide.mod.litematica': 'Litematica',
+            'guide.mod.lithium': 'Lithium',
+            'guide.mod.minihud': 'MiniHUD',
+            'guide.mod.modmenu': 'Mod Menu',
+            'guide.mod.mousetweaks': 'Mouse Tweaks',
+            'guide.mod.nochatreports': 'No Chat Reports',
+            'guide.mod.notenoughanimations': 'NotEnoughAnimations',
+            'guide.mod.placeholderapi': 'Placeholder API',
+            'guide.mod.reesesodium': "Reese's Sodium Options",
+            'guide.mod.replaymod': 'Replay Mod',
+            'guide.mod.sodiumextra': 'Sodium Extra',
+            'guide.mod.sodium': 'Sodium',
+            'guide.mod.veinminer': 'Veinminer',
+            'guide.mod.worldedit': 'WorldEdit',
+            'guide.rp.fullbright': 'Fullbright UB',
+            'guide.rp.xkredstone': 'XK Redstone Display',
+            'guide.rp.xray': 'Xray Ultimate',
+            'guide.rp.protecteyes': 'Protect Your Eyes',
+            'guide.rp.iterationt': 'iterationT 3.2.0 (high performance cost)',
+            'guide.rp.tpa': 'TPA',
             'guide.h2.download': '2. Download, Install & Usage',
             'guide.h3.dlsteps': '2.1. Download Steps',
             'guide.h4.idmsteps': '2.1.1. Using IDM',
@@ -709,7 +943,7 @@ header .lang-toggle {
             'guide.fc19': 'IDM Supports Major Auth Protocols: Basic, Negotiate, NTLM, Kerberos',
             'guide.fc20': 'Drag & Drop',
             'guide.fc21': 'Advanced Browser Integration',
-            // guide body content
+
             'guide.intro.skip': 'You can read this chapter; it will help you a lot. Of course, you can also jump directly to the <strong>Download, Install &amp; Usage</strong> section.',
             'guide.jyt.p1': 'JiYuTrainer is an open-source project on GitHub by imengyu (Happy Dream Fish) (<a href="https://github.com/imengyu/JiYuTrainer" target="_blank">https://github.com/imengyu/JiYuTrainer</a>).',
             'guide.jyt.intro': 'The following is the description from the original webpage (no longer updated):',
@@ -823,10 +1057,615 @@ header .lang-toggle {
             'guide.thanks.l4': 'Thanks to huang1111 Cloud;',
             'guide.thanks.l5': 'Thanks to HMCL. For detailed documentation, see <a href="https://docs.hmcl.net/" target="_blank">Beginner Guide - HMCL Documentation</a>;',
             'guide.thanks.l6': 'No thanks to Mojang Studios!',
+        },
+
+        'ru': {
+
+            'common.back': '← На главную',
+            'common.dl': 'Скачать',
+
+            'index.logo': 'YuanZhiYuMing Загрузки',
+            'index.nav.home': 'Главная',
+            'index.nav.mc': 'Minecraft',
+            'index.nav.study': 'Учебные ресурсы',
+            'index.nav.web': 'Сайты',
+            'index.nav.guide': 'Руководство для новичков',
+            'index.nav.about': 'О сайте',
+            'index.notice': '<svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l15-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><line x1="2" y1="6" x2="2" y2="18"/></svg>\n<span><strong>Открыто открытое бета-тестирование авто-загрузчика!</strong> Приглашаем тестировать!</span>',
+            'index.title': 'YuanZhiYuMing Центр загрузок',
+            'index.subhead': '—— Для школьных уроков информатики и любителей игр ——',
+            'index.intro1': 'Добро пожаловать в личный файловый репозиторий <strong>YuanZhiYuMing</strong>! Этот сайт посвящён практическим ресурсам, в первую очередь <strong>игровым ресурсам Minecraft</strong>, а также полезным инструментам, пакетам расширений и необходимому ПО для школьных уроков информатики.',
+            'index.intro2': 'Все файлы тщательно организованы и оптимизированы для школьных компьютерных классов (без звука, лёгкие, портативные). Для загрузки на высокой скорости регистрация не требуется — это сделает уроки информатики удобнее и свободнее.',
+            'index.intro3': '👇 Нажмите кнопку <strong>«Быстрый старт»</strong> ниже, чтобы скачать авто-загрузчик!',
+            'index.faststart': 'Быстрый старт',
+            'index.fasthint': 'Загрузка в один клик Auto Downloader (Specified).exe',
+            'index.btn.mc': 'Minecraft',
+            'index.btn.study': 'Учебные ресурсы',
+            'index.btn.web': 'Сайты',
+            'index.footer': '© 2026 YuanZhiYuMing · Работает на <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>',
+
+            'index.about.title': 'О сайте',
+            'index.about.card1.title': 'О сайте',
+            'index.about.card1.text': 'Этот сайт — yuanzhiyuming.github.io, GitHub Pages учётной записи GitHub YuanZhiYuMing. Сайт выполнен в стиле glassmorphism — чистый и элегантный.',
+            'index.about.card2.title': 'Раздел Minecraft',
+            'index.about.card2.text': 'Объединяет все файлы, необходимые для запуска Minecraft на уроке информатики, включая JiYuTrainer (обход контроля класса), многопоточную загрузку, игру Minecraft и ресурспаки — разработано специально для уроков информатики SHSSIP.',
+            'index.about.card3.title': 'Учебные ресурсы',
+            'index.about.card3.text': 'Нажмите «Учебные ресурсы», чтобы найти новые учебники 2026 для средней и старшей школы (издание Сучжоу) в электронном виде — доступны бесплатно, скачивание приветствуется.',
+            'index.about.card4.title': 'Каталог сайтов',
+            'index.about.card4.text': 'Включает полезные сайты, такие как huang1111 Cloud, 123 Cloud, Lanzou Cloud (постоянно обновляется), а также веб-версии Minecraft (eaglercraft.ir / mcjs.cc) — если одна не работает, попробуйте другую. Также есть коллекция HTML мини-игр с казуальными, экшн, стратегическими и классическими играми, с Crazygames как основной платформой.',
+            'index.about.card5.title': 'Быстрый старт',
+            'index.about.card5.text': 'Недавно добавлена функция «Быстрый старт» — нажмите, чтобы скачать авто-загрузчик, запустите его для многопоточной загрузки на более высокой скорости. Программа пока в бета-версии; отзывы приветствуются. Только для Windows; загружает конкретный ресурс: Minecraft 1.21.11 облегчённая версия.',
+            'index.about.card6.title': 'Резервный сайт и контакты',
+            'index.about.card6.text': 'Если github.io недоступен, посетите резервный сайт: https://yzym.netlify.app (обновления могут задерживаться). Автор QQ: 3860517347, WeChat: stardragon142857',
+
+            'mc.title': 'Загрузки Minecraft 1.21.11',
+            'mc.subtitle': 'Создано для школьных уроков информатики',
+            'mc.guide': 'Руководство для новичков',
+            'mc.alert': 'Если вы здесь впервые, пожалуйста, прочтите руководство для новичков.',
+            'mc.f1': 'SURVIVAL_hmcl_1.21.11.exe (Стандартный пакет)',
+            'mc.f2': 'idman642build63.exe (Установщик IDM Downloader)',
+            'mc.f3': 'JiYuTrainer (Взлом контроля класса)',
+            'mc.f4': 'Resourcepacks',
+            'mc.f5': 'Shaderpacks',
+            'mc.f6': 'Mods',
+            'mc.f7': 'Datapacks',
+            'mc.f8': 'BUILDING_hmcl_1.21.11.exe (Пакет строителя)',
+            'mc.f9': '1.21.11-Fabric.exe (Пакет с Fabric)',
+
+            'study.title': 'Учебные ресурсы',
+            'study.subtitle': 'Для школьного обучения',
+            'study.f1': 'Новые учебники 2026 для средней и старшей школы',
+
+            'web.title': 'Полезные сайты',
+            'web.subtitle': 'Подборка полезных сайтов в один клик',
+            'web.section': 'Веб-версия Minecraft',
+            'web.label.site': 'Выберите сайт:',
+            'web.label.version': 'Выберите версию:',
+            'web.go': 'Играть',
+            'web.visit': 'Перейти',
+            'web.mc120.name': 'Веб-версия Minecraft 1.20',
+            'web.mc120.desc': 'На ядре 1.8.8, только для демонстрации',
+            'web.mirror.title': 'Выберите узел доступа',
+            'web.mirror.desc': 'Если основной сайт недоступен, попробуйте зеркала',
+            'web.mirror.main': 'Основной',
+            'web.mirror.m1': 'Зеркало 1',
+            'web.mirror.m2': 'Зеркало 2',
+            'web.mirror.m3': 'Зеркало 3 (IPv6)',
+            'web.mirror.cancel': 'Отмена',
+            'web.mirror.confirm': 'Перейти',
+            'web.alert.nocfg': 'URL для этого варианта не настроен.',
+            'web.alert.noeagler': 'URL для eaglercraft.ir не настроен.',
+            'web.alert.nomc120': 'URL для версии 1.20 не настроен.',
+            'web.s1': 'huang1111 Cloud',
+            'web.s2': '123 Cloud',
+            'web.s3': 'Lanzou Cloud',
+            'web.cloud': 'Облачные хранилища',
+            'web.game': 'Коллекция мини-игр',
+            'web.game.open': 'Открытые игровые платформы',
+            'web.game.crazy': 'Crazygames',
+            'web.game.html5games': 'HTML5 Games Collection',
+            'web.game.js13k': 'js13kGames Contest Entries',
+            'web.game.casual': 'Казуальные и головоломки',
+            'web.game.2048': '2048 Classic',
+            'web.game.doge2048': '2048 Doge',
+            'web.game.solitaire': 'Solitaire',
+            'web.game.sudoku': 'Sudoku',
+            'web.game.action': 'Экшн и аркада',
+            'web.game.pacman': 'Pacman',
+            'web.game.dino': 'Dino Runner',
+            'web.game.strategy': 'Стратегии и классика',
+            'web.game.chess': 'Chess',
+            'web.game.tictactoe': 'TicTacToe',
+            'web.game.fun': 'Забавные и инновационные',
+            'web.game.hexgl': 'HexGL',
+            'web.game.linerider': 'Line Rider',
+
+            'guide.back': '← Назад',
+            'guide.home': 'На главную',
+            'guide.toc': 'Содержание',
+            'guide.title': 'Руководство для новичков',
+            'guide.h2.read': '1. Сначала прочтите',
+            'guide.h3.notes': '1.1. Важные замечания',
+            'guide.note1': 'Обратите внимание: чтение этого руководства займёт некоторое время. Если вы сейчас на уроке информатики, вернитесь и сначала скачайте «JiYuTrainer.exe» и «Survival_MC1.21.11».',
+            'guide.note2': '<strong>⚠️ Если вы сейчас на уроке информатики, вернитесь и сначала скачайте «<u>JiYuTrainer.exe</u>» и «<u>Survival_MC1.21.11</u>».</strong>',
+            'guide.h3.intro': '1.2. Введение',
+            'guide.h4.jyt': '1.2.1. О JiYuTrainer',
+            'guide.h4.idm': '1.2.2. Об IDM (Internet Download Manager)',
+            'guide.h4.mc': '1.2.3. О сборке Minecraft',
+            'guide.h4.mod': '1.2.4. О модах',
+            'guide.h4.resourcepack': '1.2.5. О ресурс-паках/шейдерах/дата-паках',
+            'guide.h4.huang': '1.2.6. О huang1111 Cloud',
+            'guide.mod.p1': 'Учитывая проблемы с сетевым подключением, мы запустили загрузку модов.',
+            'guide.mod.p2': 'Ниже перечислены новые избранные моды:',
+            'guide.mod.p3': 'Хотите узнать о функциях и зависимостях модов (обязательные/необязательные библиотеки)? Вы можете поискать их на <a href="https://modrinth.com" target="_blank">modrinth</a> / <a href="https://www.curseforge.com" target="_blank">curseforge</a>, но о совместимости не беспокойтесь~',
+            'guide.mod.p4': 'Хорошая новость: вы можете просто проверить их прямо в HMCL...',
+            'guide.rp.p1': 'Учитывая проблемы с сетевым подключением, мы запустили загрузку ресурс-паков/шейдеров/дата-паков.',
+            'guide.rp.p2': 'Ниже перечислены новые избранные ресурс-паки:',
+            'guide.rp.p3': 'Ниже перечислены новые избранные шейдеры:',
+            'guide.rp.p4': 'Ниже перечислены новые избранные дата-паки:',
+            'guide.mod.appleskin': 'AppleSkin (Яблочная кожа)',
+            'guide.mod.craftingtweaks': 'Crafting Tweaks (Помощник крафта)',
+            'guide.mod.ferritecore': 'FerriteCore (Ферритовый сердечник)',
+            'guide.mod.jade': 'Jade (Нефрит)',
+            'guide.mod.jechars': 'Just Enough Characters (Пиньинь-поиск)',
+            'guide.mod.jei': 'Just Enough Items (Менеджер предметов)',
+            'guide.mod.journeymap': 'Journeymap (Карта путешествий)',
+            'guide.mod.lambdynamiclights': 'LambDynamicLights (Динамическое освещение)',
+            'guide.mod.litematica': 'Litematica (Проекция)',
+            'guide.mod.lithium': 'Lithium (Литий)',
+            'guide.mod.minihud': 'MiniHUD (Мини-HUD)',
+            'guide.mod.modmenu': 'Mod Menu (Меню модов)',
+            'guide.mod.mousetweaks': 'Mouse Tweaks (Жесты мыши)',
+            'guide.mod.nochatreports': 'No Chat Reports (Отключение жалоб)',
+            'guide.mod.notenoughanimations': 'NotEnoughAnimations (Больше анимаций)',
+            'guide.mod.placeholderapi': 'Placeholder API (API заполнителей)',
+            'guide.mod.reesesodium': "Reese's Sodium Options (Видеонастройки Reese)",
+            'guide.mod.replaymod': 'Replay Mod (Запись повторов)',
+            'guide.mod.sodiumextra': 'Sodium Extra (Натрий · Расширение)',
+            'guide.mod.sodium': 'Sodium (Натрий)',
+            'guide.mod.veinminer': 'Veinminer (Цепная добыча)',
+            'guide.mod.worldedit': 'WorldEdit (Создатель миров)',
+            'guide.rp.fullbright': 'Fullbright UB (Полная яркость)',
+            'guide.rp.xkredstone': 'XK Redstone Display (XK Красный дисплей)',
+            'guide.rp.xray': 'Xray Ultimate (Рентген)',
+            'guide.rp.protecteyes': 'Protect Your Eyes (Защита глаз)',
+            'guide.rp.iterationt': 'iterationT 3.2.0 (высокая нагрузка на производительность)',
+            'guide.rp.tpa': 'TPA (Телепортация)',
+            'guide.h2.download': '2. Скачивание, установка и использование',
+            'guide.h3.dlsteps': '2.1. Шаги загрузки',
+            'guide.h4.idmsteps': '2.1.1. Использование IDM',
+            'guide.h4.noidm': '2.1.2. Без IDM',
+            'guide.h4.virus': '2.1.3. Предупреждения антивируса',
+            'guide.h3.usesteps': '2.2. Шаги использования',
+            'guide.h4.jytuse': '2.2.1. Использование JiYuTrainer',
+            'guide.h4.gamestart': '2.2.2. Шаги запуска игры',
+            'guide.h4.resource': '2.2.3. Загрузка ресурспаков',
+            'guide.h4.datapack': '2.2.4. Загрузка дата-паков',
+            'guide.h3.upload': '2.3. Загрузка миров',
+            'guide.h3.loadworld': '2.4. Загрузка миров',
+            'guide.h3.server': '2.5. Подключение к серверам',
+            'guide.h2.thanks': '3. Благодарности',
+            'guide.fc1': 'Ускорение скорости загрузки',
+            'guide.fc2': 'Загрузка с любимых сайтов',
+            'guide.fc3': 'Поддержка всех популярных браузеров',
+            'guide.fc4': 'Загрузка в один клик',
+            'guide.fc5': 'Тёмная тема',
+            'guide.fc6': 'Динамическая сегментация',
+            'guide.fc7': 'Возобновление загрузок',
+            'guide.fc8': 'Встроенный планировщик',
+            'guide.fc9': 'Паук и граббер сайтов в IDM',
+            'guide.fc10': 'Настраиваемый интерфейс',
+            'guide.fc11': 'Категории загрузок',
+            'guide.fc12': 'Функция загрузки всего',
+            'guide.fc13': 'IDM многоязычен',
+            'guide.fc14': 'Быстрое обновление',
+            'guide.fc15': 'Ограничения загрузки',
+            'guide.fc16': 'Автоматическая антивирусная проверка',
+            'guide.fc17': 'Простой мастер установки',
+            'guide.fc18': 'IDM поддерживает различные прокси-серверы',
+            'guide.fc19': 'IDM поддерживает основные протоколы аутентификации: Basic, Negotiate, NTLM, Kerberos',
+            'guide.fc20': 'Перетаскивание',
+            'guide.fc21': 'Расширенная интеграция с браузером',
+
+            'guide.intro.skip': 'Вы можете прочитать эту главу — она сильно поможет. Конечно, можно сразу перейти к разделу <strong>Скачивание, установка и использование</strong>.',
+            'guide.jyt.p1': 'JiYuTrainer — проект с открытым исходным кодом на GitHub от imengyu (Happy Dream Fish) (<a href="https://github.com/imengyu/JiYuTrainer" target="_blank">https://github.com/imengyu/JiYuTrainer</a>).',
+            'guide.jyt.intro': 'Ниже приведено описание с оригинального сайта (больше не обновляется):',
+            'guide.jyt.q1': 'Эта программа разработана для противодействия JiYu Electronic Classroom. Если в школьном компьютерном классе используется JiYu Electronic Classroom для контроля компьютеров учеников, эта программа, скорее всего, поможет.',
+            'guide.jyt.q2': 'Урок преподавателя скучный, многословный и медленный? Хотите попробовать сами, но попадаете под контроль полноэкранной трансляции учителя и ничего не можете сделать? Выдернули сетевой кабель — стали свободны, но больше не видите демонстрацию учителя?',
+            'guide.jyt.q3': 'Если вас беспокоят эти проблемы, эта программа — то, что вам нужно.',
+            'guide.jyt.q4': 'Это программа, способная <strong>отключить полноэкранную трансляцию JiYu Electronic Classroom</strong>. То есть, когда учитель ведёт полноэкранную трансляцию, она автоматически переключит её в оконный режим. Вы сможете не только свободно работать за компьютером, но и смотреть демонстрацию учителя — свобода и обучение одновременно, разве это не здорово? Она также предотвращает контроль со стороны учителя (немного жёстко) и автоматически закрывает такие вещи, как «Чёрный экран, тишина»; поскольку программа переключает полноэкранный режим на оконный, учитель не заметит, что вы отключились или сделали что-то запрещённое.',
+            'guide.jyt.q5': 'Если вам нравится эта программа, порекомендуйте её друзьям!',
+            'guide.jyt.q6': 'Если считаете программу хорошей, поставьте звёздочку ⭐ — ваша симпатия — лучшая поддержка для меня!',
+            'guide.jyt.features': '<strong>Возможности:</strong>',
+            'guide.jyt.f1': 'Не влияя на нормальную работу JiYu, переключает полноэкранную трансляцию в оконный режим. Вы можете работать сами и слушать урок учителя.',
+            'guide.jyt.f2': 'Встроенное принудительное завершение, запуск/остановка процесса StudentMain.exe JiYu, без зависимости от других программ.',
+            'guide.jyt.f3': 'Встроенный взлом пароля разблокировки/удаления JiYu, поддерживает новую версию JiYu.',
+            'guide.jyt.f4': 'Функция противодействия слежке. Проверено: при включённой защите терминал учителя не может следить за вашим компьютером.',
+            'guide.jyt.f5': 'Функция защиты от контроля — не позволяет учителям управлять вашим компьютером через JiYu.',
+            'guide.jyt.f6': 'Контроль удалённого выполнения команд JiYu. Вы можете свободно разрешать или запрещать команды, удалённо выполняемые терминалом учителя.',
+            'guide.jyt.f7': 'Удалённая отправка сообщений или выполнение команд на компьютерах одноклассников через JiYu Electronic Classroom.',
+            'guide.jyt.tip': '<strong>Подсказка:</strong> Поскольку программа выполняет необходимые операции над JiYu Electronic Classroom (удалённое внедрение, замена модулей), некоторые антивирусы могут помечать её как угрозу. Возможно, потребуется отключить антивирус или добавить программу в белый список.',
+            'guide.jyt.usage': '<strong>Как использовать:</strong>',
+            'guide.jyt.usage.p': 'Программа рассчитана на новичков. По умолчанию вам не нужно менять никакие параметры — просто запустите exe и сверните окно, программа всё сделает сама.',
+            'guide.jyt.addition': '<strong>Дополнительно:</strong> Программа не зависит ни от каких библиотек времени выполнения. Достаточно скопировать один JiYuTrainer.exe на целевой компьютер и запустить. Программа уже упаковала нужные DLL и установит их автоматически.',
+            'guide.idm.p1': 'IDM — это ускоритель загрузки от TONEC, повышающий скорость загрузки до 8 раз, возобновляющий, организующий и планирующий загрузки. (<a href="https://www.internetdownloadmanager.com" target="_blank">https://www.internetdownloadmanager.com</a>)',
+            'guide.idm.p2': 'Возможности следующие (с официального сайта, перевод Edge может быть неточным):',
+            'guide.fc1.p': 'Internet Download Manager использует технологию интеллектуальной динамической сегментации файлов, повышающую скорость загрузки до 8 раз. В отличие от других менеджеров и ускорителей загрузки, Internet Download Manager динамически скачивает файлы в процессе загрузки и повторно использует доступные соединения без дополнительных этапов подключения и входа, обеспечивая оптимальное ускорение.',
+            'guide.fc2.p': 'После установки расширения браузера «IDM integration module» продолжайте серфить — вы удивитесь, как легко скачивать всё необходимое с любимых сайтов.',
+            'guide.fc3.p': 'IDM бесшовно интегрируется в Microsoft Edge, Google Chrome, Mozilla Firefox, Opera, Internet Explorer, Safari, MSN Explorer, AOL, Mozilla Firebird, Avant Browser, Maxthon и все другие популярные браузеры, автоматически обрабатывая ваши загрузки.',
+            'guide.fc4.p': 'Когда вы нажимаете ссылку загрузки в браузере, IDM перехватывает и ускоряет процесс. Не нужно ничего особенного — просто просматривайте интернет как обычно. IDM поймает ваши загрузки и ускорит их. IDM поддерживает протоколы HTTP, FTP, HTTPS и MMS.',
+            'guide.fc5.p': 'Тёмная тема IDM отображает тёмные поверхности на большей части интерфейса. Она задумана как дополнительный режим к теме по умолчанию (или светлой). Тёмные тона снижают яркость экрана, сохраняя минимальный цветовой контраст. Это улучшает визуальную эргономику: снижает нагрузку на глаза, подстраивает яркость под освещение, упрощает использование экрана в темноте и экономит заряд.',
+            'guide.fc6.p': 'Internet Download Manager оптимизирует логику загрузки файлов. IDM динамически делит загружаемый файл на сегменты, в отличие от других ускорителей, разделяющих файл один раз перед началом загрузки. Динамическая сегментация значительно повышает производительность. В начале загрузки неясно, сколько соединений можно открыть. Когда появляется новое соединение, IDM находит самый большой сегмент и делит его пополам. Таким образом, новое соединение начинает качать с половины самого большого сегмента. IDM минимизирует время согласования с сервером и держит все соединения занятыми.',
+            'guide.fc6.p2': '<a href="https://www.internetdownloadmanager.com/support/segmentation.html" target="_blank">Подробнее о динамической сегментации</a>',
+            'guide.fc7.p': 'Internet Download Manager возобновляет незавершённые загрузки с места прерывания. Комплексное восстановление после ошибок перезапустит загрузки, прерванные из-за потери или разрыва соединения, проблем с сетью, выключения компьютера или неожиданного отключения электричества.',
+            'guide.fc8.p': 'Internet Download Manager может подключаться к интернету в заданное время, скачивать нужные файлы, отключаться и выключать компьютер по завершении. Также можно синхронизировать изменения через периодическую синхронизацию файлов. Можно создавать и планировать несколько очередей загрузки для скачивания или синхронизации.',
+            'guide.fc9.p': 'IDM скачивает все файлы сайта, заданные фильтрами, например все изображения сайта, подмножество сайта или весь сайт для офлайн-просмотра. Можно планировать несколько проектов граббера: разовый запуск в заданное время, остановку в заданное время или периодический запуск для синхронизации изменений.',
+            'guide.fc10.p': 'Вы можете выбрать порядок, кнопки и столбцы в главном окне IDM. Панель инструментов поставляется с несколькими темами и различными стилями кнопок. Все темы можно скачать с домашней страницы IDM. Пользователи также могут создавать собственные темы.',
+            'guide.fc10.p2': '<a href="https://www.internetdownloadmanager.com/support/toolbar2.html" target="_blank">Выбор и настройка новой панели IDM</a>',
+            'guide.fc11.p': 'Internet Download Manager можно использовать для автоматической организации загрузок по заданным категориям.',
+            'guide.fc12.p': 'IDM может добавить все ссылки на текущей странице в загрузки. Эта функция упрощает скачивание нескольких файлов.',
+            'guide.fc13.p': 'IDM переведён на албанский, арабский, азербайджанский, боснийский, болгарский, китайский, хорватский, чешский, датский, нидерландский, персидский, французский, немецкий, греческий, иврит, венгерский, итальянский, японский, корейский, литовский, македонский, норвежский, польский, португальский, румынский, русский, сербский, словацкий, словенский, испанский и другие языки.',
+            'guide.fc14.p': 'Быстрое обновление может проверять наличие новых версий IDM и обновлять его раз в неделю. Функция перечисляет все возможности, добавленные в последнюю версию, и спрашивает пользователя, хочет ли он обновить IDM.',
+            'guide.fc15.p': 'Функция постепенной загрузки с квотой ограничивает объём загрузки заданным числом мегабайт в час. Это полезно для соединений с политикой справедливого доступа (FAP), таких как Direcway, Direct PC, Hughes и др.',
+            'guide.fc16.p': 'Антивирусная проверка делает загрузки полностью свободными от вирусов и троянов. IDM может автоматически запускать сканеры — AdAware, Avast, Spybot, AVG Antivirus, McAfee, Norton Internet Security, Norton 360, SpywareBlaster, CCleaner и др. — по завершении загрузки, защищая пользователей от вредоносных файлов.',
+            'guide.fc17.p': 'Быстрый и простой установщик настроит необходимые параметры и в конце проверит соединение, обеспечив гладкую установку Internet Download Manager.',
+            'guide.fc18.p': 'Например, IDM может работать с прокси-серверами Microsoft ISA и FTP.',
+            'guide.fc19.p': 'Таким образом, IDM может получать доступ ко многим интернет- и прокси-серверам по логину и паролю.',
+            'guide.fc20.p': 'Просто перетащите ссылку в IDM, а затем перетащите загруженный файл из Internet Download Manager.',
+            'guide.fc21.p': 'После включения эта функция может перехватывать загрузки из любого приложения. Ни один другой менеджер загрузок таким не обладает.',
+            'guide.mc.p1': 'Хм... в этом разделе игра Minecraft не описывается, но спасибо Mojang Studios (да уж, конечно!) (<a href="https://www.minecraft.net/" target="_blank">https://www.minecraft.net/</a>)',
+            'guide.mc.p2': 'Версия игры в сборке — 1.21.11 Java Edition, последний официальный релиз перед сменой схемы нумерации версий Mojang. В основном добавлено копьё как боевое оружие (подробнее см. <a href="https://zh.minecraft.wiki/w/Java%E7%89%881.21.11?variant=zh-cn" target="_blank">https://zh.minecraft.wiki/w/Java版1.21.11</a>), используется Oracle JRE 21.',
+            'guide.mc.p3': 'В сборке используется более новая версия HMCL (Hello! Minecraft Launcher).',
+            'guide.mc.p4': 'Главная особенность сборки — она создана специально для уроков информатики. Это облегчённый пакет со удалёнными аудиофайлами: компьютеры на уроках информатики всё равно без динамиков. Это сильно сокращает время загрузки — с IDM скачивание займёт менее 5 минут. На обычный геймплей это не влияет. Учтите: даже если включить субтитры, вы всё равно ничего не увидите.',
+            'guide.mc.p5': 'В сборке нет модов — это чистая ванильная версия, только с ресурспаком Full Bright по умолчанию. Другие ресурспаки — ждите скоро.',
+            'guide.huang.p1': 'Заявление: huang1111 Cloud — лучший облачный сервис!!! (<a href="https://pan.huang1111.cn" target="_blank">https://pan.huang1111.cn</a>) Безоговорочно!!!',
+            'guide.huang.p2': 'Почему (O_o)?? Преимущества таковы:',
+            'guide.huang.l1': 'Скачивание без регистрации (лучше кучи других)',
+            'guide.huang.l2': '35G бесплатного места (хватит для работы)',
+            'guide.huang.l3': 'Поддержка загрузки файлов любого формата и размера (лучше Lanzou Cloud)',
+            'guide.huang.l4': 'Красивый интерфейс без рекламы (лучше кучи других)',
+            'guide.huang.l5': 'Без ограничения трафика извлечения (лучше 123 Cloud)',
+            'guide.huang.l6': 'Без ограничения скорости загрузки (лучше кучи других)',
+            'guide.huang.l7': 'Вход без кода подтверждения по телефону',
+            'guide.huang.p3': 'Скорее регистрируйтесь~',
+            'guide.idmsteps.p1': 'Нужно скачать установщик с именем <code>idm642build63.exe</code>.',
+            'guide.idmsteps.tip': '<strong>💡 Подсказка: если вы новичок, не скачивайте это первым. Это продвинутая операция, особенно если вы уже скачали больше половины моего архива Survival_MC1.21.11.</strong>',
+            'guide.idmsteps.p2': 'Шаги установки таковы:',
+            'guide.idmsteps.l1': '<strong>После загрузки следуйте подсказкам установки. Просто нажимайте «ОК» и «Я согласен».</strong>',
+            'guide.idmsteps.l2': '<strong>После установки откройте программу, закройте подсказку, нажмите «Новая задача» и вставьте URL. Если в буфере есть URL, он распознается автоматически.</strong>',
+            'guide.idmsteps.l3': '<strong>Что (O_o)?? Спрашиваете, где URL? Сначала начните скачивать файл, затем в загрузках браузера правой кнопкой отмените загрузку, после этого правой кнопкой скопируйте ссылку загрузки...</strong>',
+            'guide.noidm.p': 'Неужели нужно учить скачивать через обычный браузер?',
+            'guide.virus.p1': 'Когда браузер сообщает об угрозе, нажмите «Сохранить» и «Всё равно сохранить».',
+            'guide.virus.p2': 'Когда Windows сообщает об угрозе, нажмите «Выполнить» и «Всё равно выполнить».',
+            'guide.virus.p3': 'Если не можете найти кнопку, обычно нужно сначала нажать «Подробнее».',
+            'guide.jytuse.p': 'Двойной клик для запуска, понимаете? Нажмите «Я согласен».',
+            'guide.gamestart.l1': 'Дважды кликните программу самораспаковки SURVIVAL_hmcl_1.21.11.exe, затем нажмите Extract для продолжения;',
+            'guide.gamestart.l2': 'После завершения распаковки откройте папку и дважды кликните HMCL.exe;',
+            'guide.gamestart.l3': 'В появившемся окне нажмите «Согласен»;',
+            'guide.gamestart.l4': 'В разделе «Учётные записи» слева нажмите, чтобы добавить учётную запись;',
+            'guide.gamestart.l5': 'Нажмите «Автономный режим», введите любое подходящее имя, затем нажмите «Войти»;',
+            'guide.gamestart.l6': 'Нажмите кнопку назад в левом верхнем углу, затем нажмите «Настройки» в разделе «Общие» слева;',
+            'guide.gamestart.l7': 'В «Глобальных настройках игры» найдите «Не проверять целостность игры» и включите;',
+            'guide.gamestart.l8': 'Вернитесь и нажмите «Запустить игру 1.21.11» и подождите.',
+            'guide.resource.l1': 'Войдите в игру и нажмите «Настройки»;',
+            'guide.resource.l2': 'Нажмите «Наборы ресурсов»;',
+            'guide.resource.l3': 'Перетащите файл ресурспака (если уже перетащили — пропустите);',
+            'guide.resource.l4': 'Наведите курсор на значок ресурспака, который хотите загрузить, в разделе «Доступно» слева и нажмите стрелку-треугольник, чтобы переместить его;',
+            'guide.resource.l5': 'Нажмите «Готово».',
+            'guide.datapack.p': 'TPA — это дата-пак. Вот как его добавить:',
+            'guide.datapack.l1': 'В одиночном режиме откройте интерфейс «Создать новый мир»;',
+            'guide.datapack.l2': 'Найдите раздел «Ещё» и нажмите «Пакеты данных»;',
+            'guide.datapack.l3': 'Перетащите файл дата-пака (если уже перетащили — пропустите);',
+            'guide.datapack.l4': 'Наведите курсор на значок дата-пака, который хотите загрузить, в разделе «Доступно» слева и нажмите стрелку-треугольник, чтобы переместить его;',
+            'guide.datapack.l5': 'Нажмите «Готово»;',
+            'guide.datapack.l6': 'Нажмите «Создать новый мир», затем нажмите «Я знаю, что делаю».',
+            'guide.upload.p1': 'Предварительное условие — зарегистрироваться в облачном хранилище. Учитывая, что в школе телефоны запрещены, вот несколько сервисов, не требующих кода подтверждения по телефону:',
+            'guide.upload.l1': '123 Cloud (<a href="https://123pan.cn" target="_blank">https://123pan.cn</a>)',
+            'guide.upload.l2': 'huang1111 Cloud',
+            'guide.upload.l3': 'Lanzou Cloud (<a href="https://www.lanzoui.com" target="_blank">https://www.lanzoui.com</a>)',
+            'guide.upload.p2': 'Далее — подробные шаги:',
+            'guide.upload.s1': 'В одиночном режиме кликните, чтобы выбрать мир (не входите в мир);',
+            'guide.upload.s2': 'Нажмите кнопку «Изменить» в левом нижнем углу;',
+            'guide.upload.s3': 'Нажмите «Создать резервную копию»;',
+            'guide.upload.s4': 'После завершения резервного копирования снова нажмите «Изменить», затем «Открыть папку резервных копий»;',
+            'guide.upload.s5': 'Резервная копия — это .zip-архив. Загрузите его в облачное хранилище.',
+            'guide.loadworld.l1': 'Запустите игру;',
+            'guide.loadworld.l2': 'После распаковки файлов мира поместите их в <code>/.minecraft/saves</code>.',
+            'guide.loadworld.note': '<strong>Примечание:</strong> после распаковки убедитесь, что при открытии папки сразу видны папка advancements и другие файлы.',
+            'guide.server.l1': 'После запуска игры откройте «Сетевая игра»;',
+            'guide.server.l2': 'Введите адрес сервера и подключитесь.',
+            'guide.thanks.l1': 'Спасибо bwe1211 за поддержку (<a href="https://bwe1211.github.io" target="_blank">https://bwe1211.github.io</a>);',
+            'guide.thanks.l2': 'Спасибо Internet Download Manager;',
+            'guide.thanks.l3': 'Спасибо imengyu за JiYuTrainer;',
+            'guide.thanks.l4': 'Спасибо huang1111 Cloud;',
+            'guide.thanks.l5': 'Спасибо HMCL. Подробная документация: <a href="https://docs.hmcl.net/" target="_blank">Руководство для новичков - Документация HMCL</a>;',
+            'guide.thanks.l6': 'Не спасибо Mojang Studios!',
+        },
+
+        'ja': {
+
+            'common.back': '← ホームに戻る',
+            'common.dl': 'ダウンロード',
+
+            'index.logo': 'YuanZhiYuMing ダウンロード',
+            'index.nav.home': 'ホーム',
+            'index.nav.mc': 'Minecraft',
+            'index.nav.study': '学習リソース',
+            'index.nav.web': 'ウェブサイト',
+            'index.nav.guide': '初心者ガイド',
+            'index.nav.about': 'サイトについて',
+            'index.notice': '<svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l15-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><line x1="2" y1="6" x2="2" y2="18"/></svg>\n<span><strong>自動ダウンローダーの公開ベータテストが開始！</strong> ぜひテストにご参加ください！</span>',
+            'index.title': 'YuanZhiYuMing ファイルダウンロードハブ',
+            'index.subhead': '—— 学校の情報の授業とゲーム好きのために ——',
+            'index.intro1': '<strong>YuanZhiYuMing</strong> の個人ファイルリポジトリへようこそ！当サイトは実用的なリソース、特に <strong>Minecraft ゲームリソース</strong> を中心に、便利なツール、拡張パック、学校の情報の授業に必要なソフトをまとめています。',
+            'index.intro2': 'すべてのファイルは整理され、学校のコンピュータ室環境（音声なし、軽量、ポータブル）に最適化されています。ログイン不要で高速ダウンロードでき、情報の授業をよりスムーズに、より自由にします。',
+            'index.intro3': '👇 下の<strong>「クイックスタート」</strong>ボタンをクリックして、自動ダウンローダーをダウンロードしよう！',
+            'index.faststart': 'クイックスタート',
+            'index.fasthint': 'ワンクリックで Auto Downloader (Specified).exe をダウンロード',
+            'index.btn.mc': 'Minecraft',
+            'index.btn.study': '学習リソース',
+            'index.btn.web': 'ウェブサイト',
+            'index.footer': '© 2026 YuanZhiYuMing · <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> で運営',
+
+            'index.about.title': '当サイトについて',
+            'index.about.card1.title': '当サイトについて',
+            'index.about.card1.text': '当サイトは yuanzhiyuming.github.io、GitHub アカウント YuanZhiYuMing の GitHub Pages です。グラスモーフィズムデザインを採用し、シンプルで美しい仕上がりです。',
+            'index.about.card2.title': 'Minecraft セクション',
+            'index.about.card2.text': '情報の授業で Minecraft を起動するために必要なファイルを統合しています。JiYuTrainer（教室制御の回避）、マルチスレッドダウンロード、Minecraft ゲームとリソースパックを含み、SHSSIP の情報の授業のために特別に設計されています。',
+            'index.about.card3.title': '学習リソース',
+            'index.about.card3.text': '「学習リソース」をクリックすると、2026 年の中高の新教材（蘇州版）の電子版を無料で入手できます。どなたでもダウンロードいただけます。',
+            'index.about.card4.title': 'ウェブサイト一覧',
+            'index.about.card4.text': 'huang1111 Cloud、123 Cloud、Lanzou Cloud などの便利なサイト（随時更新）や、Minecraft のウェブ版（eaglercraft.ir / mcjs.cc）を収録しています。一つが開けなければ別のを試してください。また、Crazygames を主要プラットフォームとしたカジュアル、アクション、戦略、クラシックなどの HTML ミニゲームコレクションもあります。',
+            'index.about.card5.title': 'クイックスタート',
+            'index.about.card5.text': '「クイックスタート」機能を最近追加しました。クリックして自動ダウンローダーをダウンロードし、実行するとマルチスレッドダウンロードがより高速に始まります。現在ベータ版で、フィードバックを歓迎します。Windows 専用で、特定のリソース（Minecraft 1.21.11 スリム版）をダウンロードします。',
+            'index.about.card6.title': '予備サイトと連絡先',
+            'index.about.card6.text': 'github.io にアクセスできない場合は、予備サイトをご利用ください：https://yzym.netlify.app （更新が遅れる場合があります）。作者 QQ：3860517347、WeChat：stardragon142857',
+
+            'mc.title': 'Minecraft 1.21.11 ダウンロード',
+            'mc.subtitle': '学校の情報の授業のために制作',
+            'mc.guide': '初心者ガイド',
+            'mc.alert': '初めてご利用の場合は、必ず初心者ガイドをお読みください。',
+            'mc.f1': 'SURVIVAL_hmcl_1.21.11.exe（標準パック）',
+            'mc.f2': 'idman642build63.exe（IDM ダウンローダーインストーラー）',
+            'mc.f3': 'JiYuTrainer（教室制御解除）',
+            'mc.f4': 'Resourcepacks',
+            'mc.f5': 'Shaderpacks',
+            'mc.f6': 'Mods',
+            'mc.f7': 'Datapacks',
+            'mc.f8': 'BUILDING_hmcl_1.21.11.exe（ビルド用パック）',
+            'mc.f9': '1.21.11-Fabric.exe（Fabric 同梱パック）',
+
+            'study.title': '学習リソース',
+            'study.subtitle': '学校の学習のために',
+            'study.f1': '2026 年中高の新教材',
+
+            'web.title': '便利なウェブサイト',
+            'web.subtitle': '厳選された便利なサイト、ワンクリックでアクセス',
+            'web.section': 'Minecraft ウェブ版',
+            'web.label.site': 'サイトを選択：',
+            'web.label.version': 'バージョンを選択：',
+            'web.go': 'プレイ',
+            'web.visit': 'アクセス',
+            'web.mc120.name': 'Minecraft 1.20 ウェブ版',
+            'web.mc120.desc': '1.8.8 コアベース、体験用',
+            'web.mirror.title': 'アクセスノードを選択',
+            'web.mirror.desc': 'メインサイトが利用できない場合はミラーサイトを試してください',
+            'web.mirror.main': 'メイン',
+            'web.mirror.m1': 'ミラー 1',
+            'web.mirror.m2': 'ミラー 2',
+            'web.mirror.m3': 'ミラー 3 (IPv6)',
+            'web.mirror.cancel': 'キャンセル',
+            'web.mirror.confirm': '進む',
+            'web.alert.nocfg': 'このオプションの URL は設定されていません。',
+            'web.alert.noeagler': 'eaglercraft.ir の URL は設定されていません。',
+            'web.alert.nomc120': '1.20 版の URL は設定されていません。',
+            'web.s1': 'huang1111 Cloud',
+            'web.s2': '123 Cloud',
+            'web.s3': 'Lanzou Cloud',
+            'web.cloud': 'クラウドストレージ',
+            'web.game': 'ミニゲームコレクション',
+            'web.game.open': 'オープンゲームプラットフォーム',
+            'web.game.crazy': 'Crazygames',
+            'web.game.html5games': 'HTML5 Games Collection',
+            'web.game.js13k': 'js13kGames Contest Entries',
+            'web.game.casual': 'カジュアル＆パズル',
+            'web.game.2048': '2048 Classic',
+            'web.game.doge2048': '2048 Doge',
+            'web.game.solitaire': 'Solitaire',
+            'web.game.sudoku': '数独',
+            'web.game.action': 'アクション＆アーケード',
+            'web.game.pacman': 'Pacman',
+            'web.game.dino': 'Dino Runner',
+            'web.game.strategy': '戦略＆クラシック',
+            'web.game.chess': 'Chess',
+            'web.game.tictactoe': 'TicTacToe',
+            'web.game.fun': '楽しい＆革新的',
+            'web.game.hexgl': 'HexGL',
+            'web.game.linerider': 'Line Rider',
+
+            'guide.back': '← 戻る',
+            'guide.home': 'ホーム',
+            'guide.toc': '概要',
+            'guide.title': '初心者ガイド',
+            'guide.h2.read': '1. まずお読みください',
+            'guide.h3.notes': '1.1. 注意事項',
+            'guide.note1': 'このガイドの読了には少し時間がかかります。現在情報の授業中の場合は、戻って「JiYuTrainer.exe」と「Survival_MC1.21.11」を先にダウンロードしてください。',
+            'guide.note2': '<strong>⚠️ 現在情報の授業中の場合は、戻って「<u>JiYuTrainer.exe</u>」と「<u>Survival_MC1.21.11</u>」を先にダウンロードしてください。</strong>',
+            'guide.h3.intro': '1.2. 紹介',
+            'guide.h4.jyt': '1.2.1. JiYuTrainer について',
+            'guide.h4.idm': '1.2.2. IDM (Internet Download Manager) について',
+            'guide.h4.mc': '1.2.3. Minecraft パックについて',
+            'guide.h4.mod': '1.2.4. モッドについて',
+            'guide.h4.resourcepack': '1.2.5. リソースパック/シェーダー/データパックについて',
+            'guide.h4.huang': '1.2.6. huang1111 Cloud について',
+            'guide.mod.p1': 'ネットワーク接続の問題を考慮し、モッドリソースのダウンロードを開始しました。',
+            'guide.mod.p2': '以下は新しく追加されたおすすめモッドです：',
+            'guide.mod.p3': 'モッドの機能や依存関係（必須/オプションのサポートライブラリ）について知りたいですか？<a href="https://modrinth.com" target="_blank">modrinth</a> / <a href="https://www.curseforge.com" target="_blank">curseforge</a> で調べることができますが、互換性の心配はありませんよ〜',
+            'guide.mod.p4': '良いニュース：HMCL で直接確認すればいいのでは……',
+            'guide.rp.p1': 'ネットワーク接続の問題を考慮し、リソースパック/シェーダー/データパックのダウンロードを開始しました。',
+            'guide.rp.p2': '以下は新しく追加されたおすすめリソースパックです：',
+            'guide.rp.p3': '以下は新しく追加されたおすすめシェーダーです：',
+            'guide.rp.p4': '以下は新しく追加されたおすすめデータパックです：',
+            'guide.mod.appleskin': 'AppleSkin (アップルスキン)',
+            'guide.mod.craftingtweaks': 'Crafting Tweaks (クラフト補助)',
+            'guide.mod.ferritecore': 'FerriteCore (フェライトコア)',
+            'guide.mod.jade': 'Jade (翡翠)',
+            'guide.mod.jechars': 'Just Enough Characters (ピンイン検索)',
+            'guide.mod.jei': 'Just Enough Items (アイテムマネージャー)',
+            'guide.mod.journeymap': 'Journeymap (旅の地図)',
+            'guide.mod.lambdynamiclights': 'LambDynamicLights (動的光源)',
+            'guide.mod.litematica': 'Litematica (投影)',
+            'guide.mod.lithium': 'Lithium (リチウム)',
+            'guide.mod.minihud': 'MiniHUD (ミニHUD)',
+            'guide.mod.modmenu': 'Mod Menu (モッドメニュー)',
+            'guide.mod.mousetweaks': 'Mouse Tweaks (マウスジェスチャー)',
+            'guide.mod.nochatreports': 'No Chat Reports (チャット通報無効)',
+            'guide.mod.notenoughanimations': 'NotEnoughAnimations (追加アニメーション)',
+            'guide.mod.placeholderapi': 'Placeholder API (プレースホルダーAPI)',
+            'guide.mod.reesesodium': "Reese's Sodium Options (Reeseのビデオ設定)",
+            'guide.mod.replaymod': 'Replay Mod (リプレイ録画)',
+            'guide.mod.sodiumextra': 'Sodium Extra (ナトリウム・拡張)',
+            'guide.mod.sodium': 'Sodium (ナトリウム)',
+            'guide.mod.veinminer': 'Veinminer (連鎖採掘)',
+            'guide.mod.worldedit': 'WorldEdit (ワールドエディット)',
+            'guide.rp.fullbright': 'Fullbright UB (フルブライト)',
+            'guide.rp.xkredstone': 'XK Redstone Display (XKレッドストーン表示)',
+            'guide.rp.xray': 'Xray Ultimate (X線)',
+            'guide.rp.protecteyes': 'Protect Your Eyes (目に優しい)',
+            'guide.rp.iterationt': 'iterationT 3.2.0 (パフォーマンス負荷大)',
+            'guide.rp.tpa': 'TPA (テレポート)',
+            'guide.h2.download': '2. ダウンロード・インストール・使い方',
+            'guide.h3.dlsteps': '2.1. ダウンロード手順',
+            'guide.h4.idmsteps': '2.1.1. IDM を使う',
+            'guide.h4.noidm': '2.1.2. IDM を使わない',
+            'guide.h4.virus': '2.1.3. アンチウイルスの警告',
+            'guide.h3.usesteps': '2.2. 使用手順',
+            'guide.h4.jytuse': '2.2.1. JiYuTrainer の使い方',
+            'guide.h4.gamestart': '2.2.2. ゲーム起動手順',
+            'guide.h4.resource': '2.2.3. リソースパックの読み込み',
+            'guide.h4.datapack': '2.2.4. データパックの読み込み',
+            'guide.h3.upload': '2.3. ワールドのアップロード',
+            'guide.h3.loadworld': '2.4. ワールドの読み込み',
+            'guide.h3.server': '2.5. サーバーへの参加',
+            'guide.h2.thanks': '3. 謝辞',
+            'guide.fc1': 'ダウンロード速度加速',
+            'guide.fc2': 'お気に入りサイトからダウンロード',
+            'guide.fc3': 'すべての主要ブラウザに対応',
+            'guide.fc4': 'ワンクリックダウンロード',
+            'guide.fc5': 'ダークテーマ',
+            'guide.fc6': '動的セグメンテーション',
+            'guide.fc7': 'ダウンロード再開',
+            'guide.fc8': '内蔵スケジューラー',
+            'guide.fc9': 'IDM サイトスパイダーとグラバー',
+            'guide.fc10': 'カスタマイズ可能なインターフェース',
+            'guide.fc11': 'ダウンロードカテゴリ',
+            'guide.fc12': 'すべてダウンロード機能',
+            'guide.fc13': 'IDM は多言語対応',
+            'guide.fc14': 'クイックアップデート',
+            'guide.fc15': 'ダウンロード制限',
+            'guide.fc16': '自動アンチウイルスチェック',
+            'guide.fc17': 'シンプルなインストールウィザード',
+            'guide.fc18': 'IDM は各種プロキシサーバーに対応',
+            'guide.fc19': 'IDM は主要な認証プロトコルに対応：Basic、Negotiate、NTLM、Kerberos',
+            'guide.fc20': 'ドラッグ＆ドロップ',
+            'guide.fc21': '高度なブラウザ統合',
+
+            'guide.intro.skip': 'この章は役立ちますので読むことをお勧めします。もちろん、<strong>ダウンロード・インストール・使い方</strong> セクションに直接ジャンプすることもできます。',
+            'guide.jyt.p1': 'JiYuTrainer は imengyu (Happy Dream Fish) による GitHub のオープンソースプロジェクトです（<a href="https://github.com/imengyu/JiYuTrainer" target="_blank">https://github.com/imengyu/JiYuTrainer</a>）。',
+            'guide.jyt.intro': '以下は元のウェブページの説明です（更新停止）：',
+            'guide.jyt.q1': 'このソフトは JiYu Electronic Classroom に対抗するために開発されました。学校のコンピュータ室が生徒のコンピュータを制御するために JiYu Electronic Classroom を使用している場合、このソフトが役立つ可能性があります。',
+            'guide.jyt.q2': '講師の授業が退屈で、冗長で、遅い？自分で操作してみたいのに、先生の全画面ブロードキャストで制御され、何もできない？ネットワークケーブルを抜けば自由になりますが、先生のデモが見えなくなる？',
+            'guide.jyt.q3': '上記のような悩みがあるなら、このソフトはまさに求めていたものかもしれません。',
+            'guide.jyt.q4': 'これは <strong>JiYu Electronic Classroom の全画面ブロードキャストを無効化</strong> できるソフトです。つまり、先生が全画面ブロードキャストを行うと、自動的にウィンドウモードに切り替わります。自由にパソコンを操作できるだけでなく、先生のデモも見られます。自由と学習の両立、素晴らしいと思いませんか？先生からの制御も防げます（少し強力）。さらに「黒画面・静粛」のようなものも自動的に閉じます。このソフトは全画面をウィンドウに切り替えるだけなので、先生は切断や不正操作に気づきません。',
+            'guide.jyt.q5': 'このソフトが気に入ったら、友達におすすめしてみてください！',
+            'guide.jyt.q6': 'このソフトが良いと思ったら、スター⭐を付けてください。あなたの「いいね」は私にとって最大のサポートです！',
+            'guide.jyt.features': '<strong>機能：</strong>',
+            'guide.jyt.f1': 'JiYu の正常な動作に影響を与えずに、全画面ブロードキャストモードをウィンドウブロードキャストモードに切り替えます。自分で操作しながら先生の授業を見られます。',
+            'guide.jyt.f2': 'JiYu StudentMain.exe プロセスの強制終了、開始/停止機能を内蔵し、他のソフトに依存しません。',
+            'guide.jyt.f3': 'JiYu のロック解除/アンインストールパスワードのクラック機能を内蔵し、新版 JiYu に対応します。',
+            'guide.jyt.f4': '監視対策機能。テスト済み：監視対策を有効にすると、教師端末は使用中のコンピュータを監視できません。',
+            'guide.jyt.f5': '制御対策機能。先生が JiYu を通じてあなたのコンピュータを制御するのを防ぎます。',
+            'guide.jyt.f6': 'JiYu のリモートコマンド実行を監視します。教師端末がリモート実行するコマンドを許可するかどうかを自由に選択できます。',
+            'guide.jyt.f7': 'JiYu Electronic Classroom を通じて同級生のコンピュータにメッセージを送信したり、コマンドを実行したりできます。',
+            'guide.jyt.tip': '<strong>ヒント：</strong>このソフトは JiYu Electronic Classroom に必要な操作（リモート注入、モジュール置換）を行うため、一部のアンチウイルスソフトが脅威として検出する場合があります。アンチウイルスを無効にするか、ホワイトリストに追加する必要があるかもしれません。',
+            'guide.jyt.usage': '<strong>使い方：</strong>',
+            'guide.jyt.usage.p': 'このソフトは初心者向けに設計されています。デフォルトではパラメータを変更する必要はありません。exe を実行して最小化するだけで、ソフトが自動的に操作します。',
+            'guide.jyt.addition': '<strong>補足：</strong>このソフトはランタイムライブラリに依存しません。JiYuTrainer.exe を対象のコンピュータにコピーするだけで実行できます。必要な DLL はパッケージされており、自動的にインストールされます。',
+            'guide.idm.p1': 'IDM は TONEC のダウンロードアクセラレータで、ダウンロード速度を最大 8 倍まで向上させ、ダウンロードの再開、整理、スケジュールができます。（<a href="https://www.internetdownloadmanager.com" target="_blank">https://www.internetdownloadmanager.com</a>）',
+            'guide.idm.p2': '機能は以下の通りです（公式サイトより、Edge 翻訳は不正確な場合があります）：',
+            'guide.fc1.p': 'Internet Download Manager はインテリジェントな動的ファイルセグメンテーション技術により、ダウンロード速度を最大 8 倍まで向上させます。他のダウンロードマネージャやアクセラレータと異なり、Internet Download Manager はダウンロード中にファイルを動的にダウンロードし、追加の接続・ログインフェーズなしで利用可能な接続を再利用し、最適な加速性能を実現します。',
+            'guide.fc2.p': '「IDM integration module」ブラウザ拡張機能をインストールした後、そのままウェブを閲覧すれば、お気に入りサイトから欲しいものすべてを簡単にダウンロードできることに驚くでしょう。',
+            'guide.fc3.p': 'IDM は Microsoft Edge、Google Chrome、Mozilla Firefox、Opera、Internet Explorer、Safari、MSN Explorer、AOL、Mozilla Firebird、Avant Browser、Maxthon、その他すべての主要ブラウザにシームレスに統合され、ダウンロードを自動的に処理します。',
+            'guide.fc4.p': 'ブラウザでダウンロードリンクをクリックすると、IDM が引き継いでダウンロードプロセスを加速します。特別な操作は不要で、いつも通りインターネットを閲覧するだけです。IDM がダウンロードをキャッチして加速します。IDM は HTTP、FTP、HTTPS、MMS プロトコルに対応しています。',
+            'guide.fc5.p': 'IDM のダークテーマは、インターフェースの大部分に暗いサーフェスを表示します。デフォルト（またはライト）テーマの補完モードとして設計されています。暗いトーンは画面の明るさを下げつつ、最低限の色のコントラストを確保します。目の疲れを軽減し、現在の照明に合わせて明るさを調整し、暗い環境での使用を容易にしながら省電力にも寄与し、視覚的なエルゴノミクスを改善します。',
+            'guide.fc6.p': 'Internet Download Manager はファイルダウンロードのロジックを最適化します。IDM はダウンロードファイルを動的にセグメントに分割します。ダウンロード開始前に一度だけ分割する他のアクセラレータとは異なります。動的セグメンテーションはダウンロード性能を大幅に向上させます。ダウンロード開始時点では、いくつの接続を開けるか不明です。新しい接続が利用可能になると、IDM は最大のセグメントを見つけてダウンロードし、それを二分割します。そのため、新しい接続は最大ファイルセグメントの半分からダウンロードを開始します。IDM はサーバーとのネゴシエーション時間を最小化し、すべての接続をビジーに保ちます。',
+            'guide.fc6.p2': '<a href="https://www.internetdownloadmanager.com/support/segmentation.html" target="_blank">動的セグメンテーションの詳細情報</a>',
+            'guide.fc7.p': 'Internet Download Manager は中断されたダウンロードを中断箇所から再開します。包括的なエラー回復・再開機能により、接続の喪失や切断、ネットワークの問題、コンピュータのシャットダウン、予期しない停電で中断されたダウンロードを再起動します。',
+            'guide.fc8.p': 'Internet Download Manager は指定した時刻にインターネットに接続し、目的のファイルをダウンロードし、切断し、完了後にコンピュータをシャットダウンできます。定期的なファイル同期で変更を同期することもできます。ダウンロードや同期のために複数のダウンロードキューを作成・スケジュールできます。',
+            'guide.fc9.p': 'IDM はフィルタで指定されたウェブサイトの全ファイル（例えばサイトの全画像、サイトのサブセット、完全なウェブサイト）をオフライン閲覧用にダウンロードします。複数のグラバープロジェクトをスケジュールし、指定時刻に一度実行、指定時刻に停止、定期的に実行して変更を同期できます。',
+            'guide.fc10.p': 'メインの IDM ウィンドウに表示される順序、ボタン、列を選択できます。ツールバーには複数の異なるスキンと各種ボタンスタイルがあります。すべてのスキンは IDM ホームページからダウンロードできます。ユーザー自身のスキンも設計可能です。',
+            'guide.fc10.p2': '<a href="https://www.internetdownloadmanager.com/support/toolbar2.html" target="_blank">新しい IDM ツールバーの選択と設定</a>',
+            'guide.fc11.p': 'Internet Download Manager は定義されたダウンロードカテゴリに基づいてダウンロードを自動的に整理できます。',
+            'guide.fc12.p': 'IDM は現在のページのすべてのリンクをダウンロードに追加できます。この機能により複数ファイルのダウンロードが簡単になります。',
+            'guide.fc13.p': 'IDM はアルバニア語、アラビア語、アゼルバイジャン語、ボスニア語、ブルガリア語、中国語、クロアチア語、チェコ語、デンマーク語、オランダ語、ペルシャ語、フランス語、ドイツ語、ギリシャ語、ヘブライ語、ハンガリー語、イタリア語、日本語、韓国語、リトアニア語、マケドニア語、ノルウェー語、ポーランド語、ポルトガル語、ルーマニア語、ロシア語、セルビア語、スロバキア語、スロベニア語、スペイン語などに翻訳されています。',
+            'guide.fc14.p': 'クイックアップデートは IDM の新バージョンを確認し、週 1 回 IDM を更新できます。クイックアップデート機能は最新版に追加されたすべての機能をリストアップし、ユーザーに IDM を最新版に更新するかどうか尋ねます。',
+            'guide.fc15.p': 'クォータ付きの段階的ダウンロード機能は、1 時間あたりの定義されたメガバイト数までダウンロードを制限します。この機能は、Direcway、Direct PC、Hughes など、Fair Access Policy (FAP) を使用する接続に非常に有用です。',
+            'guide.fc16.p': 'アンチウイルススキャンにより、ダウンロードはウイルスやトロイの木馬から完全に保護されます。IDM はダウンロード完了時に AdAware、Avast、Spybot、AVG Antivirus、McAfee、Norton Internet Security、Norton 360、SpywareBlaster、CCleaner などのスキャナーを自動的に実行し、有害なダウンロードファイルからユーザーを保護します。',
+            'guide.fc17.p': '迅速で簡単なインストーラーが必要な設定を行い、最後に接続をチェックして Internet Download Manager のインストールをスムーズに完了させます。',
+            'guide.fc18.p': '例えば、IDM は Microsoft ISA や FTP プロキシサーバーと連携できます。',
+            'guide.fc19.p': 'したがって、IDM はログイン名とパスワードで多くのインターネットおよびプロキシサーバーにアクセスできます。',
+            'guide.fc20.p': 'リンクを IDM にドラッグするだけで、ダウンロードしたファイルを Internet Download Manager からドラッグアウトできます。',
+            'guide.fc21.p': '有効にすると、この機能はあらゆるアプリケーションからのダウンロードをキャッチできます。この機能を持つ他のダウンロードマネージャはありません。',
+            'guide.mc.p1': 'うーん…このセクションでは Minecraft ゲームの紹介はしませんが、Mojang Studios に感謝します（そうだね！）（<a href="https://www.minecraft.net/" target="_blank">https://www.minecraft.net/</a>）',
+            'guide.mc.p2': 'このパックのゲームバージョンは 1.21.11 Java Edition で、Mojang がバージョン番号の命名方式を変更する前の最後の公式リリースです。主に戦闘武器として槍が追加されました（詳細は <a href="https://zh.minecraft.wiki/w/Java%E7%89%881.21.11?variant=zh-cn" target="_blank">https://zh.minecraft.wiki/w/Java版1.21.11</a> を参照）、Oracle の JRE 21 を使用します。',
+            'guide.mc.p3': 'このパックは HMCL (Hello! Minecraft Launcher) の比較的新しいバージョンを使用しています。',
+            'guide.mc.p4': 'このパックの大きな特徴は、情報の授業のために特別に設計されている点です。これはオーディオファイルを削除したスリムパッケージで、情報の授業のパソコンにはスピーカーがないからです。これによりダウンロード時間が大幅に短縮され、IDM を使えば 5 分以内でダウンロード完了します。通常のゲームプレイには影響しません。なお、字幕をオンにしても内容は表示されません。',
+            'guide.mc.p5': 'このパックには MOD が一切含まれておらず、純粋なバニラで、デフォルトで Full Bright リソースパックのみ同梱されています。他のリソースパックは今後予定しています。',
+            'guide.huang.p1': '声明：huang1111 Cloud は最高のクラウドストレージサービスです！！！（<a href="https://pan.huang1111.cn" target="_blank">https://pan.huang1111.cn</a>）間違いなく！！！',
+            'guide.huang.p2': 'なぜ (O_o)?? 特徴は以下の通り：',
+            'guide.huang.l1': 'ログイン不要でダウンロード（他多数より優位）',
+            'guide.huang.l2': '35G の無料クラウド容量（実用十分）',
+            'guide.huang.l3': 'あらゆる形式・サイズのファイルをアップロード可能（Lanzou Cloud より優位）',
+            'guide.huang.l4': '美しい UI で広告なし（他多数より優位）',
+            'guide.huang.l5': '抽出トラフィック制限なし（123 Cloud より優位）',
+            'guide.huang.l6': 'ダウンロード速度制限なし（他多数より優位）',
+            'guide.huang.l7': 'ログインに電話認証コード不要',
+            'guide.huang.p3': '今すぐ登録しましょう～',
+            'guide.idmsteps.p1': '<code>idm642build63.exe</code> という名前のインストーラーをダウンロードする必要があります。',
+            'guide.idmsteps.tip': '<strong>💡 ヒント：初心者の場合、まずこれをダウンロードしないでください。これは高度な操作で、特に私の Survival_MC1.21.11 zip を半分以上ダウンロード済みの場合はなおさらです。</strong>',
+            'guide.idmsteps.p2': 'インストール手順は以下の通りです：',
+            'guide.idmsteps.l1': '<strong>ダウンロード完了後、プロンプトに従ってインストールします。「OK」「同意する」をクリックし続けるだけです。</strong>',
+            'guide.idmsteps.l2': '<strong>インストール完了後、開いてプロンプトを閉じ、「新しいタスク」をクリックし、URL を貼り付けます。クリップボードに URL があれば自動的に認識されます。</strong>',
+            'guide.idmsteps.l3': '<strong>何って (O_o)?? URL はどこかって？まずファイルのダウンロードを開始し、ブラウザのダウンロードで右クリックしてダウンロードをキャンセルし、さらに右クリックしてダウンロードリンクをコピーする必要があります…</strong>',
+            'guide.noidm.p': '通常のブラウザでのダウンロードのやり方なんて教える必要ありますか？',
+            'guide.virus.p1': 'ブラウザが脅威を報告したら、「保存」「引き続き保存」をクリックします。',
+            'guide.virus.p2': 'Windows が脅威を報告したら、「実行」「引き続き実行」をクリックします。',
+            'guide.virus.p3': 'ボタンが見つからない場合、通常はまず「詳細情報」をクリックする必要があります。',
+            'guide.jytuse.p': 'ダブルクリックで実行、分かりますよね？「同意する」をクリックします。',
+            'guide.gamestart.l1': '自己展開プログラム SURVIVAL_hmcl_1.21.11.exe をダブルクリックし、Extract をクリックして続行します；',
+            'guide.gamestart.l2': '展開完了後、フォルダを開き HMCL.exe をダブルクリックします；',
+            'guide.gamestart.l3': 'ポップアップで「同意」をクリックします；',
+            'guide.gamestart.l4': '左側の「アカウント」セクションでアカウントを追加します；',
+            'guide.gamestart.l5': '「オフラインモード」をクリックし、要件を満たす任意の名前を入力して「ログイン」をクリックします；',
+            'guide.gamestart.l6': '左上の戻るボタンをクリックし、左側の「一般」セクションで「設定」をクリックします；',
+            'guide.gamestart.l7': '「グローバルゲーム設定」で「ゲームの整合性をチェックしない」を見つけて有効にします；',
+            'guide.gamestart.l8': '戻って「ゲーム 1.21.11 を起動」をクリックして待ちます。',
+            'guide.resource.l1': 'ゲームに入り「オプション」をクリックします；',
+            'guide.resource.l2': '「リソースパック」をクリックします；',
+            'guide.resource.l3': 'リソースパックファイルをドラッグします（既にドラッグ済みなら無視）；',
+            'guide.resource.l4': '左側の「利用可能」セクションで読み込みたいリソースパックのアイコンにカーソルを合わせ、三角矢印をクリックして移動します；',
+            'guide.resource.l5': '「完了」をクリックします。',
+            'guide.datapack.p': 'TPA はデータパックです。追加方法は以下の通りです：',
+            'guide.datapack.l1': 'シングルプレイで「新しいワールドを作成」インターフェースを開きます；',
+            'guide.datapack.l2': '「その他」セクションを見つけて「データパック」をクリックします；',
+            'guide.datapack.l3': 'データパックファイルをドラッグします（既にドラッグ済みなら無視）；',
+            'guide.datapack.l4': '左側の「利用可能」セクションで読み込みたいデータパックのアイコンにカーソルを合わせ、三角矢印をクリックして移動します；',
+            'guide.datapack.l5': '「完了」をクリックします；',
+            'guide.datapack.l6': '「新しいワールドを作成」をクリックし、「自分が何をしているか分かっている」をクリックします。',
+            'guide.upload.p1': '前提として、クラウドストレージサービスに登録する必要があります。学校では携帯電話が持ち込めないため、電話認証コード不要のクラウドサービスをいくつか紹介します：',
+            'guide.upload.l1': '123 Cloud (<a href="https://123pan.cn" target="_blank">https://123pan.cn</a>)',
+            'guide.upload.l2': 'huang1111 Cloud',
+            'guide.upload.l3': 'Lanzou Cloud (<a href="https://www.lanzoui.com" target="_blank">https://www.lanzoui.com</a>)',
+            'guide.upload.p2': '次に詳細な手順を示します：',
+            'guide.upload.s1': 'シングルプレイでワールドをクリックして選択します（ワールドに入らないでください）；',
+            'guide.upload.s2': '左下の「編集」ボタンをクリックします；',
+            'guide.upload.s3': '「バックアップ」をクリックします；',
+            'guide.upload.s4': 'バックアップ完了後、再度「編集」をクリックし、「バックアップフォルダを開く」をクリックします；',
+            'guide.upload.s5': 'バックアップは .zip 圧縮ファイルです。このバックアップをクラウドストレージにアップロードします。',
+            'guide.loadworld.l1': 'ゲームを起動します；',
+            'guide.loadworld.l2': 'ワールドファイルを展開後、<code>/.minecraft/saves</code> に配置します。',
+            'guide.loadworld.note': '<strong>注意：</strong>展開後、フォルダを開くと advancements などのフォルダやファイルが直接表示されることを確認してください。',
+            'guide.server.l1': 'ゲーム起動後、「マルチプレイ」を開きます；',
+            'guide.server.l2': 'サーバーアドレスを入力して参加します。',
+            'guide.thanks.l1': 'bwe1211 のサポートに感謝（<a href="https://bwe1211.github.io" target="_blank">https://bwe1211.github.io</a>）；',
+            'guide.thanks.l2': 'Internet Download Manager に感謝；',
+            'guide.thanks.l3': 'imengyu の JiYuTrainer に感謝；',
+            'guide.thanks.l4': 'huang1111 Cloud に感謝；',
+            'guide.thanks.l5': 'HMCL に感謝。詳細なドキュメントは <a href="https://docs.hmcl.net/" target="_blank">初心者ガイド - HMCL ドキュメント</a> を参照；',
+            'guide.thanks.l6': 'Mojang Studios には感謝しません！',
         }
     };
 
-    // ========== 核心函数 ==========
     let currentLang = 'zh-CN';
     const callbacks = [];
 
@@ -846,7 +1685,6 @@ header .lang-toggle {
         localStorage.setItem('lang', lang);
         document.documentElement.setAttribute('lang', LANG_ATTRS[lang] || 'zh-CN');
 
-        // 更新 data-i18n 元素
         document.querySelectorAll('[data-i18n]').forEach(function(el) {
             const key = el.getAttribute('data-i18n');
             const text = I18N[lang] && I18N[lang][key];
@@ -855,7 +1693,6 @@ header .lang-toggle {
             }
         });
 
-        // 更新下拉菜单高亮
         document.querySelectorAll('.lang-dropdown-item').forEach(function(item) {
             if (item.getAttribute('data-lang') === lang) {
                 item.classList.add('active');
@@ -864,11 +1701,9 @@ header .lang-toggle {
             }
         });
 
-        // 触发回调
         callbacks.forEach(function(cb) { try { cb(lang); } catch(e) {} });
     }
 
-    // ========== 下拉菜单 ==========
     let dropdown = null;
 
     function createDropdown() {
@@ -880,7 +1715,7 @@ header .lang-toggle {
             const item = document.createElement('div');
             item.className = 'lang-dropdown-item';
             item.setAttribute('data-lang', lang);
-            item.innerHTML = '<span>' + LANG_NAMES[lang] + '</span><span class="check">\u2713</span>';
+            item.innerHTML = (LANG_FLAGS[lang] || '') + '<span class="lang-name">' + LANG_NAMES[lang] + '</span><span class="check">\u2713</span>';
             item.addEventListener('click', function() {
                 applyLang(lang);
                 hideDropdown();
@@ -889,6 +1724,8 @@ header .lang-toggle {
         });
 
         document.body.appendChild(dropdown);
+        const activeItem = dropdown.querySelector('.lang-dropdown-item[data-lang="' + currentLang + '"]');
+        if (activeItem) activeItem.classList.add('active');
         return dropdown;
     }
 
@@ -904,7 +1741,6 @@ header .lang-toggle {
         if (dropdown) dropdown.classList.remove('show');
     }
 
-    // ========== 初始化 ==========
     function init() {
         const savedLang = localStorage.getItem('lang') || 'zh-CN';
         applyLang(savedLang);
@@ -920,14 +1756,12 @@ header .lang-toggle {
             });
         });
 
-        // 点击外部关闭
         document.addEventListener('click', function(e) {
             if (dropdown && !dropdown.contains(e.target) && !e.target.closest('.lang-toggle')) {
                 hideDropdown();
             }
         });
 
-        // 滚动时关闭
         window.addEventListener('scroll', hideDropdown, { passive: true });
     }
 
