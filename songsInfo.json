@@ -1,0 +1,5640 @@
+{
+  "meta": {
+    "source": "歌曲链接.txt",
+    "total": 502,
+    "generated_at": "2026-08-15",
+    "note": "全部歌曲已补全网址"
+  },
+  "songs": [
+    {
+      "title": "A Comme Amour",
+      "artist": "Richard Clayderman",
+      "file": "A Comme Amour - Richard Clayderman.mp3",
+      "url": "https://yzym.lanzoul.com/iGSzv42c8did",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "A Familiar Room_H",
+      "artist": "Aaron Cherof _ Minecraft",
+      "file": "A Familiar Room_H - Aaron Cherof _ Minecraft.mp3",
+      "url": "https://yzym.lanzoul.com/igh5X42c8doj",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐",
+        "游戏/影视原声"
+      ]
+    },
+    {
+      "title": "A Thousand Miles",
+      "artist": "Josh Vietti",
+      "file": "A Thousand Miles - Josh Vietti.mp3",
+      "url": "https://yzym.lanzoul.com/iIYe142c8duf",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "APT_",
+      "artist": "ROSÉ _ Bruno Mars",
+      "file": "APT_ - ROSÉ _ Bruno Mars.mp3",
+      "url": "https://yzym.lanzoul.com/iPEtM42c8fbi",
+      "language": "英语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "Aerie",
+      "artist": "Lena Raine _ Minecraft",
+      "file": "Aerie - Lena Raine _ Minecraft.mp3",
+      "url": "https://yzym.lanzoul.com/idGgH42c8e1c",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐",
+        "游戏/影视原声"
+      ]
+    },
+    {
+      "title": "Alone",
+      "artist": "Alan Walker",
+      "file": "Alone - Alan Walker.mp3",
+      "url": "https://yzym.lanzoul.com/iNd3542c8e6h",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Alpha",
+      "artist": "C418",
+      "file": "Alpha - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iwZ3v42c8ehi",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Always Online",
+      "artist": "林俊杰",
+      "file": "Always Online - 林俊杰.mp3",
+      "url": "https://yzym.lanzoul.com/ixvDs42c8ene",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Angelina",
+      "artist": "Lou Bega",
+      "file": "Angelina - Lou Bega.mp3",
+      "url": "https://yzym.lanzoul.com/i4oC942c8esj",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Animals",
+      "artist": "Maroon 5",
+      "file": "Animals - Maroon 5.mp3",
+      "url": "https://yzym.lanzoul.com/ivPss42c8f4b",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Apologize",
+      "artist": "OneRepublic",
+      "file": "Apologize - OneRepublic.mp3",
+      "url": "https://yzym.lanzoul.com/ivOuS42c8f9g",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "摇滚"
+      ]
+    },
+    {
+      "title": "Aria Math",
+      "artist": "C418",
+      "file": "Aria Math - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iSeCq42c8fpc",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Astronomia",
+      "artist": "Vicetone _ Tony Igy",
+      "file": "Astronomia - Vicetone _ Tony Igy.mp3",
+      "url": "https://yzym.lanzoul.com/ih67p42c8fwj",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Attention",
+      "artist": "Charlie Puth",
+      "file": "Attention - Charlie Puth.mp3",
+      "url": "https://yzym.lanzoul.com/ipIUB42c8g4h",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Baby",
+      "artist": "Justin Bieber _ Ludacris",
+      "file": "Baby - Justin Bieber _ Ludacris.mp3",
+      "url": "https://yzym.lanzoul.com/i56Y342c8gcf",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Ballade Pour Adeline",
+      "artist": "Richard Clayderman",
+      "file": "Ballade Pour Adeline - Richard Clayderman.mp3",
+      "url": "https://yzym.lanzoul.com/iVVut42c8gha",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Be What You Wanna Be",
+      "artist": "Darin",
+      "file": "Be What You Wanna Be - Darin.mp3",
+      "url": "https://yzym.lanzoul.com/ikMU742c8gpi",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Beginning",
+      "artist": "C418",
+      "file": "Beginning - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iBjx342c8gsb",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Believer",
+      "artist": "Imagine Dragons",
+      "file": "Believer - Imagine Dragons.mp3",
+      "url": "https://yzym.lanzoul.com/ijRlD42c8gwf",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "摇滚"
+      ]
+    },
+    {
+      "title": "Blank Space",
+      "artist": "Taylor Swift",
+      "file": "Blank Space - Taylor Swift.mp3",
+      "url": "https://yzym.lanzoul.com/i6FLi42c8h6f",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Bones",
+      "artist": "Imagine Dragons",
+      "file": "Bones - Imagine Dragons.mp3",
+      "url": "https://yzym.lanzoul.com/iSZrx42c8hgf",
+      "language": "英语",
+      "era": "1990s",
+      "tags": [
+        "摇滚",
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "Brass Beatdown",
+      "artist": "Deep East Music",
+      "file": "Brass Beatdown - Deep East Music.mp3",
+      "url": "https://yzym.lanzoul.com/iy4yk42c8hsh",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Breaktime",
+      "artist": "Kevin MacLeod",
+      "file": "Breaktime - Kevin MacLeod.mp3",
+      "url": "https://yzym.lanzoul.com/iyU9i42c8hze",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Breath and Life",
+      "artist": "Audiomachine",
+      "file": "Breath and Life - Audiomachine.mp3",
+      "url": "https://yzym.lanzoul.com/iBBYA42c8i4j",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Broken Strings",
+      "artist": "Alan Walker _ Isabella Melkman _ Katherine O'Ryan",
+      "file": "Broken Strings - Alan Walker _ Isabella Melkman _ Katherine O'Ryan.mp3",
+      "url": "https://yzym.lanzoul.com/i9tza42c8ibg",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Bygone Bumps",
+      "artist": "Deep East Music",
+      "file": "Bygone Bumps - Deep East Music.mp3",
+      "url": "https://yzym.lanzoul.com/iDU7P42c8iej",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Call of Silence",
+      "artist": "澤野弘之 (さわの ひろゆき)",
+      "file": "Call of Silence - 澤野弘之 (さわの ひろゆき).mp3",
+      "url": "https://yzym.lanzoul.com/iaM8m42c8ioj",
+      "language": "日语",
+      "era": "2010s",
+      "tags": [
+        "日系"
+      ]
+    },
+    {
+      "title": "Cat",
+      "artist": "C418",
+      "file": "Cat - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iZjY842c8iwh",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Catch My Breath",
+      "artist": "Kelly Clarkson",
+      "file": "Catch My Breath - Kelly Clarkson.mp3",
+      "url": "https://yzym.lanzoul.com/iSptI42c8jab",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Chris",
+      "artist": "C418",
+      "file": "Chris - C418.mp3",
+      "url": "https://yzym.lanzoul.com/ihpC842c8jef",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Clark",
+      "artist": "C418",
+      "file": "Clark - C418.mp3",
+      "url": "https://yzym.lanzoul.com/i8Vnj42c8jmd",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Collapsing World (Original Mix)",
+      "artist": "Lightscape",
+      "file": "Collapsing World (Original Mix) - Lightscape.mp3",
+      "url": "https://yzym.lanzoul.com/iq95h42c8jub",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐",
+        "电音"
+      ]
+    },
+    {
+      "title": "Cornfield Chase",
+      "artist": "Hans Zimmer",
+      "file": "Cornfield Chase - Hans Zimmer.mp3",
+      "url": "https://yzym.lanzoul.com/i1gjV42c8k3a",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Count On Me",
+      "artist": "Bruno Mars",
+      "file": "Count On Me - Bruno Mars.mp3",
+      "url": "https://yzym.lanzoul.com/i6vZQ42c8kah",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Counting Stars",
+      "artist": "OneRepublic",
+      "file": "Counting Stars - OneRepublic.mp3",
+      "url": "https://yzym.lanzoul.com/ig42t42c8kkh",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "摇滚"
+      ]
+    },
+    {
+      "title": "Danny",
+      "artist": "C418",
+      "file": "Danny - C418.mp3",
+      "url": "https://yzym.lanzoul.com/icRaN42c8kxa",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Danuvius",
+      "artist": "Audiomachine",
+      "file": "Danuvius - Audiomachine.mp3",
+      "url": "https://yzym.lanzoul.com/igo1342c8l6j",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Darkside",
+      "artist": "Alan Walker_Au_Ra_Tomine Harket",
+      "file": "Darkside - Alan Walker_Au_Ra_Tomine Harket.mp3",
+      "url": "https://yzym.lanzoul.com/ipj1M42c8ldg",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Death",
+      "artist": "C418",
+      "file": "Death - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iWdWg42c8lib",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Demons",
+      "artist": "Imagine Dragons",
+      "file": "Demons - Imagine Dragons.mp3",
+      "url": "https://yzym.lanzoul.com/iT2B942c8lra",
+      "language": "英语",
+      "era": "1990s",
+      "tags": [
+        "摇滚",
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "Different World",
+      "artist": "Alan Walker_K-391_Sofia Carson_CORSAK胡梦周",
+      "file": "Different World - Alan Walker_K-391_Sofia Carson_CORSAK胡梦周.mp3",
+      "url": "https://yzym.lanzoul.com/igkuU42c8lxg",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Dog",
+      "artist": "C418",
+      "file": "Dog - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iewYo42c8m9i",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Door",
+      "artist": "C418",
+      "file": "Door - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iooRz42c8med",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Down For Life",
+      "artist": "Tamboss",
+      "file": "Down For Life - Tamboss.mp3",
+      "url": "https://yzym.lanzoul.com/iuedT42c8mkj",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Drag Me Down",
+      "artist": "One Direction",
+      "file": "Drag Me Down - One Direction.mp3",
+      "url": "https://yzym.lanzoul.com/ipdGI42c8muj",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "摇滚"
+      ]
+    },
+    {
+      "title": "Dream It Possible",
+      "artist": "Delacey",
+      "file": "Dream It Possible - Delacey.mp3",
+      "url": "https://yzym.lanzoul.com/igBdv42c8n5a",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Dreiton",
+      "artist": "C418",
+      "file": "Dreiton - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iu7Z842c8nte",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Droopy likes ricochet",
+      "artist": "C418",
+      "file": "Droopy likes ricochet - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iAWis42c8o4f",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Droopy likes your face",
+      "artist": "C418",
+      "file": "Droopy likes your face - C418.mp3",
+      "url": "https://yzym.lanzoul.com/is99v42c8oij",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Dry Hands",
+      "artist": "C418",
+      "file": "Dry Hands - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iDmER42c8omd",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "ENEMY (宿敌)",
+      "artist": "Imagine Dragons_JID_英雄联盟",
+      "file": "ENEMY (宿敌) - Imagine Dragons_JID_英雄联盟.mp3",
+      "url": "https://yzym.lanzoul.com/ibdcw42c8pzc",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "摇滚",
+        "新歌",
+        "游戏/影视原声"
+      ]
+    },
+    {
+      "title": "El Dorado (Dubstep Remix)",
+      "artist": "Two Steps From Hell _ Thomas Bergersen _ Merethe Soltvedt",
+      "file": "El Dorado (Dubstep Remix) - Two Steps From Hell _ Thomas Bergersen _ Merethe Soltvedt.mp3",
+      "url": "https://yzym.lanzoul.com/idgM442c8oxe",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Empire of Angels",
+      "artist": "Thomas Bergersen",
+      "file": "Empire of Angels - Thomas Bergersen.mp3",
+      "url": "https://yzym.lanzoul.com/ijrXA42c8p9g",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Empty Love",
+      "artist": "Lulleaux _ Kid Princess",
+      "file": "Empty Love - Lulleaux _ Kid Princess.mp3",
+      "url": "https://yzym.lanzoul.com/i9p9t42c8pjg",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Enemy (from the series Arcane League of Legends)",
+      "artist": "Imagine Dragons _ JID _ 英雄联盟",
+      "file": "Enemy (from the series Arcane League of Legends) - Imagine Dragons _ JID _ 英雄联盟.mp3",
+      "url": "https://yzym.lanzoul.com/iOTch42c8ptg",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "摇滚",
+        "新歌",
+        "游戏/影视原声"
+      ]
+    },
+    {
+      "title": "Epic Music (Inst_)",
+      "artist": "John Dreamer - Rise",
+      "file": "Epic Music (Inst_) - John Dreamer - Rise.mp3",
+      "url": "https://yzym.lanzoul.com/iXpQW42c8q5i",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "纯音乐"
+      ]
+    },
+    {
+      "title": "Excuse",
+      "artist": "C418",
+      "file": "Excuse - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iVksH42c8qeh",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Fade",
+      "artist": "Alan Walker",
+      "file": "Fade - Alan Walker.mp3",
+      "url": "https://yzym.lanzoul.com/iUiCI42c8qpi",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Fade Away (Deaf Kev Remix)",
+      "artist": "Jacob Tillberg _ DEAF KEV",
+      "file": "Fade Away (Deaf Kev Remix) - Jacob Tillberg _ DEAF KEV.mp3",
+      "url": "https://yzym.lanzoul.com/iN7q342c8qyh",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Faded",
+      "artist": "Alan Walker",
+      "file": "Faded - Alan Walker.mp3",
+      "url": "https://yzym.lanzoul.com/i1QMd42c8raj",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Far Away from Home",
+      "artist": "Groove Coverage",
+      "file": "Far Away from Home - Groove Coverage.mp3",
+      "url": "https://yzym.lanzoul.com/igYvh42c8rhg",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Fire",
+      "artist": "Gavin DeGraw",
+      "file": "Fire - Gavin DeGraw.mp3",
+      "url": "https://yzym.lanzoul.com/iK2dV42c8rod",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "摇滚"
+      ]
+    },
+    {
+      "title": "Five Hundred Miles",
+      "artist": "Justin Timberlake _ Carey Mulligan _ Stark Sands",
+      "file": "Five Hundred Miles - Justin Timberlake _ Carey Mulligan _ Stark Sands.mp3",
+      "url": "https://yzym.lanzoul.com/iQM5E42c8rwb",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Free Loop",
+      "artist": "Daniel Powter",
+      "file": "Free Loop - Daniel Powter.mp3",
+      "url": "https://yzym.lanzoul.com/ifVLU42c8s2h",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Friendships (Original Mix)",
+      "artist": "Pascal Letoublon",
+      "file": "Friendships (Original Mix) - Pascal Letoublon.mp3",
+      "url": "https://yzym.lanzoul.com/iGpx742c8s9e",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Funky Town",
+      "artist": "Lipps Inc_",
+      "file": "Funky Town - Lipps Inc_.mp3",
+      "url": "https://yzym.lanzoul.com/iG7Z642c8suf",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Future Funk",
+      "artist": "Varien",
+      "file": "Future Funk - Varien.mp3",
+      "url": "https://yzym.lanzoul.com/iQZ6G42c8sxi",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Go Time",
+      "artist": "Mark Petrie",
+      "file": "Go Time - Mark Petrie.mp3",
+      "url": "https://yzym.lanzoul.com/iMEJ042c8t3e",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Good Time",
+      "artist": "Owl City _ Carly Rae Jepsen",
+      "file": "Good Time - Owl City _ Carly Rae Jepsen.mp3",
+      "url": "https://yzym.lanzoul.com/ioLtK42c8t9a",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Haggstrom",
+      "artist": "C418",
+      "file": "Haggstrom - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iCy2g42c8tef",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "HandClap",
+      "artist": "Fitz and The Tantrums",
+      "file": "HandClap - Fitz and The Tantrums.mp3",
+      "url": "https://yzym.lanzoul.com/iocgz42c8tlc",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "摇滚"
+      ]
+    },
+    {
+      "title": "Happy People",
+      "artist": "Inspired",
+      "file": "Happy People - Inspired.mp3",
+      "url": "https://yzym.lanzoul.com/iGotg42c8tri",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "He's a Pirate (From _Pirates of the Caribbean_ The Curse Of the Black Pearl__Score)",
+      "artist": "Klaus Badelt",
+      "file": "He's a Pirate (From _Pirates of the Caribbean_ The Curse Of the Black Pearl__Score) - Klaus Badelt.mp3",
+      "url": "https://yzym.lanzoul.com/ipC0j42c8ukh",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "游戏/影视原声"
+      ]
+    },
+    {
+      "title": "Hello",
+      "artist": "OMFG",
+      "file": "Hello - OMFG.mp3",
+      "url": "https://yzym.lanzoul.com/ifNKd42c8u1i",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Helmet to Helmet",
+      "artist": "Brand X Music",
+      "file": "Helmet to Helmet - Brand X Music.mp3",
+      "url": "https://yzym.lanzoul.com/iGs3D42c8u9g",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Here With You",
+      "artist": "Asher Monroe",
+      "file": "Here With You - Asher Monroe.mp3",
+      "url": "https://yzym.lanzoul.com/iE7hu42c8ueb",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Higher",
+      "artist": "Tobu",
+      "file": "Higher - Tobu.mp3",
+      "url": "https://yzym.lanzoul.com/i1J5a42c8upc",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Horizon",
+      "artist": "Janji",
+      "file": "Horizon - Janji.mp3",
+      "url": "https://yzym.lanzoul.com/iqxzc42c8uwj",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐",
+        "电音"
+      ]
+    },
+    {
+      "title": "I Just Wanna Run",
+      "artist": "The Downtown Fiction",
+      "file": "I Just Wanna Run - The Downtown Fiction.mp3",
+      "url": "https://yzym.lanzoul.com/iXvWI42c8v4h",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "摇滚"
+      ]
+    },
+    {
+      "title": "Intro",
+      "artist": "The xx",
+      "file": "Intro - The xx.mp3",
+      "url": "https://yzym.lanzoul.com/iyoit42c8veh",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Italia e voi (双枪说)",
+      "artist": "Universal Idol _ VodKe _ HSHK _ Pnan _ 贰皮",
+      "file": "Italia e voi (双枪说) - Universal Idol _ VodKe _ HSHK _ Pnan _ 贰皮.mp3",
+      "url": "https://yzym.lanzoul.com/im0xU42c8vha",
+      "language": "纯音乐",
+      "era": "2020s",
+      "tags": [
+        "电音",
+        "街头浩室",
+        "纯音乐"
+      ]
+    },
+    {
+      "title": "Journey",
+      "artist": "Capo Productions",
+      "file": "Journey - Capo Productions.mp3",
+      "url": "https://yzym.lanzoul.com/iMUkW42c8vpi",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Kamin",
+      "artist": "EMIN _ JONY",
+      "file": "Kamin - EMIN _ JONY.mp3",
+      "url": "https://yzym.lanzoul.com/iFdYT42c8vwf",
+      "language": "俄语",
+      "era": "2020s",
+      "tags": [
+        "俄语情歌",
+        "流行",
+        "伤感"
+      ]
+    },
+    {
+      "title": "Key",
+      "artist": "C418",
+      "file": "Key - C418.mp3",
+      "url": "https://yzym.lanzoul.com/i64kJ42c8w2b",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Komorebi (叶隙间洒落的阳光)_H",
+      "artist": "m-taku",
+      "file": "Komorebi (叶隙间洒落的阳光)_H - m-taku.mp3",
+      "url": "https://yzym.lanzoul.com/iZ0o942c8w9i",
+      "language": "日语",
+      "era": "2010s",
+      "tags": [
+        "日系"
+      ]
+    },
+    {
+      "title": "LOSER",
+      "artist": "米津玄師 (よねづ けんし)",
+      "file": "LOSER - 米津玄師 (よねづ けんし).mp3",
+      "url": "https://yzym.lanzoul.com/iU2MG42c8z2j",
+      "language": "日语",
+      "era": "2010s",
+      "tags": [
+        "日系"
+      ]
+    },
+    {
+      "title": "Last Reunion (最后的重逢)",
+      "artist": "Peter Roe",
+      "file": "Last Reunion (最后的重逢) - Peter Roe.mp3",
+      "url": "https://yzym.lanzoul.com/ifioN42c8whg",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Legends Never Die 传奇永不熄",
+      "artist": "英雄联盟 _ Against the Current",
+      "file": "Legends Never Die 传奇永不熄 - 英雄联盟 _ Against the Current.mp3",
+      "url": "https://yzym.lanzoul.com/ilvXV42c8wod",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "游戏/影视原声"
+      ]
+    },
+    {
+      "title": "Lemon",
+      "artist": "米津玄師 (よねづ けんし)",
+      "file": "Lemon - 米津玄師 (よねづ けんし).mp3",
+      "url": "https://yzym.lanzoul.com/i9fG442c8wti",
+      "language": "日语",
+      "era": "2010s",
+      "tags": [
+        "日系"
+      ]
+    },
+    {
+      "title": "Lemon Tree",
+      "artist": "Fool's Garden",
+      "file": "Lemon Tree - Fool's Garden.mp3",
+      "url": "https://yzym.lanzoul.com/iR0Fi42c8wze",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Les Premiers Sourires De Vanessa (瓦妮莎的微笑) (Inst_)",
+      "artist": "Richard Clayderman",
+      "file": "Les Premiers Sourires De Vanessa (瓦妮莎的微笑) (Inst_) - Richard Clayderman.mp3",
+      "url": "https://yzym.lanzoul.com/iGjnm42c8x5a",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Letting Go",
+      "artist": "蔡健雅",
+      "file": "Letting Go - 蔡健雅.mp3",
+      "url": "https://yzym.lanzoul.com/iuNof42c8xbg",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Living Mice",
+      "artist": "C418",
+      "file": "Living Mice - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iSW2V42c8xni",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Lone Ranger",
+      "artist": "Rachel Platten",
+      "file": "Lone Ranger - Rachel Platten.mp3",
+      "url": "https://yzym.lanzoul.com/iHpR842c8yab",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Lose Control (Explicit)",
+      "artist": "Hedley",
+      "file": "Lose Control (Explicit) - Hedley.mp3",
+      "url": "https://yzym.lanzoul.com/ixOsi42c8yne",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Love Me Like You Do",
+      "artist": "Ellie Goulding",
+      "file": "Love Me Like You Do - Ellie Goulding.mp3",
+      "url": "https://yzym.lanzoul.com/iTfwu42c8zhe",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Love Story",
+      "artist": "Taylor Swift",
+      "file": "Love Story - Taylor Swift.mp3",
+      "url": "https://yzym.lanzoul.com/i5Gyz42c8zpc",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Love Yourself",
+      "artist": "Justin Bieber",
+      "file": "Love Yourself - Justin Bieber.mp3",
+      "url": "https://yzym.lanzoul.com/iHpu742c8zzc",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Lydia",
+      "artist": "F_I_R_飞儿乐团",
+      "file": "Lydia - F_I_R_飞儿乐团.mp3",
+      "url": "https://yzym.lanzoul.com/iodYo42c9syf",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "MENTE MÁ (刀马刀马)",
+      "artist": "Nakama _ MC Staff",
+      "file": "MENTE MÁ (刀马刀马) - Nakama _ MC Staff.mp3",
+      "url": "https://yzym.lanzoul.com/iGUFg42c9tah",
+      "language": "葡萄牙语",
+      "era": "2020s",
+      "tags": [
+        "电音",
+        "Phonk",
+        "网络神曲"
+      ]
+    },
+    {
+      "title": "Maps",
+      "artist": "Maroon 5 _ Big Sean",
+      "file": "Maps - Maroon 5 _ Big Sean.mp3",
+      "url": "https://yzym.lanzoul.com/iwH5h42c9t5c",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Mice on Venus",
+      "artist": "C418",
+      "file": "Mice on Venus - C418.mp3",
+      "url": "https://yzym.lanzoul.com/id0zk42c9tkh",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Mine (Illenium Remix)",
+      "artist": "ILLENIUM _ Phoebe Ryan",
+      "file": "Mine (Illenium Remix) - ILLENIUM _ Phoebe Ryan.mp3",
+      "url": "https://yzym.lanzoul.com/iPWBg42c9u0d",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Minecraft",
+      "artist": "C418",
+      "file": "Minecraft - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iwXbH42c9u9c",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐",
+        "游戏/影视原声"
+      ]
+    },
+    {
+      "title": "Monkeybiz",
+      "artist": "D1ofaquavibe",
+      "file": "Monkeybiz - D1ofaquavibe.mp3",
+      "url": "https://yzym.lanzoul.com/i5o9J42c9upi",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Monody",
+      "artist": "TheFatRat _ Laura Brehm",
+      "file": "Monody - TheFatRat _ Laura Brehm.mp3",
+      "url": "https://yzym.lanzoul.com/iePud42c9v1a",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Monsieur Melody",
+      "artist": "Deep East Music",
+      "file": "Monsieur Melody - Deep East Music.mp3",
+      "url": "https://yzym.lanzoul.com/iXvxv42c9v5e",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Monsters",
+      "artist": "Katie Sky",
+      "file": "Monsters - Katie Sky.mp3",
+      "url": "https://yzym.lanzoul.com/iV3Bd42c9ved",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Moog City",
+      "artist": "C418",
+      "file": "Moog City - C418.mp3",
+      "url": "https://yzym.lanzoul.com/i6qW442c9vpe",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Moog City 2",
+      "artist": "C418",
+      "file": "Moog City 2 - C418.mp3",
+      "url": "https://yzym.lanzoul.com/ip1hE42c9w0f",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Moscow_H",
+      "artist": "Dschinghis Khan",
+      "file": "Moscow_H - Dschinghis Khan.mp3",
+      "url": "https://yzym.lanzoul.com/iwxyP42c9w8d",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Mutation",
+      "artist": "C418",
+      "file": "Mutation - C418.mp3",
+      "url": "https://yzym.lanzoul.com/ihegc42c9wlg",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "My Love",
+      "artist": "Westlife",
+      "file": "My Love - Westlife.mp3",
+      "url": "https://yzym.lanzoul.com/i2Avg42c9wvg",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "My Soul (我的灵魂)",
+      "artist": "July (줄라이)",
+      "file": "My Soul (我的灵魂) - July (줄라이).mp3",
+      "url": "https://yzym.lanzoul.com/i5Bt842c9x6h",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "My Stupid Heart (Kids Version)",
+      "artist": "Walk off the Earth _ Luminati Suns",
+      "file": "My Stupid Heart (Kids Version) - Walk off the Earth _ Luminati Suns.mp3",
+      "url": "https://yzym.lanzoul.com/igphn42c9xfg",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "My Way",
+      "artist": "KATSEYE",
+      "file": "My Way - KATSEYE.mp3",
+      "url": "https://yzym.lanzoul.com/iQ8d842c9xqh",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "My Way",
+      "artist": "Veysigz",
+      "file": "My Way - Veysigz.mp3",
+      "url": "https://yzym.lanzoul.com/i9nVS42c9y2j",
+      "language": "纯音乐",
+      "era": "2020s",
+      "tags": [
+        "嘻哈伴奏",
+        "纯音乐",
+        "说唱"
+      ]
+    },
+    {
+      "title": "Natural",
+      "artist": "Imagine Dragons",
+      "file": "Natural - Imagine Dragons.mp3",
+      "url": "https://yzym.lanzoul.com/iPGAL42c9yfc",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "摇滚"
+      ]
+    },
+    {
+      "title": "Nevada",
+      "artist": "Vicetone _ Cozi Zuehlsdorff",
+      "file": "Nevada - Vicetone _ Cozi Zuehlsdorff.mp3",
+      "url": "https://yzym.lanzoul.com/i7Um642c9yjg",
+      "language": "英语",
+      "era": "2020s",
+      "tags": [
+        "电音",
+        "新歌"
+      ]
+    },
+    {
+      "title": "Never Back Down",
+      "artist": "Two Steps From Hell _ Thomas Bergersen",
+      "file": "Never Back Down - Two Steps From Hell _ Thomas Bergersen.mp3",
+      "url": "https://yzym.lanzoul.com/iMK6j42c9yob",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Never Gonna Give You Up (Explicit)",
+      "artist": "Rick Astley",
+      "file": "Never Gonna Give You Up (Explicit) - Rick Astley.mp3",
+      "url": "https://yzym.lanzoul.com/irM4J42c9z2f",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Novera",
+      "artist": "Dark Winter Music",
+      "file": "Novera - Dark Winter Music.mp3",
+      "url": "https://yzym.lanzoul.com/ihxH842c9z7a",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Old Threads",
+      "artist": "Deep East Music",
+      "file": "Old Threads - Deep East Music.mp3",
+      "url": "https://yzym.lanzoul.com/imsnC42c9zjc",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "On My Way (Explicit)",
+      "artist": "Alan Walker _ Sabrina Carpenter _ Farruko",
+      "file": "On My Way (Explicit) - Alan Walker _ Sabrina Carpenter _ Farruko.mp3",
+      "url": "https://yzym.lanzoul.com/iIzQN42c9zqj",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Once Upon A Time (House Extended Mix)",
+      "artist": "Max Oazo _ Moonessa",
+      "file": "Once Upon A Time (House Extended Mix) - Max Oazo _ Moonessa.mp3",
+      "url": "https://yzym.lanzoul.com/ipqJ742ca0aj",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Once-Joyful Dream 往昔的乐园",
+      "artist": "HOYO-MiX",
+      "file": "Once-Joyful Dream 往昔的乐园 - HOYO-MiX.mp3",
+      "url": "https://yzym.lanzoul.com/iEAoo42ca0hg",
+      "language": "纯音乐",
+      "era": "2020s",
+      "tags": [
+        "轻音乐",
+        "新歌",
+        "游戏/影视原声"
+      ]
+    },
+    {
+      "title": "One Step Ahead",
+      "artist": "AxR",
+      "file": "One Step Ahead - AxR.mp3",
+      "url": "https://yzym.lanzoul.com/iqMh142ca0od",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Oxygène",
+      "artist": "C418",
+      "file": "Oxygène - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iIQiW42ca13i",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "PLANET",
+      "artist": "Lambsey",
+      "file": "PLANET - Lambsey.mp3",
+      "url": "https://yzym.lanzoul.com/i4RDS42ca1kf",
+      "language": "日语",
+      "era": "2000s",
+      "tags": [
+        "日系",
+        "J-Pop",
+        "动漫金曲"
+      ]
+    },
+    {
+      "title": "Please Don't Go",
+      "artist": "Joel Adams",
+      "file": "Please Don't Go - Joel Adams.mp3",
+      "url": "https://yzym.lanzoul.com/idXa642ca1qb",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Puzzlebox",
+      "artist": "Aaron Cherof _ Minecraft",
+      "file": "Puzzlebox - Aaron Cherof _ Minecraft.mp3",
+      "url": "https://yzym.lanzoul.com/iit9G42ca27i",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐",
+        "游戏/影视原声"
+      ]
+    },
+    {
+      "title": "Rain",
+      "artist": "坂本龙一 (さかもと りゅういち)",
+      "file": "Rain - 坂本龙一 (さかもと りゅういち).mp3",
+      "url": "https://yzym.lanzoul.com/ipbbr42ca2hi",
+      "language": "日语",
+      "era": "2010s",
+      "tags": [
+        "日系"
+      ]
+    },
+    {
+      "title": "Reality",
+      "artist": "Lost Frequencies _ Janieck",
+      "file": "Reality - Lost Frequencies _ Janieck.mp3",
+      "url": "https://yzym.lanzoul.com/i4Vrp42ca2ub",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Right Here Waiting",
+      "artist": "Richard Marx",
+      "file": "Right Here Waiting - Richard Marx.mp3",
+      "url": "https://yzym.lanzoul.com/iBjHQ42ca34b",
+      "language": "英语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "Roar",
+      "artist": "Katy Perry",
+      "file": "Roar - Katy Perry.mp3",
+      "url": "https://yzym.lanzoul.com/i8KxA42ca3kh",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "STAY (Explicit)",
+      "artist": "The Kid LAROI _ Justin Bieber",
+      "file": "STAY (Explicit) - The Kid LAROI _ Justin Bieber.mp3",
+      "url": "https://yzym.lanzoul.com/iIc5z42ca7ja",
+      "language": "英语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "Salt",
+      "artist": "Ava Max",
+      "file": "Salt - Ava Max.mp3",
+      "url": "https://yzym.lanzoul.com/iiGb842ca3sf",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Scheming Weasel (faster version)",
+      "artist": "Kevin MacLeod",
+      "file": "Scheming Weasel (faster version) - Kevin MacLeod.mp3",
+      "url": "https://yzym.lanzoul.com/ibd4Z42ca3wj",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "See You Again (feat_ Charlie Puth)",
+      "artist": "Wiz Khalifa _ Charlie Puth",
+      "file": "See You Again (feat_ Charlie Puth) - Wiz Khalifa _ Charlie Puth.mp3",
+      "url": "https://yzym.lanzoul.com/i2L9H42ca4cf",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Shake It Off",
+      "artist": "Taylor Swift",
+      "file": "Shake It Off - Taylor Swift.mp3",
+      "url": "https://yzym.lanzoul.com/i3V8i42ca4jc",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Shape of You",
+      "artist": "Ed Sheeran",
+      "file": "Shape of You - Ed Sheeran.mp3",
+      "url": "https://yzym.lanzoul.com/iT4hF42ca4ve",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Shots (Broiler Remix)",
+      "artist": "Imagine Dragons _ Broiler",
+      "file": "Shots (Broiler Remix) - Imagine Dragons _ Broiler.mp3",
+      "url": "https://yzym.lanzoul.com/ib5l742ca52b",
+      "language": "英语",
+      "era": "1990s",
+      "tags": [
+        "电音",
+        "摇滚",
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "Snowdreams",
+      "artist": "Bandari",
+      "file": "Snowdreams - Bandari.mp3",
+      "url": "https://yzym.lanzoul.com/imuyl42ca5fe",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "So Far Away",
+      "artist": "Martin Garrix _ David Guetta _ Jamie Scott _ Romy Dya",
+      "file": "So Far Away - Martin Garrix _ David Guetta _ Jamie Scott _ Romy Dya.mp3",
+      "url": "https://yzym.lanzoul.com/iwqW442ca5mb",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Sold Out",
+      "artist": "Hawk Nelson _ Jonathan Steingard",
+      "file": "Sold Out - Hawk Nelson _ Jonathan Steingard.mp3",
+      "url": "https://yzym.lanzoul.com/ixLWV42ca5va",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Something Just Like This",
+      "artist": "The Chainsmokers _ Coldplay",
+      "file": "Something Just Like This - The Chainsmokers _ Coldplay.mp3",
+      "url": "https://yzym.lanzoul.com/iweEK42ca69e",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Somewhere",
+      "artist": "July",
+      "file": "Somewhere - July.mp3",
+      "url": "https://yzym.lanzoul.com/iAtDJ42ca6gb",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Souvenirs D'enfance_H",
+      "artist": "Richard Clayderman",
+      "file": "Souvenirs D'enfance_H - Richard Clayderman.mp3",
+      "url": "https://yzym.lanzoul.com/iK6XH42ca6oj",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Spoons for Loons",
+      "artist": "Deep East Music",
+      "file": "Spoons for Loons - Deep East Music.mp3",
+      "url": "https://yzym.lanzoul.com/imnPi42ca6rc",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Spring In My Step",
+      "artist": "Silent Partner",
+      "file": "Spring In My Step - Silent Partner.mp3",
+      "url": "https://yzym.lanzoul.com/iliUn42ca6za",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Star Sky",
+      "artist": "Two Steps From Hell _ Thomas Bergersen",
+      "file": "Star Sky - Two Steps From Hell _ Thomas Bergersen.mp3",
+      "url": "https://yzym.lanzoul.com/iMhxP42ca7bc",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Stronger (What Doesn't Kill You)",
+      "artist": "Kelly Clarkson",
+      "file": "Stronger (What Doesn't Kill You) - Kelly Clarkson.mp3",
+      "url": "https://yzym.lanzoul.com/idXki42ca7ub",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Subwoofer Lullaby",
+      "artist": "C418",
+      "file": "Subwoofer Lullaby - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iqtsf42ca87e",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Sugar",
+      "artist": "Maroon 5",
+      "file": "Sugar - Maroon 5.mp3",
+      "url": "https://yzym.lanzoul.com/iD9JY42ca8gd",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Summer (菊次郎的夏天) (PIANO VER_)",
+      "artist": "久石让",
+      "file": "Summer (菊次郎的夏天) (PIANO VER_) - 久石让.mp3",
+      "url": "https://yzym.lanzoul.com/iucVF42ca8re",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Sunny Jim",
+      "artist": "Deep East Music",
+      "file": "Sunny Jim - Deep East Music.mp3",
+      "url": "https://yzym.lanzoul.com/iLJ8u42ca8yb",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Super Star",
+      "artist": "S_H_E",
+      "file": "Super Star - S_H_E.mp3",
+      "url": "https://yzym.lanzoul.com/iCtkJ42ca97a",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Sweden",
+      "artist": "C418",
+      "file": "Sweden - C418.mp3",
+      "url": "https://yzym.lanzoul.com/i55PE42ca9mf",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Take Me Hand",
+      "artist": "DAISHI DANCE (ダイシ・ダンス) _ Cécile Corbel",
+      "file": "Take Me Hand - DAISHI DANCE (ダイシ・ダンス) _ Cécile Corbel.mp3",
+      "url": "https://yzym.lanzoul.com/iGo2l42ca9ve",
+      "language": "日语",
+      "era": "2010s",
+      "tags": [
+        "日系"
+      ]
+    },
+    {
+      "title": "Teeth",
+      "artist": "5 Seconds Of Summer",
+      "file": "Teeth - 5 Seconds Of Summer.mp3",
+      "url": "https://yzym.lanzoul.com/iAH1g42caa3c",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "摇滚"
+      ]
+    },
+    {
+      "title": "That Girl",
+      "artist": "Olly Murs",
+      "file": "That Girl - Olly Murs.mp3",
+      "url": "https://yzym.lanzoul.com/i02nN42caaed",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "The Right Path",
+      "artist": "Thomas Greenberg",
+      "file": "The Right Path - Thomas Greenberg.mp3",
+      "url": "https://yzym.lanzoul.com/iTznf42caaih",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "The Spectre",
+      "artist": "Alan Walker",
+      "file": "The Spectre - Alan Walker.mp3",
+      "url": "https://yzym.lanzoul.com/i8jbi42caala",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Thirteen",
+      "artist": "C418",
+      "file": "Thirteen - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iQ03A42caawb",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Time to Pretend",
+      "artist": "Lazer Boomerang",
+      "file": "Time to Pretend - Lazer Boomerang.mp3",
+      "url": "https://yzym.lanzoul.com/iEbOk42cab4j",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Touch The Sky",
+      "artist": "Cedric Gervais _ Digital Farm Animals _ Dallas Austin",
+      "file": "Touch The Sky - Cedric Gervais _ Digital Farm Animals _ Dallas Austin.mp3",
+      "url": "https://yzym.lanzoul.com/izmG842cabch",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Trip (Original Mix)",
+      "artist": "Axero",
+      "file": "Trip (Original Mix) - Axero.mp3",
+      "url": "https://yzym.lanzoul.com/idtKt42cabkf",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Try",
+      "artist": "Colbie Caillat",
+      "file": "Try - Colbie Caillat.mp3",
+      "url": "https://yzym.lanzoul.com/isQyC42cabyj",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Try Everything",
+      "artist": "Shakira",
+      "file": "Try Everything - Shakira.mp3",
+      "url": "https://yzym.lanzoul.com/i1O0J42cacde",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Undead Funeral March",
+      "artist": "Ugress",
+      "file": "Undead Funeral March - Ugress.mp3",
+      "url": "https://yzym.lanzoul.com/iGAOs42cacpg",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Unity",
+      "artist": "TheFatRat",
+      "file": "Unity - TheFatRat.mp3",
+      "url": "https://yzym.lanzoul.com/i8QRr42cad7e",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Unstoppable",
+      "artist": "Sia",
+      "file": "Unstoppable - Sia.mp3",
+      "url": "https://yzym.lanzoul.com/iWr3o42cadre",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Victory",
+      "artist": "Two Steps From Hell _ Thomas Bergersen",
+      "file": "Victory - Two Steps From Hell _ Thomas Bergersen.mp3",
+      "url": "https://yzym.lanzoul.com/i9goI42caebe",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Waka Waka_L",
+      "artist": "Shakira",
+      "file": "Waka Waka_L - Shakira.mp3",
+      "url": "https://yzym.lanzoul.com/irfNV42caepi",
+      "language": "英语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "Wake (Studio)",
+      "artist": "Hillsong Young & Free",
+      "file": "Wake (Studio) - Hillsong Young & Free.mp3",
+      "url": "https://yzym.lanzoul.com/in3e042cafgf",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "摇滚"
+      ]
+    },
+    {
+      "title": "Watcher",
+      "artist": "Aaron Cherof _ Minecraft",
+      "file": "Watcher - Aaron Cherof _ Minecraft.mp3",
+      "url": "https://yzym.lanzoul.com/iur1F42caggb",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐",
+        "游戏/影视原声"
+      ]
+    },
+    {
+      "title": "Way Back (feat_ Cozi Zuehlsdorff)",
+      "artist": "Vicetone _ Cozi Zuehlsdorff",
+      "file": "Way Back (feat_ Cozi Zuehlsdorff) - Vicetone _ Cozi Zuehlsdorff.mp3",
+      "url": "https://yzym.lanzoul.com/i5nei42cagrc",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "We Don't Talk Anymore",
+      "artist": "Charlie Puth _ Selena Gomez",
+      "file": "We Don't Talk Anymore - Charlie Puth _ Selena Gomez.mp3",
+      "url": "https://yzym.lanzoul.com/ifBuD42cah3e",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "We Will Rock You (Remastered 2011)",
+      "artist": "Queen",
+      "file": "We Will Rock You (Remastered 2011) - Queen.mp3",
+      "url": "https://yzym.lanzoul.com/iZjKy42cahja",
+      "language": "英语",
+      "era": "1990s",
+      "tags": [
+        "摇滚",
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "Wellerman (Sea Shanty)",
+      "artist": "Nathan Evans",
+      "file": "Wellerman (Sea Shanty) - Nathan Evans.mp3",
+      "url": "https://yzym.lanzoul.com/iptqj42cai1i",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Wet Hands",
+      "artist": "C418",
+      "file": "Wet Hands - C418.mp3",
+      "url": "https://yzym.lanzoul.com/ixU8V42caifc",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "What Makes You Beautiful",
+      "artist": "One Direction",
+      "file": "What Makes You Beautiful - One Direction.mp3",
+      "url": "https://yzym.lanzoul.com/itfLm42caj0d",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "摇滚"
+      ]
+    },
+    {
+      "title": "Who Says",
+      "artist": "Selena Gomez & The Scene",
+      "file": "Who Says - Selena Gomez & The Scene.mp3",
+      "url": "https://yzym.lanzoul.com/im2i342cajng",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "Windfall",
+      "artist": "TheFatRat",
+      "file": "Windfall - TheFatRat.mp3",
+      "url": "https://yzym.lanzoul.com/iF4sc42cak9i",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "Windy Hill",
+      "artist": "羽肿",
+      "file": "Windy Hill - 羽肿.mp3",
+      "url": "https://yzym.lanzoul.com/igVPf42caknc",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "Wolves",
+      "artist": "Selena Gomez _ Marshmello",
+      "file": "Wolves - Selena Gomez _ Marshmello.mp3",
+      "url": "https://yzym.lanzoul.com/iH3DG42cal0f",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "电音"
+      ]
+    },
+    {
+      "title": "X-COOL! (高手如云的时代)",
+      "artist": "tienanh109 _ HDN _ hailong140 _ MC K3",
+      "file": "X-COOL! (高手如云的时代) - tienanh109 _ HDN _ hailong140 _ MC K3.mp3",
+      "url": "https://yzym.lanzoul.com/iMjjP42cal3i",
+      "language": "葡萄牙语",
+      "era": "2020s",
+      "tags": [
+        "电音",
+        "Funk",
+        "Phonk"
+      ]
+    },
+    {
+      "title": "Zoo (From _Zootopia 2_)",
+      "artist": "Disney _ Shakira",
+      "file": "Zoo (From _Zootopia 2_) - Disney _ Shakira.mp3",
+      "url": "https://yzym.lanzoul.com/iIukH42calbg",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "游戏/影视原声"
+      ]
+    },
+    {
+      "title": "otherside",
+      "artist": "Lena Raine _ Minecraft",
+      "file": "otherside - Lena Raine _ Minecraft.mp3",
+      "url": "https://yzym.lanzoul.com/iJpym42ca0va",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐",
+        "游戏/影视原声"
+      ]
+    },
+    {
+      "title": "Équinoxe",
+      "artist": "C418",
+      "file": "Équinoxe - C418.mp3",
+      "url": "https://yzym.lanzoul.com/iJyWE42c8qad",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "ツナ覚醒 (阿纲觉醒)",
+      "artist": "佐桥俊彦",
+      "file": "ツナ覚醒 (阿纲觉醒) - 佐桥俊彦.mp3",
+      "url": "https://yzym.lanzoul.com/ipnRY42calje",
+      "language": "日语",
+      "era": "2020s",
+      "tags": [
+        "日系",
+        "新歌"
+      ]
+    },
+    {
+      "title": "一剪梅",
+      "artist": "费玉清",
+      "file": "一剪梅 - 费玉清.mp3",
+      "url": "https://yzym.lanzoul.com/iTGZr42ci66j",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "一千个伤心的理由",
+      "artist": "张学友",
+      "file": "一千个伤心的理由 - 张学友.mp3",
+      "url": "https://yzym.lanzoul.com/iaD2742ci6ud",
+      "language": "粤语",
+      "era": "1990s",
+      "tags": [
+        "粤语经典",
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "一百万个可能",
+      "artist": "Christine Welch",
+      "file": "一百万个可能 - Christine Welch.mp3",
+      "url": "https://yzym.lanzoul.com/iYzYk42ci61e",
+      "language": "英语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "一笑江湖",
+      "artist": "闻人听書_",
+      "file": "一笑江湖 - 闻人听書_.mp3",
+      "url": "https://yzym.lanzoul.com/igKAT42ci6zi",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "一路向北",
+      "artist": "周杰伦",
+      "file": "一路向北 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/iAdtR42ci6le",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "一路生花",
+      "artist": "温奕心",
+      "file": "一路生花 - 温奕心.mp3",
+      "url": "https://yzym.lanzoul.com/ixZpn42ci6gj",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "七里香",
+      "artist": "周杰伦",
+      "file": "七里香 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/iQ8wn42cc3va",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "万疆",
+      "artist": "李玉刚",
+      "file": "万疆 - 李玉刚.mp3",
+      "url": "https://yzym.lanzoul.com/i7e8v42chukb",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "万里",
+      "artist": "周深",
+      "file": "万里 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iKTCN42chune",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "上春山",
+      "artist": "张超",
+      "file": "上春山 - 张超.mp3",
+      "url": "https://yzym.lanzoul.com/iMoWN42ccc1e",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "下山",
+      "artist": "徐泽（要不要买菜）",
+      "file": "下山 - 徐泽（要不要买菜）.mp3",
+      "url": "https://yzym.lanzoul.com/ixWqw42chzyf",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "不再犹豫",
+      "artist": "BEYOND",
+      "file": "不再犹豫 - BEYOND.mp3",
+      "url": "https://yzym.lanzoul.com/i4iVT42caz4d",
+      "language": "粤语",
+      "era": "2010s",
+      "tags": [
+        "粤语经典",
+        "摇滚"
+      ]
+    },
+    {
+      "title": "不如见一面",
+      "artist": "海来阿木 _ 单依纯",
+      "file": "不如见一面 - 海来阿木 _ 单依纯.mp3",
+      "url": "https://yzym.lanzoul.com/ieqKr42cayib",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "不谓侠",
+      "artist": "萧忆情Alex",
+      "file": "不谓侠 - 萧忆情Alex.mp3",
+      "url": "https://yzym.lanzoul.com/iao2642cayra",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "丑八怪",
+      "artist": "薛之谦",
+      "file": "丑八怪 - 薛之谦.mp3",
+      "url": "https://yzym.lanzoul.com/iSw0I42cb19a",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "世界赠予我的",
+      "artist": "王菲",
+      "file": "世界赠予我的 - 王菲.mp3",
+      "url": "https://yzym.lanzoul.com/isff242ccdcb",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "世界这么大还是遇见你",
+      "artist": "程响",
+      "file": "世界这么大还是遇见你 - 程响.mp3",
+      "url": "https://yzym.lanzoul.com/ia84d42ccdla",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "世间美好与你环环相扣",
+      "artist": "柏松",
+      "file": "世间美好与你环环相扣 - 柏松.mp3",
+      "url": "https://yzym.lanzoul.com/ipn1w42cccve",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "东方之珠",
+      "artist": "罗大佑",
+      "file": "东方之珠 - 罗大佑.mp3",
+      "url": "https://yzym.lanzoul.com/iopEo42cb5ch",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "中国话",
+      "artist": "S_H_E",
+      "file": "中国话 - S_H_E.mp3",
+      "url": "https://yzym.lanzoul.com/iotIH42cibve",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "云宫迅音",
+      "artist": "许镜清",
+      "file": "云宫迅音 - 许镜清.mp3",
+      "url": "https://yzym.lanzoul.com/iRyjm42ciali",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "亲爱的你啊",
+      "artist": "任素汐",
+      "file": "亲爱的你啊 - 任素汐.mp3",
+      "url": "https://yzym.lanzoul.com/irE5W42cc5bc",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "亲爱的小孩",
+      "artist": "刘德华",
+      "file": "亲爱的小孩 - 刘德华.mp3",
+      "url": "https://yzym.lanzoul.com/ifiee42cc5hi",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "人世间",
+      "artist": "雷佳",
+      "file": "人世间 - 雷佳.mp3",
+      "url": "https://yzym.lanzoul.com/itwgu42cc9ej",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "人是_",
+      "artist": "周深",
+      "file": "人是_ - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iFmBK42cc9pa",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "人间共鸣",
+      "artist": "李健",
+      "file": "人间共鸣 - 李健.mp3",
+      "url": "https://yzym.lanzoul.com/irWFQ42cc8ze",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "人间烟火",
+      "artist": "程响",
+      "file": "人间烟火 - 程响.mp3",
+      "url": "https://yzym.lanzoul.com/iVPf342cc96b",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "伤心太平洋",
+      "artist": "任贤齐",
+      "file": "伤心太平洋 - 任贤齐.mp3",
+      "url": "https://yzym.lanzoul.com/i0yN442ccbyb",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "伪善者",
+      "artist": "金渔",
+      "file": "伪善者 - 金渔.mp3",
+      "url": "https://yzym.lanzoul.com/iRZk742chvmj",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "伯虎说",
+      "artist": "伯爵Johnny _ 唐伯虎Annie",
+      "file": "伯虎说 - 伯爵Johnny _ 唐伯虎Annie.mp3",
+      "url": "https://yzym.lanzoul.com/iPF0b42cay4h",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "你的微笑",
+      "artist": "F_I_R_飞儿乐团",
+      "file": "你的微笑 - F_I_R_飞儿乐团.mp3",
+      "url": "https://yzym.lanzoul.com/iMic142cby9i",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "你的答案",
+      "artist": "阿冗",
+      "file": "你的答案 - 阿冗.mp3",
+      "url": "https://yzym.lanzoul.com/iGLr242cbxzi",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "你看你看月亮的脸",
+      "artist": "孟庭苇",
+      "file": "你看你看月亮的脸 - 孟庭苇.mp3",
+      "url": "https://yzym.lanzoul.com/ihmk642cbync",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "修炼爱情",
+      "artist": "林俊杰",
+      "file": "修炼爱情 - 林俊杰.mp3",
+      "url": "https://yzym.lanzoul.com/iNFJ542ci34j",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "倒数",
+      "artist": "G_E_M_ 邓紫棋",
+      "file": "倒数 - G_E_M_ 邓紫棋.mp3",
+      "url": "https://yzym.lanzoul.com/ivX4j42cb4ed",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "偏偏喜欢你",
+      "artist": "陈百强",
+      "file": "偏偏喜欢你 - 陈百强.mp3",
+      "url": "https://yzym.lanzoul.com/i3t7Z42cc31a",
+      "language": "粤语",
+      "era": "2000s",
+      "tags": [
+        "粤语经典"
+      ]
+    },
+    {
+      "title": "偏爱",
+      "artist": "张芸京",
+      "file": "偏爱 - 张芸京.mp3",
+      "url": "https://yzym.lanzoul.com/iENfD42cc2tc",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "像你这样的朋友",
+      "artist": "陆虎",
+      "file": "像你这样的朋友 - 陆虎.mp3",
+      "url": "https://yzym.lanzoul.com/i1JJC42ci0vi",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "像我这样的人 (Live)",
+      "artist": "毛不易",
+      "file": "像我这样的人 (Live) - 毛不易.mp3",
+      "url": "https://yzym.lanzoul.com/iowTQ42ci0xa",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "像鱼",
+      "artist": "王贰浪",
+      "file": "像鱼 - 王贰浪.mp3",
+      "url": "https://yzym.lanzoul.com/idlRs42ci14h",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "光るなら (若能绽放光芒)",
+      "artist": "Goose house (グースハウス)",
+      "file": "光るなら (若能绽放光芒) - Goose house (グースハウス).mp3",
+      "url": "https://yzym.lanzoul.com/iQsCh42cbcfc",
+      "language": "日语",
+      "era": "2010s",
+      "tags": [
+        "电音",
+        "日系"
+      ]
+    },
+    {
+      "title": "光亮",
+      "artist": "周深",
+      "file": "光亮 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iUf9o42cbd0d",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "光年之外",
+      "artist": "G_E_M_ 邓紫棋",
+      "file": "光年之外 - G_E_M_ 邓紫棋.mp3",
+      "url": "https://yzym.lanzoul.com/iQtQB42cbd5i",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "光辉岁月",
+      "artist": "BEYOND",
+      "file": "光辉岁月 - BEYOND.mp3",
+      "url": "https://yzym.lanzoul.com/iMPnI42cbcob",
+      "language": "粤语",
+      "era": "2010s",
+      "tags": [
+        "粤语经典",
+        "摇滚"
+      ]
+    },
+    {
+      "title": "光阴的故事",
+      "artist": "罗大佑",
+      "file": "光阴的故事 - 罗大佑.mp3",
+      "url": "https://yzym.lanzoul.com/i8mVC42cbdbe",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "兰亭序",
+      "artist": "周杰伦",
+      "file": "兰亭序 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/i8eTH42cbmmj",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "关山酒",
+      "artist": "邓寓君(等什么君)",
+      "file": "关山酒 - 邓寓君(等什么君).mp3",
+      "url": "https://yzym.lanzoul.com/in4zo42cbc4b",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "再见",
+      "artist": "张震岳",
+      "file": "再见 - 张震岳.mp3",
+      "url": "https://yzym.lanzoul.com/iGTQG42ciare",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "凄美地",
+      "artist": "郭顶",
+      "file": "凄美地 - 郭顶.mp3",
+      "url": "https://yzym.lanzoul.com/i4uMh42cc42h",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "凡人歌",
+      "artist": "李宗盛",
+      "file": "凡人歌 - 李宗盛.mp3",
+      "url": "https://yzym.lanzoul.com/iLzfV42cb6xe",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "凤凰花开的路口",
+      "artist": "林志炫",
+      "file": "凤凰花开的路口 - 林志炫.mp3",
+      "url": "https://yzym.lanzoul.com/iYpry42cb8dg",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "刀剑如梦",
+      "artist": "周华健",
+      "file": "刀剑如梦 - 周华健.mp3",
+      "url": "https://yzym.lanzoul.com/iqD1B42cb4aj",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "刚好遇见你",
+      "artist": "李玉刚",
+      "file": "刚好遇见你 - 李玉刚.mp3",
+      "url": "https://yzym.lanzoul.com/iS2sV42cba6b",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "剑魂",
+      "artist": "李炜",
+      "file": "剑魂 - 李炜.mp3",
+      "url": "https://yzym.lanzoul.com/iOJdz42cbj0j",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "勇气",
+      "artist": "梁静茹",
+      "file": "勇气 - 梁静茹.mp3",
+      "url": "https://yzym.lanzoul.com/ihGlS42ci7pe",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "勋章",
+      "artist": "鹿晗",
+      "file": "勋章 - 鹿晗.mp3",
+      "url": "https://yzym.lanzoul.com/i6OvS42ci3za",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "匆匆那年",
+      "artist": "王菲",
+      "file": "匆匆那年 - 王菲.mp3",
+      "url": "https://yzym.lanzoul.com/iVM7V42cb2vi",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "化身孤岛的鲸",
+      "artist": "周深",
+      "file": "化身孤岛的鲸 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iX82N42cbhkh",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "十年",
+      "artist": "陈奕迅",
+      "file": "十年 - 陈奕迅.mp3",
+      "url": "https://yzym.lanzoul.com/i4Hy642ccckd",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "千万次想象",
+      "artist": "张杰",
+      "file": "千万次想象 - 张杰.mp3",
+      "url": "https://yzym.lanzoul.com/irjRR42cc4za",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "千千万万",
+      "artist": "深海鱼子酱",
+      "file": "千千万万 - 深海鱼子酱.mp3",
+      "url": "https://yzym.lanzoul.com/i6sVM42cc4qb",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "千千阕歌",
+      "artist": "陈慧娴",
+      "file": "千千阕歌 - 陈慧娴.mp3",
+      "url": "https://yzym.lanzoul.com/iI0uu42cc4id",
+      "language": "粤语",
+      "era": "2000s",
+      "tags": [
+        "粤语经典"
+      ]
+    },
+    {
+      "title": "半句再见",
+      "artist": "孙燕姿",
+      "file": "半句再见 - 孙燕姿.mp3",
+      "url": "https://yzym.lanzoul.com/itsGI42caove",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "半壶纱",
+      "artist": "刘珂矣",
+      "file": "半壶纱 - 刘珂矣.mp3",
+      "url": "https://yzym.lanzoul.com/igNVV42caoib",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "半生雪",
+      "artist": "七叔（叶泽浩）",
+      "file": "半生雪 - 七叔（叶泽浩）.mp3",
+      "url": "https://yzym.lanzoul.com/inIaa42cawsj",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "卡路里",
+      "artist": "火箭少女101",
+      "file": "卡路里 - 火箭少女101.mp3",
+      "url": "https://yzym.lanzoul.com/in3nr42cbl3e",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "去明天",
+      "artist": "周深",
+      "file": "去明天 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iOcET42cc8ba",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "反方向的钟",
+      "artist": "周杰伦",
+      "file": "反方向的钟 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/ipRzh42cb75c",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "发如雪",
+      "artist": "周杰伦",
+      "file": "发如雪 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/i43UT42cb6ja",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "句号",
+      "artist": "G_E_M_ 邓紫棋",
+      "file": "句号 - G_E_M_ 邓紫棋.mp3",
+      "url": "https://yzym.lanzoul.com/ixQSU42cbkkf",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "只要平凡",
+      "artist": "张杰 _ 张碧晨",
+      "file": "只要平凡 - 张杰 _ 张碧晨.mp3",
+      "url": "https://yzym.lanzoul.com/iMXF842cibra",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "可不可以",
+      "artist": "张紫豪",
+      "file": "可不可以 - 张紫豪.mp3",
+      "url": "https://yzym.lanzoul.com/iD9W642cbl9a",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "可惜不是你",
+      "artist": "梁静茹",
+      "file": "可惜不是你 - 梁静茹.mp3",
+      "url": "https://yzym.lanzoul.com/i3el342cblne",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "后来",
+      "artist": "刘若英",
+      "file": "后来 - 刘若英.mp3",
+      "url": "https://yzym.lanzoul.com/i16RB42cbgri",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "听妈妈的话",
+      "artist": "周杰伦",
+      "file": "听妈妈的话 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/iTWdW42chshg",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "告白气球",
+      "artist": "周杰伦",
+      "file": "告白气球 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/iw7sx42cbaoj",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "和光同尘",
+      "artist": "周深",
+      "file": "和光同尘 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/i2REM42cbf6b",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "咖喱咖喱",
+      "artist": "牛奶咖啡",
+      "file": "咖喱咖喱 - 牛奶咖啡.mp3",
+      "url": "https://yzym.lanzoul.com/izhw542cbkqb",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "唯一",
+      "artist": "G_E_M_ 邓紫棋",
+      "file": "唯一 - G_E_M_ 邓紫棋.mp3",
+      "url": "https://yzym.lanzoul.com/iKIvN42chv6d",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "四季予你",
+      "artist": "程响",
+      "file": "四季予你 - 程响.mp3",
+      "url": "https://yzym.lanzoul.com/iCy4Z42ccgfc",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "土坡上的狗尾草",
+      "artist": "卢润泽",
+      "file": "土坡上的狗尾草 - 卢润泽.mp3",
+      "url": "https://yzym.lanzoul.com/iaPN642chtza",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "城南花已开",
+      "artist": "三亩地",
+      "file": "城南花已开 - 三亩地.mp3",
+      "url": "https://yzym.lanzoul.com/iqcR442cb0oj",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "夏天的风",
+      "artist": "Uu (刘梦妤)",
+      "file": "夏天的风 - Uu (刘梦妤).mp3",
+      "url": "https://yzym.lanzoul.com/iOnaK42ci06d",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "外婆的澎湖湾",
+      "artist": "潘安邦",
+      "file": "外婆的澎湖湾 - 潘安邦.mp3",
+      "url": "https://yzym.lanzoul.com/iKa6Y42chu9a",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "多远都要在一起",
+      "artist": "G_E_M_ 邓紫棋",
+      "file": "多远都要在一起 - G_E_M_ 邓紫棋.mp3",
+      "url": "https://yzym.lanzoul.com/isM7V42cb5xi",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "夜曲",
+      "artist": "周杰伦",
+      "file": "夜曲 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/i7y3642ci5uh",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "夜空中最亮的星",
+      "artist": "逃跑计划",
+      "file": "夜空中最亮的星 - 逃跑计划.mp3",
+      "url": "https://yzym.lanzoul.com/iUaqS42ci5pc",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "大梦想家",
+      "artist": "TFBOYS",
+      "file": "大梦想家 - TFBOYS.mp3",
+      "url": "https://yzym.lanzoul.com/i0Zri42cb3kd",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "大海",
+      "artist": "张雨生",
+      "file": "大海 - 张雨生.mp3",
+      "url": "https://yzym.lanzoul.com/iA5Do42cb3be",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "大风吹",
+      "artist": "王赫野",
+      "file": "大风吹 - 王赫野.mp3",
+      "url": "https://yzym.lanzoul.com/icsiL42cb35i",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "大鱼",
+      "artist": "周深",
+      "file": "大鱼 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iC6xW42cb3qj",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "天地龙鳞",
+      "artist": "王力宏",
+      "file": "天地龙鳞 - 王力宏.mp3",
+      "url": "https://yzym.lanzoul.com/iJ1Uc42chq9g",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "天空没有极限",
+      "artist": "G_E_M_ 邓紫棋",
+      "file": "天空没有极限 - G_E_M_ 邓紫棋.mp3",
+      "url": "https://yzym.lanzoul.com/iPy2v42chqvi",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "太多",
+      "artist": "陈冠蒲",
+      "file": "太多 - 陈冠蒲.mp3",
+      "url": "https://yzym.lanzoul.com/i8EX142cciuj",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "失恋阵线联盟",
+      "artist": "草蜢",
+      "file": "失恋阵线联盟 - 草蜢.mp3",
+      "url": "https://yzym.lanzoul.com/iFkZl42cccha",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "奔跑",
+      "artist": "黄征 _ 羽泉",
+      "file": "奔跑 - 黄征 _ 羽泉.mp3",
+      "url": "https://yzym.lanzoul.com/ik6RL42caxif",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "套马杆",
+      "artist": "乌兰托娅",
+      "file": "套马杆 - 乌兰托娅.mp3",
+      "url": "https://yzym.lanzoul.com/ic8GP42chp4f",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "奢香夫人",
+      "artist": "凤凰传奇",
+      "file": "奢香夫人 - 凤凰传奇.mp3",
+      "url": "https://yzym.lanzoul.com/ij56A42ccc9c",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "如愿",
+      "artist": "王菲",
+      "file": "如愿 - 王菲.mp3",
+      "url": "https://yzym.lanzoul.com/iOHIe42ccb9g",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "如果当时",
+      "artist": "许嵩",
+      "file": "如果当时 - 许嵩.mp3",
+      "url": "https://yzym.lanzoul.com/iUKoc42ccazg",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "如果爱忘了",
+      "artist": "戚薇",
+      "file": "如果爱忘了 - 戚薇.mp3",
+      "url": "https://yzym.lanzoul.com/iqADs42ccaqh",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "姑娘别哭泣",
+      "artist": "柯柯柯啊",
+      "file": "姑娘别哭泣 - 柯柯柯啊.mp3",
+      "url": "https://yzym.lanzoul.com/icbYf42cbbub",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "孤勇者",
+      "artist": "陈奕迅",
+      "file": "孤勇者 - 陈奕迅.mp3",
+      "url": "https://yzym.lanzoul.com/i80lJ42cbbhi",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "宁夏",
+      "artist": "梁静茹",
+      "file": "宁夏 - 梁静茹.mp3",
+      "url": "https://yzym.lanzoul.com/iOpEr42cc0cd",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "寂寞沙洲冷",
+      "artist": "周传雄",
+      "file": "寂寞沙洲冷 - 周传雄.mp3",
+      "url": "https://yzym.lanzoul.com/i0Nic42cbiud",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "富士山下",
+      "artist": "陈奕迅",
+      "file": "富士山下 - 陈奕迅.mp3",
+      "url": "https://yzym.lanzoul.com/i6aQA42cb9aj",
+      "language": "粤语",
+      "era": "2000s",
+      "tags": [
+        "粤语经典"
+      ]
+    },
+    {
+      "title": "对你爱不完",
+      "artist": "郭富城",
+      "file": "对你爱不完 - 郭富城.mp3",
+      "url": "https://yzym.lanzoul.com/ihJBe42cb5rc",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "小半",
+      "artist": "陈粒",
+      "file": "小半 - 陈粒.mp3",
+      "url": "https://yzym.lanzoul.com/iGVF542ci1kd",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "小城夏天",
+      "artist": "LBI利比（时柏尘）",
+      "file": "小城夏天 - LBI利比（时柏尘）.mp3",
+      "url": "https://yzym.lanzoul.com/iEhnj42ci1ra",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "小美满",
+      "artist": "周深",
+      "file": "小美满 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iP9A442ci1yh",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "小苹果",
+      "artist": "筷子兄弟",
+      "file": "小苹果 - 筷子兄弟.mp3",
+      "url": "https://yzym.lanzoul.com/iV2jC42ci29i",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "少年",
+      "artist": "梦然",
+      "file": "少年 - 梦然.mp3",
+      "url": "https://yzym.lanzoul.com/ivdw942ccc6j",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "就是哪吒",
+      "artist": "唐汉霄",
+      "file": "就是哪吒 - 唐汉霄.mp3",
+      "url": "https://yzym.lanzoul.com/iSyoN42cbk8d",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "左手指月",
+      "artist": "萨顶顶",
+      "file": "左手指月 - 萨顶顶.mp3",
+      "url": "https://yzym.lanzoul.com/iZeNF42ckebe",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "平凡之路",
+      "artist": "朴树",
+      "file": "平凡之路 - 朴树.mp3",
+      "url": "https://yzym.lanzoul.com/i9Roe42cc3nc",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "年少的你啊",
+      "artist": "浩然H_R",
+      "file": "年少的你啊 - 浩然H_R.mp3",
+      "url": "https://yzym.lanzoul.com/is3Pb42cbzyj",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "年轮",
+      "artist": "张碧晨",
+      "file": "年轮 - 张碧晨.mp3",
+      "url": "https://yzym.lanzoul.com/iJ0Mx42cbzrc",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "当",
+      "artist": "动力火车",
+      "file": "当 - 动力火车.mp3",
+      "url": "https://yzym.lanzoul.com/iujcJ42cb3wf",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "当爱在靠近",
+      "artist": "刘若英",
+      "file": "当爱在靠近 - 刘若英.mp3",
+      "url": "https://yzym.lanzoul.com/iiZ5x42cb45e",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "微微",
+      "artist": "傅如乔",
+      "file": "微微 - 傅如乔.mp3",
+      "url": "https://yzym.lanzoul.com/isxTa42chuxe",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "心如止水",
+      "artist": "Ice Paper",
+      "file": "心如止水 - Ice Paper.mp3",
+      "url": "https://yzym.lanzoul.com/iTlZ842ci2sh",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "快乐崇拜",
+      "artist": "潘玮柏 _ 张韶涵",
+      "file": "快乐崇拜 - 潘玮柏 _ 张韶涵.mp3",
+      "url": "https://yzym.lanzoul.com/iew5942cblub",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "快乐老家",
+      "artist": "陈明",
+      "file": "快乐老家 - 陈明.mp3",
+      "url": "https://yzym.lanzoul.com/irAhi42cbm4b",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "怒放的生命",
+      "artist": "汪峰",
+      "file": "怒放的生命 - 汪峰.mp3",
+      "url": "https://yzym.lanzoul.com/ibwPO42cc0ja",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "恋人",
+      "artist": "李荣浩",
+      "file": "恋人 - 李荣浩.mp3",
+      "url": "https://yzym.lanzoul.com/iCIvL42cbsqj",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "悪魔の子 (恶魔之子)",
+      "artist": "ヒグチアイ (HiguchiAi)",
+      "file": "悪魔の子 (恶魔之子) - ヒグチアイ (HiguchiAi).mp3",
+      "url": "https://yzym.lanzoul.com/iiPwE42cb63e",
+      "language": "日语",
+      "era": "2020s",
+      "tags": [
+        "日系",
+        "新歌"
+      ]
+    },
+    {
+      "title": "悬溺",
+      "artist": "葛东琪",
+      "file": "悬溺 - 葛东琪.mp3",
+      "url": "https://yzym.lanzoul.com/iOKiy42ci3hc",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "感谢你曾来过",
+      "artist": "Ayo97 _ 周思涵",
+      "file": "感谢你曾来过 - Ayo97 _ 周思涵.mp3",
+      "url": "https://yzym.lanzoul.com/iPiID42cb9ti",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "愿得一心人",
+      "artist": "周深",
+      "file": "愿得一心人 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iudU242cia0h",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "成都",
+      "artist": "赵雷",
+      "file": "成都 - 赵雷.mp3",
+      "url": "https://yzym.lanzoul.com/iMu0542cb0bg",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "我以渺小爱你",
+      "artist": "周深",
+      "file": "我以渺小爱你 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iOgOC42chybg",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "我们不一样",
+      "artist": "大壮",
+      "file": "我们不一样 - 大壮.mp3",
+      "url": "https://yzym.lanzoul.com/ii8qT42chx7g",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "我们的时光",
+      "artist": "赵雷",
+      "file": "我们的时光 - 赵雷.mp3",
+      "url": "https://yzym.lanzoul.com/i1sFx42chxhg",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "我们的爱",
+      "artist": "F_I_R_飞儿乐团",
+      "file": "我们的爱 - F_I_R_飞儿乐团.mp3",
+      "url": "https://yzym.lanzoul.com/i8Fhp42chxdc",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "我会等",
+      "artist": "承桓",
+      "file": "我会等 - 承桓.mp3",
+      "url": "https://yzym.lanzoul.com/i0mwk42chwpi",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "我只在乎你",
+      "artist": "邓丽君",
+      "file": "我只在乎你 - 邓丽君.mp3",
+      "url": "https://yzym.lanzoul.com/iuuuw42chypa",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "我是一只小小鸟",
+      "artist": "赵传",
+      "file": "我是一只小小鸟 - 赵传.mp3",
+      "url": "https://yzym.lanzoul.com/iyiMN42chxla",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "我爱你中国 (Live)",
+      "artist": "孙楠_韩红_黄绮珊_古巨基_陈楚生_王心凌_谭维维_胡彦斌_郁可唯_汪苏泷_周深_宋亚轩_杨坤_单依纯_何炅_李莎旻子",
+      "file": "我爱你中国 (Live) - 孙楠_韩红_黄绮珊_古巨基_陈楚生_王心凌_谭维维_胡彦斌_郁可唯_汪苏泷_周深_宋亚轩_杨坤_单依纯_何炅_李莎旻子.mp3",
+      "url": "https://yzym.lanzoul.com/ielSX42chw5i",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "我的未来不是梦",
+      "artist": "张雨生",
+      "file": "我的未来不是梦 - 张雨生.mp3",
+      "url": "https://yzym.lanzoul.com/ity6h42chwha",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "我相信",
+      "artist": "杨培安",
+      "file": "我相信 - 杨培安.mp3",
+      "url": "https://yzym.lanzoul.com/iThBB42chxod",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "我终于失去了你",
+      "artist": "赵传",
+      "file": "我终于失去了你 - 赵传.mp3",
+      "url": "https://yzym.lanzoul.com/iYk9v42chz5g",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "我要的不是雪",
+      "artist": "李发发",
+      "file": "我要的不是雪 - 李发发.mp3",
+      "url": "https://yzym.lanzoul.com/i7JqW42chxwb",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "我记得",
+      "artist": "赵雷",
+      "file": "我记得 - 赵雷.mp3",
+      "url": "https://yzym.lanzoul.com/if9TP42chx2b",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "手写的从前",
+      "artist": "周杰伦",
+      "file": "手写的从前 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/i9IOL42cceej",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "手放开",
+      "artist": "李圣杰",
+      "file": "手放开 - 李圣杰.mp3",
+      "url": "https://yzym.lanzoul.com/ijI9342cce0f",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "护花使者",
+      "artist": "李克勤",
+      "file": "护花使者 - 李克勤.mp3",
+      "url": "https://yzym.lanzoul.com/iHbEx42cbgvc",
+      "language": "粤语",
+      "era": "2010s",
+      "tags": [
+        "粤语经典"
+      ]
+    },
+    {
+      "title": "拂晓 Proi Proi",
+      "artist": "HOYO-MiX _ NIDA",
+      "file": "拂晓 Proi Proi - HOYO-MiX _ NIDA.mp3",
+      "url": "https://yzym.lanzoul.com/iWVZF42cb8kd",
+      "language": "纯音乐",
+      "era": "2020s",
+      "tags": [
+        "轻音乐",
+        "新歌",
+        "游戏/影视原声"
+      ]
+    },
+    {
+      "title": "挪威的森林",
+      "artist": "伍佰 & China Blue",
+      "file": "挪威的森林 - 伍佰 & China Blue.mp3",
+      "url": "https://yzym.lanzoul.com/iimMS42cc0yf",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "摇滚"
+      ]
+    },
+    {
+      "title": "搁浅",
+      "artist": "周杰伦",
+      "file": "搁浅 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/iHlGi42cbb2d",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "改变自己",
+      "artist": "王力宏",
+      "file": "改变自己 - 王力宏.mp3",
+      "url": "https://yzym.lanzoul.com/iYc5X42cb9ih",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "断桥残雪",
+      "artist": "许嵩",
+      "file": "断桥残雪 - 许嵩.mp3",
+      "url": "https://yzym.lanzoul.com/i4ZXU42cb5id",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "无名的人",
+      "artist": "毛不易",
+      "file": "无名的人 - 毛不易.mp3",
+      "url": "https://yzym.lanzoul.com/icoRx42chzij",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "日不落",
+      "artist": "蔡依林",
+      "file": "日不落 - 蔡依林.mp3",
+      "url": "https://yzym.lanzoul.com/id2B942cca0b",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "早安隆回",
+      "artist": "袁树雄",
+      "file": "早安隆回 - 袁树雄.mp3",
+      "url": "https://yzym.lanzoul.com/iPb1442ciawj",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "明天，你好",
+      "artist": "牛奶咖啡",
+      "file": "明天，你好 - 牛奶咖啡.mp3",
+      "url": "https://yzym.lanzoul.com/ixY7w42cbwuh",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "星星点灯",
+      "artist": "郑智化",
+      "file": "星星点灯 - 郑智化.mp3",
+      "url": "https://yzym.lanzoul.com/ioTsc42ci31g",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "星辰大海",
+      "artist": "黄霄雲",
+      "file": "星辰大海 - 黄霄雲.mp3",
+      "url": "https://yzym.lanzoul.com/iO7L842ci2wb",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "春风十里",
+      "artist": "鹿先森乐队",
+      "file": "春风十里 - 鹿先森乐队.mp3",
+      "url": "https://yzym.lanzoul.com/ixCk842cb2bi",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "春风吹",
+      "artist": "方大同",
+      "file": "春风吹 - 方大同.mp3",
+      "url": "https://yzym.lanzoul.com/iy7Mt42cb1wd",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "晴天",
+      "artist": "周杰伦",
+      "file": "晴天 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/iMeJv42cc77a",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "暖暖",
+      "artist": "梁静茹",
+      "file": "暖暖 - 梁静茹.mp3",
+      "url": "https://yzym.lanzoul.com/iCyxX42cc0ri",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "暮色回响",
+      "artist": "吉星出租",
+      "file": "暮色回响 - 吉星出租.mp3",
+      "url": "https://yzym.lanzoul.com/iTj7V42cbxgj",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "曹操",
+      "artist": "林俊杰",
+      "file": "曹操 - 林俊杰.mp3",
+      "url": "https://yzym.lanzoul.com/i6you42cazed",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "曾经的你",
+      "artist": "许巍",
+      "file": "曾经的你 - 许巍.mp3",
+      "url": "https://yzym.lanzoul.com/iKRdq42cazqf",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "最初的梦想",
+      "artist": "范玮琪",
+      "file": "最初的梦想 - 范玮琪.mp3",
+      "url": "https://yzym.lanzoul.com/iVIno42cicmb",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "最炫民族风",
+      "artist": "凤凰传奇",
+      "file": "最炫民族风 - 凤凰传奇.mp3",
+      "url": "https://yzym.lanzoul.com/idkwy42ckdqd",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "最美的期待",
+      "artist": "周笔畅",
+      "file": "最美的期待 - 周笔畅.mp3",
+      "url": "https://yzym.lanzoul.com/iFqbv42cicqf",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "月半小夜曲",
+      "artist": "李克勤",
+      "file": "月半小夜曲 - 李克勤.mp3",
+      "url": "https://yzym.lanzoul.com/i8LRK42ciaah",
+      "language": "粤语",
+      "era": "2000s",
+      "tags": [
+        "粤语经典"
+      ]
+    },
+    {
+      "title": "有何不可",
+      "artist": "许嵩",
+      "file": "有何不可 - 许嵩.mp3",
+      "url": "https://yzym.lanzoul.com/iyIHv42ci89e",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "有我",
+      "artist": "周深",
+      "file": "有我 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iWSkJ42ci8pa",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "有没有一首歌会让你想起我",
+      "artist": "周华健",
+      "file": "有没有一首歌会让你想起我 - 周华健.mp3",
+      "url": "https://yzym.lanzoul.com/iqU9m42ci8hc",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "朋友",
+      "artist": "周华健",
+      "file": "朋友 - 周华健.mp3",
+      "url": "https://yzym.lanzoul.com/ifvPe42cc1re",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "朋友别哭",
+      "artist": "吕方",
+      "file": "朋友别哭 - 吕方.mp3",
+      "url": "https://yzym.lanzoul.com/imVBJ42cc20d",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "本草纲目",
+      "artist": "周杰伦",
+      "file": "本草纲目 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/i9PUq42caxvi",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "李白",
+      "artist": "李荣浩",
+      "file": "李白 - 李荣浩.mp3",
+      "url": "https://yzym.lanzoul.com/iMvVD42cbs3g",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "来自天堂的魔鬼",
+      "artist": "G_E_M_ 邓紫棋",
+      "file": "来自天堂的魔鬼 - G_E_M_ 邓紫棋.mp3",
+      "url": "https://yzym.lanzoul.com/i9oss42cbmfc",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "枫",
+      "artist": "周杰伦",
+      "file": "枫 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/iYKqZ42cb86j",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "桃花朵朵开",
+      "artist": "阿牛",
+      "file": "桃花朵朵开 - 阿牛.mp3",
+      "url": "https://yzym.lanzoul.com/irRy542ccjxi",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "桥边姑娘",
+      "artist": "海伦",
+      "file": "桥边姑娘 - 海伦.mp3",
+      "url": "https://yzym.lanzoul.com/iYZBZ42cc54f",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "梦见你",
+      "artist": "周深",
+      "file": "梦见你 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iFXTA42cbwah",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "欧若拉",
+      "artist": "张韶涵",
+      "file": "欧若拉 - 张韶涵.mp3",
+      "url": "https://yzym.lanzoul.com/ij2ut42cc15c",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "死别 (手风琴版)",
+      "artist": "SomeLove",
+      "file": "死别 (手风琴版) - SomeLove.mp3",
+      "url": "https://yzym.lanzoul.com/idKtq42ccfvc",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "水手",
+      "artist": "郑智化",
+      "file": "水手 - 郑智化.mp3",
+      "url": "https://yzym.lanzoul.com/iIW9n42cceyj",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "水边的阿狄丽娜",
+      "artist": "Richard Clayderman",
+      "file": "水边的阿狄丽娜 - Richard Clayderman.mp3",
+      "url": "https://yzym.lanzoul.com/i4Bkn42cceje",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "江南",
+      "artist": "林俊杰",
+      "file": "江南 - 林俊杰.mp3",
+      "url": "https://yzym.lanzoul.com/iDMRs42cbjba",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "沉默的羔羊",
+      "artist": "于冬然",
+      "file": "沉默的羔羊 - 于冬然.mp3",
+      "url": "https://yzym.lanzoul.com/iuNev42cb03i",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "沙漠骆驼",
+      "artist": "展展与罗罗",
+      "file": "沙漠骆驼 - 展展与罗罗.mp3",
+      "url": "https://yzym.lanzoul.com/i1YS142ccbuh",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "泡沫 (G_E_M_重生版)",
+      "artist": "G_E_M_ 邓紫棋",
+      "file": "泡沫 (G_E_M_重生版) - G_E_M_ 邓紫棋.mp3",
+      "url": "https://yzym.lanzoul.com/iznqD42cc1jg",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "泡沫",
+      "artist": "G_E_M_ 邓紫棋",
+      "file": "泡沫 - G_E_M_ 邓紫棋.mp3",
+      "url": "https://yzym.lanzoul.com/iCQKM42cc1bi",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "活着",
+      "artist": "郝云",
+      "file": "活着 - 郝云.mp3",
+      "url": "https://yzym.lanzoul.com/iaJ9a42cbiad",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "流星雨",
+      "artist": "F4",
+      "file": "流星雨 - F4.mp3",
+      "url": "https://yzym.lanzoul.com/iforS42cbtmb",
+      "language": "英语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "浪子闲话",
+      "artist": "花僮",
+      "file": "浪子闲话 - 花僮.mp3",
+      "url": "https://yzym.lanzoul.com/iwi9542cbqja",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "海屿你 (求你别离开我)",
+      "artist": "张云羡 _ ProdbyMend",
+      "file": "海屿你 (求你别离开我) - 张云羡 _ ProdbyMend.mp3",
+      "url": "https://yzym.lanzoul.com/iPYyu42cbeyd",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "海市蜃楼",
+      "artist": "三叔说",
+      "file": "海市蜃楼 - 三叔说.mp3",
+      "url": "https://yzym.lanzoul.com/ivN8q42cbesh",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "海草舞",
+      "artist": "萧全",
+      "file": "海草舞 - 萧全.mp3",
+      "url": "https://yzym.lanzoul.com/i5utY42cbe4d",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "海阔天空",
+      "artist": "BEYOND",
+      "file": "海阔天空 - BEYOND.mp3",
+      "url": "https://yzym.lanzoul.com/ilaO042cbefe",
+      "language": "粤语",
+      "era": "2010s",
+      "tags": [
+        "粤语经典",
+        "摇滚"
+      ]
+    },
+    {
+      "title": "消愁 (Live)",
+      "artist": "毛不易",
+      "file": "消愁 (Live) - 毛不易.mp3",
+      "url": "https://yzym.lanzoul.com/iTzO942ci19c",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "涛声依旧",
+      "artist": "毛宁",
+      "file": "涛声依旧 - 毛宁.mp3",
+      "url": "https://yzym.lanzoul.com/ix8vk42ccjfa",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "淋雨一直走",
+      "artist": "张韶涵",
+      "file": "淋雨一直走 - 张韶涵.mp3",
+      "url": "https://yzym.lanzoul.com/iCjiR42cbt5e",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "清空",
+      "artist": "王忻辰 _ 苏星婕",
+      "file": "清空 - 王忻辰 _ 苏星婕.mp3",
+      "url": "https://yzym.lanzoul.com/iSDDq42cc6yb",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "游山恋",
+      "artist": "海伦",
+      "file": "游山恋 - 海伦.mp3",
+      "url": "https://yzym.lanzoul.com/iFb8i42ci7xc",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "漂洋过海来看你_H",
+      "artist": "周深",
+      "file": "漂洋过海来看你_H - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/ixvgR42cc3dc",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "演员",
+      "artist": "薛之谦",
+      "file": "演员 - 薛之谦.mp3",
+      "url": "https://yzym.lanzoul.com/iDj7T42ci4vc",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "潇洒走一回",
+      "artist": "叶蒨文",
+      "file": "潇洒走一回 - 叶蒨文.mp3",
+      "url": "https://yzym.lanzoul.com/icftV42ci1gj",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "火红的萨日朗",
+      "artist": "徐泽（要不要买菜）",
+      "file": "火红的萨日朗 - 徐泽（要不要买菜）.mp3",
+      "url": "https://yzym.lanzoul.com/i6tgP42cbikd",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "烟火的季节",
+      "artist": "F4",
+      "file": "烟火的季节 - F4.mp3",
+      "url": "https://yzym.lanzoul.com/ij4QW42ci4ja",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "烟花易冷",
+      "artist": "周杰伦",
+      "file": "烟花易冷 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/iVPLR42ci4de",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "燕无歇",
+      "artist": "蒋雪儿Snow_J",
+      "file": "燕无歇 - 蒋雪儿Snow_J.mp3",
+      "url": "https://yzym.lanzoul.com/i6FwA42ci52j",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "爱",
+      "artist": "小虎队",
+      "file": "爱 - 小虎队.mp3",
+      "url": "https://yzym.lanzoul.com/iPUDF42camkb",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "爱人错过",
+      "artist": "告五人",
+      "file": "爱人错过 - 告五人.mp3",
+      "url": "https://yzym.lanzoul.com/iEIiJ42caneb",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "爱如潮水",
+      "artist": "张信哲",
+      "file": "爱如潮水 - 张信哲.mp3",
+      "url": "https://yzym.lanzoul.com/iIUpH42cansf",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "爱情转移",
+      "artist": "陈奕迅",
+      "file": "爱情转移 - 陈奕迅.mp3",
+      "url": "https://yzym.lanzoul.com/iCoiZ42camub",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "父亲写的散文诗",
+      "artist": "许飞",
+      "file": "父亲写的散文诗 - 许飞.mp3",
+      "url": "https://yzym.lanzoul.com/iwU8Y42cb8tc",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "特别的人",
+      "artist": "方大同",
+      "file": "特别的人 - 方大同.mp3",
+      "url": "https://yzym.lanzoul.com/iXqDG42chpyf",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "特别的爱给特别的你",
+      "artist": "伍思凯",
+      "file": "特别的爱给特别的你 - 伍思凯.mp3",
+      "url": "https://yzym.lanzoul.com/ip0oZ42chpkb",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "狂浪",
+      "artist": "花姐",
+      "file": "狂浪 - 花姐.mp3",
+      "url": "https://yzym.lanzoul.com/iajSR42cbmcj",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "琵琶行",
+      "artist": "奇然_沈谧仁",
+      "file": "琵琶行 - 奇然_沈谧仁.mp3",
+      "url": "https://yzym.lanzoul.com/iHtPz42cc2ng",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "璀璨冒险人",
+      "artist": "周深",
+      "file": "璀璨冒险人 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iFBiA42cb30d",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "甜蜜蜜",
+      "artist": "邓丽君",
+      "file": "甜蜜蜜 - 邓丽君.mp3",
+      "url": "https://yzym.lanzoul.com/iwUjy42chrfi",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "生僻字",
+      "artist": "陈柯宇",
+      "file": "生僻字 - 陈柯宇.mp3",
+      "url": "https://yzym.lanzoul.com/inwZ242ccceh",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "痴心绝对",
+      "artist": "李圣杰",
+      "file": "痴心绝对 - 李圣杰.mp3",
+      "url": "https://yzym.lanzoul.com/ilYj242cb10b",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "白月光与朱砂痣",
+      "artist": "大籽",
+      "file": "白月光与朱砂痣 - 大籽.mp3",
+      "url": "https://yzym.lanzoul.com/i16lV42cao5i",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "皇家萌卫",
+      "artist": "灵空GTech",
+      "file": "皇家萌卫 - 灵空GTech.mp3",
+      "url": "https://yzym.lanzoul.com/iBOGF42cbhpc",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "盗墓笔记·十年人间",
+      "artist": "李常超（Lao乾妈）",
+      "file": "盗墓笔记·十年人间 - 李常超（Lao乾妈）.mp3",
+      "url": "https://yzym.lanzoul.com/iHb7742cb4pe",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "盗墓笔记·十年人间_L",
+      "artist": "李常超 (Lao乾妈)",
+      "file": "盗墓笔记·十年人间_L - 李常超 (Lao乾妈).mp3",
+      "url": "https://yzym.lanzoul.com/izuru42cb4sh",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "相思遥",
+      "artist": "魏玉慧",
+      "file": "相思遥 - 魏玉慧.mp3",
+      "url": "https://yzym.lanzoul.com/iye5P42ci0pc",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "相见恨晚",
+      "artist": "彭佳慧",
+      "file": "相见恨晚 - 彭佳慧.mp3",
+      "url": "https://yzym.lanzoul.com/ivka342ci0kh",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "真心英雄",
+      "artist": "周华健 _ 成龙 _ 李宗盛",
+      "file": "真心英雄 - 周华健 _ 成龙 _ 李宗盛.mp3",
+      "url": "https://yzym.lanzoul.com/iEnXT42ciboh",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "瞬间的永恒 (钢琴曲)",
+      "artist": "赵海洋",
+      "file": "瞬间的永恒 (钢琴曲) - 赵海洋.mp3",
+      "url": "https://yzym.lanzoul.com/iYVeW42ccf9a",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "破茧",
+      "artist": "张韶涵",
+      "file": "破茧 - 张韶涵.mp3",
+      "url": "https://yzym.lanzoul.com/ixMBQ42cc3qf",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "离别开出花",
+      "artist": "就是南方凯",
+      "file": "离别开出花 - 就是南方凯.mp3",
+      "url": "https://yzym.lanzoul.com/iewYr42cbrfc",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "秋天不回来",
+      "artist": "王强",
+      "file": "秋天不回来 - 王强.mp3",
+      "url": "https://yzym.lanzoul.com/i96lq42cc7zi",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "秋日私语",
+      "artist": "Richard Clayderman",
+      "file": "秋日私语 - Richard Clayderman.mp3",
+      "url": "https://yzym.lanzoul.com/ims1M42cc7ha",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "秒针",
+      "artist": "阿梨粤",
+      "file": "秒针 - 阿梨粤.mp3",
+      "url": "https://yzym.lanzoul.com/ipFw842cbwkh",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "稻香",
+      "artist": "周杰伦",
+      "file": "稻香 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/iwkQe42cb51g",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "童年",
+      "artist": "罗大佑",
+      "file": "童年 - 罗大佑.mp3",
+      "url": "https://yzym.lanzoul.com/i2W1642chtsd",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "童话",
+      "artist": "光良",
+      "file": "童话 - 光良.mp3",
+      "url": "https://yzym.lanzoul.com/iq5nF42chsyd",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "童话镇",
+      "artist": "暗杠",
+      "file": "童话镇 - 暗杠.mp3",
+      "url": "https://yzym.lanzoul.com/iPWGT42chtdi",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "笑红尘",
+      "artist": "陈淑桦",
+      "file": "笑红尘 - 陈淑桦.mp3",
+      "url": "https://yzym.lanzoul.com/iHj3G42ci2ed",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "笑纳",
+      "artist": "花僮",
+      "file": "笑纳 - 花僮.mp3",
+      "url": "https://yzym.lanzoul.com/imHIK42ci2pe",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "笼",
+      "artist": "张碧晨",
+      "file": "笼 - 张碧晨.mp3",
+      "url": "https://yzym.lanzoul.com/iSazo42cbu3i",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "篇章",
+      "artist": "张韶涵 _ 王赫野",
+      "file": "篇章 - 张韶涵 _ 王赫野.mp3",
+      "url": "https://yzym.lanzoul.com/iwQc642cc38h",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "红尘客栈",
+      "artist": "周杰伦",
+      "file": "红尘客栈 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/ilnML42cbfqb",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "红日 (粤语)",
+      "artist": "李克勤",
+      "file": "红日 (粤语) - 李克勤.mp3",
+      "url": "https://yzym.lanzoul.com/icdPl42cbg5g",
+      "language": "粤语",
+      "era": "2010s",
+      "tags": [
+        "粤语经典"
+      ]
+    },
+    {
+      "title": "红色高跟鞋",
+      "artist": "蔡健雅",
+      "file": "红色高跟鞋 - 蔡健雅.mp3",
+      "url": "https://yzym.lanzoul.com/ipndA42cbgbc",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "红蜻蜓",
+      "artist": "小虎队",
+      "file": "红蜻蜓 - 小虎队.mp3",
+      "url": "https://yzym.lanzoul.com/iMxD142cbfvg",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "绽放",
+      "artist": "张杰",
+      "file": "绽放 - 张杰.mp3",
+      "url": "https://yzym.lanzoul.com/itPis42cib5i",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "绿光",
+      "artist": "孙燕姿",
+      "file": "绿光 - 孙燕姿.mp3",
+      "url": "https://yzym.lanzoul.com/iezkR42cbvcd",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "老人と海 (老人与海)",
+      "artist": "ヨルシカ (Yorushika)",
+      "file": "老人と海 (老人与海) - ヨルシカ (Yorushika).mp3",
+      "url": "https://yzym.lanzoul.com/iIrth42cbqzg",
+      "language": "日语",
+      "era": "2020s",
+      "tags": [
+        "日系",
+        "新歌"
+      ]
+    },
+    {
+      "title": "膨胀 (Single Version)",
+      "artist": "陆通",
+      "file": "膨胀 (Single Version) - 陆通.mp3",
+      "url": "https://yzym.lanzoul.com/iFrwi42cc27a",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "自由飞翔",
+      "artist": "凤凰传奇",
+      "file": "自由飞翔 - 凤凰传奇.mp3",
+      "url": "https://yzym.lanzoul.com/iLsED42cicfe",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "芒种",
+      "artist": "音阙诗听 _ 赵方婧",
+      "file": "芒种 - 音阙诗听 _ 赵方婧.mp3",
+      "url": "https://yzym.lanzoul.com/iTGsX42cbw1i",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "花开忘忧",
+      "artist": "周深",
+      "file": "花开忘忧 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iHPGH42cbh9g",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "花海",
+      "artist": "周杰伦",
+      "file": "花海 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/iqwGQ42cbh2j",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "若月亮没来 (若是月亮还没来)",
+      "artist": "王宇宙Leto _ 乔浚丞",
+      "file": "若月亮没来 (若是月亮还没来) - 王宇宙Leto _ 乔浚丞.mp3",
+      "url": "https://yzym.lanzoul.com/ifRqM42ccbkh",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "若梦",
+      "artist": "周深",
+      "file": "若梦 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iWcEp42ccbfc",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "荣耀",
+      "artist": "王晓天",
+      "file": "荣耀 - 王晓天.mp3",
+      "url": "https://yzym.lanzoul.com/io3O342ccacd",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "荷塘月色",
+      "artist": "凤凰传奇",
+      "file": "荷塘月色 - 凤凰传奇.mp3",
+      "url": "https://yzym.lanzoul.com/imWxm42cbfgb",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "莫问归期",
+      "artist": "蒋雪儿Snow_J",
+      "file": "莫问归期 - 蒋雪儿Snow_J.mp3",
+      "url": "https://yzym.lanzoul.com/isXJX42cbxbe",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "萱草花",
+      "artist": "张小斐",
+      "file": "萱草花 - 张小斐.mp3",
+      "url": "https://yzym.lanzoul.com/iOWxd42ci3af",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "落 (花开花落日升日没)",
+      "artist": "唐伯虎Annie",
+      "file": "落 (花开花落日升日没) - 唐伯虎Annie.mp3",
+      "url": "https://yzym.lanzoul.com/iUI1542cbufa",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "落在生命里的光",
+      "artist": "尹昔眠",
+      "file": "落在生命里的光 - 尹昔眠.mp3",
+      "url": "https://yzym.lanzoul.com/iZYfP42cbv0b",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "蓝色多瑙河",
+      "artist": "Vienna Dance Orchestra",
+      "file": "蓝色多瑙河 - Vienna Dance Orchestra.mp3",
+      "url": "https://yzym.lanzoul.com/iAiEf42cbnad",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "蓝莲花",
+      "artist": "许巍",
+      "file": "蓝莲花 - 许巍.mp3",
+      "url": "https://yzym.lanzoul.com/iCKvu42cbmyb",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "虚拟",
+      "artist": "陈粒",
+      "file": "虚拟 - 陈粒.mp3",
+      "url": "https://yzym.lanzoul.com/izXCV42ci37c",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "虞兮叹",
+      "artist": "闻人听書_",
+      "file": "虞兮叹 - 闻人听書_.mp3",
+      "url": "https://yzym.lanzoul.com/iEi4e42ci8te",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "西海情歌",
+      "artist": "刀郎",
+      "file": "西海情歌 - 刀郎.mp3",
+      "url": "https://yzym.lanzoul.com/iAdmC42chzta",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "触不可及",
+      "artist": "周深",
+      "file": "触不可及 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iHXe042cb1pg",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "让我欢喜让我忧",
+      "artist": "周华健",
+      "file": "让我欢喜让我忧 - 周华健.mp3",
+      "url": "https://yzym.lanzoul.com/icepS42cc8la",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "讲不出再见",
+      "artist": "谭咏麟",
+      "file": "讲不出再见 - 谭咏麟.mp3",
+      "url": "https://yzym.lanzoul.com/i4urV42cbjod",
+      "language": "粤语",
+      "era": "2010s",
+      "tags": [
+        "粤语经典"
+      ]
+    },
+    {
+      "title": "说了再见",
+      "artist": "周杰伦",
+      "file": "说了再见 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/ifq5842ccfne",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "谪仙",
+      "artist": "伊格赛听 _ 叶里",
+      "file": "谪仙 - 伊格赛听 _ 叶里.mp3",
+      "url": "https://yzym.lanzoul.com/idrp042cibad",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "贝加尔湖畔",
+      "artist": "李健",
+      "file": "贝加尔湖畔 - 李健.mp3",
+      "url": "https://yzym.lanzoul.com/ifIZp42caxcj",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "起风了",
+      "artist": "周深",
+      "file": "起风了 - 周深.mp3",
+      "url": "https://yzym.lanzoul.com/iRgvv42cc48d",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "越来越不懂",
+      "artist": "蔡健雅",
+      "file": "越来越不懂 - 蔡健雅.mp3",
+      "url": "https://yzym.lanzoul.com/i5Ukt42ciaif",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "跳楼机",
+      "artist": "LBI利比（时柏尘）",
+      "file": "跳楼机 - LBI利比（时柏尘）.mp3",
+      "url": "https://yzym.lanzoul.com/ilpAQ42chrve",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "踏山河",
+      "artist": "七叔（叶泽浩）",
+      "file": "踏山河 - 七叔（叶泽浩）.mp3",
+      "url": "https://yzym.lanzoul.com/ic5Xx42cci1a",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "辞·九门回忆_H",
+      "artist": "冰幽 _ 解忧草",
+      "file": "辞·九门回忆_H - 冰幽 _ 解忧草.mp3",
+      "url": "https://yzym.lanzoul.com/iit3342cb2mj",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "还是分开_L",
+      "artist": "张叶蕾",
+      "file": "还是分开_L - 张叶蕾.mp3",
+      "url": "https://yzym.lanzoul.com/iahOe42cbdra",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "这世界那么多人",
+      "artist": "莫文蔚",
+      "file": "这世界那么多人 - 莫文蔚.mp3",
+      "url": "https://yzym.lanzoul.com/ikY1K42cibeh",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "远走高飞 (独唱版)",
+      "artist": "金志文",
+      "file": "远走高飞 (独唱版) - 金志文.mp3",
+      "url": "https://yzym.lanzoul.com/iWgv342ci9ta",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "追光者",
+      "artist": "岑宁儿",
+      "file": "追光者 - 岑宁儿.mp3",
+      "url": "https://yzym.lanzoul.com/iTBfz42cic1a",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "追梦人",
+      "artist": "凤飞飞",
+      "file": "追梦人 - 凤飞飞.mp3",
+      "url": "https://yzym.lanzoul.com/iEnNP42cic5e",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "送你一朵小红花",
+      "artist": "赵英俊",
+      "file": "送你一朵小红花 - 赵英俊.mp3",
+      "url": "https://yzym.lanzoul.com/iMEXB42cchib",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "送明月",
+      "artist": "七叔（叶泽浩）",
+      "file": "送明月 - 七叔（叶泽浩）.mp3",
+      "url": "https://yzym.lanzoul.com/iLiqc42ccgwj",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "逆战",
+      "artist": "张杰",
+      "file": "逆战 - 张杰.mp3",
+      "url": "https://yzym.lanzoul.com/i0DvG42cbzbg",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "遇见",
+      "artist": "孙燕姿",
+      "file": "遇见 - 孙燕姿.mp3",
+      "url": "https://yzym.lanzoul.com/iEvCo42ci9ne",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "那些年",
+      "artist": "胡夏",
+      "file": "那些年 - 胡夏.mp3",
+      "url": "https://yzym.lanzoul.com/icFz442cbxtc",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "野人",
+      "artist": "孟维来",
+      "file": "野人 - 孟维来.mp3",
+      "url": "https://yzym.lanzoul.com/iM3c842ci5gd",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "阳光总在风雨后",
+      "artist": "许美静",
+      "file": "阳光总在风雨后 - 许美静.mp3",
+      "url": "https://yzym.lanzoul.com/iMGIW42ci58f",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "阿刁",
+      "artist": "赵雷",
+      "file": "阿刁 - 赵雷.mp3",
+      "url": "https://yzym.lanzoul.com/iCGGm42cam8j",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "隐形的翅膀",
+      "artist": "张韶涵",
+      "file": "隐形的翅膀 - 张韶涵.mp3",
+      "url": "https://yzym.lanzoul.com/ifkTE42ci7fe",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "雨中漫步 (Stepping on The Rainy Street)",
+      "artist": "Daydream (白日梦)",
+      "file": "雨中漫步 (Stepping on The Rainy Street) - Daydream (白日梦).mp3",
+      "url": "https://yzym.lanzoul.com/i8yaP42ci9gh",
+      "language": "纯音乐",
+      "era": "2010s",
+      "tags": [
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "雨爱",
+      "artist": "杨丞琳",
+      "file": "雨爱 - 杨丞琳.mp3",
+      "url": "https://yzym.lanzoul.com/ir8vc42ci8yj",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "雨蝶",
+      "artist": "李翊君",
+      "file": "雨蝶 - 李翊君.mp3",
+      "url": "https://yzym.lanzoul.com/ixkHx42ci99a",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "雪龙吟",
+      "artist": "张杰",
+      "file": "雪龙吟 - 张杰.mp3",
+      "url": "https://yzym.lanzoul.com/iIxqR42ci3qb",
+      "language": "国语",
+      "era": "2020s",
+      "tags": [
+        "新歌"
+      ]
+    },
+    {
+      "title": "青春修炼手册",
+      "artist": "TFBOYS",
+      "file": "青春修炼手册 - TFBOYS.mp3",
+      "url": "https://yzym.lanzoul.com/i4GL942cc5pg",
+      "language": "英语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "青空",
+      "artist": "Candy_Wind",
+      "file": "青空 - Candy_Wind.mp3",
+      "url": "https://yzym.lanzoul.com/iJ0b442cc6he",
+      "language": "日语",
+      "era": "2010s",
+      "tags": [
+        "日系"
+      ]
+    },
+    {
+      "title": "青花",
+      "artist": "周传雄",
+      "file": "青花 - 周传雄.mp3",
+      "url": "https://yzym.lanzoul.com/i9V3A42cc63a",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "青花瓷",
+      "artist": "周杰伦",
+      "file": "青花瓷 - 周杰伦.mp3",
+      "url": "https://yzym.lanzoul.com/iesa242cc6bi",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "青苹果乐园",
+      "artist": "小虎队",
+      "file": "青苹果乐园 - 小虎队.mp3",
+      "url": "https://yzym.lanzoul.com/irNWi42cc6qd",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "风中有朵雨做的云",
+      "artist": "孟庭苇",
+      "file": "风中有朵雨做的云 - 孟庭苇.mp3",
+      "url": "https://yzym.lanzoul.com/iaXzw42cb7uh",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "飞得更高",
+      "artist": "汪峰",
+      "file": "飞得更高 - 汪峰.mp3",
+      "url": "https://yzym.lanzoul.com/iJ2eP42cb7fc",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "飞鸟和蝉",
+      "artist": "任然",
+      "file": "飞鸟和蝉 - 任然.mp3",
+      "url": "https://yzym.lanzoul.com/icUFQ42cb7li",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "骄傲的少年",
+      "artist": "南征北战NZBZ",
+      "file": "骄傲的少年 - 南征北战NZBZ.mp3",
+      "url": "https://yzym.lanzoul.com/iUPCY42cbk0f",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "鬼迷心窍",
+      "artist": "李宗盛",
+      "file": "鬼迷心窍 - 李宗盛.mp3",
+      "url": "https://yzym.lanzoul.com/i4ua942cbdng",
+      "language": "国语",
+      "era": "1990s",
+      "tags": [
+        "经典老歌"
+      ]
+    },
+    {
+      "title": "鳥の詩 (鸟之诗)",
+      "artist": "Lia (りあ)",
+      "file": "鳥の詩 (鸟之诗) - Lia (りあ).mp3",
+      "url": "https://yzym.lanzoul.com/iUfsE42cc09a",
+      "language": "日语",
+      "era": "2010s",
+      "tags": [
+        "日系"
+      ]
+    },
+    {
+      "title": "麻雀",
+      "artist": "李荣浩",
+      "file": "麻雀 - 李荣浩.mp3",
+      "url": "https://yzym.lanzoul.com/id7i242cbvne",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "黄昏",
+      "artist": "周传雄",
+      "file": "黄昏 - 周传雄.mp3",
+      "url": "https://yzym.lanzoul.com/iNiYU42cbhyb",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "流行"
+      ]
+    },
+    {
+      "title": "歌唱祖国",
+      "artist": "中国人民解放军军乐团",
+      "file": "歌唱祖国 (合唱) - 中国人民解放军军乐团_EM.mp3",
+      "url": "https://yzym.lanzoul.com/iRTFw42qbk1a",
+      "language": "国语",
+      "era": "1950s",
+      "tags": [
+        "爱国歌曲",
+        "合唱",
+        "经典红歌"
+      ]
+    },
+    {
+      "title": "逆光",
+      "artist": "孙燕姿",
+      "file": "逆光 - 孙燕姿.mp3",
+      "url": "https://yzym.lanzoul.com/iXPXt42qbkih",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行",
+        "华语经典"
+      ]
+    },
+    {
+      "title": "强军战歌",
+      "artist": "阎维文",
+      "file": "强军战歌 - 阎维文.mp3",
+      "url": "https://yzym.lanzoul.com/iSDcV42qbkkj",
+      "language": "国语",
+      "era": "2010s",
+      "tags": [
+        "军旅歌曲",
+        "爱国歌曲"
+      ]
+    },
+    {
+      "title": "土耳其进行曲 (Turkish March)",
+      "artist": "中国交响乐团",
+      "file": "土耳其进行曲 (Turkish March) - 中国交响乐团.mp3",
+      "url": "https://yzym.lanzoul.com/ifJG542qbkqf",
+      "language": "纯音乐",
+      "era": "1990s",
+      "tags": [
+        "古典音乐",
+        "交响乐",
+        "轻音乐"
+      ]
+    },
+    {
+      "title": "义勇军进行曲",
+      "artist": "中国人民解放军军乐团",
+      "file": "义勇军进行曲 (合唱) - 中国人民解放军军乐团_EM.mp3",
+      "url": "https://yzym.lanzoul.com/iFG9642qbkyd",
+      "language": "国语",
+      "era": "1930s",
+      "tags": [
+        "国歌",
+        "爱国歌曲",
+        "合唱"
+      ]
+    },
+    {
+      "title": "真的爱你",
+      "artist": "BEYOND",
+      "file": "真的爱你 - BEYOND.mp3",
+      "url": "https://yzym.lanzoul.com/iFBsz42qbl4j",
+      "language": "粤语",
+      "era": "1980s",
+      "tags": [
+        "经典老歌",
+        "摇滚",
+        "粤语经典"
+      ]
+    },
+    {
+      "title": "最美的太阳",
+      "artist": "张杰",
+      "file": "最美的太阳 - 张杰.mp3",
+      "url": "https://yzym.lanzoul.com/iWtw842qblid",
+      "language": "国语",
+      "era": "2000s",
+      "tags": [
+        "流行",
+        "励志"
+      ]
+    }
+  ]
+}

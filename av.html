@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-title="av.title">影音 · 歌曲下载</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="stylesheet" href="style.css">
+    <base target="_blank">
+</head>
+<body class="page-av">
+<!-- 自定义光标 -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-outline" id="cursorOutline"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- 左上角返回按钮 -->
+<a href="index.html" class="back-btn magnetic-btn" data-i18n="common.back">← 返回首页</a>
+
+<!-- 右上角语言切换 + 主题切换 -->
+<button class="lang-toggle magnetic-btn fixed" id="langToggle" aria-label="切换语言">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/>
+        <ellipse cx="12" cy="12" rx="4" ry="9"/>
+        <ellipse cx="12" cy="12" rx="9" ry="3"/>
+    </svg>
+</button>
+<button class="theme-toggle magnetic-btn" id="themeToggle" aria-label="切换明暗主题">
+    <svg class="sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+    </svg>
+    <svg class="moon-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+    </svg>
+</button>
+
+<div class="container av-container">
+    <h1 class="hero-title" data-i18n="av.title">影视/歌曲下载</h1>
+    <p class="subtitle" data-i18n="av.subtitle">精选歌曲 500 首+</p>
+
+    <!-- 影视板块（暂无搜索） -->
+    <div class="av-movie-section">
+        <h2 class="section-title" data-i18n="av.movie.title">影视</h2>
+        <a class="av-movie-btn magnetic-btn" href="https://1855065621.share.123pan.cn/123pan/xB0Wvd-UhIcA" target="_blank">
+            <svg class="av-movie-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="M10 9l6 3-6 3z"/>
+            </svg>
+            <span>我的世界大电影</span>
+        </a>
+    </div>
+
+    <!-- 音乐：播放器布局（歌单栏 + 主区） -->
+    <div class="av-player glass-card">
+        <aside class="av-playlists">
+            <div class="av-playlists-header" data-i18n="av.playlist.title">歌单</div>
+            <div class="av-playlists-list" id="avPlaylists"></div>
+        </aside>
+        <div class="av-main">
+            <h2 class="av-music-title">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18V5l12-2v13"/>
+                    <circle cx="6" cy="18" r="3"/>
+                    <circle cx="18" cy="16" r="3"/>
+                </svg>
+                <span data-i18n="av.music.title">音乐</span>
+            </h2>
+            <div class="av-controls">
+                <div class="av-search-row">
+                    <svg class="av-search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="7"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    <input type="text" id="avSearch" class="av-search-input" placeholder="搜索歌曲 / 歌手...">
+                </div>
+                <div class="av-filter-row">
+                    <div class="av-filter-field">
+                        <label for="avCategory" data-i18n="av.filter.category">类别</label>
+                        <select id="avCategory" class="av-select"></select>
+                    </div>
+                    <div class="av-filter-field">
+                        <label for="avArtist" data-i18n="av.filter.artist">歌手</label>
+                        <select id="avArtist" class="av-select"></select>
+                    </div>
+                </div>
+            </div>
+
+            <p class="av-count" id="avCount"></p>
+
+            <ul class="file-list" id="avList"></ul>
+            <p class="av-empty" id="avEmpty" data-i18n="av.result.empty">没有找到匹配的歌曲</p>
+        </div>
+    </div>
+</div>
+
+<!-- 右侧首字母跳转栏 -->
+<div class="av-az" id="avAz">
+    <div class="av-az-lang" id="avAzLang" role="group">
+        <span class="av-az-thumb" aria-hidden="true"></span>
+        <button type="button" data-mode="zh" class="active" data-i18n="av.az.zh">中</button>
+        <button type="button" data-mode="en" data-i18n="av.az.en">英</button>
+        <button type="button" data-mode="ja" data-i18n="av.az.ja">日</button>
+    </div>
+    <div class="av-az-letters" id="avAzLetters"></div>
+</div>
+
+<script src="lang.js"></script>
+<script src="av.js"></script>
+</body>
+</html>
