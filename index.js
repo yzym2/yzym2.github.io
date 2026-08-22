@@ -1,7 +1,7 @@
 (function() {
     const toggleBtn = document.getElementById('themeToggle');
     const html = document.documentElement;
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedTheme = localStorage.getItem('theme') || ((new Date().getHours() >= 6 && new Date().getHours() < 18) ? 'light' : 'dark');
     html.setAttribute('data-theme', savedTheme);
 
     toggleBtn.addEventListener('click', function() {
@@ -106,6 +106,72 @@ window.addEventListener('scroll', () => {
     if (!btn) return;
 
     btn.addEventListener('click', function() {
-        window.open('https://pan.huang1111.cn/s/2v7XDsN', '_blank');
+        window.open('https://pan.huang1111.cn/s/P6y8XTm', '_blank');
     });
+})();
+
+// 意见反馈表单 —— 通过 Web3Forms 转发到邮箱
+// 步骤：1. 到 https://web3forms.com 用邮箱注册，获取 Access Key
+//       2. 把 KEY 填入下方常量即可启用（替换 REPLACE_WITH_YOUR_WEB3FORMS_ACCESS_KEY）
+(function() {
+    const form = document.getElementById('feedbackForm');
+    if (!form) return;
+    const hint = document.getElementById('feedbackHint');
+    const ta = form.querySelector('textarea');
+    const KEY = '1b9155a5-7e8d-41fa-8a28-f577cc936219';
+
+    function tip(msg) {
+        if (!hint) return;
+        hint.textContent = msg;
+        clearTimeout(tip._t);
+        tip._t = setTimeout(function() { hint.textContent = ''; }, 3200);
+    }
+
+    // 预设问题仅作提示展示，点击不填入；用户直接在下方输入框填写
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const content = ta ? ta.value.trim() : '';
+        if (!content) {
+            tip(window.t ? window.t('index.feedback.empty') : '请至少填写一项内容');
+            return;
+        }
+        const data = {
+            access_key: KEY,
+            subject: '意见反馈（渊之鱼冥下载站）',
+            '反馈内容': content
+        };
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(r) {
+            if (r && r.success) {
+                tip(window.t ? window.t('index.feedback.thanks') : '感谢你的反馈！');
+                form.reset();
+            } else {
+                tip(window.t ? window.t('index.feedback.fail') : '提交失败，请稍后重试');
+            }
+        })
+        .catch(function() {
+            tip(window.t ? window.t('index.feedback.fail') : '提交失败，请稍后重试');
+        });
+    });
+})();
+
+// 浮动公告：点击弹出详情
+(function() {
+    const floatBtn = document.getElementById('noticeFloat');
+    const modal = document.getElementById('noticeModal');
+    if (!floatBtn || !modal) return;
+    const closeBtn = document.getElementById('noticeModalClose');
+    const backdrop = document.getElementById('noticeModalBackdrop');
+    function open() { modal.hidden = false; }
+    function close() { modal.hidden = true; }
+    floatBtn.addEventListener('click', open);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (backdrop) backdrop.addEventListener('click', close);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
 })();

@@ -1,6 +1,6 @@
 const toggleBtn = document.getElementById('themeToggle');
 const html = document.documentElement;
-const savedTheme = localStorage.getItem('theme') || 'dark';
+const savedTheme = localStorage.getItem('theme') || ((new Date().getHours() >= 6 && new Date().getHours() < 18) ? 'light' : 'dark');
 html.setAttribute('data-theme', savedTheme);
 
 toggleBtn.addEventListener('click', function() {
@@ -44,7 +44,6 @@ toggleBtn.addEventListener('click', function() {
     }
     animateOutline();
 
-    // 事件委托：动态渲染的元素也能获得悬停效果
     const HOVER_SEL = 'a, button, .back-btn, .theme-toggle, .lang-toggle, .file-item, .dl-btn, .av-select, .av-search-input, .av-playlist-item';
     document.addEventListener('mouseover', (e) => {
         if (e.target.closest(HOVER_SEL)) outline.classList.add('hover');
@@ -64,10 +63,9 @@ toggleBtn.addEventListener('click', function() {
 })();
 
 let songs = [];
-let activeTag = '';   // 当前歌单（标签）
-let azMode = 'zh';    // 首字母跳转语言模式：zh / en / ja
+let activeTag = '';
+let azMode = 'zh';
 
-// 语种 -> 翻译键 映射
 const CATEGORY_KEYS = {
     '纯音乐': 'av.cat.pure',
     '英语': 'av.cat.en',
@@ -78,8 +76,6 @@ const CATEGORY_KEYS = {
     '粤语': 'av.cat.cantonese'
 };
 
-/* ===== 首字母映射 ===== */
-// 中文标题首字 -> 拼音首字母（覆盖歌单中出现的汉字）
 const PY_INIT = {
     '一':'Y','七':'Q','万':'W','上':'S','下':'X','不':'B','丑':'C','世':'S','东':'D','亲':'Q',
     '人':'R','伤':'S','伪':'W','伯':'B','你':'N','修':'X','倒':'D','偏':'P','像':'X','光':'G',
@@ -104,7 +100,6 @@ const PY_INIT = {
     '风':'F','飞':'F','骄':'J','鬼':'G','麻':'M','黄':'H'
 };
 
-// 假名 -> 罗马音首字母
 const KANA_INIT = (function() {
     const rows = [
         ['あいうえお', 'A'], ['かきくけこ', 'K'], ['がぎぐげご', 'G'],
@@ -115,9 +110,8 @@ const KANA_INIT = (function() {
     const map = {};
     rows.forEach(function(r) { r[0].split('').forEach(function(ch) { map[ch] = r[1]; }); });
     Object.keys(map).forEach(function(h) {
-        map[String.fromCharCode(h.charCodeAt(0) + 0x60)] = map[h]; // 片假名
+        map[String.fromCharCode(h.charCodeAt(0) + 0x60)] = map[h];
     });
-    // 特殊罗马音
     map['し'] = 'S'; map['ジ'] = 'J'; map['じ'] = 'J';
     map['ち'] = 'C'; map['チ'] = 'C';
     map['つ'] = 'T'; map['ツ'] = 'T';
@@ -125,7 +119,6 @@ const KANA_INIT = (function() {
     return map;
 })();
 
-// 汉字开头日文曲的假名读音（数据中无法从标题推导的少量条目）
 const JA_READINGS = {
     '老人と海': 'ろうじんとうみ',
     '鳥の詩': 'とりのうた',
@@ -136,7 +129,6 @@ const JA_READINGS = {
 
 const AZ_LANGS = { zh: ['国语', '粤语'], en: ['英语'], ja: ['日语'] };
 
-// 过长的合唱歌手串在下拉框中显示为简称（筛选值不变）
 const ARTIST_SHORT = {
     '孙楠_韩红_黄绮珊_古巨基_陈楚生_王心凌_谭维维_胡彦斌_郁可唯_汪苏泷_周深_宋亚轩_杨坤_单依纯_何炅_李莎旻子': '孙楠/韩红等合唱'
 };
@@ -161,7 +153,6 @@ function initialOf(song, mode) {
     if (mode === 'en') {
         return latinFirst(song.title) || '#';
     }
-    // 日语：假名读音对应的罗马音首字母（标题常带中文译名后缀，按前缀匹配读音）
     let rd = JA_READINGS[song.title];
     if (!rd) {
         for (const k in JA_READINGS) {
@@ -187,7 +178,6 @@ function catLabel(lang) {
     return key ? window.t(key) : lang;
 }
 
-/* ===== 歌单栏（标签集合）===== */
 function buildPlaylists() {
     const tags = {};
     songs.forEach(s => (s.tags || []).forEach(t => { tags[t] = (tags[t] || 0) + 1; }));
@@ -211,11 +201,9 @@ function buildPlaylists() {
 }
 
 function buildOptions() {
-    // 记录当前选择，重建后恢复（语言切换时不清空筛选）
     const prevCat = categoryEl.value;
     const prevArtist = artistEl.value;
 
-    // 类别（语种）
     const cats = {};
     songs.forEach(s => { cats[s.language] = (cats[s.language] || 0) + 1; });
     const catNames = Object.keys(cats).sort();
@@ -229,7 +217,6 @@ function buildOptions() {
         categoryEl.appendChild(opt);
     });
 
-    // 歌手：热门歌手（>=5首）置顶，其余按名称排序
     const artists = {};
     songs.forEach(s => { artists[s.artist] = (artists[s.artist] || 0) + 1; });
     const hot = Object.keys(artists)
@@ -261,7 +248,6 @@ function buildOptions() {
     artistEl.value = prevArtist;
 }
 
-/* ===== 首字母跳转栏 ===== */
 function buildAz() {
     azLettersEl.innerHTML = '';
     const letters = ['#'].concat('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''));
@@ -288,7 +274,6 @@ function jumpTo(letter) {
         if (btn) { btn.classList.remove('miss'); void btn.offsetWidth; btn.classList.add('miss'); }
         return;
     }
-    // 清空其他筛选并切换到目标语种，保证目标歌曲可见
     searchEl.value = '';
     artistEl.value = '';
     if (activeTag !== '') { activeTag = ''; buildPlaylists(); }
@@ -387,7 +372,6 @@ categoryEl.addEventListener('change', render);
 artistEl.addEventListener('change', render);
 
 if (window.onLangChange) {
-    // 语言切换时重绘选项、歌单栏与列表
     window.onLangChange(function() {
         buildOptions();
         buildPlaylists();

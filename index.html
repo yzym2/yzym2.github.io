@@ -51,16 +51,6 @@
 </header>
 
 <section class="hero" id="home">
-    <!-- 通栏通知栏 -->
-    <div class="notice glass-card" data-i18n="index.notice">
-        <svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 11l15-5v12L3 13v-2z"/>
-            <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>
-            <line x1="2" y1="6" x2="2" y2="18"/>
-        </svg>
-        <span><strong>自动下载程序开启公测！</strong> 欢迎前来测试！</span>
-    </div>
-
     <h1 class="hero-title" data-i18n="index.title">渊之鱼冥文件下载站</h1>
     <p class="subhead" data-i18n="index.subhead">—— 专为校园信息课与游戏爱好者准备 ——</p>
 
@@ -272,44 +262,27 @@
             </div>
         </div>
     </div>
+
+    <section class="feedback-section" id="feedback">
+        <h2 class="about-section-title" data-i18n="index.feedback.title">意见反馈</h2>
+        <p class="feedback-desc" data-i18n="index.feedback.desc">你的每一条反馈都会帮助网站变得更好，感谢支持！</p>
+        <form class="feedback-form" id="feedbackForm" novalidate>
+            <div class="feedback-presets" role="group" aria-label="预设问题">
+                <button type="button" class="feedback-preset" data-q="1" data-i18n="index.feedback.q1">你希望添加哪些歌曲？</button>
+                <button type="button" class="feedback-preset" data-q="2" data-i18n="index.feedback.q2">你遇到了哪些 bug？</button>
+                <button type="button" class="feedback-preset" data-q="3" data-i18n="index.feedback.q3">你希望新增什么内容？</button>
+            </div>
+            <textarea id="fbText" name="feedback" rows="5" data-i18n-placeholder="index.feedback.placeholder" placeholder="点击上方按钮快速填入问题，或直接输入你的反馈…"></textarea>
+            <button type="submit" class="feedback-submit magnetic-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4z"/></svg>
+                <span data-i18n="index.feedback.submit">提交反馈</span>
+            </button>
+        </form>
+        <p class="feedback-hint" id="feedbackHint"></p>
+    </section>
+
     <div class="contact-bar">
         <span class="contact-title" data-i18n="index.contact.title">联系方式</span>
-        <div class="contact-item">
-            <button class="contact-icon" type="button" aria-label="WeChat">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M8.6 4C5 4 2 6.5 2 9.6c0 1.7.9 3.2 2.4 4.2L3.7 16l2.6-1.3c.7.2 1.5.3 2.3.3h.3c-.2-.5-.3-1.1-.3-1.6 0-3.1 3-5.6 6.6-5.6h.5C14.7 5.6 11.9 4 8.6 4z"/>
-                    <path d="M16.4 8.8c-3.1 0-5.6 2.1-5.6 4.6s2.5 4.6 5.6 4.6c.6 0 1.2-.1 1.8-.3l2.2 1.2-.6-1.9c1.4-.9 2.2-2.2 2.2-3.6 0-2.5-2.5-4.6-5.6-4.6z"/>
-                    <circle cx="6.7" cy="8.7" r=".4" fill="currentColor"/>
-                    <circle cx="10.6" cy="8.7" r=".4" fill="currentColor"/>
-                    <circle cx="14.5" cy="13.4" r=".4" fill="currentColor"/>
-                    <circle cx="18.3" cy="13.4" r=".4" fill="currentColor"/>
-                </svg>
-            </button>
-            <div class="contact-pop">
-                <span class="contact-label" data-i18n="index.contact.wechat">微信号</span>
-                <span class="contact-value">stardragon142857</span>
-                <button class="contact-copy dl-copy" type="button" data-url="stardragon142857" aria-label="复制微信号">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                </button>
-            </div>
-        </div>
-        <div class="contact-item">
-            <button class="contact-icon" type="button" aria-label="QQ">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M8.6 10.8 A4.4 4.4 0 1 1 15.4 10.8 A6.2 6.5 0 1 1 8.6 10.8 Z"/>
-                    <path d="M8.4 11.9 C6.5 13.3 5.3 15.2 5.5 17.7"/>
-                    <path d="M15.6 11.9 C17.5 13.3 18.7 15.2 18.5 17.7"/>
-                    <path d="M11 9.2 L12 10.2 L13 9.2"/>
-                </svg>
-            </button>
-            <div class="contact-pop">
-                <span class="contact-label" data-i18n="index.contact.qq">QQ号</span>
-                <span class="contact-value">3860517347</span>
-                <button class="contact-copy dl-copy" type="button" data-url="3860517347" aria-label="复制QQ号">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                </button>
-            </div>
-        </div>
         <div class="contact-item">
             <button class="contact-icon" type="button" aria-label="Email">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -330,6 +303,40 @@
         <p data-i18n="index.footer">© 2026 YuanZhiYuMing · 站点由 <a href="https://pages.github.com/" target="_blank">Github Pages</a> 驱动</p>
     </div>
 </footer>
+
+<!-- 右下角浮动公告 -->
+<button class="notice-float" id="noticeFloat" type="button" aria-label="查看公告">
+    <svg class="notice-float-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 11l15-5v12L3 13v-2z"/>
+        <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>
+        <line x1="2" y1="6" x2="2" y2="18"/>
+    </svg>
+    <span class="notice-float-body">
+        <span class="notice-float-title" data-i18n="index.notice.title">公告</span>
+        <span class="notice-float-date">8月22日更新</span>
+    </span>
+</button>
+
+<!-- 公告详情弹窗 -->
+<div class="notice-modal" id="noticeModal" hidden>
+    <div class="notice-modal-backdrop" id="noticeModalBackdrop"></div>
+    <div class="notice-modal-panel" role="dialog" aria-modal="true" aria-label="公告详情">
+        <button class="notice-modal-close" id="noticeModalClose" type="button" aria-label="关闭">&times;</button>
+        <h3 class="notice-modal-title" data-i18n="index.notice.title">公告</h3>
+        <p class="notice-modal-date">8月22日更新</p>
+        <div class="notice-modal-body">
+            <ul>
+                <li>新增「意见反馈」板块，欢迎提交歌曲建议与问题反馈</li>
+                <li>歌曲库扩容，精选歌曲已达 500+ 首</li>
+                <li>新增右上角实时时钟，点击可进入全新 LightTime 时间页</li>
+                <li>站点支持按时间自动切换明暗主题（白天浅色 / 夜晚深色）</li>
+                <li>邮箱支持一键复制</li>
+                <li>下载程序由 Rust 重构，更稳定，下载完成后自动打开</li>
+                <li>优化了一些细节；修复了已知问题</li>
+            </ul>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript" src="lang.js"></script>
 <script type="text/javascript" src="index.js"></script>

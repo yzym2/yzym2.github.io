@@ -6,7 +6,7 @@ window.addEventListener('load', function() {
 
 const toggleBtn = document.getElementById('themeToggle');
 const html = document.documentElement;
-const savedTheme = localStorage.getItem('theme') || 'dark';
+const savedTheme = localStorage.getItem('theme') || ((new Date().getHours() >= 6 && new Date().getHours() < 18) ? 'light' : 'dark');
 html.setAttribute('data-theme', savedTheme);
 
 toggleBtn.addEventListener('click', function() {

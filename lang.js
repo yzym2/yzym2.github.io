@@ -160,13 +160,13 @@ header .lang-toggle {
         + '<path d="M8.64 8.64 A9 9 0 0 0 21.36 21.36 A4.5 4.5 0 0 0 15 15 A4.5 4.5 0 0 1 8.64 8.64 Z" fill="#0047A0"/>'
         + '<g fill="#111111">'
         // 左上：乾（三条整杠）
-        + '<g transform="translate(7,7) rotate(-45)"><rect x="-2.5" y="-3.9" width="5" height="1.5" rx="0.4"/><rect x="-2.5" y="-0.75" width="5" height="1.5" rx="0.4"/><rect x="-2.5" y="2.4" width="5" height="1.5" rx="0.4"/></g>'
+        + '<g transform="translate(4.22,4.22) rotate(-45)"><rect x="-3.75" y="-2.5" width="7.5" height="1.25" rx="0.4"/><rect x="-3.75" y="-0.625" width="7.5" height="1.25" rx="0.4"/><rect x="-3.75" y="1.25" width="7.5" height="1.25" rx="0.4"/></g>'
         // 右上：坎（断-整-断）
-        + '<g transform="translate(23,7) rotate(-45)"><rect x="-2.5" y="-3.9" width="2.2" height="1.5" rx="0.4"/><rect x="0.3" y="-3.9" width="2.2" height="1.5" rx="0.4"/><rect x="-2.5" y="-0.75" width="5" height="1.5" rx="0.4"/><rect x="-2.5" y="2.4" width="2.2" height="1.5" rx="0.4"/><rect x="0.3" y="2.4" width="2.2" height="1.5" rx="0.4"/></g>'
+        + '<g transform="translate(25.78,4.22) rotate(45)"><rect x="-3.75" y="-2.5" width="3.4375" height="1.25" rx="0.4"/><rect x="0.3125" y="-2.5" width="3.4375" height="1.25" rx="0.4"/><rect x="-3.75" y="-0.625" width="7.5" height="1.25" rx="0.4"/><rect x="-3.75" y="1.25" width="3.4375" height="1.25" rx="0.4"/><rect x="0.3125" y="1.25" width="3.4375" height="1.25" rx="0.4"/></g>'
         // 左下：离（整-断-整）
-        + '<g transform="translate(7,23) rotate(45)"><rect x="-2.5" y="-3.9" width="5" height="1.5" rx="0.4"/><rect x="-2.5" y="-0.75" width="2.2" height="1.5" rx="0.4"/><rect x="0.3" y="-0.75" width="2.2" height="1.5" rx="0.4"/><rect x="-2.5" y="2.4" width="5" height="1.5" rx="0.4"/></g>'
+        + '<g transform="translate(4.22,25.78) rotate(45)"><rect x="-3.75" y="-2.5" width="7.5" height="1.25" rx="0.4"/><rect x="-3.75" y="-0.625" width="3.4375" height="1.25" rx="0.4"/><rect x="0.3125" y="-0.625" width="3.4375" height="1.25" rx="0.4"/><rect x="-3.75" y="1.25" width="7.5" height="1.25" rx="0.4"/></g>'
         // 右下：坤（三断杠）
-        + '<g transform="translate(23,23) rotate(-45)"><rect x="-2.5" y="-3.9" width="2.2" height="1.5" rx="0.4"/><rect x="0.3" y="-3.9" width="2.2" height="1.5" rx="0.4"/><rect x="-2.5" y="-0.75" width="2.2" height="1.5" rx="0.4"/><rect x="0.3" y="-0.75" width="2.2" height="1.5" rx="0.4"/><rect x="-2.5" y="2.4" width="2.2" height="1.5" rx="0.4"/><rect x="0.3" y="2.4" width="2.2" height="1.5" rx="0.4"/></g>'
+        + '<g transform="translate(25.78,25.78) rotate(-45)"><rect x="-3.75" y="-2.5" width="3.4375" height="1.25" rx="0.4"/><rect x="0.3125" y="-2.5" width="3.4375" height="1.25" rx="0.4"/><rect x="-3.75" y="-0.625" width="3.4375" height="1.25" rx="0.4"/><rect x="0.3125" y="-0.625" width="3.4375" height="1.25" rx="0.4"/><rect x="-3.75" y="1.25" width="3.4375" height="1.25" rx="0.4"/><rect x="0.3125" y="1.25" width="3.4375" height="1.25" rx="0.4"/></g>'
         + '</g>'
         + '</svg></span>';
     const LANG_FLAGS = { 'zh-CN': FLAG_CN, 'zh-TW': FLAG_CN, 'en': FLAG_EN, 'ru': FLAG_RU, 'fr': FLAG_FR, 'ko': FLAG_KR, 'ja': FLAG_JA };
@@ -181,9 +181,17 @@ header .lang-toggle {
             'common.tip.copy': '点击复制链接',
             'common.tip.dl': '点击下载',
             'common.toast.copied': '链接已复制到剪贴板',
-            'index.contact.wechat': '微信号',
-            'index.contact.qq': 'QQ号',
             'index.contact.email': '邮箱',
+            'index.feedback.title': '意见反馈',
+            'index.feedback.desc': '你的每一条反馈都会帮助网站变得更好，感谢支持！',
+            'index.feedback.q1': '你希望添加哪些歌曲？',
+            'index.feedback.q2': '你遇到了哪些 bug？',
+            'index.feedback.q3': '你希望新增什么内容？',
+            'index.feedback.placeholder': '请写下你的反馈或建议…',
+            'index.feedback.submit': '提交反馈',
+            'index.feedback.thanks': '感谢你的反馈！',
+            'index.feedback.empty': '请至少填写一项内容',
+            'index.feedback.fail': '提交失败，请稍后重试',
 
             'index.logo': '渊之鱼冥下载站',
             'index.nav.home': '首页',
@@ -194,6 +202,7 @@ header .lang-toggle {
             'index.nav.guide': '新手引导',
             'index.nav.about': '关于本站',
             'index.notice': '<svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l15-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><line x1="2" y1="6" x2="2" y2="18"/></svg>\n<span><strong>自动下载程序开启公测！</strong> 欢迎前来测试！</span>',
+            'index.notice.title': '公告',
             'index.title': '渊之鱼冥文件下载站',
             'index.subhead': '—— 专为校园信息课与游戏爱好者准备 ——',
             'index.intro1': '欢迎来到 <strong>渊之鱼冥</strong> 的个人文件仓库！本站专注收录各类实用资源，核心为 <strong>Minecraft 游戏资源</strong>，同时涵盖常用工具、扩展包及校园信息课必备软件。',
@@ -526,9 +535,17 @@ header .lang-toggle {
             'common.tip.copy': '點擊複製連結',
             'common.tip.dl': '點擊下載',
             'common.toast.copied': '連結已複製到剪貼板',
-            'index.contact.wechat': '微信號',
-            'index.contact.qq': 'QQ號',
             'index.contact.email': '郵箱',
+            'index.feedback.title': '意見回饋',
+            'index.feedback.desc': '你的每一則意見都會讓網站變得更好，感謝支持！',
+            'index.feedback.q1': '你希望新增哪些歌曲？',
+            'index.feedback.q2': '你遇到了哪些 bug？',
+            'index.feedback.q3': '你希望新增什麼內容？',
+            'index.feedback.placeholder': '請寫下你的回饋或建議…',
+            'index.feedback.submit': '送出回饋',
+            'index.feedback.thanks': '感謝你的回饋！',
+            'index.feedback.empty': '請至少填寫一項內容',
+            'index.feedback.fail': '送出失敗，請稍後再試',
 
             'index.logo': '淵之魚冥下載站',
             'index.nav.home': '首頁',
@@ -539,6 +556,7 @@ header .lang-toggle {
             'index.nav.guide': '新手引導',
             'index.nav.about': '關於本站',
             'index.notice': '<svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l15-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><line x1="2" y1="6" x2="2" y2="18"/></svg>\n<span><strong>自動下載程式開啟公測！</strong> 歡迎前來測試！</span>',
+            'index.notice.title': '公告',
             'index.title': '淵之魚冥檔案下載站',
             'index.subhead': '—— 專為校園資訊課與遊戲愛好者準備 ——',
             'index.intro1': '歡迎來到 <strong>淵之魚冥</strong> 的個人檔案倉庫！本站專注收錄各類實用資源，核心為 <strong>Minecraft 遊戲資源</strong>，同時涵蓋常用工具、擴充包及校園資訊課必備軟體。',
@@ -871,9 +889,17 @@ header .lang-toggle {
             'common.tip.dl': 'Click to download',
             'common.toast.copied': 'Link copied to clipboard',
             'index.contact.title': 'Contact',
-            'index.contact.wechat': 'WeChat ID',
-            'index.contact.qq': 'QQ number',
             'index.contact.email': 'Email',
+            'index.feedback.title': 'Feedback',
+            'index.feedback.desc': 'Your feedback helps make this site better. Thank you for your support!',
+            'index.feedback.q1': 'Which songs would you like to add?',
+            'index.feedback.q2': 'What bugs did you run into?',
+            'index.feedback.q3': 'What content would you like to see added?',
+            'index.feedback.placeholder': 'Write your feedback or suggestions…',
+            'index.feedback.submit': 'Submit Feedback',
+            'index.feedback.thanks': 'Thank you for your feedback!',
+            'index.feedback.empty': 'Please fill in at least one item',
+            'index.feedback.fail': 'Submission failed, please try again later',
 
             'index.logo': 'YuanZhiYuMing Downloads',
             'index.nav.home': 'Home',
@@ -884,6 +910,7 @@ header .lang-toggle {
             'index.nav.guide': 'Beginner Guide',
             'index.nav.about': 'About',
             'index.notice': '<svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l15-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><line x1="2" y1="6" x2="2" y2="18"/></svg>\n<span><strong>Auto-downloader public beta is open!</strong> Welcome to test it!</span>',
+            'index.notice.title': 'Announcements',
             'index.title': 'YuanZhiYuMing File Download Hub',
             'index.subhead': '—— For campus IT classes & game enthusiasts ——',
             'index.intro1': 'Welcome to <strong>YuanZhiYuMing</strong>\'s personal file repository! This site focuses on practical resources, primarily <strong>Minecraft game assets</strong>, along with common tools, extension packs, and essential software for campus IT classes.',
@@ -1215,9 +1242,17 @@ header .lang-toggle {
             'common.tip.copy': 'Нажмите, чтобы скопировать ссылку',
             'common.tip.dl': 'Нажмите, чтобы скачать',
             'common.toast.copied': 'Ссылка скопирована в буфер обмена',
-            'index.contact.wechat': 'WeChat',
-            'index.contact.qq': 'Номер QQ',
             'index.contact.email': 'Почта',
+            'index.feedback.title': 'Обратная связь',
+            'index.feedback.desc': 'Ваши отзывы помогают сделать сайт лучше. Спасибо за поддержку!',
+            'index.feedback.q1': 'Какие песни вы хотели бы добавить?',
+            'index.feedback.q2': 'С какими ошибками вы столкнулись?',
+            'index.feedback.q3': 'Какой контент вы хотели бы добавить?',
+            'index.feedback.placeholder': 'Напишите свой отзыв или предложения…',
+            'index.feedback.submit': 'Отправить отзыв',
+            'index.feedback.thanks': 'Спасибо за ваш отзыв!',
+            'index.feedback.empty': 'Пожалуйста, заполните хотя бы один пункт',
+            'index.feedback.fail': 'Не удалось отправить, попробуйте позже',
 
             'index.logo': 'YuanZhiYuMing Загрузки',
             'index.nav.home': 'Главная',
@@ -1228,6 +1263,7 @@ header .lang-toggle {
             'index.nav.guide': 'Руководство для новичков',
             'index.nav.about': 'О сайте',
             'index.notice': '<svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l15-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><line x1="2" y1="6" x2="2" y2="18"/></svg>\n<span><strong>Открыто открытое бета-тестирование авто-загрузчика!</strong> Приглашаем тестировать!</span>',
+            'index.notice.title': 'Объявления',
             'index.title': 'YuanZhiYuMing Центр загрузок',
             'index.subhead': '—— Для школьных уроков информатики и любителей игр ——',
             'index.intro1': 'Добро пожаловать в личный файловый репозиторий <strong>YuanZhiYuMing</strong>! Этот сайт посвящён практическим ресурсам, в первую очередь <strong>игровым ресурсам Minecraft</strong>, а также полезным инструментам, пакетам расширений и необходимому ПО для школьных уроков информатики.',
@@ -1559,9 +1595,17 @@ header .lang-toggle {
             'common.tip.copy': 'Cliquez pour copier le lien',
             'common.tip.dl': 'Cliquez pour télécharger',
             'common.toast.copied': 'Lien copié dans le presse-papiers',
-            'index.contact.wechat': 'ID WeChat',
-            'index.contact.qq': 'Numéro QQ',
             'index.contact.email': 'E-mail',
+            'index.feedback.title': 'Commentaires',
+            'index.feedback.desc': 'Vos retours nous aident à améliorer le site. Merci pour votre soutien !',
+            'index.feedback.q1': 'Quelles chansons souhaiteriez-vous ajouter ?',
+            'index.feedback.q2': 'Quels bugs avez-vous rencontrés ?',
+            'index.feedback.q3': 'Quel contenu aimeriez-vous voir ajouté ?',
+            'index.feedback.placeholder': 'Écrivez vos commentaires ou suggestions…',
+            'index.feedback.submit': 'Envoyer le commentaire',
+            'index.feedback.thanks': 'Merci pour votre commentaire !',
+            'index.feedback.empty': 'Veuillez remplir au moins un élément',
+            'index.feedback.fail': 'Échec de l\'envoi, veuillez réessayer plus tard',
             'index.logo': 'Téléchargements YuanZhiYuMing',
             'index.nav.home': 'Accueil',
             'index.nav.mc': 'Minecraft',
@@ -1571,6 +1615,7 @@ header .lang-toggle {
             'index.nav.guide': 'Guide du débutant',
             'index.nav.about': 'À propos',
             'index.notice': '<svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l15-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><line x1="2" y1="6" x2="2" y2="18"/></svg>\n<span><strong>Le téléchargeur automatique est en bêta publique !</strong> Venez le tester !</span>',
+            'index.notice.title': 'Annonces',
             'index.title': 'Centre de téléchargement YuanZhiYuMing',
             'index.subhead': '—— Pour les cours d\'informatique et les amateurs de jeux ——',
             'index.intro1': 'Bienvenue dans le dépôt de fichiers personnel de <strong>YuanZhiYuMing</strong> ! Ce site se concentre sur des ressources pratiques, principalement <strong>des ressources de jeu Minecraft</strong>, ainsi que des outils courants, des packs d\'extension et des logiciels essentiels pour les cours d\'informatique.',
@@ -1897,9 +1942,17 @@ header .lang-toggle {
             'common.tip.dl': '클릭하여 다운로드',
             'common.toast.copied': '링크가 클립보드에 복사되었습니다',
             'index.contact.title': '연락처',
-            'index.contact.wechat': 'WeChat ID',
-            'index.contact.qq': 'QQ 번호',
             'index.contact.email': '이메일',
+            'index.feedback.title': '피드백',
+            'index.feedback.desc': '여러분의 피드백이 사이트를 더 좋게 만듭니다. 감사합니다!',
+            'index.feedback.q1': '어떤 노래를 추가하고 싶으신가요?',
+            'index.feedback.q2': '어떤 버그를 겪으셨나요?',
+            'index.feedback.q3': '어떤 콘텐츠를 추가하고 싶으신가요?',
+            'index.feedback.placeholder': '피드백이나 제안을 작성해 주세요…',
+            'index.feedback.submit': '피드백 제출',
+            'index.feedback.thanks': '피드백 감사합니다!',
+            'index.feedback.empty': '최소 한 항목은 작성해 주세요',
+            'index.feedback.fail': '제출에 실패했습니다. 나중에 다시 시도해 주세요',
             'index.logo': 'YuanZhiYuMing 다운로드',
             'index.nav.home': '홈',
             'index.nav.mc': 'Minecraft',
@@ -1909,6 +1962,7 @@ header .lang-toggle {
             'index.nav.guide': '초보자 가이드',
             'index.nav.about': '사이트 소개',
             'index.notice': '<svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l15-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><line x1="2" y1="6" x2="2" y2="18"/></svg>\n<span><strong>자동 다운로더 공개 베타 시작!</strong> 테스트에 참여해 주세요!</span>',
+            'index.notice.title': '공지',
             'index.title': 'YuanZhiYuMing 파일 다운로드 허브',
             'index.subhead': '—— 학교 정보 수업과 게임 애호가를 위해 ——',
             'index.intro1': '<strong>YuanZhiYuMing</strong>의 개인 파일 저장소에 오신 것을 환영합니다! 이 사이트는 실용적인 리소스, 주로 <strong>Minecraft 게임 리소스</strong>와 함께 일반 도구, 확장 팩, 학교 정보 수업에 필요한 소프트웨어를 모아 놓았습니다.',
@@ -2235,9 +2289,17 @@ header .lang-toggle {
             'common.tip.dl': 'クリックしてダウンロード',
             'common.toast.copied': 'リンクをクリップボードにコピーしました',
             'index.contact.title': 'お問い合わせ',
-            'index.contact.wechat': 'WeChat ID',
-            'index.contact.qq': 'QQ番号',
             'index.contact.email': 'メールアドレス',
+            'index.feedback.title': 'フィードバック',
+            'index.feedback.desc': 'ご意見がサイトをより良くします。ご協力ありがとうございます！',
+            'index.feedback.q1': '追加してほしい曲はありますか？',
+            'index.feedback.q2': 'どのようなバグに遭遇しましたか？',
+            'index.feedback.q3': 'どんなコンテンツを追加してほしいですか？',
+            'index.feedback.placeholder': 'ご意見・ご提案をお書きください…',
+            'index.feedback.submit': '送信する',
+            'index.feedback.thanks': 'ご意見ありがとうございます！',
+            'index.feedback.empty': '少なくとも1項目ご記入ください',
+            'index.feedback.fail': '送信に失敗しました。後ほど再試行してください',
 
             'index.logo': 'YuanZhiYuMing ダウンロード',
             'index.nav.home': 'ホーム',
@@ -2248,6 +2310,7 @@ header .lang-toggle {
             'index.nav.guide': '初心者ガイド',
             'index.nav.about': 'サイトについて',
             'index.notice': '<svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l15-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><line x1="2" y1="6" x2="2" y2="18"/></svg>\n<span><strong>自動ダウンローダーの公開ベータテストが開始！</strong> ぜひテストにご参加ください！</span>',
+            'index.notice.title': 'お知らせ',
             'index.title': 'YuanZhiYuMing ファイルダウンロードハブ',
             'index.subhead': '—— 学校の情報の授業とゲーム好きのために ——',
             'index.intro1': '<strong>YuanZhiYuMing</strong> の個人ファイルリポジトリへようこそ！当サイトは実用的なリソース、特に <strong>Minecraft ゲームリソース</strong> を中心に、便利なツール、拡張パック、学校の情報の授業に必要なソフトをまとめています。',
@@ -2598,6 +2661,14 @@ header .lang-toggle {
             }
         });
 
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+            const key = el.getAttribute('data-i18n-placeholder');
+            const text = I18N[lang] && I18N[lang][key];
+            if (text !== undefined) {
+                el.setAttribute('placeholder', text);
+            }
+        });
+
         const titleEl = document.querySelector('title[data-i18n-title]');
         if (titleEl) {
             const titleKey = titleEl.getAttribute('data-i18n-title');
@@ -2776,4 +2847,23 @@ header .lang-toggle {
         clearTimeout(toastTimer);
         toastTimer = setTimeout(function() { toast.classList.remove('show'); }, 2200);
     };
+})();
+
+/* ===== 首页：导航栏正中间时钟（精确到秒，点击跳转 LightTime） ===== */
+(function() {
+    if (!document.body.classList.contains('page-index')) return; // 仅首页显示
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+    const el = document.createElement('a');
+    el.className = 'site-clock';
+    el.setAttribute('href', 'LightTime/index.html');
+    el.setAttribute('target', '_self');
+    el.setAttribute('title', 'LightTime');
+    el.setAttribute('aria-label', '当前时间，点击进入 LightTime');
+    document.body.appendChild(el);
+    function tick() {
+        const d = new Date();
+        el.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+    }
+    tick();
+    setInterval(tick, 1000);
 })();
