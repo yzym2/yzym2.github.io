@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>LightTime</title>
+  <meta name="description" content="LightTime — 简约时间 · 农历 · 明暗主题">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <script>
+    // 尽早确定主题与偏好，避免首屏闪烁（FOUC）
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+
+        var lang = localStorage.getItem('lt-lang') || 'zh-CN';
+        document.documentElement.setAttribute('lang', lang);
+
+        var font = localStorage.getItem('lt-font');
+        var stack = { segoe: "'Segoe UI', 'Segoe UI Symbol', system-ui, sans-serif", yahei: "'Microsoft YaHei', '微软雅黑', 'PingFang SC', sans-serif", harmony: "'HarmonyOS Sans SC', 'HarmonyOS Sans', 'Microsoft YaHei', sans-serif", comic: "'Comic Sans MS', 'Comic Sans', 'Chalkboard SE', 'Segoe Print', cursive" }[font];
+        if (stack) document.documentElement.style.setProperty('--font', stack);
+
+        var themeData = localStorage.getItem('lt-theme');
+        var themes = [];
+        if (themeData && themeData !== 'none') {
+          try {
+            var arr = JSON.parse(themeData);
+            if (Array.isArray(arr)) themes = arr; else themes = [themeData];
+          } catch (e) { themes = [themeData]; }
+          themes = themes.filter(function (x) { return x === 'newyear' || x === 'minecraft' || x === '3d'; });
+        }
+        if (themes.length) document.documentElement.setAttribute('data-decor', themes.join(' '));
+
+        var weightMap = { bold: 700, medium: 500, light: 300, normal: 400 };
+        var weight = weightMap[localStorage.getItem('lt-weight')] || 200;
+        document.documentElement.style.setProperty('--time-weight', weight);
+        document.documentElement.style.setProperty('--italic', localStorage.getItem('lt-italic') === '1' ? 'italic' : 'normal');
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+      try { window.__lt = { lang: localStorage.getItem('lt-lang') || 'zh-CN' }; } catch (e) { window.__lt = { lang: 'zh-CN' }; }
+    })();
+  </script>
+  <style>
+    @font-face {
+      font-family: 'Monocraft';
+      src: url('https://cdn.jsdelivr.net/gh/IdreesInc/Monocraft@main/dist/Monocraft-ttf/Monocraft.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #fafafa;
+      --fg: #111111;
+      --muted: #9a9a9a;
+      --line: #e5e5e5;
+      --font: -apple-system, "SF Pro Display", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --time-weight: 200;
+      --italic: normal;
+      color-scheme: light;
+    }
+    [data-theme="dark"] {
+      --bg: #0a0a0a;
+      --fg: #f5f5f5;
+      --muted: #555555;
+      --line: #262626;
+      color-scheme: dark;
+    }
+
+    /* 主题（装饰）变量覆盖 —— 与明暗主题独立 */
+    html[data-decor~="newyear"] {
+      --bg: #7a0f16;
+      --fg: #ffe3a0;
+      --muted: #e0b06a;
+      --line: #a33a3a;
+    }
+    html[data-decor~="minecraft"] {
+      --bg: #0f1a12;
+      --fg: #e8f0d8;
+      --muted: #6f8a6f;
+      --line: #24360f;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--fg);
+      font-variant-numeric: tabular-nums;
+      transition: background-color .35s ease, color .35s ease;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .shell {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: clamp(16px, 3vw, 32px);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+    .brand img { width: 26px; height: 26px; display: block; }
+
+    .topbar-actions { display: flex; align-items: center; gap: 10px; }
+
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--fg);
+      cursor: pointer;
+      transition: background-color .25s ease, border-color .25s ease, color .25s ease, transform .15s ease;
+    }
+    .icon-btn:hover { border-color: var(--muted); }
+    .icon-btn:active { transform: scale(.94); }
+    .icon-btn:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+    .icon-btn.active { background: var(--fg); color: var(--bg); }
+
+    /* 右下角：全屏 + 设置 */
+    .corner-actions {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 12;
+    }
+
+    /* 明暗主题按钮的太阳/月亮切换 */
+    [data-theme="light"] .icon-sun { display: block; }
+    [data-theme="light"] .icon-moon { display: none; }
+    [data-theme="dark"] .icon-sun { display: none; }
+    [data-theme="dark"] .icon-moon { display: block; }
+
+    /* 全屏按钮的进入/退出切换 */
+    .icon-expand { display: block; }
+    .icon-compress { display: none; }
+    .is-fullscreen .icon-expand { display: none; }
+    .is-fullscreen .icon-compress { display: block; }
+
+    /* 语言下拉 */
+    .dropdown-wrap { position: relative; }
+    .lang-dropdown {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 170px;
+      padding: 6px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 10px 32px rgba(0,0,0,.22);
+      display: none;
+      z-index: 50;
+    }
+    .lang-dropdown.show { display: block; }
+    .lang-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--fg);
+      white-space: nowrap;
+      transition: background .2s;
+    }
+    .lang-item:hover { background: var(--line); }
+    .lang-badge {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--fg);
+      color: var(--bg);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lang-name { flex: 1; }
+    .lang-check { color: var(--muted); opacity: 0; }
+    .lang-item.active .lang-check { opacity: 1; }
+    .lang-item.active { background: var(--line); }
+
+    /* 设置面板（自右下角向上展开） */
+    .settings-panel {
+      position: fixed;
+      right: 16px;
+      bottom: 96px;
+      width: min(300px, calc(100vw - 32px));
+      max-height: calc(100vh - 116px);
+      overflow-y: auto;
+      padding: 18px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 18px 48px rgba(0,0,0,.25);
+      display: none;
+      z-index: 40;
+    }
+    .settings-panel.show { display: block; }
+    .settings-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      letter-spacing: .02em;
+    }
+    .field-group { margin-bottom: 16px; }
+    .field-group:last-child { margin-bottom: 0; }
+    .field-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 8px;
+    }
+    .opt-list { display: flex; flex-direction: column; gap: 4px; }
+
+    .opt {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: background .15s, opacity .15s;
+    }
+    .opt:hover { background: var(--line); }
+    .opt input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .chk {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      border: 1.5px solid var(--muted);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s, border-color .15s;
+    }
+    .chk::after {
+      content: '';
+      width: 9px;
+      height: 5px;
+      border-left: 2px solid var(--bg);
+      border-bottom: 2px solid var(--bg);
+      transform: rotate(-45deg) scale(0);
+      transition: transform .12s;
+    }
+    .opt input:checked + .chk { background: var(--fg); border-color: var(--fg); }
+    .opt input:checked + .chk::after { transform: rotate(-45deg) scale(1); }
+    .opt input:disabled + .chk { opacity: .35; }
+    .opt:has(input:disabled) { cursor: not-allowed; opacity: .45; }
+    .opt:has(input:disabled):hover { background: transparent; }
+    .opt-txt { flex: 1; }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(18px, 3.2vh, 34px);
+      text-align: center;
+    }
+    main.is-3d { perspective: 900px; }
+
+    #scene3d { display: none; width: 100%; height: 42vh; min-height: 220px; }
+    body.three3d-active #scene3d { display: block; }
+    body.three3d-active .time { display: none; }
+    #scene3d canvas { display: block; margin: 0 auto; cursor: grab; }
+    #scene3d canvas:active { cursor: grabbing; }
+
+    .time {
+      font-size: clamp(4.6rem, 20vw, 16.5rem);
+      font-weight: var(--time-weight);
+      font-style: var(--italic);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .date {
+      font-size: clamp(1.35rem, 4.5vw, 1.95rem);
+      font-weight: 400;
+      font-style: var(--italic);
+      letter-spacing: .05em;
+    }
+    .lunar {
+      font-size: clamp(1.25rem, 3.8vw, 1.6rem);
+      font-style: var(--italic);
+      color: var(--muted);
+      letter-spacing: .05em;
+    }
+
+    .badge {
+      font-size: 1.05rem;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 20px;
+      letter-spacing: .03em;
+      max-width: 90%;
+      line-height: 1.5;
+    }
+    .badge[hidden] { display: none; }
+
+    /* 主题专属显示效果 */
+    html[data-decor~="newyear"] .time {
+      color: #ffd76a;
+      text-shadow: 0 0 26px rgba(255, 120, 60, .55), 0 2px 0 rgba(120, 20, 10, .6);
+    }
+    html[data-decor~="newyear"] .badge { color: #f3cd7f; border-color: #c05555; }
+    html[data-decor~="newyear"] .brand { color: #ffd76a; }
+
+    html[data-decor~="minecraft"] .time {
+      font-family: "Monocraft", "Courier New", monospace;
+      font-weight: 400;
+      font-size: clamp(4.6rem, 20vw, 16.5rem);
+      letter-spacing: 0;
+      line-height: 1.05;
+      color: #ffffff;
+      text-shadow: 3px 3px 0 #000, 6px 6px 0 rgba(0,0,0,.5);
+    }
+
+    html[data-decor~="3d"] .time {
+      transform: rotateX(var(--rx, -14deg)) rotateY(var(--ry, -18deg));
+      transform-style: preserve-3d;
+      text-shadow:
+        0 1px 0 #8a8ab8,
+        0 2px 0 #6a6a9a,
+        0 3px 0 #56568a,
+        0 4px 0 #42427a,
+        0 5px 0 #2e2e6a,
+        0 6px 0 #1a1a5a,
+        0 8px 16px rgba(0,0,0,.55);
+      will-change: transform;
+      cursor: grab;
+    }
+    html[data-decor~="3d"] .time:active { cursor: grabbing; }
+
+    /* 全屏时只保留“退出全屏”，其余（含 Logo）全部隐藏 */
+    .is-fullscreen .brand,
+    .is-fullscreen #themeToggle,
+    .is-fullscreen .dropdown-wrap,
+    .is-fullscreen #settingsBtn,
+    .is-fullscreen .settings-panel {
+      display: none !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <img src="./favicon.svg" alt="" aria-hidden="true">
+        <span>LightTime</span>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="themeToggle" type="button" title="切换明暗主题" aria-label="切换明暗主题">
+          <svg class="icon icon-sun" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="icon icon-moon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <div class="dropdown-wrap">
+          <button class="icon-btn" id="langToggle" type="button" title="切换语言" aria-label="切换语言">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <ellipse cx="12" cy="12" rx="4" ry="9"></ellipse>
+              <ellipse cx="12" cy="12" rx="9" ry="3"></ellipse>
+            </svg>
+          </button>
+          <div class="lang-dropdown" id="langDropdown"></div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <div class="time" id="time" aria-label="当前时间">
+        <span id="timeMain">00:00</span><span id="timeSec">:00</span>
+      </div>
+      <div id="scene3d" aria-hidden="true"></div>
+      <div class="date" id="date">—</div>
+      <div class="lunar" id="lunar">—</div>
+      <div class="badge" id="badge" hidden></div>
+    </main>
+  </div>
+
+  <div class="corner-actions">
+    <button class="icon-btn" id="settingsBtn" type="button" title="设置" aria-label="设置">
+      <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="4" y1="6" x2="20" y2="6"></line>
+        <line x1="4" y1="12" x2="20" y2="12"></line>
+        <line x1="4" y1="18" x2="20" y2="18"></line>
+        <circle cx="9" cy="6" r="2.2"></circle>
+        <circle cx="14" cy="12" r="2.2"></circle>
+        <circle cx="8" cy="18" r="2.2"></circle>
+      </svg>
+    </button>
+    <button class="icon-btn" id="fullscreenBtn" type="button" title="全屏" aria-label="全屏">
+      <svg class="icon-expand" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"></path>
+      </svg>
+      <svg class="icon-compress" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 3v3a2 2 0 0 1-2 2H3M16 3v3a2 2 0 0 0 2 2h3M8 21v-3a2 2 0 0 0-2-2H3M16 21v-3a2 2 0 0 1 2-2h3"></path>
+      </svg>
+    </button>
+  </div>
+
+  <aside class="settings-panel" id="settingsPanel">
+    <div class="settings-title" data-i18n="settings.title">设置</div>
+
+    <div class="field-group">
+      <div class="field-label" data-i18n="settings.font">字体</div>
+      <div class="opt-list" id="fontList">
+        <label class="opt"><input type="checkbox" name="font" value="segoe"><span class="chk"></span><span class="opt-txt">Segoe UI</span></label>
+        <label class="opt"><input type="checkbox" name="font" value="yahei"><span class="chk"></span><span class="opt-txt">微软雅黑</span></label>
+        <label class="opt"><input type="checkbox" name="font" value="harmony"><span class="chk"></span><span class="opt-txt">HarmonyOS Sans SC</span></label>
+        <label class="opt"><input type="checkbox" name="font" value="comic"><span class="chk"></span><span class="opt-txt">Comic Sans MS</span></label>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <div class="field-label" data-i18n="settings.style">样式</div>
+      <div class="opt-list" id="styleList">
+        <label class="opt"><input type="checkbox" name="style" value="bold"><span class="chk"></span><span class="opt-txt">Bold</span></label>
+        <label class="opt"><input type="checkbox" name="style" value="medium"><span class="chk"></span><span class="opt-txt">Medium</span></label>
+        <label class="opt"><input type="checkbox" name="style" value="light"><span class="chk"></span><span class="opt-txt">Light</span></label>
+        <label class="opt"><input type="checkbox" name="style" value="normal"><span class="chk"></span><span class="opt-txt">Normal</span></label>
+        <label class="opt"><input type="checkbox" name="style" value="italic"><span class="chk"></span><span class="opt-txt">Italic</span></label>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <div class="field-label" data-i18n="settings.theme">主题</div>
+      <div class="opt-list" id="themeList">
+        <label class="opt"><input type="checkbox" name="theme" value="none"><span class="chk"></span><span class="opt-txt" data-i18n="theme.none">无</span></label>
+        <label class="opt"><input type="checkbox" name="theme" value="newyear"><span class="chk"></span><span class="opt-txt" data-i18n="theme.newyear">新年</span></label>
+        <label class="opt"><input type="checkbox" name="theme" value="minecraft"><span class="chk"></span><span class="opt-txt">Minecraft</span></label>
+        <label class="opt"><input type="checkbox" name="theme" value="3d"><span class="chk"></span><span class="opt-txt">3D</span></label>
+      </div>
+    </div>
+  </aside>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FontLoader.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/geometries/TextGeometry.js"></script>
+  <script src="./lunar.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      /* ========== 语言配置 ========== */
+      var LANGS = ['zh-CN', 'zh-TW', 'en', 'ru', 'fr', 'ko', 'ja'];
+      var LOCALE = { 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', 'en': 'en-US', 'ru': 'ru-RU', 'fr': 'fr-FR', 'ko': 'ko-KR', 'ja': 'ja-JP' };
+      var LANG_SHORT = { 'zh-CN': '简', 'zh-TW': '繁', 'en': 'EN', 'ru': 'RU', 'fr': 'FR', 'ko': '한', 'ja': '日' };
+      var LANG_NAMES = { 'zh-CN': '简体中文', 'zh-TW': '繁體中文', 'en': 'English', 'ru': 'Русский', 'fr': 'Français', 'ko': '한국어', 'ja': '日本語' };
+
+      var I18N = {
+        'zh-CN': { 'settings.title': '设置', 'settings.font': '字体', 'settings.style': '样式', 'settings.theme': '主题', 'theme.none': '无', 'theme.newyear': '新年', 'country.cn': '中国', 'country.uk': '英国', 'country.us': '美国', 'lunar.label': '农历', 'fullscreen': '全屏', 'fullscreen.exit': '退出全屏', 'aria.theme': '切换明暗主题', 'aria.lang': '切换语言', 'aria.settings': '设置' },
+        'zh-TW': { 'settings.title': '設置', 'settings.font': '字型', 'settings.style': '樣式', 'settings.theme': '主題', 'theme.none': '無', 'theme.newyear': '新年', 'country.cn': '中國', 'country.uk': '英國', 'country.us': '美國', 'lunar.label': '農曆', 'fullscreen': '全螢幕', 'fullscreen.exit': '退出全螢幕', 'aria.theme': '切換明暗主題', 'aria.lang': '切換語言', 'aria.settings': '設定' },
+        'en': { 'settings.title': 'Settings', 'settings.font': 'Font', 'settings.style': 'Style', 'settings.theme': 'Theme', 'theme.none': 'None', 'theme.newyear': 'New Year', 'country.cn': 'China', 'country.uk': 'UK', 'country.us': 'US', 'lunar.label': 'Lunar', 'fullscreen': 'Fullscreen', 'fullscreen.exit': 'Exit fullscreen', 'aria.theme': 'Toggle theme', 'aria.lang': 'Language', 'aria.settings': 'Settings' },
+        'ru': { 'settings.title': 'Настройки', 'settings.font': 'Шрифт', 'settings.style': 'Стиль', 'settings.theme': 'Тема', 'theme.none': 'Нет', 'theme.newyear': 'Новый год', 'country.cn': 'Китай', 'country.uk': 'Великобритания', 'country.us': 'США', 'lunar.label': 'Лунный календарь', 'fullscreen': 'Во весь экран', 'fullscreen.exit': 'Выйти из режима', 'aria.theme': 'Переключить тему', 'aria.lang': 'Язык', 'aria.settings': 'Настройки' },
+        'fr': { 'settings.title': 'Paramètres', 'settings.font': 'Police', 'settings.style': 'Style', 'settings.theme': 'Thème', 'theme.none': 'Aucun', 'theme.newyear': 'Nouvel An', 'country.cn': 'Chine', 'country.uk': 'Royaume-Uni', 'country.us': 'États-Unis', 'lunar.label': 'Lunaire', 'fullscreen': 'Plein écran', 'fullscreen.exit': 'Quitter le plein écran', 'aria.theme': 'Changer de thème', 'aria.lang': 'Langue', 'aria.settings': 'Paramètres' },
+        'ko': { 'settings.title': '설정', 'settings.font': '글꼴', 'settings.style': '스타일', 'settings.theme': '테마', 'theme.none': '없음', 'theme.newyear': '새해', 'country.cn': '중국', 'country.uk': '영국', 'country.us': '미국', 'lunar.label': '음력', 'fullscreen': '전체 화면', 'fullscreen.exit': '전체 화면 종료', 'aria.theme': '테마 전환', 'aria.lang': '언어', 'aria.settings': '설정' },
+        'ja': { 'settings.title': '設定', 'settings.font': 'フォント', 'settings.style': 'スタイル', 'settings.theme': 'テーマ', 'theme.none': 'なし', 'theme.newyear': '新年', 'country.cn': '中国', 'country.uk': 'イギリス', 'country.us': 'アメリカ', 'lunar.label': '旧暦', 'fullscreen': '全画面', 'fullscreen.exit': '全画面終了', 'aria.theme': 'テーマ切り替え', 'aria.lang': '言語', 'aria.settings': '設定' }
+      };
+
+      /* ========== 生肖 / 节日名称翻译 ========== */
+      var ZODIAC = {
+        'zh-CN': ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪'],
+        'zh-TW': ['鼠', '牛', '虎', '兔', '龍', '蛇', '馬', '羊', '猴', '雞', '狗', '豬'],
+        'en': ['Rat', 'Ox', 'Tiger', 'Rabbit', 'Dragon', 'Snake', 'Horse', 'Goat', 'Monkey', 'Rooster', 'Dog', 'Pig'],
+        'ja': ['鼠', '牛', '虎', '兎', '竜', '蛇', '馬', '羊', '猿', '鶏', '犬', '猪'],
+        'ko': ['쥐', '소', '호랑이', '토끼', '용', '뱀', '말', '양', '원숭이', '닭', '개', '돼지'],
+        'ru': ['Крысы', 'Быка', 'Тигра', 'Кролика', 'Дракона', 'Змеи', 'Лошади', 'Козы', 'Обезьяны', 'Петуха', 'Собаки', 'Свиньи'],
+        'fr': ['Rat', 'Buffle', 'Tigre', 'Lapin', 'Dragon', 'Serpent', 'Cheval', 'Chèvre', 'Singe', 'Coq', 'Chien', 'Cochon']
+      };
+      var ZH_ZODIAC = ZODIAC['zh-CN'];
+
+      // 节日名称：7 语言
+      var FEST_NAMES = {
+        // 中国·农历
+        chunjie: { 'zh-CN': '春节', 'zh-TW': '春節', en: 'Spring Festival', ru: 'Праздник весны', fr: 'Fête du Printemps', ko: '춘절', ja: '春節' },
+        yuanxiao: { 'zh-CN': '元宵节', 'zh-TW': '元宵節', en: 'Lantern Festival', ru: 'Праздник фонарей', fr: 'Fête des lanternes', ko: '원소절', ja: '元宵節' },
+        duanwu: { 'zh-CN': '端午节', 'zh-TW': '端午節', en: 'Dragon Boat Festival', ru: 'Праздник драконьих лодок', fr: 'Fête des bateaux-dragons', ko: '단오절', ja: '端午の節句' },
+        qixi: { 'zh-CN': '七夕节', 'zh-TW': '七夕節', en: 'Qixi Festival', ru: 'Праздник Циси', fr: 'Fête de Qixi', ko: '칠석', ja: '七夕' },
+        zhongqiu: { 'zh-CN': '中秋节', 'zh-TW': '中秋節', en: 'Mid-Autumn Festival', ru: 'Праздник середины осени', fr: 'Fête de la mi-automne', ko: '중추절', ja: '中秋節' },
+        chongyang: { 'zh-CN': '重阳节', 'zh-TW': '重陽節', en: 'Double Ninth Festival', ru: 'Праздник двойной девятки', fr: 'Fête du double neuf', ko: '중양절', ja: '重陽の節句' },
+        laba: { 'zh-CN': '腊八节', 'zh-TW': '臘八節', en: 'Laba Festival', ru: 'Праздник Лаба', fr: 'Fête de Laba', ko: '납팔절', ja: '臘八節' },
+        // 中国·公历
+        yuandan: { 'zh-CN': '元旦', 'zh-TW': '元旦', en: "New Year's Day", ru: 'Новый год', fr: "Jour de l'an", ko: '새해 첫날', ja: '元旦' },
+        laodong: { 'zh-CN': '劳动节', 'zh-TW': '勞動節', en: 'Labour Day', ru: 'День труда', fr: 'Fête du Travail', ko: '노동절', ja: 'メーデー' },
+        guoqing: { 'zh-CN': '国庆节', 'zh-TW': '國慶節', en: 'National Day', ru: 'Национальный день', fr: 'Fête nationale', ko: '국경절', ja: '国慶節' },
+        jiaoshi: { 'zh-CN': '教师节', 'zh-TW': '教師節', en: "Teachers' Day", ru: 'День учителя', fr: 'Fête des enseignants', ko: '스승의 날', ja: '教師の日' },
+        // 英国
+        burns: { 'zh-CN': '彭斯之夜', 'zh-TW': '彭斯之夜', en: 'Burns Night', ru: 'Ночь Бёрнса', fr: 'Burns Night', ko: '번스 나이트', ja: 'バーンズ・ナイト' },
+        stgeorge: { 'zh-CN': '圣乔治日', 'zh-TW': '聖喬治日', en: "St George's Day", ru: 'День святого Георгия', fr: 'Saint-Georges', ko: '성 조지의 날', ja: '聖ジョージの日' },
+        bonfire: { 'zh-CN': '篝火之夜', 'zh-TW': '篝火之夜', en: 'Bonfire Night', ru: 'Ночь костров', fr: 'Nuit des feux de joie', ko: '가이 포크스 나이트', ja: 'ガイ・フォークス・ナイト' },
+        boxing: { 'zh-CN': '节礼日', 'zh-TW': '節禮日', en: 'Boxing Day', ru: 'День подарков', fr: 'Boxing Day', ko: '박싱 데이', ja: 'ボクシング・デー' },
+        // 美国
+        independence: { 'zh-CN': '独立日', 'zh-TW': '獨立日', en: 'Independence Day', ru: 'День независимости', fr: "Jour de l'Indépendance", ko: '독립기념일', ja: '独立記念日' },
+        thanksgiving: { 'zh-CN': '感恩节', 'zh-TW': '感恩節', en: 'Thanksgiving', ru: 'День благодарения', fr: 'Action de grâce', ko: '추수감사절', ja: '感謝祭' },
+        halloween: { 'zh-CN': '万圣节前夜', 'zh-TW': '萬聖夜', en: 'Halloween', ru: 'Хэллоуин', fr: 'Halloween', ko: '할로윈', ja: 'ハロウィン' }
+      };
+
+      // 节日归属：公历（键 M-D）与农历（键 月-日）
+      var SOLAR_FEST = {
+        '1-1': ['yuandan', 'cn'],
+        '5-1': ['laodong', 'cn'],
+        '9-10': ['jiaoshi', 'cn'],
+        '10-1': ['guoqing', 'cn'],
+        '1-25': ['burns', 'uk'],
+        '4-23': ['stgeorge', 'uk'],
+        '11-5': ['bonfire', 'uk'],
+        '12-26': ['boxing', 'uk'],
+        '7-4': ['independence', 'us'],
+        '10-31': ['halloween', 'us']
+      };
+      var LUNAR_FEST = {
+        '1-1': ['chunjie', 'cn'],
+        '1-15': ['yuanxiao', 'cn'],
+        '5-5': ['duanwu', 'cn'],
+        '7-7': ['qixi', 'cn'],
+        '8-15': ['zhongqiu', 'cn'],
+        '9-9': ['chongyang', 'cn'],
+        '12-8': ['laba', 'cn']
+      };
+
+      /* ========== 字体堆栈 ========== */
+      var FONT_STACK = {
+        segoe: "'Segoe UI', 'Segoe UI Symbol', system-ui, sans-serif",
+        yahei: "'Microsoft YaHei', '微软雅黑', 'PingFang SC', sans-serif",
+        harmony: "'HarmonyOS Sans SC', 'HarmonyOS Sans', 'Microsoft YaHei', sans-serif",
+        comic: "'Comic Sans MS', 'Comic Sans', 'Chalkboard SE', 'Segoe Print', cursive"
+      };
+
+      /* ========== 状态 ========== */
+      var lang = (window.__lt && window.__lt.lang) || 'zh-CN';
+      var themes = (function () {
+        try {
+          var t = localStorage.getItem('lt-theme');
+          if (!t || t === 'none') return [];
+          var arr = JSON.parse(t);
+          if (Array.isArray(arr)) return arr.filter(function (x) { return x === 'newyear' || x === 'minecraft' || x === '3d'; });
+          return (t === 'newyear' || t === 'minecraft' || t === '3d') ? [t] : [];
+        } catch (e) { return []; }
+      })();
+      var curFont = (function () { try { return localStorage.getItem('lt-font') || ''; } catch (e) { return ''; } })();
+      var curWeight = (function () { try { return localStorage.getItem('lt-weight') || ''; } catch (e) { return ''; } })();
+      var curItalic = (function () { try { return localStorage.getItem('lt-italic') === '1'; } catch (e) { return false; } })();
+
+      var root = document.documentElement;
+      var timeEl = document.getElementById('time');
+      var timeMain = document.getElementById('timeMain');
+      var timeSec = document.getElementById('timeSec');
+      var dateEl = document.getElementById('date');
+      var lunarEl = document.getElementById('lunar');
+      var badgeEl = document.getElementById('badge');
+      var mainEl = document.getElementById('main');
+      var settingsBtn = document.getElementById('settingsBtn');
+      var settingsPanel = document.getElementById('settingsPanel');
+      var langToggle = document.getElementById('langToggle');
+      var langDropdown = document.getElementById('langDropdown');
+
+      function t(key) { return (I18N[lang] && I18N[lang][key]) || I18N['zh-CN'][key] || key; }
+      function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+      /* ========== 渲染 ========== */
+      function renderDate() {
+        var now = new Date();
+        try {
+          dateEl.textContent = new Intl.DateTimeFormat(LOCALE[lang], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(now);
+        } catch (e) {
+          dateEl.textContent = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDate();
+        }
+      }
+
+      function renderLunar() {
+        var lunar = Solar.fromDate(new Date()).getLunar();
+        var idx = ZH_ZODIAC.indexOf(lunar.getShengxiao());
+        if (idx < 0) idx = 0;
+        var ganzhi = lunar.getYearInGanZhi();
+        var m = Math.abs(lunar.getMonth());
+        var d = lunar.getDay();
+        var label = t('lunar.label');
+        var monthCn = lunar.getMonthInChinese();
+        var dayCn = lunar.getDayInChinese();
+
+        switch (lang) {
+          case 'zh-CN': lunarEl.textContent = label + ' ' + ganzhi + ZODIAC['zh-CN'][idx] + '年 · ' + monthCn + '月 ' + dayCn; break;
+          case 'zh-TW': lunarEl.textContent = label + ' ' + ganzhi + ZODIAC['zh-TW'][idx] + '年 · ' + monthCn + '月 ' + dayCn; break;
+          case 'en': lunarEl.textContent = label + ' · Year of the ' + ZODIAC['en'][idx] + ' · Month ' + m + ' · Day ' + d; break;
+          case 'ja': lunarEl.textContent = label + ' · ' + ZODIAC['ja'][idx] + '年 · ' + m + '月' + d + '日'; break;
+          case 'ko': lunarEl.textContent = label + ' · ' + ZODIAC['ko'][idx] + ' 해 · ' + m + '월 ' + d + '일'; break;
+          case 'ru': lunarEl.textContent = label + ' · год ' + ZODIAC['ru'][idx] + ' · ' + m + '-й месяц · ' + d + '-й день'; break;
+          case 'fr': lunarEl.textContent = label + ' · année du ' + ZODIAC['fr'][idx] + ' · Mois ' + m + ' · Jour ' + d; break;
+        }
+      }
+
+      function isThanksgiving(now) {
+        return now.getMonth() === 10 && now.getDay() === 4 && now.getDate() >= 22 && now.getDate() <= 28;
+      }
+
+      function renderBadge() {
+        var now = new Date();
+        var parts = [];
+
+        var sd = (now.getMonth() + 1) + '-' + now.getDate();
+        var sf = SOLAR_FEST[sd];
+        if (sf) parts.push(t('country.' + sf[1]) + '·' + FEST_NAMES[sf[0]][lang]);
+        if (isThanksgiving(now)) parts.push(t('country.us') + '·' + FEST_NAMES['thanksgiving'][lang]);
+
+        var lunar = Solar.fromDate(now).getLunar();
+        var lm = Math.abs(lunar.getMonth()), ld = lunar.getDay();
+        var lf = LUNAR_FEST[lm + '-' + ld];
+        if (lf) parts.push(t('country.' + lf[1]) + '·' + FEST_NAMES[lf[0]][lang]);
+
+        var jq = lunar.getJieQi();
+        if (jq) parts.push(t('country.cn') + '·' + jq);
+
+        if (parts.length) {
+          badgeEl.textContent = parts.join(' · ');
+          badgeEl.hidden = false;
+        } else {
+          badgeEl.hidden = true;
+        }
+      }
+
+      function tick() {
+        var now = new Date();
+        timeMain.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes());
+        timeSec.textContent = ':' + pad(now.getSeconds());
+        renderDate();
+        renderLunar();
+        rebuild3dText();
+      }
+
+      /* ========== 语言 ========== */
+      function buildLangDropdown() {
+        var drop = document.getElementById('langDropdown');
+        drop.innerHTML = '';
+        LANGS.forEach(function (code) {
+          var item = document.createElement('div');
+          item.className = 'lang-item' + (code === lang ? ' active' : '');
+          item.setAttribute('role', 'option');
+          item.innerHTML =
+            '<span class="lang-badge">' + LANG_SHORT[code] + '</span>' +
+            '<span class="lang-name">' + LANG_NAMES[code] + '</span>' +
+            '<span class="lang-check">✓</span>';
+          item.addEventListener('click', function () { setLang(code); });
+          drop.appendChild(item);
+        });
+      }
+
+      function setLang(code) {
+        if (!LOCALE[code]) return;
+        lang = code;
+        try { localStorage.setItem('lt-lang', code); } catch (e) {}
+        root.setAttribute('lang', code);
+        applyI18n();
+        buildLangDropdown();
+        closeLang();
+        renderLunar();
+        renderBadge();
+      }
+
+      function applyI18n() {
+        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+          el.textContent = t(el.getAttribute('data-i18n'));
+        });
+        document.getElementById('fullscreenBtn').title = document.fullscreenElement ? t('fullscreen.exit') : t('fullscreen');
+        document.getElementById('fullscreenBtn').setAttribute('aria-label', t('fullscreen'));
+        document.getElementById('themeToggle').setAttribute('aria-label', t('aria.theme'));
+        document.getElementById('langToggle').setAttribute('aria-label', t('aria.lang'));
+        document.getElementById('settingsBtn').setAttribute('aria-label', t('aria.settings'));
+      }
+
+      /* ========== 设置：字体 / 样式 / 主题 ========== */
+      function applyFont(value) {
+        var stack = FONT_STACK[value];
+        if (stack) root.style.setProperty('--font', stack);
+        else root.style.removeProperty('--font');
+      }
+      function applyStyle() {
+        var weightMap = { bold: 700, medium: 500, light: 300, normal: 400 };
+        root.style.setProperty('--time-weight', weightMap[curWeight] || 200);
+        root.style.setProperty('--italic', curItalic ? 'italic' : 'normal');
+      }
+      function saveStyle() {
+        try {
+          localStorage.setItem('lt-weight', curWeight);
+          localStorage.setItem('lt-italic', curItalic ? '1' : '0');
+        } catch (e) {}
+      }
+      function applyDecor() {
+        if (themes.length) root.setAttribute('data-decor', themes.join(' '));
+        else root.removeAttribute('data-decor');
+        var is3d = themes.indexOf('3d') > -1;
+        mainEl.classList.toggle('is-3d', is3d);
+        if (is3d) { rx = -14; ry = -18; }
+        paint3d();
+        if (is3d) start3d(); else stop3d();
+        update3dColor();
+      }
+      function saveThemes() {
+        try { localStorage.setItem('lt-theme', JSON.stringify(themes)); } catch (e) {}
+      }
+
+      function syncSelectors() {
+        document.querySelectorAll('input[name="font"]').forEach(function (inp) {
+          inp.checked = (inp.value === curFont);
+        });
+        // 字重单选，Italic 独立
+        document.querySelectorAll('input[name="style"]').forEach(function (inp) {
+          if (inp.value === 'italic') inp.checked = curItalic;
+          else inp.checked = (inp.value === curWeight);
+        });
+        syncThemeSelectors();
+        // 仅 Minecraft 主题锁定字体/样式
+        var locked = themes.indexOf('minecraft') > -1;
+        document.querySelectorAll('input[name="font"], input[name="style"]').forEach(function (inp) {
+          inp.disabled = locked;
+        });
+      }
+      function syncThemeSelectors() {
+        document.querySelectorAll('input[name="theme"]').forEach(function (inp) {
+          if (inp.value === 'none') inp.checked = (themes.length === 0);
+          else inp.checked = (themes.indexOf(inp.value) > -1);
+        });
+      }
+
+      /* ========== 3D 拖动旋转 ========== */
+      var rx = -14, ry = -18, dragging = false, px = 0, py = 0;
+      function paint3d() {
+        if (themes.indexOf('3d') > -1) {
+          timeEl.style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+        } else {
+          timeEl.style.transform = '';
+        }
+      }
+
+      /* ========== Three.js 3D 时钟（真实挤出厚度） ========== */
+      var three = { active: false, renderer: null, scene: null, camera: null, group: null, textMesh: null, font: null, rafId: 0, rx: -0.25, ry: -0.4, dragging: false, px: 0, py: 0 };
+      var FONT3D_URL = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/fonts/helvetiker_bold.typeface.json';
+
+      function threeSupported() {
+        return typeof THREE !== 'undefined' && typeof THREE.FontLoader === 'function' && typeof THREE.TextGeometry === 'function';
+      }
+      function threeTextColor() {
+        var c = (function(){ try { return getComputedStyle(document.documentElement).getPropertyValue('--fg').trim(); } catch (e) { return ''; } })();
+        return new THREE.Color(c || '#ffffff');
+      }
+      function threeClockString() {
+        var n = new Date();
+        return pad(n.getHours()) + ':' + pad(n.getMinutes()) + ':' + pad(n.getSeconds());
+      }
+
+      function start3d() {
+        if (three.active || !threeSupported()) return;
+        three.active = true;
+        document.body.classList.add('three3d-active');
+
+        var container = document.getElementById('scene3d');
+        var w = container.clientWidth || window.innerWidth;
+        var h = container.clientHeight || 320;
+
+        three.scene = new THREE.Scene();
+        three.camera = new THREE.PerspectiveCamera(42, w / h, 0.1, 1000);
+        three.camera.position.set(0, 0, 58);
+
+        three.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        three.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        three.renderer.setSize(w, h);
+        three.renderer.setClearColor(0x000000, 0);
+        container.appendChild(three.renderer.domElement);
+
+        three.scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+        var key = new THREE.DirectionalLight(0xffffff, 1.0); key.position.set(2, 1, 3); three.scene.add(key);
+        var rim = new THREE.DirectionalLight(0xffffff, 0.4); rim.position.set(-2, -1, -2); three.scene.add(rim);
+        var fill = new THREE.DirectionalLight(0xffffff, 0.25); fill.position.set(0, 1, -2); three.scene.add(fill);
+
+        three.group = new THREE.Group();
+        three.group.rotation.set(three.rx, three.ry, 0);
+        three.scene.add(three.group);
+
+        new THREE.FontLoader().load(FONT3D_URL, function (font) {
+          if (!three.active) return;
+          three.font = font;
+          rebuild3dText();
+        });
+
+        bind3dDrag();
+        three.rafId = requestAnimationFrame(loop3d);
+      }
+
+      function rebuild3dText() {
+        if (!three.active || !three.font) return;
+        if (three.textMesh) {
+          three.group.remove(three.textMesh);
+          three.textMesh.geometry.dispose();
+          three.textMesh.material.dispose();
+        }
+        var geo = new THREE.TextGeometry(threeClockString(), {
+          font: three.font,
+          size: 10,
+          height: 1.8,
+          curveSegments: 4,
+          bevelEnabled: true,
+          bevelThickness: 0.18,
+          bevelSize: 0.1,
+          bevelSegments: 4
+        });
+        // 自动缩放：按相机视野把文字放大到占容器约 85% 宽 / 60% 高
+        geo.computeBoundingBox();
+        var bb = geo.boundingBox;
+        var gw = bb.max.x - bb.min.x, gh = bb.max.y - bb.min.y;
+        var dist = Math.abs(three.camera.position.z);
+        var vh = 2 * dist * Math.tan((three.camera.fov * Math.PI / 180) / 2);
+        var vw = vh * three.camera.aspect;
+        var scale = Math.min((vw * 0.85) / gw, (vh * 0.6) / gh);
+        geo.center();
+        var mat = new THREE.MeshStandardMaterial({ color: threeTextColor(), roughness: 0.32, metalness: 0.22 });
+        three.textMesh = new THREE.Mesh(geo, mat);
+        three.textMesh.scale.setScalar(scale);
+        three.group.add(three.textMesh);
+      }
+
+      function update3dColor() {
+        if (three.active && three.textMesh) three.textMesh.material.color = threeTextColor();
+      }
+
+      function loop3d() {
+        if (!three.active) return;
+        three.rafId = requestAnimationFrame(loop3d);
+        three.renderer.render(three.scene, three.camera);
+      }
+
+      function apply3dRotation() {
+        if (three.group) {
+          three.group.rotation.x = Math.max(-1.5, Math.min(1.5, three.rx));
+          three.group.rotation.y = Math.max(-2.5, Math.min(2.5, three.ry));
+        }
+      }
+
+      function bind3dDrag() {
+        var el = three.renderer.domElement;
+        el.addEventListener('pointerdown', function (e) {
+          three.dragging = true; three.px = e.clientX; three.py = e.clientY;
+          try { el.setPointerCapture(e.pointerId); } catch (err) {}
+        });
+        el.addEventListener('pointermove', function (e) {
+          if (!three.dragging) return;
+          three.ry += (e.clientX - three.px) * 0.006;
+          three.rx += (e.clientY - three.py) * 0.006;
+          three.px = e.clientX; three.py = e.clientY;
+          apply3dRotation();
+        });
+        ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) {
+          el.addEventListener(ev, function () { three.dragging = false; });
+        });
+      }
+
+      function stop3d() {
+        if (!three.active) return;
+        three.active = false;
+        document.body.classList.remove('three3d-active');
+        if (three.rafId) cancelAnimationFrame(three.rafId);
+        three.font = null;
+        var container = document.getElementById('scene3d');
+        if (three.renderer) {
+          if (three.renderer.domElement && three.renderer.domElement.parentNode === container) {
+            container.removeChild(three.renderer.domElement);
+          }
+          if (three.textMesh) { three.textMesh.geometry.dispose(); three.textMesh.material.dispose(); }
+          three.renderer.dispose();
+        }
+        three.renderer = null; three.scene = null; three.camera = null; three.group = null; three.textMesh = null;
+      }
+
+      window.addEventListener('resize', function () {
+        if (!three.active || !three.renderer) return;
+        var container = document.getElementById('scene3d');
+        var w = container.clientWidth, h = container.clientHeight;
+        three.camera.aspect = w / h;
+        three.camera.updateProjectionMatrix();
+        three.renderer.setSize(w, h);
+      });
+
+      /* ========== 事件绑定 ========== */
+      function closeSettings() {
+        settingsPanel.classList.remove('show');
+        settingsBtn.classList.remove('active');
+      }
+      function closeLang() {
+        langDropdown.classList.remove('show');
+      }
+
+      // 明暗主题
+      document.getElementById('themeToggle').addEventListener('click', function () {
+        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+        update3dColor();
+      });
+
+      // 全屏
+      document.getElementById('fullscreenBtn').addEventListener('click', function () {
+        if (document.fullscreenElement) document.exitFullscreen();
+        else document.documentElement.requestFullscreen().catch(function () {});
+      });
+      document.addEventListener('fullscreenchange', function () {
+        document.body.classList.toggle('is-fullscreen', !!document.fullscreenElement);
+        document.getElementById('fullscreenBtn').title = document.fullscreenElement ? t('fullscreen.exit') : t('fullscreen');
+      });
+
+      // 语言下拉：按钮切换开合
+      langToggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var willShow = !langDropdown.classList.contains('show');
+        closeSettings();
+        closeLang();
+        if (willShow) langDropdown.classList.add('show');
+      });
+
+      // 设置面板：按钮始终打开，不因再次点击而关闭
+      settingsBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        settingsPanel.classList.add('show');
+        settingsBtn.classList.add('active');
+        closeLang();
+      });
+
+      // 仅当点击面板/按钮之外时关闭
+      document.addEventListener('click', function (e) {
+        if (!settingsPanel.contains(e.target) && !settingsBtn.contains(e.target)) closeSettings();
+        if (!langDropdown.contains(e.target) && !langToggle.contains(e.target)) closeLang();
+      });
+
+      // 字体：单选（点击已选项可取消回到默认）
+      document.querySelectorAll('#fontList input').forEach(function (inp) {
+        inp.addEventListener('change', function () {
+          if (this.checked) {
+            curFont = this.value;
+            document.querySelectorAll('#fontList input').forEach(function (o) { o.checked = (o.value === curFont); });
+            applyFont(curFont);
+          } else {
+            curFont = '';
+            applyFont('');
+          }
+          try { localStorage.setItem('lt-font', curFont); } catch (e) {}
+        });
+      });
+
+      // 样式：字重单选 + Italic 独立叠加
+      document.querySelectorAll('#styleList input').forEach(function (inp) {
+        inp.addEventListener('change', function () {
+          if (this.value === 'italic') {
+            curItalic = this.checked;
+          } else {
+            if (this.checked) {
+              curWeight = this.value;
+              document.querySelectorAll('#styleList input').forEach(function (o) {
+                if (o.value !== 'italic' && o.value !== curWeight) o.checked = false;
+              });
+            } else {
+              curWeight = '';
+            }
+          }
+          saveStyle();
+          applyStyle();
+        });
+      });
+
+      // 主题：无=清除；Minecraft=独占；新年/3D 可叠加且互斥于 Minecraft
+      document.querySelectorAll('#themeList input').forEach(function (inp) {
+        inp.addEventListener('change', function () {
+          var v = this.value;
+          if (v === 'none') {
+            if (this.checked) themes = [];
+          } else if (v === 'minecraft') {
+            themes = this.checked ? ['minecraft'] : [];
+          } else {
+            if (this.checked) {
+              var mi = themes.indexOf('minecraft');
+              if (mi > -1) themes.splice(mi, 1);
+              if (themes.indexOf(v) === -1) themes.push(v);
+            } else {
+              var i = themes.indexOf(v);
+              if (i > -1) themes.splice(i, 1);
+            }
+          }
+          saveThemes();
+          applyDecor();
+          syncSelectors();
+        });
+      });
+
+      // 3D 拖动
+      mainEl.addEventListener('pointerdown', function (e) {
+        if (themes.indexOf('3d') === -1 || three.active) return;
+        dragging = true; px = e.clientX; py = e.clientY;
+        try { mainEl.setPointerCapture(e.pointerId); } catch (err) {}
+      });
+      mainEl.addEventListener('pointermove', function (e) {
+        if (!dragging || themes.indexOf('3d') === -1 || three.active) return;
+        ry += (e.clientX - px) * 0.35;
+        rx -= (e.clientY - py) * 0.35;
+        px = e.clientX; py = e.clientY;
+        rx = Math.max(-70, Math.min(70, rx));
+        ry = Math.max(-90, Math.min(90, ry));
+        paint3d();
+      });
+      ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) {
+        mainEl.addEventListener(ev, function () { dragging = false; });
+      });
+
+      /* ========== 初始化 ========== */
+      buildLangDropdown();
+      applyI18n();
+      applyFont(curFont);
+      applyStyle();
+      applyDecor();
+      syncSelectors();
+
+      // Three.js 走 defer 延迟加载，装载完成后若 3D 已选中则补启
+      window.addEventListener('load', function () {
+        if (themes.indexOf('3d') > -1) start3d();
+      });
+
+      tick();
+      setInterval(tick, 1000);
+      renderBadge();
+      setInterval(renderBadge, 60000);
+    })();
+  </script>
+</body>
+</html>
