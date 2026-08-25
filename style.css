@@ -2146,7 +2146,7 @@ body.page-website .hero-title {
         display: none;
     }
     body.page-index .notice {
-        margin-top: 80px;
+        margin-top: 130px;
         font-size: 0.85em;
         padding: 12px 5%;
         flex-wrap: wrap;
@@ -2170,6 +2170,10 @@ body.page-website .hero-title {
     body.page-index .theme-toggle svg {
         width: 18px;
         height: 18px;
+    }
+    /* 按钮下移，避开右上角时钟 */
+    body.page-index .header-actions {
+        margin-top: 44px;
     }
     /* 移动端恢复默认光标 */
     body.page-index,
@@ -2687,46 +2691,66 @@ body.page-av .hero-title {
 .av-movie-section .section-title {
     margin-bottom: 14px;
 }
-.av-movie-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    max-width: 420px;
-    margin: 0 auto;
-    padding: 16px 24px;
-    background: var(--guide-btn-bg);
-    color: var(--guide-btn-text);
-    text-decoration: none;
-    border-radius: 14px;
-    font-weight: 700;
-    font-size: 1.1em;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    cursor: none;
-    position: relative;
-    overflow: hidden;
+/* ===== 电影卡片：复杂SVG背景 + 渐变遮罩 + 标题 ===== */
+.av-movie-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
 }
-.av-movie-btn::before {
-    content: '';
+.av-movie-card {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    text-decoration: none;
+    cursor: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+}
+.av-movie-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    border-color: var(--accent-white);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.32);
+}
+.av-movie-bg {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
-    transform: translateX(-100%);
-    transition: transform 0.6s;
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: transform 0.5s ease;
 }
-.av-movie-btn:hover::before {
-    transform: translateX(100%);
+.av-movie-card:hover .av-movie-bg {
+    transform: scale(1.06);
 }
-.av-movie-btn:hover {
-    transform: scale(1.03);
-    opacity: 0.9;
+.av-movie-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.18) 45%, rgba(0, 0, 0, 0) 70%);
 }
-.av-movie-icon {
-    width: 22px;
-    height: 22px;
-    flex-shrink: 0;
+.av-movie-label {
+    position: absolute;
+    left: 16px;
+    bottom: 12px;
+    right: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.av-movie-name {
+    color: #ffffff;
+    font-size: 1.05em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+}
+.av-movie-en {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.78em;
+    letter-spacing: 0.8px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* ===== 播放器布局：歌单栏 + 主区 ===== */
@@ -2813,6 +2837,232 @@ body.page-av .hero-title {
     width: 20px;
     height: 20px;
     flex-shrink: 0;
+}
+
+/* 下载全部 */
+.av-download-all {
+    position: relative;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.av-lyrics-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: none;
+    transition: border-color 0.25s ease, color 0.25s ease;
+}
+.av-lyrics-btn:hover {
+    border-color: var(--accent-white);
+    color: var(--accent-white);
+}
+.av-download-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    cursor: none;
+    transition: border-color 0.25s ease, color 0.25s ease;
+}
+.av-download-all-btn:hover {
+    border-color: var(--accent-white);
+    color: var(--accent-white);
+}
+.av-download-all-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+.av-download-all-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 120px;
+    padding: 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.25);
+    display: none;
+    z-index: 60;
+}
+.av-download-all-menu.show {
+    display: block;
+}
+.av-download-all-menu a {
+    display: block;
+    padding: 8px 12px;
+    font-size: 0.85em;
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.15s ease;
+}
+.av-download-all-menu a:hover {
+    background: var(--icon-bg);
+}
+
+/* ===== 歌曲提示弹窗（与首页公告弹窗同款实色样式） ===== */
+.av-notification {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.55);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+}
+.av-notification[hidden] {
+    display: none;
+}
+.av-notification-content {
+    position: relative;
+    width: min(680px, 90vw);
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 28px 30px;
+    background: var(--bg-container);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    color: var(--text-primary);
+    text-align: center;
+}
+.av-notification-content p {
+    margin: 0;
+    font-size: 1.02em;
+    line-height: 1.7;
+    color: var(--text-primary);
+}
+.av-notification-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+.av-notification-close:hover {
+    color: var(--text-primary);
+}
+/* FAQ 弹窗内容 */
+.av-faq {
+    text-align: left;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+.av-faq-title {
+    margin: 0 0 16px;
+    padding-right: 28px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text-primary);
+    text-align: center;
+}
+.av-faq-item {
+    margin-bottom: 14px;
+}
+.av-faq-item:last-child {
+    margin-bottom: 0;
+}
+.av-faq-q {
+    margin: 0 0 4px;
+    font-size: 0.95em;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.av-faq-a {
+    margin: 0;
+    font-size: 0.9em;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+/* ===== 右侧铃铛提示按钮（悬停展开为“提示”文字） ===== */
+.bell-toggle {
+    position: fixed;
+    right: 16px;
+    bottom: 22px;
+    z-index: 1001;
+    width: 46px;
+    height: 46px;
+    border-radius: 23px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    color: var(--text-primary);
+    cursor: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-radius 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s ease,
+                color 0.3s ease;
+}
+.bell-toggle:hover {
+    width: 92px;
+    border-radius: 23px;
+    border-color: var(--accent-white);
+    color: var(--accent-white);
+}
+.bell-toggle:active {
+    transform: scale(0.95);
+}
+.bell-toggle svg {
+    width: 21px;
+    height: 21px;
+    transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bell-toggle:hover svg {
+    opacity: 0;
+    transform: scale(0.4) rotate(-30deg);
+}
+.bell-label {
+    position: absolute;
+    font-size: 0.95em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: opacity 0.25s ease 0.08s, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
+    pointer-events: none;
+}
+.bell-toggle:hover .bell-label {
+    opacity: 1;
+    transform: translateX(2px);
 }
 
 /* ===== 右侧首字母跳转栏 ===== */
@@ -2918,6 +3168,27 @@ body.page-av .hero-title {
 @media (max-width: 600px) {
     .av-filter-row {
         grid-template-columns: 1fr;
+    }
+    .av-movie-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .av-music-title {
+        flex-wrap: wrap;
+    }
+    .av-download-all {
+        margin-left: 0;
+        flex-wrap: wrap;
+    }
+    .bell-toggle {
+        right: 10px;
+        bottom: 14px;
+        width: 40px;
+        height: 40px;
+    }
+    .bell-toggle svg {
+        width: 18px;
+        height: 18px;
     }
     body.page-av .file-item {
         flex-direction: column;

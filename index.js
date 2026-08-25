@@ -106,7 +106,7 @@ window.addEventListener('scroll', () => {
     if (!btn) return;
 
     btn.addEventListener('click', function() {
-        window.open('https://pan.huang1111.cn/s/P6y8XTm', '_blank');
+        window.open('https://pan.huang1111.cn/s/5X5WMHl', '_blank');
     });
 })();
 

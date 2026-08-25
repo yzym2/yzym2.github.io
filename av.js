@@ -402,3 +402,41 @@ fetch('songsInfo.json')
         emptyEl.style.display = 'block';
         console.error(err);
     });
+
+// 下载全部：点击展开格式选项
+(function() {
+    const btn = document.getElementById('avDownloadAllBtn');
+    const menu = document.getElementById('avDownloadAllMenu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        menu.classList.toggle('show');
+    });
+    document.addEventListener('click', function(e) {
+        if (menu.classList.contains('show') && !menu.contains(e.target) && e.target !== btn) {
+            menu.classList.remove('show');
+        }
+    });
+})();
+
+// 铃铛提示弹窗：点击打开，手动关闭，无自动关闭
+(function() {
+    const bellBtn = document.getElementById('avBellBtn');
+    const modal = document.getElementById('avFaqModal');
+    const closeBtn = document.getElementById('avFaqClose');
+    if (!bellBtn || !modal) return;
+    function close() { modal.hidden = true; }
+    bellBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        modal.hidden = false;
+    });
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    // 点击遮罩关闭
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) close();
+    });
+    // Esc 关闭
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !modal.hidden) close();
+    });
+})();
