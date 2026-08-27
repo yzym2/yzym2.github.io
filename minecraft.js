@@ -68,7 +68,7 @@ toggleBtn.addEventListener('click', function() {
 
 const files = [
     { nameKey: 'mc.f1', icon: '📦', url: 'https://pan.huang1111.cn/s/byL59iY' },
-    { nameKey: 'mc.f2', icon: '📥', url: 'https://pan.huang1111.cn/s/QzQgbcm' },
+    { nameKey: 'mc.f2', icon: '📥', url: 'https://pan.huang1111.cn/s/WzQVkc3' },
     { nameKey: 'mc.f3', icon: '🎮', url: 'https://pan.huang1111.cn/s/we9GxfK' },
     { nameKey: 'mc.f4', icon: '🖼️', url: 'https://pan.huang1111.cn/s/YLA3QsA' },
     { nameKey: 'mc.f5', icon: '☀️', url: 'https://pan.huang1111.cn/s/aEGznTG' },
