@@ -105,8 +105,14 @@ window.addEventListener('scroll', () => {
     const btn = document.getElementById('fastStartBtn');
     if (!btn) return;
 
+    // 左键：常规下载链接；右键：备用下载链接
     btn.addEventListener('click', function() {
-        window.open('https://pan.huang1111.cn/s/5X5WMHl', '_blank');
+        window.open('https://pan.huang1111.cn/s/9QOoetd', '_blank');
+    });
+
+    btn.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        window.open('https://pan.huang1111.cn/s/weXBxUK', '_blank');
     });
 })();
 
