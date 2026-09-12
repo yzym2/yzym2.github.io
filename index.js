@@ -116,7 +116,7 @@ window.addEventListener('scroll', () => {
     });
 })();
 
-// Ctrl+T：弹出测试版选择窗口
+// 按 T 键：弹出测试版选择窗口
 (function() {
     const modal = document.getElementById('testModal');
     if (!modal) return;
@@ -125,7 +125,10 @@ window.addEventListener('scroll', () => {
     function open() { modal.hidden = false; }
     function close() { modal.hidden = true; }
     document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey && e.key.toLowerCase() === 't') {
+        // 焦点在输入框/文本域时不触发，避免打字误弹
+        const tag = (e.target.tagName || '').toLowerCase();
+        if (tag === 'input' || tag === 'textarea' || e.target.isContentEditable) return;
+        if (e.key.toLowerCase() === 't') {
             e.preventDefault();
             open();
         }
