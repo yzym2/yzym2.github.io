@@ -107,13 +107,32 @@ window.addEventListener('scroll', () => {
 
     // 左键：常规下载链接；右键：备用下载链接
     btn.addEventListener('click', function() {
-        window.open('https://pan.huang1111.cn/s/9QOoetd', '_blank');
+        window.open('https://pan.huang1111.cn/s/1QzYAfv', '_blank');
     });
 
     btn.addEventListener('contextmenu', function(e) {
         e.preventDefault();
-        window.open('https://pan.huang1111.cn/s/weXBxUK', '_blank');
+        window.open('https://pan.huang1111.cn/s/RYg4RSB', '_blank');
     });
+})();
+
+// Ctrl+T：弹出测试版选择窗口
+(function() {
+    const modal = document.getElementById('testModal');
+    if (!modal) return;
+    const closeBtn = document.getElementById('testModalClose');
+    const backdrop = document.getElementById('testModalBackdrop');
+    function open() { modal.hidden = false; }
+    function close() { modal.hidden = true; }
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.key.toLowerCase() === 't') {
+            e.preventDefault();
+            open();
+        }
+    });
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (backdrop) backdrop.addEventListener('click', close);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
 })();
 
 // 意见反馈表单 —— 通过 Web3Forms 转发到邮箱
