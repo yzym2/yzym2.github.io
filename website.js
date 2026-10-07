@@ -1,27 +1,36 @@
-window.addEventListener('load', function() {
-    setTimeout(() => {
-        console.log("常用网站导航页加载完成");
-    }, 800);
-});
+const themeToggle = document.getElementById('themeToggle');
+const root = document.documentElement;
+const defaultTheme = new Date().getHours() >= 6 && new Date().getHours() < 18 ? 'light' : 'dark';
 
-const toggleBtn = document.getElementById('themeToggle');
-const html = document.documentElement;
-const savedTheme = localStorage.getItem('theme') || ((new Date().getHours() >= 6 && new Date().getHours() < 18) ? 'light' : 'dark');
-html.setAttribute('data-theme', savedTheme);
+try {
+    const storedTheme = localStorage.getItem('theme');
+    root.setAttribute('data-theme', storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : defaultTheme);
+} catch (error) {
+    console.warn('Unable to read the saved theme preference.', error);
+    root.setAttribute('data-theme', defaultTheme);
+}
 
-toggleBtn.addEventListener('click', function() {
-    const current = html.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-});
+if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+        const nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', nextTheme);
+
+        try {
+            localStorage.setItem('theme', nextTheme);
+        } catch (error) {
+            console.warn('Unable to save the theme preference.', error);
+        }
+    });
+}
 
 (function() {
     const dot = document.getElementById('cursorDot');
     const outline = document.getElementById('cursorOutline');
     const glow = document.getElementById('cursorGlow');
 
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+    if (!dot || !outline || !glow) return;
+
+    const isTouchDevice = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
     if (isTouchDevice) {
         dot.style.display = 'none';
         outline.style.display = 'none';
@@ -29,12 +38,14 @@ toggleBtn.addEventListener('click', function() {
         return;
     }
 
-    let mouseX = 0, mouseY = 0;
-    let outlineX = 0, outlineY = 0;
+    let mouseX = 0;
+    let mouseY = 0;
+    let outlineX = 0;
+    let outlineY = 0;
 
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+    document.addEventListener('mousemove', function(event) {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
         dot.style.left = mouseX - 4 + 'px';
         dot.style.top = mouseY - 4 + 'px';
         glow.style.left = mouseX + 'px';
@@ -50,17 +61,20 @@ toggleBtn.addEventListener('click', function() {
     }
     animateOutline();
 
-    const hoverTargets = document.querySelectorAll('a, button, .back-btn, .theme-toggle, .lang-toggle, .file-item, .download-btn, .go-btn, .mc-select, .mirror-option, .mirror-cancel, .mirror-confirm');
-    hoverTargets.forEach(el => {
-        el.addEventListener('mouseenter', () => outline.classList.add('hover'));
-        el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
+    document.querySelectorAll('a, button, .mc-select, .mirror-option').forEach(function(element) {
+        element.addEventListener('mouseenter', function() {
+            outline.classList.add('hover');
+        });
+        element.addEventListener('mouseleave', function() {
+            outline.classList.remove('hover');
+        });
     });
 
-    document.addEventListener('mousedown', () => {
+    document.addEventListener('mousedown', function() {
         dot.style.transform = 'scale(0.5)';
         outline.style.transform = 'scale(0.8)';
     });
-    document.addEventListener('mouseup', () => {
+    document.addEventListener('mouseup', function() {
         dot.style.transform = 'scale(1)';
         outline.style.transform = 'scale(1)';
     });
@@ -68,125 +82,221 @@ toggleBtn.addEventListener('click', function() {
 
 const sites = [
     { nameKey: 'web.s1', url: 'https://pan.huang1111.cn' },
-    { nameKey: 'web.s2', url: 'https://123pan.com' },
+    { nameKey: 'web.s2', url: 'https://yun.123pan.cn' },
     { nameKey: 'web.s3', url: 'https://www.lanzoui.com' }
 ];
 
-const fileListEl = document.getElementById('fileList');
+const fileList = document.getElementById('fileList');
+if (fileList) {
+    function renderSites() {
+        fileList.replaceChildren();
+        sites.forEach(function(site) {
+            const item = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = site.url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.dataset.i18n = site.nameKey;
+            link.textContent = window.t ? window.t(site.nameKey) : site.nameKey;
+            item.appendChild(link);
+            fileList.appendChild(item);
+        });
+    }
 
-function renderSites() {
-    fileListEl.innerHTML = '';
-    sites.forEach(site => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="${site.url}" target="_blank" data-i18n="${site.nameKey}">${window.t(site.nameKey)}</a>`;
-        fileListEl.appendChild(li);
-    });
+    renderSites();
+    if (window.onLangChange) window.onLangChange(renderSites);
 }
 
-renderSites();
-if (window.onLangChange) window.onLangChange(renderSites);
+const standardVersions = [
+    { value: '1.8.8', label: '1.8.8' },
+    { value: '1.8.8wasm', label: '1.8.8 WASM' },
+    { value: '1.12.2', label: '1.12.2' },
+    { value: '1.12.2wasm', label: '1.12.2 WASM' }
+];
 
-const mcjsUrls = {
-    '1.8.8': {
-        main: 'https://play.mcjs.cc/1.8.8',
-        mirror1: 'https://playmcjscc.pages.dev/1.8.8',
-        mirror2: 'https://play.mcjs.144449.xyz/1.8.8',
-        mirror3: 'https://ipv6.mcjs.cc/1.8.8'
-    },
-    '1.8.8wasm': {
-        main: 'https://play.mcjs.cc/1.8.8wasm',
-        mirror1: 'https://playmcjscc.pages.dev/1.8.8wasm',
-        mirror2: 'https://play.mcjs.144449.xyz/1.8.8wasm',
-        mirror3: 'https://ipv6.mcjs.cc/1.8.8wasm'
-    },
-    '1.12.2': {
-        main: 'https://play.mcjs.cc/1.12.2',
-        mirror1: 'https://playmcjscc.pages.dev/1.12.2',
-        mirror2: 'https://play.mcjs.144449.xyz/1.12.2',
-        mirror3: 'https://ipv6.mcjs.cc/1.12.2'
-    },
-    '1.12.2wasm': {
-        main: 'https://play.mcjs.cc/1.12.2wasm',
-        mirror1: 'https://playmcjscc.pages.dev/1.12.2wasm',
-        mirror2: 'https://play.mcjs.144449.xyz/1.12.2wasm',
-        mirror3: 'https://ipv6.mcjs.cc/1.12.2wasm'
-    }
-};
+const betaVersions = [
+    { value: '1.13.2', label: '1.13.2 WASM' },
+    { value: '1.14.4', label: '1.14.4 WASM' },
+    { value: '1.16.5', label: '1.16.5 WASM' },
+    { value: '1.20.6', label: '1.20.6 WASM' },
+    { value: '26.2', label: '26.2 WASM' },
+    { value: '26.3', label: '26.3 WASM' }
+];
 
-const eaglerUrls = {
-    '1.8.8': 'https://eaglercraft.ir/zh/play/1.8.8',
-    '1.12.2': 'https://eaglercraft.ir/zh/play/1.12.2',
-    '1.8.8wasm': 'https://eaglercraft.ir/zh/play/1.8.8wasm',
-    '1.12.2wasm': 'https://eaglercraft.ir/zh/play/1.12.2wasm'
-};
+const optimizedMirrors = [
+    { number: 11, baseUrl: 'https://1.mcjslink.144449.xyz' },
+    { number: 12, baseUrl: 'https://2.mcjslink.144449.xyz' },
+    { number: 13, baseUrl: 'https://3.mcjslink.144449.xyz' },
+    { number: 14, baseUrl: 'https://4.mcjslink.144449.xyz' },
+    { number: 15, baseUrl: 'https://5.mcjslink.144449.xyz' },
+    { number: 16, baseUrl: 'https://6.mcjslink.144449.xyz' },
+    { number: 17, baseUrl: 'https://7.mcjslink.144449.xyz' },
+    { number: 1, baseUrl: 'https://playmcjscc.pages.dev' },
+    { number: 2, baseUrl: 'https://play.mcjs.144449.xyz' },
+    { number: 5, baseUrl: 'https://mcjs-mirror.144449.xyz' },
+    { number: 6, baseUrl: 'https://mcjs-mirror-test.144449.xyz' }
+];
 
-const mc120Urls = {
-    wasm: 'https://eaglercraft.dev/clients/EaglyMC%201.20%20WASM/index.html',
-    js: 'https://eaglercraft.dev/clients/EaglyMC%201.20%20JS/index.html'
-};
+const betaMirrors = [
+    { number: 1, baseUrl: 'https://mcjs.144449.xyz' },
+    { number: 2, baseUrl: 'https://mcjs-beta.144449.xyz' }
+];
 
+const mcSite = document.getElementById('mcSite');
+const mcVersion = document.getElementById('mcVersion');
+const mcGoButton = document.getElementById('mcGoBtn');
 const mirrorModal = document.getElementById('mirrorModal');
+const mirrorOptions = document.getElementById('mirrorOptions');
 const mirrorCancel = document.getElementById('mirrorCancel');
 const mirrorConfirm = document.getElementById('mirrorConfirm');
-let pendingMcjsUrl = null;
 
-function showMirrorModal(urls) {
-    pendingMcjsUrl = urls;
-    document.querySelector('input[name="mirror"][value="main"]').checked = true;
-    mirrorModal.classList.add('show');
+let pendingMirrors = [];
+let pendingVersion = '';
+let previouslyFocusedElement = null;
+
+function updateVersions() {
+    if (!mcSite || !mcVersion) return;
+
+    const availableVersions = mcSite.value === 'mcjs-beta' ? betaVersions : standardVersions;
+    const selectedVersion = mcVersion.value;
+    mcVersion.replaceChildren();
+
+    availableVersions.forEach(function(version) {
+        const option = document.createElement('option');
+        option.value = version.value;
+        option.textContent = version.label;
+        mcVersion.appendChild(option);
+    });
+
+    if (availableVersions.some(function(version) {
+        return version.value === selectedVersion;
+    })) {
+        mcVersion.value = selectedVersion;
+    }
 }
 
 function hideMirrorModal() {
+    if (!mirrorModal) return;
     mirrorModal.classList.remove('show');
-    pendingMcjsUrl = null;
+    mirrorModal.setAttribute('aria-hidden', 'true');
+    pendingMirrors = [];
+    pendingVersion = '';
+
+    if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === 'function') {
+        previouslyFocusedElement.focus();
+    }
+    previouslyFocusedElement = null;
 }
 
-mirrorCancel.addEventListener('click', hideMirrorModal);
+function showMirrorModal(mirrors, version, mirrorLabelKey) {
+    if (!mirrorModal || !mirrorOptions || mirrors.length === 0) return;
 
-mirrorModal.addEventListener('click', function(e) {
-    if (e.target === mirrorModal) {
+    pendingMirrors = mirrors;
+    pendingVersion = version;
+    previouslyFocusedElement = document.activeElement;
+    mirrorOptions.replaceChildren();
+
+    mirrors.forEach(function(mirror, index) {
+        const label = document.createElement('label');
+        const input = document.createElement('input');
+        const description = document.createElement('span');
+        const host = new URL(mirror.baseUrl).host;
+
+        label.className = 'mirror-option';
+        input.type = 'radio';
+        input.name = 'mirror';
+        input.value = String(index);
+        input.checked = index === 0;
+        description.className = 'mirror-label';
+        const mirrorLabel = window.t ? window.t(mirrorLabelKey) : 'Mirror';
+        description.textContent = mirrorLabel + ' ' + mirror.number + ' (' + host + ')';
+
+        label.appendChild(input);
+        label.appendChild(description);
+        mirrorOptions.appendChild(label);
+    });
+
+    mirrorModal.classList.add('show');
+    mirrorModal.setAttribute('aria-hidden', 'false');
+    const firstOption = mirrorOptions.querySelector('input[name="mirror"]');
+    if (firstOption) firstOption.focus();
+}
+
+function openUrl(url) {
+    window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+if (mcSite && mcVersion) {
+    updateVersions();
+    mcSite.addEventListener('change', updateVersions);
+}
+
+if (mirrorCancel) {
+    mirrorCancel.addEventListener('click', hideMirrorModal);
+}
+
+if (mirrorModal) {
+    mirrorModal.addEventListener('click', function(event) {
+        if (event.target === mirrorModal) hideMirrorModal();
+    });
+}
+
+if (mirrorConfirm) {
+    mirrorConfirm.addEventListener('click', function() {
+        const selectedOption = mirrorOptions && mirrorOptions.querySelector('input[name="mirror"]:checked');
+        const selectedMirror = selectedOption && pendingMirrors[Number(selectedOption.value)];
+
+        if (selectedMirror && pendingVersion) {
+            openUrl(selectedMirror.baseUrl + '/' + pendingVersion);
+        }
         hideMirrorModal();
+    });
+}
+
+document.addEventListener('keydown', function(event) {
+    if (!mirrorModal || !mirrorModal.classList.contains('show')) return;
+
+    if (event.key === 'Escape') {
+        hideMirrorModal();
+        return;
+    }
+
+    if (event.key !== 'Tab') return;
+    const focusableElements = mirrorModal.querySelectorAll('input:not(:disabled), button:not(:disabled)');
+    if (focusableElements.length === 0) return;
+
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+    if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+    } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
     }
 });
 
-mirrorConfirm.addEventListener('click', function() {
-    if (!pendingMcjsUrl) return;
-    const selected = document.querySelector('input[name="mirror"]:checked');
-    const mirrorKey = selected ? selected.value : 'main';
-    const url = pendingMcjsUrl[mirrorKey];
-    if (url) {
-        window.open(url, '_blank');
-    }
-    hideMirrorModal();
-});
+if (mcGoButton && mcSite && mcVersion) {
+    mcGoButton.addEventListener('click', function() {
+        const site = mcSite.value;
+        const version = mcVersion.value;
+        const availableVersions = site === 'mcjs-beta' ? betaVersions : standardVersions;
 
-document.getElementById('mcGoBtn').addEventListener('click', function() {
-    const site = document.getElementById('mcSite').value;
-    const version = document.getElementById('mcVersion').value;
-
-    if (site === 'mcjs') {
-        const urls = mcjsUrls[version];
-        if (urls && urls.main) {
-            showMirrorModal(urls);
-        } else {
-            alert(window.t('web.alert.nocfg'));
+        if (!availableVersions.some(function(option) {
+            return option.value === version;
+        })) {
+            if (window.t) window.alert(window.t('web.alert.nocfg'));
+            return;
         }
-    } else {
-        const url = eaglerUrls[version];
-        if (url) {
-            window.open(url, '_blank');
-        } else {
-            alert(window.t('web.alert.noeagler'));
-        }
-    }
-});
 
-document.getElementById('mc120Btn').addEventListener('click', function() {
-    const type = document.getElementById('mc120Type').value;
-    const url = mc120Urls[type];
-    if (url) {
-        window.open(url, '_blank');
-    } else {
-        alert(window.t('web.alert.nomc120'));
-    }
-});
+        if (site === 'mcjs-mirror') {
+            showMirrorModal(optimizedMirrors, version, 'web.mirror.number');
+        } else if (site === 'eagler') {
+            openUrl('https://eaglercraft.ir/zh/play/' + version);
+        } else if (site === 'mcjs-beta') {
+            showMirrorModal(betaMirrors, version, 'web.mirror.beta');
+        } else if (window.t) {
+            window.alert(window.t('web.alert.nocfg'));
+        }
+    });
+}

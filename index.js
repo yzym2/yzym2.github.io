@@ -105,37 +105,9 @@ window.addEventListener('scroll', () => {
     const btn = document.getElementById('fastStartBtn');
     if (!btn) return;
 
-    // 左键：常规下载链接；右键：备用下载链接
     btn.addEventListener('click', function() {
-        window.open('https://pan.huang1111.cn/s/1QzYAfv', '_blank');
+        window.open('https://pan.huang1111.cn/s/aEZ5jfG', '_blank');
     });
-
-    btn.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-        window.open('https://pan.huang1111.cn/s/RYg4RSB', '_blank');
-    });
-})();
-
-// 按 T 键：弹出测试版选择窗口
-(function() {
-    const modal = document.getElementById('testModal');
-    if (!modal) return;
-    const closeBtn = document.getElementById('testModalClose');
-    const backdrop = document.getElementById('testModalBackdrop');
-    function open() { modal.hidden = false; }
-    function close() { modal.hidden = true; }
-    document.addEventListener('keydown', function(e) {
-        // 焦点在输入框/文本域时不触发，避免打字误弹
-        const tag = (e.target.tagName || '').toLowerCase();
-        if (tag === 'input' || tag === 'textarea' || e.target.isContentEditable) return;
-        if (e.key.toLowerCase() === 't') {
-            e.preventDefault();
-            open();
-        }
-    });
-    if (closeBtn) closeBtn.addEventListener('click', close);
-    if (backdrop) backdrop.addEventListener('click', close);
-    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
 })();
 
 // 意见反馈表单 —— 通过 Web3Forms 转发到邮箱

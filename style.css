@@ -670,31 +670,6 @@ nav a:hover::after {
     border-radius: 50%;
     background: var(--accent-white);
 }
-/* 测试版选择弹窗：链接列表 */
-.test-version-list {
-    margin-top: 4px;
-}
-.test-version-list li {
-    padding: 0 !important;
-}
-.test-version-list li::before {
-    display: none;
-}
-.test-version-list a {
-    display: block;
-    padding: 10px 14px;
-    border: 1px solid var(--glass-border);
-    border-radius: 10px;
-    color: var(--text-primary);
-    text-decoration: none;
-    font-size: 14px;
-    transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
-}
-.test-version-list a:hover {
-    border-color: var(--accent-white);
-    color: var(--accent-white);
-    background: var(--icon-bg);
-}
 
 /* 主视觉容器 */
 .hero {
@@ -983,7 +958,7 @@ footer#about {
     opacity: 0.75;
 }
 
-/* Beta 徽章（蓝紫渐变） */
+/* 公测徽章（蓝紫渐变） */
 .beta-badge {
     display: inline-block;
     padding: 2px 10px;
@@ -1284,39 +1259,6 @@ u,
     text-decoration-color: var(--accent-gray);
     text-underline-offset: 2px;
 }
-
-/* 图片容器 */
-.img-container {
-    margin: 12px 0 16px 0;
-    text-align: center;
-}
-.img-container img {
-    display: inline-block;
-    max-width: 100%;
-}
-
-/* 功能卡片（毛玻璃） */
-.feature-card {
-    padding: 16px 20px 18px 20px;
-    margin: 14px 0 18px 0;
-}
-.feature-card h5 {
-    margin-top: 0;
-    margin-bottom: 6px;
-    font-size: 15px;
-    color: var(--text-primary);
-}
-.feature-card p {
-    margin-bottom: 6px;
-    color: var(--text-secondary);
-    font-size: 14px;
-}
-.feature-card img {
-    margin-top: 8px;
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
-}
-
 
 /* ===== 文件列表页 study / minecraft / website 共有 ===== */
 /* 返回按钮 */
@@ -1778,6 +1720,13 @@ body.page-website .hero-title {
     margin-right: auto;
 }
 
+.mcjs-official-link {
+    margin-bottom: 16px;
+    background: #ffffff;
+    color: #121212;
+    text-decoration: none;
+}
+
 .section-title {
     text-align: center;
     font-size: 1.4em;
@@ -1889,52 +1838,6 @@ body.page-website .hero-title {
     transform: scale(1.02);
 }
 
-/* 1.20 版本卡片 */
-.version-card {
-    padding: 20px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 0.7s;
-}
-
-.version-info {
-    display: flex;
-    align-items: center;
-}
-
-.version-info .version-text {
-    margin-left: 0;
-}
-
-.version-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6em;
-    background: var(--icon-bg);
-    flex-shrink: 0;
-}
-
-.version-name {
-    font-size: 1.05em;
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-.version-desc {
-    font-size: 0.85em;
-    color: var(--text-secondary);
-    margin-top: 2px;
-}
-
 /* ===== website 专属：HTML 小游戏区域 ===== */
 .game-section {
     margin-top: 40px;
@@ -1986,24 +1889,6 @@ body.page-website .hero-title {
     color: var(--accent-white);
 }
 
-/* 1.20 选择器区域 */
-.version-selector {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.version-selector .mc-select {
-    width: 100px;
-    flex: none;
-}
-
-.version-selector .go-btn {
-    width: auto;
-    padding: 10px 28px;
-    white-space: nowrap;
-}
-
 /* ========== 镜像站选择弹窗 ========== */
 .mirror-modal {
     position: fixed;
@@ -2028,7 +1913,10 @@ body.page-website .hero-title {
 .mirror-modal-content {
     width: 90%;
     max-width: 400px;
+    max-height: 90vh;
     padding: 28px;
+    display: flex;
+    flex-direction: column;
     background: #ffffff;
     border: 1px solid rgba(0,0,0,0.1);
     border-radius: 16px;
@@ -2061,6 +1949,8 @@ body.page-website .hero-title {
     flex-direction: column;
     gap: 10px;
     margin-bottom: 24px;
+    max-height: 55vh;
+    overflow-y: auto;
 }
 
 .mirror-option {
@@ -2092,6 +1982,7 @@ body.page-website .hero-title {
     font-size: 0.95em;
     font-weight: 500;
     color: #111111;
+    overflow-wrap: anywhere;
 }
 
 .mirror-actions {
@@ -2496,24 +2387,6 @@ body.page-website .hero-title {
         min-width: auto;
     }
     body.page-website .mc-select {
-        width: 100%;
-    }
-    body.page-website .version-card {
-        flex-direction: column;
-        text-align: center;
-        gap: 16px;
-    }
-    body.page-website .version-info {
-        flex-direction: column;
-    }
-    body.page-website .version-selector {
-        width: 100%;
-        flex-direction: column;
-    }
-    body.page-website .version-selector .mc-select {
-        width: 100%;
-    }
-    body.page-website .version-selector .go-btn {
         width: 100%;
     }
     body.page-website .mirror-modal-content {

@@ -34,34 +34,17 @@
     </svg>
 </button>
 
-<!-- 镜像站选择弹窗（仅 mcjs.cc 弹出） -->
-<div class="mirror-modal" id="mirrorModal">
-    <div class="mirror-modal-content glass-card">
-        <h3 data-i18n="web.mirror.title">选择访问节点</h3>
-        <p class="mirror-desc" data-i18n="web.mirror.desc">主站若无法访问请尝试镜像站</p>
-        <div class="mirror-options">
-            <label class="mirror-option">
-                <input type="radio" name="mirror" value="main" checked>
-                <span class="mirror-label" data-i18n="web.mirror.main">主站</span>
-            </label>
-            <label class="mirror-option">
-                <input type="radio" name="mirror" value="mirror1">
-                <span class="mirror-label" data-i18n="web.mirror.m1">镜像站 1</span>
-            </label>
-            <label class="mirror-option">
-                <input type="radio" name="mirror" value="mirror2">
-                <span class="mirror-label" data-i18n="web.mirror.m2">镜像站 2</span>
-            </label>
-            <label class="mirror-option">
-                <input type="radio" name="mirror" value="mirror3">
-                <span class="mirror-label" data-i18n="web.mirror.m3">镜像站 3 (IPv6)</span>
-            </label>
-        </div>
+<!-- Minecraft 访问节点选择弹窗 -->
+<div class="mirror-modal" id="mirrorModal" aria-hidden="true">
+    <section class="mirror-modal-content glass-card" role="dialog" aria-modal="true" aria-labelledby="mirrorTitle" aria-describedby="mirrorDesc" tabindex="-1">
+        <h3 id="mirrorTitle" data-i18n="web.mirror.title">选择访问节点</h3>
+        <p class="mirror-desc" id="mirrorDesc" data-i18n="web.mirror.desc">主站若无法访问请尝试镜像站</p>
+        <div class="mirror-options" id="mirrorOptions"></div>
         <div class="mirror-actions">
             <button class="mirror-cancel" id="mirrorCancel" data-i18n="web.mirror.cancel">取消</button>
             <button class="mirror-confirm" id="mirrorConfirm" data-i18n="web.mirror.confirm">前往游玩</button>
         </div>
-    </div>
+    </section>
 </div>
 
 <div class="container">
@@ -78,42 +61,23 @@
     <div class="mc-web-section">
         <h2 class="section-title" data-i18n="web.section">Minecraft 网页版</h2>
 
-        <!-- 选择器卡片 -->
+        <a class="go-btn magnetic-btn mcjs-official-link" href="https://mcjs.link/" target="_blank" rel="noopener noreferrer" data-i18n="web.mcjs.official">MCJS 官网</a>
+
+        <!-- 正式版及 eaglercraft.ir -->
         <div class="selector-card glass-card">
             <div class="selector-row">
                 <label for="mcSite" data-i18n="web.label.site">选择站点：</label>
                 <select id="mcSite" class="mc-select">
-                    <option value="mcjs">mcjs.cc</option>
-                    <option value="eagler">eaglercraft.ir</option>
+                    <option value="mcjs-mirror">mcjs.link</option>
+                    <option value="eagler" data-i18n="web.mcjs.eagler">eaglercraft.ir</option>
+                    <option value="mcjs-beta">mcjs.link(高版本)</option>
                 </select>
             </div>
             <div class="selector-row">
                 <label for="mcVersion" data-i18n="web.label.version">选择版本：</label>
-                <select id="mcVersion" class="mc-select">
-                    <option value="1.8.8">1.8.8</option>
-                    <option value="1.12.2">1.12.2</option>
-                    <option value="1.8.8wasm">1.8.8 WASM</option>
-                    <option value="1.12.2wasm">1.12.2 WASM</option>
-                </select>
+                <select id="mcVersion" class="mc-select"></select>
             </div>
             <button class="go-btn magnetic-btn" id="mcGoBtn" data-i18n="web.go">前往游玩</button>
-        </div>
-
-        <!-- 1.20 版卡片 -->
-        <div class="version-card glass-card">
-            <div class="version-info">
-                <div class="version-text">
-                    <div class="version-name" data-i18n="web.mc120.name">Minecraft 1.20 网页版</div>
-                    <div class="version-desc" data-i18n="web.mc120.desc">基于1.8.8版本内核，仅供体验</div>
-                </div>
-            </div>
-            <div class="version-selector">
-                <select id="mc120Type" class="mc-select">
-                    <option value="wasm">WASM</option>
-                    <option value="js">JS</option>
-                </select>
-                <button class="go-btn magnetic-btn" id="mc120Btn" data-i18n="web.go">前往游玩</button>
-            </div>
         </div>
     </div>
 
