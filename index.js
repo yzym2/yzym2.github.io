@@ -1,17 +1,3 @@
-(function() {
-    const toggleBtn = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    const savedTheme = localStorage.getItem('theme') || ((new Date().getHours() >= 6 && new Date().getHours() < 18) ? 'light' : 'dark');
-    html.setAttribute('data-theme', savedTheme);
-
-    toggleBtn.addEventListener('click', function() {
-        const currentTheme = html.getAttribute('data-theme');
-        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', nextTheme);
-        localStorage.setItem('theme', nextTheme);
-    });
-})();
-
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -67,7 +53,7 @@ window.addEventListener('scroll', () => {
     }
     animateOutline();
 
-    const hoverTargets = document.querySelectorAll('a, button, .btn, .glass-card, nav a, .theme-toggle, .lang-toggle, .btn-fast-start');
+    const hoverTargets = document.querySelectorAll('a, button, .btn, .glass-card, nav a, .lang-toggle, .btn-fast-start');
     hoverTargets.forEach(el => {
         el.addEventListener('mouseenter', () => outline.classList.add('hover'));
         el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
@@ -106,7 +92,7 @@ window.addEventListener('scroll', () => {
     if (!btn) return;
 
     btn.addEventListener('click', function() {
-        window.open('https://pan.huang1111.cn/s/aEZ5jfG', '_blank');
+        window.open('https://pan.huang1111.cn/s/75xOBug', '_blank');
     });
 })();
 

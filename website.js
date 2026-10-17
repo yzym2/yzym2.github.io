@@ -1,28 +1,3 @@
-const themeToggle = document.getElementById('themeToggle');
-const root = document.documentElement;
-const defaultTheme = new Date().getHours() >= 6 && new Date().getHours() < 18 ? 'light' : 'dark';
-
-try {
-    const storedTheme = localStorage.getItem('theme');
-    root.setAttribute('data-theme', storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : defaultTheme);
-} catch (error) {
-    console.warn('Unable to read the saved theme preference.', error);
-    root.setAttribute('data-theme', defaultTheme);
-}
-
-if (themeToggle) {
-    themeToggle.addEventListener('click', function() {
-        const nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-theme', nextTheme);
-
-        try {
-            localStorage.setItem('theme', nextTheme);
-        } catch (error) {
-            console.warn('Unable to save the theme preference.', error);
-        }
-    });
-}
-
 (function() {
     const dot = document.getElementById('cursorDot');
     const outline = document.getElementById('cursorOutline');

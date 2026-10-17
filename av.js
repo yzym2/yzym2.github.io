@@ -1,15 +1,3 @@
-const toggleBtn = document.getElementById('themeToggle');
-const html = document.documentElement;
-const savedTheme = localStorage.getItem('theme') || ((new Date().getHours() >= 6 && new Date().getHours() < 18) ? 'light' : 'dark');
-html.setAttribute('data-theme', savedTheme);
-
-toggleBtn.addEventListener('click', function() {
-    const current = html.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-});
-
 (function() {
     const dot = document.getElementById('cursorDot');
     const outline = document.getElementById('cursorOutline');
@@ -44,7 +32,7 @@ toggleBtn.addEventListener('click', function() {
     }
     animateOutline();
 
-    const HOVER_SEL = 'a, button, .back-btn, .theme-toggle, .lang-toggle, .file-item, .dl-btn, .av-select, .av-search-input, .av-playlist-item';
+    const HOVER_SEL = 'a, button, .back-btn, .lang-toggle, .file-item, .dl-btn, .av-select, .av-search-input, .av-playlist-item';
     document.addEventListener('mouseover', (e) => {
         if (e.target.closest(HOVER_SEL)) outline.classList.add('hover');
     });

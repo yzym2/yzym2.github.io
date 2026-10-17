@@ -1,18 +1,6 @@
 (function() {
     'use strict';
 
-    const toggleBtn = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    const savedTheme = localStorage.getItem('theme') || ((new Date().getHours() >= 6 && new Date().getHours() < 18) ? 'light' : 'dark');
-    html.setAttribute('data-theme', savedTheme);
-
-    toggleBtn.addEventListener('click', function(){
-        const current = html.getAttribute('data-theme');
-        const next = current === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
-    });
-
     (function() {
         const dot = document.getElementById('cursorDot');
         const outline = document.getElementById('cursorOutline');
@@ -47,7 +35,7 @@
         }
         animateOutline();
 
-        const hoverTargets = document.querySelectorAll('a, button, .back-home-btn, .theme-toggle, .lang-toggle, .toc a');
+        const hoverTargets = document.querySelectorAll('a, button, .back-home-btn, .lang-toggle, .toc a');
         hoverTargets.forEach(el => {
             el.addEventListener('mouseenter', () => outline.classList.add('hover'));
             el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
