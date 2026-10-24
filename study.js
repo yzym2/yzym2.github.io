@@ -11,26 +11,14 @@
         return;
     }
 
-    let mouseX = 0, mouseY = 0;
-    let outlineX = 0, outlineY = 0;
-
     document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        dot.style.left = mouseX - 4 + 'px';
-        dot.style.top = mouseY - 4 + 'px';
-        glow.style.left = mouseX + 'px';
-        glow.style.top = mouseY + 'px';
+        dot.style.left = e.clientX - 4 + 'px';
+        dot.style.top = e.clientY - 4 + 'px';
+        outline.style.left = e.clientX + 'px';
+        outline.style.top = e.clientY + 'px';
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
     });
-
-    function animateOutline() {
-        outlineX += (mouseX - outlineX) * 0.15;
-        outlineY += (mouseY - outlineY) * 0.15;
-        outline.style.left = outlineX - 20 + 'px';
-        outline.style.top = outlineY - 20 + 'px';
-        requestAnimationFrame(animateOutline);
-    }
-    animateOutline();
 
     const hoverTargets = document.querySelectorAll('a, button, .back-btn, .lang-toggle, .file-item, .download-btn');
     hoverTargets.forEach(el => {
@@ -40,11 +28,11 @@
 
     document.addEventListener('mousedown', () => {
         dot.style.transform = 'scale(0.5)';
-        outline.style.transform = 'scale(0.8)';
+        outline.style.transform = 'translate(-50%, -50%) scale(0.8)';
     });
     document.addEventListener('mouseup', () => {
         dot.style.transform = 'scale(1)';
-        outline.style.transform = 'scale(1)';
+        outline.style.transform = 'translate(-50%, -50%)';
     });
 })();
 

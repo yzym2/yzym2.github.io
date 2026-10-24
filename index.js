@@ -30,28 +30,14 @@ window.addEventListener('scroll', () => {
         return;
     }
 
-    let mouseX = 0, mouseY = 0;
-    let outlineX = 0, outlineY = 0;
-
     document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-
-        dot.style.left = mouseX - 4 + 'px';
-        dot.style.top = mouseY - 4 + 'px';
-
-        glow.style.left = mouseX + 'px';
-        glow.style.top = mouseY + 'px';
+        dot.style.left = e.clientX - 4 + 'px';
+        dot.style.top = e.clientY - 4 + 'px';
+        outline.style.left = e.clientX + 'px';
+        outline.style.top = e.clientY + 'px';
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
     });
-
-    function animateOutline() {
-        outlineX += (mouseX - outlineX) * 0.15;
-        outlineY += (mouseY - outlineY) * 0.15;
-        outline.style.left = outlineX - 20 + 'px';
-        outline.style.top = outlineY - 20 + 'px';
-        requestAnimationFrame(animateOutline);
-    }
-    animateOutline();
 
     const hoverTargets = document.querySelectorAll('a, button, .btn, .glass-card, nav a, .lang-toggle, .btn-fast-start');
     hoverTargets.forEach(el => {
@@ -61,11 +47,11 @@ window.addEventListener('scroll', () => {
 
     document.addEventListener('mousedown', () => {
         dot.style.transform = 'scale(0.5)';
-        outline.style.transform = 'scale(0.8)';
+        outline.style.transform = 'translate(-50%, -50%) scale(0.8)';
     });
     document.addEventListener('mouseup', () => {
         dot.style.transform = 'scale(1)';
-        outline.style.transform = 'scale(1)';
+        outline.style.transform = 'translate(-50%, -50%)';
     });
 })();
 
@@ -88,11 +74,64 @@ window.addEventListener('scroll', () => {
 })();
 
 (function() {
+    const section = document.querySelector('.fast-start-section');
     const btn = document.getElementById('fastStartBtn');
-    if (!btn) return;
+    const dlBtn = document.getElementById('fastDownloadBtn');
+    const copyBtn = document.getElementById('fastCopyBtn');
+    if (!section || !btn) return;
 
+    // 点击“极速开始”切换展开（移动端无 hover 时使用）
     btn.addEventListener('click', function() {
-        window.open('https://pan.huang1111.cn/s/75xOBug', '_blank');
+        section.classList.toggle('is-open');
+    });
+
+    // 方式二：点击下载自动下载程序
+    if (dlBtn) {
+        dlBtn.addEventListener('click', function() {
+            window.open('https://pan.huang1111.cn/s/mxANLs1', '_blank');
+        });
+    }
+
+    // 方式一：复制 PowerShell 代码
+    if (copyBtn) {
+        copyBtn.addEventListener('click', function() {
+            const code = document.getElementById('fastCodeText');
+            const text = code ? code.textContent : '';
+            const done = function() {
+                copyBtn.textContent = window.t ? window.t('index.fastcode.copied') : '已复制';
+                setTimeout(function() {
+                    copyBtn.textContent = window.t ? window.t('index.fastcode.copy') : '复制';
+                }, 1500);
+            };
+            const fallback = function() {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy'); } catch (e) {}
+                document.body.removeChild(ta);
+                done();
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(done).catch(fallback);
+            } else {
+                fallback();
+            }
+        });
+    }
+})();
+
+// 极速开始：鼠标移入区域时展开 PowerShell 代码面板（document 级判定，兼容合成事件环境）
+(function() {
+    const section = document.querySelector('.fast-start-section');
+    if (!section) return;
+
+    document.addEventListener('mouseover', function(e) {
+        if (section.contains(e.target)) {
+            section.classList.add('is-open');
+        } else {
+            section.classList.remove('is-open');
+        }
     });
 })();
 

@@ -53,14 +53,311 @@
     </div>
 
     <div class="fast-start-section">
-        <button class="btn-fast-start magnetic-btn" id="fastStartBtn">
-            <svg class="fast-start-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"></path>
-            </svg>
-            <span class="fast-start-text" data-i18n="index.faststart">极速开始</span>
-            <span class="beta-badge">公测</span>
-        </button>
-        <p class="fast-start-hint" data-i18n="index.fasthint">一键下载 自动下载程序(Specified).exe</p>
+        <div class="fast-start-card" id="fastStartCard">
+            <button class="btn-fast-start magnetic-btn" id="fastStartBtn" type="button">
+                <svg class="fast-start-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"></path>
+                </svg>
+                <span class="fast-start-text" data-i18n="index.faststart">极速开始</span>
+                <span class="beta-badge">公测</span>
+            </button>
+            <div class="fast-start-expand">
+                <div class="fast-start-expand-head">
+                    <span class="method-tag" data-i18n="index.fastcode.m1">方式一</span>
+                    <span class="fast-start-code-tip" data-i18n="index.fastcode.tip">按住 Win+X，再按 I 打开 PowerShell，复制粘贴以下代码并运行即可</span>
+                </div>
+                <div class="fast-start-code-row">
+                    <pre class="fast-start-code"><code id="fastCodeText">param(
+    [string]$ShareUrl = "",
+    [string]$Password = ""
+)
+
+$DefaultShareUrl = "https://pan.huang1111.cn/s/mxANLs1"
+
+$ErrorActionPreference = 'Stop'
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+$API_BASE = 'https://pan.huang1111.cn/api/v3'
+$UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+
+function Format-Size([long]$Bytes) {
+    if ($Bytes -lt 1024) { return "$Bytes B" }
+    if ($Bytes -lt 1MB) { return ('{0} KB' -f [long]($Bytes / 1KB)) }
+    if ($Bytes -lt 1GB) { return ('{0:F2} MB' -f ($Bytes / 1MB)) }
+    return ('{0:F2} GB' -f ($Bytes / 1GB))
+}
+
+function Find-JsonKey {
+    param($Object, [string]$Key)
+    if ($Object -is [System.Management.Automation.PSCustomObject]) {
+        if ($Object.PSObject.Properties.Name -contains $Key) { return $Object.$Key }
+        foreach ($p in $Object.PSObject.Properties) {
+            $r = Find-JsonKey $p.Value $Key
+            if ($null -ne $r) { return $r }
+        }
+    }
+    elseif ($Object -is [System.Collections.IEnumerable] -and $Object -isnot [string]) {
+        foreach ($item in $Object) {
+            $r = Find-JsonKey $item $Key
+            if ($null -ne $r) { return $r }
+        }
+    }
+    return $null
+}
+
+function ConvertTo-PathCode([string]$Text) {
+    $sb = New-Object System.Text.StringBuilder
+    foreach ($b in [System.Text.Encoding]::UTF8.GetBytes($Text)) {
+        if (($b -ge 0x30 -and $b -le 0x39) -or ($b -ge 0x41 -and $b -le 0x5A) -or ($b -ge 0x61 -and $b -le 0x7A)) {
+            [void]$sb.Append([char]$b)
+        }
+        else {
+            [void]$sb.Append(('%{0:X2}' -f $b))
+        }
+    }
+    return $sb.ToString()
+}
+
+function Invoke-ShareApi {
+    param(
+        [string]$Uri,
+        [string]$Method = 'Get',
+        $Session,
+        [string]$Referer,
+        $Body = $null
+    )
+    $splat = @{
+        UseBasicParsing = $true
+        Uri             = $Uri
+        Method          = $Method
+        Headers         = @{ Referer = $Referer; Accept = 'application/json' }
+        UserAgent       = $UA
+        WebSession      = $Session
+    }
+    if ($Method -ne 'Get') { $splat.ContentType = 'application/json' }
+    if ($null -ne $Body) { $splat.Body = $Body }
+    try {
+        return Invoke-RestMethod @splat
+    }
+    catch {
+        $detail = $null
+        if ($_.ErrorDetails) { $detail = $_.ErrorDetails.Message }
+        if ($detail) { throw "HTTP 请求失败 ($Method $Uri)`nAPI 响应: $detail" }
+        throw
+    }
+}
+
+function Set-SharePassword {
+    param($Session, [string]$Hash, [string]$Referer, [string]$Password)
+    $body = @{ password = $Password } | ConvertTo-Json
+    Invoke-ShareApi -Uri "$API_BASE/share/password/$Hash" -Method Post -Session $Session -Referer $Referer -Body $body | Out-Null
+}
+
+function Get-RemoteSize {
+    param([string]$Url, [string]$Referer)
+    $resp = $null
+    try {
+        $req = [System.Net.HttpWebRequest]::Create($Url)
+        $req.UserAgent = $UA
+        $req.Referer = $Referer
+        $req.Method = 'GET'
+        $req.Timeout = 30000
+        $req.AddRange(0, 0)
+        $resp = $req.GetResponse()
+        if ([int]$resp.StatusCode -eq 206) {
+            $cr = $resp.Headers['Content-Range']
+            if ($cr -and $cr -match '/(\d+)\s*$') { return [long]$Matches[1] }
+        }
+        if ($resp.ContentLength -gt 0) { return [long]$resp.ContentLength }
+    }
+    catch { }
+    finally {
+        if ($resp) { $resp.Close() }
+    }
+    return -1
+}
+
+function Save-ToFile {
+    param([string]$Url, [string]$Referer, [string]$Destination, [long]$Total)
+
+    $req = [System.Net.HttpWebRequest]::Create($Url)
+    $req.UserAgent = $UA
+    $req.Referer = $Referer
+    $req.Method = 'GET'
+    $req.AllowAutoRedirect = $true
+    $req.Timeout = 30000
+    $req.ReadWriteTimeout = 60000
+
+    $resp = $null
+    $stream = $null
+    $fs = $null
+    [long]$done = 0
+    try {
+        $resp = $req.GetResponse()
+        if ($Total -le 0 -and $resp.ContentLength -gt 0) { $Total = [long]$resp.ContentLength }
+        $stream = $resp.GetResponseStream()
+        $fs = [System.IO.File]::Create($Destination)
+        $buf = New-Object byte[] (256 * 1024)
+        $start = Get-Date
+        $lastPrint = Get-Date
+        while ($true) {
+            $n = $stream.Read($buf, 0, $buf.Length)
+            if ($n -le 0) { break }
+            $fs.Write($buf, 0, $n)
+            $done += $n
+            $now = Get-Date
+            if (($now - $lastPrint).TotalSeconds -ge 0.5) {
+                $lastPrint = $now
+                $elapsed = [math]::Max((($now - $start).TotalSeconds), 0.001)
+                $speed = Format-Size ([long]($done / $elapsed))
+                if ($Total -gt 0) {
+                    $line = ('{0,3}%  {1} / {2}  {3}/s' -f [int](($done * 100) / $Total), (Format-Size $done), (Format-Size $Total), $speed)
+                }
+                else {
+                    $line = ('{0}  {1}/s' -f (Format-Size $done), $speed)
+                }
+                Write-Host ("`r" + $line.PadRight(60)) -NoNewline
+            }
+        }
+        $fs.Flush()
+    }
+    finally {
+        if ($fs) { $fs.Dispose() }
+        if ($stream) { $stream.Dispose() }
+        if ($resp) { $resp.Close() }
+    }
+    Write-Host ("`r" + (' ' * 60)) -NoNewline
+    Write-Host ''
+    if ($Total -gt 0 -and $done -ne $Total) {
+        throw "下载不完整: $done / $Total bytes"
+    }
+}
+
+$failed = $false
+try {
+    if (-not $ShareUrl) { $ShareUrl = $DefaultShareUrl }
+    if (-not $ShareUrl) {
+        $ShareUrl = Read-Host '请输入 HUANG1111 分享链接'
+    }
+    $ShareUrl = $ShareUrl.Trim().Trim([char]0x22, [char]0x27, [char]0x60)
+    if ($ShareUrl -notmatch '/s/([^/?#\s]+)') {
+        throw "链接中找不到 /s/ 段，无法提取分享码: $ShareUrl"
+    }
+    $shareHash = $Matches[1]
+
+    $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
+
+    Write-Host '[1/4] 获取分享信息...'
+    $infoUri = "$API_BASE/share/info/$shareHash"
+    $info = Invoke-ShareApi -Uri $infoUri -Session $session -Referer $ShareUrl
+
+    if ((Find-JsonKey $info 'locked') -eq $true) {
+        Write-Host '       分享已加密，需要密码' -ForegroundColor Yellow
+        if (-not $Password) { $Password = Read-Host '请输入分享密码' }
+        if (-not $Password) { throw '未输入密码，已取消' }
+        Set-SharePassword -Session $session -Hash $shareHash -Referer $ShareUrl -Password $Password
+        $info = Invoke-ShareApi -Uri $infoUri -Session $session -Referer $ShareUrl
+    }
+
+    if ((Find-JsonKey $info 'is_dir') -eq $true) {
+        throw '分享是目录，暂不支持下载目录'
+    }
+
+    $fileName = $null
+    if ($info.data.source.name) { $fileName = [string]$info.data.source.name }
+    elseif ($info.data.name) { $fileName = [string]$info.data.name }
+    else {
+        $nm = Find-JsonKey $info 'name'
+        if ($nm) { $fileName = [string]$nm }
+    }
+    if ($fileName) { $fileName = $fileName.TrimEnd([char[]]@(' ', '-')) }
+    if (-not $fileName) {
+        throw "无法提取文件名`nAPI 响应: $($info | ConvertTo-Json -Depth 6 -Compress)"
+    }
+    Write-Host "       文件名: $fileName" -ForegroundColor Green
+
+    $sizeHint = -1
+    $sv = $info.data.source.size
+    if ($null -eq $sv) { $sv = $info.data.size }
+    if ($null -eq $sv) { $sv = Find-JsonKey $info 'size' }
+    if ($null -ne $sv) {
+        try { $sizeHint = [long]$sv } catch { $sizeHint = -1 }
+    }
+
+    Write-Host '[2/4] 获取下载直链...'
+    $dlUri = "$API_BASE/share/download/$shareHash" + '?path=' + (ConvertTo-PathCode ("/$fileName"))
+    $directUrl = $null
+    for ($i = 0; $i -lt 2; $i++) {
+        $directUrl = $null
+        $failMsg = ''
+        try {
+            $dl = Invoke-ShareApi -Uri $dlUri -Method Put -Session $session -Referer $ShareUrl
+            $d = Find-JsonKey $dl 'data'
+            if ($d -is [string] -and $d) {
+                $directUrl = $d.Trim().Trim([char]0x22, [char]0x27, [char]0x60)
+            }
+            else {
+                $failMsg = [string](Find-JsonKey $dl 'msg')
+                if (-not $failMsg) {
+                    $failMsg = "无法提取直链 (data 字段)`nAPI 响应: $($dl | ConvertTo-Json -Depth 6 -Compress)"
+                }
+            }
+        }
+        catch {
+            $failMsg = $_.Exception.Message
+        }
+        if ($directUrl) { break }
+        if ($i -eq 0 -and -not $Password -and $failMsg -match '密码|password|pwd') {
+            Write-Host "       $failMsg" -ForegroundColor Yellow
+            $Password = Read-Host '请输入分享密码'
+            if ($Password) {
+                Set-SharePassword -Session $session -Hash $shareHash -Referer $ShareUrl -Password $Password
+                continue
+            }
+        }
+        throw "获取直链失败: $failMsg"
+    }
+    Write-Host '       直链已获取' -ForegroundColor Green
+
+    Write-Host '[3/4] 探测文件大小...'
+    $total = Get-RemoteSize -Url $directUrl -Referer $ShareUrl
+    if ($total -le 0) { $total = $sizeHint }
+    if ($total -gt 0) {
+        Write-Host "       大小: $(Format-Size $total) ($total bytes)" -ForegroundColor Green
+    }
+    else {
+        Write-Host '       无法获取大小，将流式下载' -ForegroundColor Yellow
+    }
+
+    Write-Host '[4/4] 下载到桌面...'
+    $desktop = [Environment]::GetFolderPath('Desktop')
+    if (-not $desktop -or -not (Test-Path $desktop)) { throw '无法获取桌面路径' }
+    $dest = Join-Path $desktop $fileName
+    Write-Host "       保存到: $dest"
+    Save-ToFile -Url $directUrl -Referer $ShareUrl -Destination $dest -Total $total
+
+    Write-Host ''
+    Write-Host "下载完成: $dest" -ForegroundColor Green
+    Write-Host '正在打开文件...'
+    Invoke-Item $dest
+}
+catch {
+    $failed = $true
+    Write-Host ''
+    Write-Host "错误: $($_.Exception.Message)" -ForegroundColor Red
+}
+
+Write-Host ''
+Read-Host '按 Enter 键退出' | Out-Null
+if ($failed) { exit 1 }</code></pre>
+                    <button class="fast-start-copy" id="fastCopyBtn" type="button" data-i18n="index.fastcode.copy">复制</button>
+                </div>
+                <div class="fast-start-alt">
+                    <span class="method-tag" data-i18n="index.fastcode.m2">方式二</span>
+                    <button class="btn-fast-download magnetic-btn" id="fastDownloadBtn" type="button" data-i18n="index.fastdownload">点击下载 自动下载程序(Specified).exe</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="btn-group">

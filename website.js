@@ -13,28 +13,14 @@
         return;
     }
 
-    let mouseX = 0;
-    let mouseY = 0;
-    let outlineX = 0;
-    let outlineY = 0;
-
     document.addEventListener('mousemove', function(event) {
-        mouseX = event.clientX;
-        mouseY = event.clientY;
-        dot.style.left = mouseX - 4 + 'px';
-        dot.style.top = mouseY - 4 + 'px';
-        glow.style.left = mouseX + 'px';
-        glow.style.top = mouseY + 'px';
+        dot.style.left = event.clientX - 4 + 'px';
+        dot.style.top = event.clientY - 4 + 'px';
+        outline.style.left = event.clientX + 'px';
+        outline.style.top = event.clientY + 'px';
+        glow.style.left = event.clientX + 'px';
+        glow.style.top = event.clientY + 'px';
     });
-
-    function animateOutline() {
-        outlineX += (mouseX - outlineX) * 0.15;
-        outlineY += (mouseY - outlineY) * 0.15;
-        outline.style.left = outlineX - 20 + 'px';
-        outline.style.top = outlineY - 20 + 'px';
-        requestAnimationFrame(animateOutline);
-    }
-    animateOutline();
 
     document.querySelectorAll('a, button, .mc-select, .mirror-option').forEach(function(element) {
         element.addEventListener('mouseenter', function() {
@@ -47,11 +33,11 @@
 
     document.addEventListener('mousedown', function() {
         dot.style.transform = 'scale(0.5)';
-        outline.style.transform = 'scale(0.8)';
+        outline.style.transform = 'translate(-50%, -50%) scale(0.8)';
     });
     document.addEventListener('mouseup', function() {
         dot.style.transform = 'scale(1)';
-        outline.style.transform = 'scale(1)';
+        outline.style.transform = 'translate(-50%, -50%)';
     });
 })();
 
