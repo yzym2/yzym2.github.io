@@ -43,15 +43,14 @@ window.addEventListener('load', function() {
 })();
 
 const files = [
-    { nameKey: 'mc.f1', icon: '📦', url: 'https://pan.huang1111.cn/s/byL59iY' },
+    { nameKey: 'mc.f1', icon: '📦', url: 'https://pan.huang1111.cn/s/ZqN7GuL' },
     { nameKey: 'mc.f2', icon: '📥', url: 'https://pan.huang1111.cn/s/WzQVkc3' },
     { nameKey: 'mc.f3', icon: '🎮', url: 'https://pan.huang1111.cn/s/we9GxfK' },
     { nameKey: 'mc.f4', icon: '🖼️', url: 'https://pan.huang1111.cn/s/YLA3QsA' },
     { nameKey: 'mc.f5', icon: '☀️', url: 'https://pan.huang1111.cn/s/aEGznTG' },
     { nameKey: 'mc.f6', icon: '🔧', url: 'https://pan.huang1111.cn/s/VLv2ntd' },
     { nameKey: 'mc.f7', icon: '📊', url: 'https://pan.huang1111.cn/s/XqbZXUl' },
-    { nameKey: 'mc.f8', icon: '🏗️', url: 'https://pan.huang1111.cn/s/DVYA5f4' },
-    { nameKey: 'mc.f9', icon: '🧵', url: 'https://pan.huang1111.cn/s/6el76SN' }
+    { nameKey: 'mc.f8', icon: '🏗️', url: 'https://pan.huang1111.cn/s/DVYA5f4' }
 ];
 
 const fileListEl = document.getElementById('fileList');

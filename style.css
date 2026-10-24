@@ -969,7 +969,7 @@ footer#about {
     background: var(--btn-bg);
     border: 1px solid var(--glass-border);
     border-radius: 8px;
-    color: var(--text-primary);
+    color: var(--btn-text);
     text-decoration: none;
     font-size: 13.5px;
     transition: all 0.2s;
