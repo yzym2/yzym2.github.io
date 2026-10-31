@@ -72,7 +72,7 @@
     [string]$Password = ""
 )
 
-$DefaultShareUrl = "https://pan.huang1111.cn/s/mxANLs1"
+$DefaultShareUrl = "https://pan.huang1111.cn/s/Mn35LTx"
 
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -153,8 +153,17 @@ function Set-SharePassword {
     Invoke-ShareApi -Uri "$API_BASE/share/password/$Hash" -Method Post -Session $Session -Referer $Referer -Body $body | Out-Null
 }
 
+function Get-ApiErrMsg([string]$Body) {
+    try {
+        $j = $Body | ConvertFrom-Json
+        if ($j.msg) { return [string]$j.msg }
+    }
+    catch { }
+    return $Body
+}
+
 function Get-RemoteSize {
-    param([string]$Url, [string]$Referer)
+    param([string]$Url, [string]$Referer, $Session)
     $resp = $null
     try {
         $req = [System.Net.HttpWebRequest]::Create($Url)
@@ -163,14 +172,20 @@ function Get-RemoteSize {
         $req.Method = 'GET'
         $req.Timeout = 30000
         $req.AddRange(0, 0)
+        if ($Session) { $req.CookieContainer = $Session.CookieContainer }
         $resp = $req.GetResponse()
+        if ($resp.ContentType -match 'json') {
+            $sr = New-Object System.IO.StreamReader($resp.GetResponseStream())
+            $body = $sr.ReadToEnd()
+            $sr.Dispose()
+            throw (Get-ApiErrMsg $body)
+        }
         if ([int]$resp.StatusCode -eq 206) {
             $cr = $resp.Headers['Content-Range']
             if ($cr -and $cr -match '/(\d+)\s*$') { return [long]$Matches[1] }
         }
         if ($resp.ContentLength -gt 0) { return [long]$resp.ContentLength }
     }
-    catch { }
     finally {
         if ($resp) { $resp.Close() }
     }
@@ -178,7 +193,7 @@ function Get-RemoteSize {
 }
 
 function Save-ToFile {
-    param([string]$Url, [string]$Referer, [string]$Destination, [long]$Total)
+    param([string]$Url, [string]$Referer, [string]$Destination, [long]$Total, $Session)
 
     $req = [System.Net.HttpWebRequest]::Create($Url)
     $req.UserAgent = $UA
@@ -187,6 +202,7 @@ function Save-ToFile {
     $req.AllowAutoRedirect = $true
     $req.Timeout = 30000
     $req.ReadWriteTimeout = 60000
+    if ($Session) { $req.CookieContainer = $Session.CookieContainer }
 
     $resp = $null
     $stream = $null
@@ -194,6 +210,12 @@ function Save-ToFile {
     [long]$done = 0
     try {
         $resp = $req.GetResponse()
+        if ($resp.ContentType -match 'json') {
+            $sr = New-Object System.IO.StreamReader($resp.GetResponseStream())
+            $body = $sr.ReadToEnd()
+            $sr.Dispose()
+            throw (Get-ApiErrMsg $body)
+        }
         if ($Total -le 0 -and $resp.ContentLength -gt 0) { $Total = [long]$resp.ContentLength }
         $stream = $resp.GetResponseStream()
         $fs = [System.IO.File]::Create($Destination)
@@ -284,43 +306,30 @@ try {
         try { $sizeHint = [long]$sv } catch { $sizeHint = -1 }
     }
 
-    Write-Host '[2/4] 获取下载直链...'
-    $dlUri = "$API_BASE/share/download/$shareHash" + '?path=' + (ConvertTo-PathCode ("/$fileName"))
-    $directUrl = $null
-    for ($i = 0; $i -lt 2; $i++) {
-        $directUrl = $null
-        $failMsg = ''
-        try {
-            $dl = Invoke-ShareApi -Uri $dlUri -Method Put -Session $session -Referer $ShareUrl
-            $d = Find-JsonKey $dl 'data'
-            if ($d -is [string] -and $d) {
-                $directUrl = $d.Trim().Trim([char]0x22, [char]0x27, [char]0x60)
-            }
-            else {
-                $failMsg = [string](Find-JsonKey $dl 'msg')
-                if (-not $failMsg) {
-                    $failMsg = "无法提取直链 (data 字段)`nAPI 响应: $($dl | ConvertTo-Json -Depth 6 -Compress)"
-                }
-            }
-        }
-        catch {
-            $failMsg = $_.Exception.Message
-        }
-        if ($directUrl) { break }
-        if ($i -eq 0 -and -not $Password -and $failMsg -match '密码|password|pwd') {
-            Write-Host "       $failMsg" -ForegroundColor Yellow
-            $Password = Read-Host '请输入分享密码'
-            if ($Password) {
-                Set-SharePassword -Session $session -Hash $shareHash -Referer $ShareUrl -Password $Password
-                continue
-            }
-        }
-        throw "获取直链失败: $failMsg"
-    }
+    Write-Host '[2/4] 构造下载直链...'
+    $directUrl = "$API_BASE/share/content/$shareHash" + '?path=' + (ConvertTo-PathCode ("/$fileName"))
     Write-Host '       直链已获取' -ForegroundColor Green
 
     Write-Host '[3/4] 探测文件大小...'
-    $total = Get-RemoteSize -Url $directUrl -Referer $ShareUrl
+    $total = -1
+    for ($i = 0; $i -lt 2; $i++) {
+        try {
+            $total = Get-RemoteSize -Url $directUrl -Referer $ShareUrl -Session $session
+            break
+        }
+        catch {
+            $failMsg = $_.Exception.Message
+            if ($i -eq 0 -and -not $Password -and $failMsg -match '密码|password|pwd') {
+                Write-Host "       $failMsg" -ForegroundColor Yellow
+                $Password = Read-Host '请输入分享密码'
+                if ($Password) {
+                    Set-SharePassword -Session $session -Hash $shareHash -Referer $ShareUrl -Password $Password
+                    continue
+                }
+            }
+            throw "获取直链失败: $failMsg"
+        }
+    }
     if ($total -le 0) { $total = $sizeHint }
     if ($total -gt 0) {
         Write-Host "       大小: $(Format-Size $total) ($total bytes)" -ForegroundColor Green
@@ -334,7 +343,7 @@ try {
     if (-not $desktop -or -not (Test-Path $desktop)) { throw '无法获取桌面路径' }
     $dest = Join-Path $desktop $fileName
     Write-Host "       保存到: $dest"
-    Save-ToFile -Url $directUrl -Referer $ShareUrl -Destination $dest -Total $total
+    Save-ToFile -Url $directUrl -Referer $ShareUrl -Destination $dest -Total $total -Session $session
 
     Write-Host ''
     Write-Host "下载完成: $dest" -ForegroundColor Green
@@ -602,7 +611,7 @@ if ($failed) { exit 1 }</code></pre>
     </svg>
     <span class="notice-float-body">
         <span class="notice-float-title" data-i18n="index.notice.title">公告</span>
-        <span class="notice-float-date">10月24日更新</span>
+        <span class="notice-float-date">10月31日更新</span>
     </span>
 </button>
 
@@ -612,9 +621,11 @@ if ($failed) { exit 1 }</code></pre>
     <div class="notice-modal-panel" role="dialog" aria-modal="true" aria-label="公告详情">
         <button class="notice-modal-close" id="noticeModalClose" type="button" aria-label="关闭">&times;</button>
         <h3 class="notice-modal-title" data-i18n="index.notice.title">公告</h3>
-        <p class="notice-modal-date">10月24日更新</p>
+        <p class="notice-modal-date">10月31日更新</p>
         <div class="notice-modal-body">
             <ul>
+                <li>自动下载器全新升级：解析更快、下载更稳，支持带密码分享链接自动重试，错误提示更清晰！</li>
+                <li>网址导航新增 ChunkBase 与 MinecraftSearch 两大 Minecraft 工具站，种子查询与方块物品百科一站直达！</li>
                 <li>本网站已全面升级，极速开始更快更简便！</li>
                 <li>网站 UI 全面升级，全新视觉风格，浏览体验更流畅！</li>
                 <li>Minecraft 整合包再次精简，体积仅 136.6 MB，下载更快、更省空间！</li>

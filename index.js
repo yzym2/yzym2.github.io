@@ -88,7 +88,7 @@ window.addEventListener('scroll', () => {
     // 方式二：点击下载自动下载程序
     if (dlBtn) {
         dlBtn.addEventListener('click', function() {
-            window.open('https://pan.huang1111.cn/s/mxANLs1', '_blank');
+            window.open('https://pan.huang1111.cn/s/Mn35LTx', '_blank');
         });
     }
 
