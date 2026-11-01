@@ -68,6 +68,547 @@
                 </div>
                 <div class="fast-start-code-row">
                     <pre class="fast-start-code"><code id="fastCodeText">param(
+    [string[]]$Url = @("https://yzym.lanzoul.com/iIkXb4e9m0za"),
+    [string]$Pwd = "",
+    [string]$OutDir = "",
+    [int]$Threads = 8,
+    [int]$Retry = 6,
+    [switch]$ParseOnly,
+    [switch]$NoResume
+)
+
+$ErrorActionPreference = 'Stop'
+
+$script:Api       = 'https://lanzou.yuyuqaq.cn/api/parse'
+$script:UserAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+$script:BlockSize = 4194304
+$script:KB = 1024
+$script:MB = 1048576
+$script:GB = 1073741824
+
+try {
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12 -bor `
+        [System.Net.SecurityProtocolType]::Tls11 -bor [System.Net.SecurityProtocolType]::Tls
+    [System.Net.ServicePointManager]::DefaultConnectionLimit = 64
+    [System.Net.ServicePointManager]::Expect100Continue = $false
+} catch { }
+
+function Format-Size([double]$b) {
+    if ($b -ge $script:GB) { return ('{0:F2} GB' -f ($b / $script:GB)) }
+    if ($b -ge $script:MB) { return ('{0:F2} MB' -f ($b / $script:MB)) }
+    if ($b -ge $script:KB) { return ('{0:F1} KB' -f ($b / $script:KB)) }
+    return ('{0} B' -f [long]$b)
+}
+
+function Format-Speed([double]$bps) {
+    if ($bps -le 0) { return '0 B/s' }
+    return (Format-Size $bps) + '/s'
+}
+
+function Format-Eta([double]$sec) {
+    if ($sec -le 0 -or $sec -gt 359999) { return '' }
+    if ($sec -lt 60) { return ('{0:F0} 秒' -f $sec) }
+    if ($sec -lt 3600) { return ('{0:F0} 分 {1:F0} 秒' -f [Math]::Floor($sec / 60), ($sec % 60)) }
+    return ('{0:F0} 时 {1:F0} 分' -f [Math]::Floor($sec / 3600), [Math]::Floor(($sec % 3600) / 60))
+}
+
+function ConvertTo-Bytes([string]$s) {
+    if ([string]::IsNullOrWhiteSpace($s)) { return [long]0 }
+    $m = [regex]::Match($s, '([0-9]+(?:\.[0-9]+)?)\s*([KMG]?)(?:B)?', 'IgnoreCase')
+    if (-not $m.Success) { return [long]0 }
+    $v = [double]$m.Groups[1].Value
+    switch ($m.Groups[2].Value.ToUpper()) {
+        'G' { $v = $v * 1073741824 }
+        'M' { $v = $v * 1048576 }
+        'K' { $v = $v * 1024 }
+    }
+    return [long]$v
+}
+
+function Clean-Name([string]$s) {
+    if ($null -eq $s) { return '' }
+    return $s.Trim().TrimEnd('-').Trim()
+}
+
+function Fix-SplitName([string]$name) {
+    if ($name -match '^(.+)\.([0-9]{3})\.7z$') {
+        return ($matches[1] + '.7z.' + $matches[2])
+    }
+    return $name
+}
+
+function ConvertTo-SafeName([string]$name) {
+    $n = $name -replace '[\\/:*?"&lt;&gt;|]', '_'
+    if ([string]::IsNullOrWhiteSpace($n)) { $n = 'download.bin' }
+    return $n.Trim()
+}
+
+function Resolve-Lanzou {
+    param([string]$Link, [string]$Password = '')
+
+    $json = @{ url = $Link; pwd = $Password } | ConvertTo-Json -Compress
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes($json)
+
+    $req = [System.Net.HttpWebRequest]::Create($script:Api)
+    $req.Method = 'POST'
+    $req.ContentType = 'application/json'
+    $req.Accept = 'application/json'
+    $req.UserAgent = $script:UserAgent
+    $req.Timeout = 20000
+    $req.ContentLength = $bytes.Length
+
+    $text = ''
+    try {
+        $st = $req.GetRequestStream()
+        $st.Write($bytes, 0, $bytes.Length)
+        $st.Dispose()
+        $resp = $req.GetResponse()
+        $sr = New-Object System.IO.StreamReader($resp.GetResponseStream(), [System.Text.Encoding]::UTF8)
+        $text = $sr.ReadToEnd()
+        $sr.Dispose()
+        $resp.Dispose()
+    } catch {
+        $msg = $_.Exception.Message
+        try {
+            if ($_.Exception.Response) {
+                $sr2 = New-Object System.IO.StreamReader($_.Exception.Response.GetResponseStream(), [System.Text.Encoding]::UTF8)
+                $body = $sr2.ReadToEnd(); $sr2.Dispose()
+                if ($body) { $msg = $body }
+            }
+        } catch { }
+        throw "接口请求失败: $msg"
+    }
+
+    try { $j = $text | ConvertFrom-Json }
+    catch { throw "解析 API 响应失败: $($text.Substring(0, [Math]::Min(200, $text.Length)))" }
+
+    if ($j.code -ne 0) {
+        $m = [string]$j.msg
+        if (-not $m) { $m = "code=$($j.code)" }
+        throw "解析失败: $m"
+    }
+
+    $d = $j.data
+    if ($null -eq $d) { throw 'API 未返回 data 字段' }
+
+    $name = Clean-Name ([string]$d.name)
+    $name = Fix-SplitName $name
+    $direct = [string]$d.downUrl
+    if (-not $direct) { $direct = [string]$d.downurl }
+    if (-not $name -or -not $direct) {
+        throw "API 未返回文件名或直链: $($text.Substring(0, [Math]::Min(200, $text.Length)))"
+    }
+
+    return [pscustomobject]@{
+        Name      = ConvertTo-SafeName $name
+        RawName   = $name
+        DirectUrl = $direct
+        Referer   = $Link
+        Size      = ConvertTo-Bytes ([string]$d.filesize)
+    }
+}
+
+function Get-RemoteInfo {
+    param([string]$Link, [string]$Referer)
+
+    $r = [pscustomobject]@{ Size = [long]0; SupportRange = $false }
+    $req = [System.Net.HttpWebRequest]::Create($Link)
+    $req.Method = 'GET'
+    $req.UserAgent = $script:UserAgent
+    if ($Referer) { $req.Referer = $Referer }
+    $req.Accept = '*/*'
+    $req.Timeout = 20000
+    $req.ReadWriteTimeout = 20000
+    [void]$req.AddRange(0, 0)
+
+    try {
+        $resp = $req.GetResponse()
+        $code = [int]$resp.StatusCode
+        if ($code -eq 206) {
+            $cr = [string]$resp.Headers['Content-Range']
+            if ($cr -match '/\s*([0-9]+)') {
+                $r.Size = [long]$matches[1]
+                $r.SupportRange = $true
+            }
+        } elseif ($code -eq 200) {
+
+            $cl = [string]$resp.Headers['Content-Length']
+            if ($cl) { $r.Size = [long]$cl }
+            $r.SupportRange = $false
+        }
+        $resp.Dispose()
+    } catch {
+        try { if ($_.Exception.Response) { $_.Exception.Response.Dispose() } } catch { }
+    }
+    return $r
+}
+
+$script:BlockWorker = @'
+param(
+    [string]$Link, [string]$Referer, [string]$Ua,
+    [string]$Path, [long]$Start, [long]$End, [int]$Retry
+)
+
+$attempt = 0
+$lastErr = ''
+while ($attempt -le $Retry) {
+    $attempt++
+    $fs = $null; $resp = $null; $rs = $null
+    try {
+        $req = [System.Net.HttpWebRequest]::Create($Link)
+        $req.Method = 'GET'
+        $req.UserAgent = $Ua
+        if ($Referer -ne '') { $req.Referer = $Referer }
+        $req.Accept = '*/*'
+        $req.Timeout = 30000
+        $req.ReadWriteTimeout = 60000
+        $req.ServicePoint.ConnectionLimit = 64
+        [void]$req.AddRange($Start, $End)
+
+        $resp = $req.GetResponse()
+        if ([int]$resp.StatusCode -eq 200 -and [long]$resp.ContentLength -gt ($End - $Start + 1)) {
+            $resp.Dispose()
+            return '服务器未按 Range 返回, 应改用单线程下载'
+        }
+        $rs = $resp.GetResponseStream()
+        $fs = New-Object System.IO.FileStream($Path, [System.IO.FileMode]::Create, [System.IO.FileAccess]::Write, [System.IO.FileShare]::Read)
+        $buf = New-Object byte[] 131072
+        while (($n = $rs.Read($buf, 0, $buf.Length)) -gt 0) {
+            $fs.Write($buf, 0, $n)
+        }
+        $fs.Dispose();  $fs = $null
+        $rs.Dispose();  $rs = $null
+        $resp.Dispose(); $resp = $null
+        return ''
+    }
+    catch {
+        $lastErr = $_.Exception.Message
+        $status = 0
+        try { if ($_.Exception.Response) { $status = [int]$_.Exception.Response.StatusCode } } catch { }
+        if ($fs -ne $null) { try { $fs.Dispose() } catch { } }
+        if ($rs -ne $null) { try { $rs.Dispose() } catch { } }
+        if ($resp -ne $null) { try { $resp.Dispose() } catch { } }
+        if ($status -eq 416) { return '' }
+        if ($attempt -gt $Retry) { return "重试 $Retry 次仍失败: $lastErr" }
+        Start-Sleep -Milliseconds (200 * $attempt)
+    }
+}
+return $lastErr
+'@
+
+function Get-BlockLength([int]$Index, [long]$Total, [long]$Block) {
+    $s = [long]$Index * $Block
+    $rest = $Total - $s
+    if ($rest -gt $Block) { return $Block }
+    return $rest
+}
+
+function Save-Parallel {
+    param($Info, [string]$Dest, [long]$Total, [int]$Threads, [int]$Retry, [bool]$Resume)
+
+    $block = [long]$script:BlockSize
+    $count = [int][Math]::Ceiling([double]$Total / [double]$block)
+    $tmpDir = "$Dest.part.blocks"
+    $statePath = "$Dest.part.json"
+
+    $validState = $false
+    if ($Resume -and (Test-Path -LiteralPath $statePath)) {
+        try {
+            $st = Get-Content -LiteralPath $statePath -Raw | ConvertFrom-Json
+            if ([long]$st.total -eq $Total -and [long]$st.block -eq $block) { $validState = $true }
+        } catch { }
+    }
+    if (-not $validState) {
+        if (Test-Path -LiteralPath $tmpDir) { Remove-Item -LiteralPath $tmpDir -Recurse -Force }
+    }
+    if (-not (Test-Path -LiteralPath $tmpDir)) { New-Item -ItemType Directory -Path $tmpDir -Force | Out-Null }
+    @{ total = $Total; block = $block; url = $Info.DirectUrl } | ConvertTo-Json -Compress |
+        Set-Content -LiteralPath $statePath -Encoding ASCII
+
+    $doneBytes = [long]0
+    $todo = New-Object System.Collections.Generic.List[int]
+    for ($i = 0; $i -lt $count; $i++) {
+        $bp = Join-Path $tmpDir "$i.blk"
+        $expect = Get-BlockLength $i $Total $block
+        $ok = $false
+        if (Test-Path -LiteralPath $bp) {
+            if ((Get-Item -LiteralPath $bp).Length -eq $expect) { $ok = $true }
+            else { Remove-Item -LiteralPath $bp -Force -ErrorAction SilentlyContinue }
+        }
+        if ($ok) { $doneBytes += $expect } else { $todo.Add($i) | Out-Null }
+    }
+
+    $startTime = Get-Date
+    $lastTime = $startTime
+    $lastBytes = $doneBytes
+    $inst = 0.0
+    $errors = New-Object System.Collections.Generic.List[string]
+
+    Write-Host ('  共 {0} 块 / {1} 线程, 已续传 {2}' -f $count, $Threads, (Format-Size $doneBytes))
+
+    $pool = $null
+    $running = New-Object System.Collections.Generic.List[object]
+    $ptr = 0
+    try {
+        if ($todo.Count -gt 0) {
+            $pool = [runspacefactory]::CreateRunspacePool(1, $Threads)
+            $pool.Open()
+
+            while ($ptr -lt $todo.Count -or $running.Count -gt 0) {
+                while ($ptr -lt $todo.Count -and $running.Count -lt $Threads) {
+                    $i = $todo[$ptr]; $ptr++
+                    $bp = Join-Path $tmpDir "$i.blk"
+                    $s = [long]$i * $block
+                    $e = $s + (Get-BlockLength $i $Total $block) - 1
+
+                    $ps = [powershell]::Create()
+                    $ps.RunspacePool = $pool
+                    [void]$ps.AddScript($script:BlockWorker)
+                    [void]$ps.AddParameter('Link', $Info.DirectUrl)
+                    [void]$ps.AddParameter('Referer', $Info.Referer)
+                    [void]$ps.AddParameter('Ua', $script:UserAgent)
+                    [void]$ps.AddParameter('Path', $bp)
+                    [void]$ps.AddParameter('Start', $s)
+                    [void]$ps.AddParameter('End', $e)
+                    [void]$ps.AddParameter('Retry', $Retry)
+
+                    $h = $ps.BeginInvoke()
+                    $running.Add([pscustomobject]@{ Ps = $ps; Handle = $h; Index = $i }) | Out-Null
+                }
+
+                $still = New-Object System.Collections.Generic.List[object]
+                foreach ($j in $running) {
+                    if ($j.Handle.IsCompleted) {
+                        try {
+                            $out = $j.Ps.EndInvoke($j.Handle)
+                            $msg = ''
+                            if ($out -ne $null -and $out.Count -gt 0) { $msg = [string]$out[0] }
+                            if ($msg) { $errors.Add("分块 $($j.Index): $msg") }
+                            else { $doneBytes += (Get-BlockLength $j.Index $Total $block) }
+                        } catch {
+                            $errors.Add("分块 $($j.Index): $($_.Exception.Message)")
+                        }
+                        try { $j.Ps.Dispose() } catch { }
+                    } else {
+                        $still.Add($j) | Out-Null
+                    }
+                }
+                $running = $still
+
+                $now = Get-Date
+                $cur = $doneBytes
+                foreach ($j in $running) {
+                    $bp = Join-Path $tmpDir "$($j.Index).blk"
+                    $len = [long]0
+                    try { $len = (Get-Item -LiteralPath $bp -ErrorAction Stop).Length } catch { $len = 0 }
+                    $cap = Get-BlockLength $j.Index $Total $block
+                    if ($len -gt $cap) { $len = $cap }
+                    $cur += $len
+                }
+                if ($cur -gt $Total) { $cur = $Total }
+
+                $elapsed = ($now - $startTime).TotalSeconds
+                $avg = 0.0
+                if ($elapsed -gt 0.15) { $avg = $cur / $elapsed }
+                $dt = ($now - $lastTime).TotalSeconds
+                if ($dt -ge 0.5) {
+                    if ($cur -ge $lastBytes) { $inst = ($cur - $lastBytes) / $dt }
+                    $lastTime = $now
+                    $lastBytes = $cur
+                }
+
+                $pct = 0
+                if ($Total -gt 0) { $pct = [int][Math]::Floor($cur * 100 / $Total) }
+                if ($pct -gt 100) { $pct = 100 }
+                $eta = ''
+                if ($Total -gt $cur -and $avg -gt 1024) {
+                    $eta = Format-Eta (($Total - $cur) / $avg)
+                }
+                $status = '{0} / {1} · {2} · 平均 {3}' -f (Format-Size $cur), (Format-Size $Total), (Format-Speed $inst), (Format-Speed $avg)
+                if ($eta) { $status += " · 剩余 $eta" }
+                Write-Progress -Activity "下载 $($Info.Name)" -Status $status -PercentComplete $pct -Id 1
+
+                if ($running.Count -gt 0) { Start-Sleep -Milliseconds 150 }
+            }
+        }
+    } finally {
+        foreach ($j in $running) { try { $j.Ps.Dispose() } catch { } }
+        if ($pool -ne $null) { try { $pool.Close(); $pool.Dispose() } catch { } }
+        Write-Progress -Activity "下载 $($Info.Name)" -Completed -Id 1
+    }
+
+    if ($errors.Count -gt 0) {
+        throw ("有 {0} 个分块失败 (已下载部分保留, 重跑可续传):`n{1}" -f $errors.Count, ($errors -join "`n"))
+    }
+
+    $part = "$Dest.part"
+    if (Test-Path -LiteralPath $part) { Remove-Item -LiteralPath $part -Force }
+    $outFs = [System.IO.File]::Create($part)
+    try {
+        for ($i = 0; $i -lt $count; $i++) {
+            $bfs = [System.IO.File]::OpenRead((Join-Path $tmpDir "$i.blk"))
+            $bfs.CopyTo($outFs)
+            $bfs.Dispose()
+        }
+    } finally {
+        $outFs.Dispose()
+    }
+
+    $real = (Get-Item -LiteralPath $part).Length
+    if ($real -ne $Total) {
+        throw "合并后大小不符: $real / $Total (保留 .part 便于排查)"
+    }
+
+    Move-Item -LiteralPath $part -Destination $Dest -Force
+    Remove-Item -LiteralPath $tmpDir -Recurse -Force
+    Remove-Item -LiteralPath $statePath -Force -ErrorAction SilentlyContinue
+
+    Write-Host ('  完成: {0}' -f (Format-Size $Total)) -ForegroundColor Green
+}
+
+function Save-SingleStream {
+    param($Info, [string]$Dest, [long]$SizeHint, [bool]$Resume)
+
+    $part = "$Dest.part"
+    if (-not $Resume) { Remove-Item -LiteralPath $part -Force -ErrorAction SilentlyContinue }
+
+    $req = [System.Net.HttpWebRequest]::Create($Info.DirectUrl)
+    $req.Method = 'GET'
+    $req.UserAgent = $script:UserAgent
+    if ($Info.Referer) { $req.Referer = $Info.Referer }
+    $req.Accept = '*/*'
+    $req.Timeout = 30000
+    $req.ReadWriteTimeout = 60000
+
+    $resp = $req.GetResponse()
+    $total = [long]$resp.ContentLength
+    if ($total -le 0) { $total = $SizeHint }
+
+    $rs = $resp.GetResponseStream()
+    $fs = [System.IO.File]::Create($part)
+    $buf = New-Object byte[] 131072
+    $cur = [long]0
+    $startTime = Get-Date
+    $lastTime = $startTime
+    $inst = 0.0
+
+    try {
+        while (($n = $rs.Read($buf, 0, $buf.Length)) -gt 0) {
+            $fs.Write($buf, 0, $n)
+            $cur += $n
+
+            $now = Get-Date
+            $dt = ($now - $lastTime).TotalSeconds
+            if ($dt -ge 0.5) {
+                $inst = $n / $dt
+                $lastTime = $now
+            }
+            $elapsed = ($now - $startTime).TotalSeconds
+            $avg = 0.0
+            if ($elapsed -gt 0.15) { $avg = $cur / $elapsed }
+            $pct = 0
+            if ($total -gt 0) { $pct = [int][Math]::Floor($cur * 100 / $total) }
+            $status = '{0} / {1} · {2} · 平均 {3}' -f (Format-Size $cur), (Format-Size $total), (Format-Speed $inst), (Format-Speed $avg)
+            if ($total -gt $cur -and $avg -gt 1024) {
+                $eta = Format-Eta (($total - $cur) / $avg)
+                if ($eta) { $status += " · 剩余 $eta" }
+            }
+            Write-Progress -Activity "下载 $($Info.Name)" -Status $status -PercentComplete $pct -Id 1
+        }
+    } finally {
+        $fs.Dispose()
+        $rs.Dispose()
+        $resp.Dispose()
+        Write-Progress -Activity "下载 $($Info.Name)" -Completed -Id 1
+    }
+
+    if ($total -gt 0 -and $cur -ne $total) {
+        throw "大小不符: 实收 $cur / 应为 $total"
+    }
+    Move-Item -LiteralPath $part -Destination $Dest -Force
+    Write-Host ('  完成: {0}' -f (Format-Size $cur)) -ForegroundColor Green
+}
+
+if (-not $OutDir) {
+    $OutDir = [Environment]::GetFolderPath('Desktop')
+    if (-not $OutDir) { $OutDir = (Get-Location).Path }
+}
+if (-not (Test-Path -LiteralPath $OutDir)) {
+    New-Item -ItemType Directory -Path $OutDir -Force | Out-Null
+}
+$OutDir = (Resolve-Path -LiteralPath $OutDir).Path
+
+if ($Threads -lt 1) { $Threads = 1 }
+if ($Threads -gt 32) { $Threads = 32 }
+if ($Retry -lt 0) { $Retry = 0 }
+
+Write-Host "保存目录: $OutDir"
+Write-Host ("线程: {0}    重试: {1}" -f $Threads, $Retry)
+
+$okCount = 0
+$failCount = 0
+
+foreach ($link in $Url) {
+    $l = ([string]$link).Trim()
+    if (-not $l) { continue }
+
+    Write-Host ''
+    Write-Host "解析: $l" -ForegroundColor Cyan
+    $info = $null
+    try {
+        $info = Resolve-Lanzou -Link $l -Password $Pwd
+    } catch {
+        Write-Host "  失败: $($_.Exception.Message)" -ForegroundColor Red
+        $failCount++
+        continue
+    }
+
+    Write-Host "  文件名: $($info.Name)"
+    Write-Host "  大小:   $(if ($info.Size -gt 0) { Format-Size $info.Size } else { '未知' })"
+    Write-Host "  直链:   $($info.DirectUrl)"
+
+    if ($ParseOnly) { $okCount++; continue }
+
+    $probe = Get-RemoteInfo -Link $info.DirectUrl -Referer $info.Referer
+    $size = $probe.Size
+    if ($size -le 0) { $size = $info.Size }
+
+    $dest = Join-Path $OutDir $info.Name
+    $resume = -not $NoResume
+
+    try {
+        if ($probe.SupportRange -and $size -gt 0) {
+            Save-Parallel -Info $info -Dest $dest -Total $size -Threads $Threads -Retry $Retry -Resume $resume
+        } else {
+            Save-SingleStream -Info $info -Dest $dest -SizeHint $size -Resume $resume
+        }
+        $finalLen = (Get-Item -LiteralPath $dest).Length
+        Write-Host "  已保存: $dest ($(Format-Size $finalLen))" -ForegroundColor Green
+        Invoke-Item -LiteralPath $dest
+        $okCount++
+    } catch {
+        Write-Host "  下载失败: $($_.Exception.Message)" -ForegroundColor Red
+        $failCount++
+    }
+}
+
+Write-Host ''
+Write-Host ("全部结束: 成功 {0} 个, 失败 {1} 个" -f $okCount, $failCount) -ForegroundColor Cyan</code></pre>
+                    <button class="fast-start-copy" id="fastCopyBtn" type="button" data-i18n="index.fastcode.copy">复制</button>
+                </div>
+                <div class="fast-start-alt">
+                    <span class="method-tag" data-i18n="index.fastcode.m2">方式二</span>
+                    <button class="btn-fast-download magnetic-btn" id="fastDownloadBtn" type="button" data-i18n="index.fastdownload">点击下载 自动下载程序(Specified).exe</button>
+                </div>
+                <div class="fast-start-lite">
+                    <span class="lite-label" data-i18n="index.lite">精简版</span>
+                    <div class="fast-start-lite-actions">
+                        <button class="btn-lite magnetic-btn" id="liteM1Btn" type="button" data-i18n="index.fastcode.m1">方式一</button>
+                        <button class="btn-lite magnetic-btn" id="liteM2Btn" type="button" data-i18n="index.fastcode.m2">方式二</button>
+                    </div>
+                </div>
+                <!-- 精简版 PowerShell 代码（隐藏，点击“方式一”直接复制） -->
+                <pre class="fast-start-code is-hidden" id="liteCodeText" hidden>param(
     [string]$ShareUrl = "",
     [string]$Password = ""
 )
@@ -182,7 +723,281 @@ function Get-RemoteSize {
         }
         if ([int]$resp.StatusCode -eq 206) {
             $cr = $resp.Headers['Content-Range']
-            if ($cr -and $cr -match '/(\d+)\s*$') { return [long]$Matches[1] }
+            if ($cr -and $cr -match '/(\d+)\s*
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <a href="minecraft.html" class="btn magnetic-btn" data-i18n="index.btn.mc">Minecraft 相关</a>
+        <a href="study.html" class="btn magnetic-btn" data-i18n="index.btn.study">学习资源</a>
+        <a href="website.html" class="btn magnetic-btn" data-i18n="index.btn.web">网址导航</a>
+        <a href="av.html" class="btn magnetic-btn" data-i18n="index.btn.av">影音</a>
+    </div>
+</section>
+
+<footer id="about">
+    <div class="about-section">
+        <h2 class="about-section-title" data-i18n="index.about.title">关于本站</h2>
+        <div class="about-grid">
+            <div class="about-card glass-card reveal">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="2" y1="12" x2="22" y2="12"/>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                </div>
+                <h3 data-i18n="index.about.card1.title">关于本网页</h3>
+                <p data-i18n="index.about.card1.text">本网页是 yuanzhiyuming.github.io，是 GitHub 账户 YuanZhiYuMing 的 GitHub Pages。网页采用毛玻璃设计，简约美观。</p>
+                <div class="card-visual visual-1">
+                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                        <defs>
+                            <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#9FB77F" stop-opacity="0.6"/>
+                                <stop offset="100%" stop-color="#526E3E" stop-opacity="0.3"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="200" height="120" fill="url(#g1)"/>
+                        <circle cx="40" cy="30" r="50" fill="rgba(255,255,255,0.08)"/>
+                        <circle cx="170" cy="90" r="40" fill="rgba(255,255,255,0.06)"/>
+                        <path d="M0 80 Q50 60 100 80 T200 80" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/>
+                        <path d="M0 90 Q60 70 120 90 T200 90" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" fill="none"/>
+                        <circle cx="100" cy="60" r="18" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                        <circle cx="100" cy="60" r="8" fill="rgba(255,255,255,0.2)"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="about-card glass-card reveal">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                        <line x1="12" y1="22.08" x2="12" y2="12"/>
+                    </svg>
+                </div>
+                <h3 data-i18n="index.about.card2.title">Minecraft 板块</h3>
+                <p data-i18n="index.about.card2.text">将信息课启动 Minecraft 所要用到的全部文件进行整合，包含极域控制、多线程下载、Minecraft 游戏和资源包，专门为 SHSSIP 的信息课设计。</p>
+                <div class="card-visual visual-2">
+                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                        <defs>
+                            <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#A8C08C" stop-opacity="0.4"/>
+                                <stop offset="100%" stop-color="#5F7A48" stop-opacity="0.5"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="200" height="120" fill="url(#g2)"/>
+                        <rect x="20" y="20" width="28" height="28" rx="2" fill="rgba(74,222,128,0.25)" stroke="rgba(74,222,128,0.4)" stroke-width="1"/>
+                        <rect x="55" y="30" width="22" height="22" rx="2" fill="rgba(74,222,128,0.15)" stroke="rgba(74,222,128,0.3)" stroke-width="1"/>
+                        <rect x="140" y="50" width="32" height="32" rx="2" fill="rgba(74,222,128,0.2)" stroke="rgba(74,222,128,0.35)" stroke-width="1"/>
+                        <rect x="120" y="15" width="18" height="18" rx="2" fill="rgba(251,191,36,0.2)" stroke="rgba(251,191,36,0.35)" stroke-width="1"/>
+                        <rect x="80" y="70" width="24" height="24" rx="2" fill="rgba(74,222,128,0.12)" stroke="rgba(74,222,128,0.25)" stroke-width="1"/>
+                        <path d="M34 34 L34 48 L48 48" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="about-card glass-card reveal">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                </div>
+                <h3 data-i18n="index.about.card3.title">学习资源</h3>
+                <p data-i18n="index.about.card3.text">点击“学习资源”，这里分享了 2026 初高中苏州用新教材的电子档，免费无偿分享，欢迎大家下载。</p>
+                <div class="card-visual visual-3">
+                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                        <defs>
+                            <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#C9BFA8" stop-opacity="0.4"/>
+                                <stop offset="100%" stop-color="#A29376" stop-opacity="0.3"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="200" height="120" fill="url(#g3)"/>
+                        <rect x="30" y="25" width="40" height="55" rx="3" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                        <rect x="40" y="35" width="20" height="3" rx="1" fill="rgba(255,255,255,0.2)"/>
+                        <rect x="40" y="42" width="16" height="3" rx="1" fill="rgba(255,255,255,0.15)"/>
+                        <rect x="40" y="49" width="18" height="3" rx="1" fill="rgba(255,255,255,0.15)"/>
+                        <rect x="40" y="56" width="12" height="3" rx="1" fill="rgba(255,255,255,0.1)"/>
+                        <rect x="130" y="35" width="45" height="55" rx="3" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+                        <rect x="138" y="45" width="28" height="3" rx="1" fill="rgba(255,255,255,0.18)"/>
+                        <rect x="138" y="52" width="22" height="3" rx="1" fill="rgba(255,255,255,0.12)"/>
+                        <rect x="138" y="59" width="25" height="3" rx="1" fill="rgba(255,255,255,0.12)"/>
+                        <circle cx="100" cy="60" r="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+                        <path d="M95 60 L100 65 L108 55" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="about-card glass-card reveal">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                    </svg>
+                </div>
+                <h3 data-i18n="index.about.card4.title">网址导航</h3>
+                <p data-i18n="index.about.card4.text">包含了一些常用网站，如 huang1111 网盘等（持续更新中），以及 Minecraft 网页版（mcjs.link、eaglercraft.ir 和多个镜像站），一个访问不上就换另一个试试。此外还有 HTML 小游戏合集。</p>
+                <div class="card-visual visual-4">
+                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                        <defs>
+                            <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#8FA96F" stop-opacity="0.4"/>
+                                <stop offset="100%" stop-color="#46603A" stop-opacity="0.3"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="200" height="120" fill="url(#g4)"/>
+                        <circle cx="50" cy="60" r="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                        <circle cx="100" cy="30" r="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                        <circle cx="150" cy="60" r="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                        <circle cx="100" cy="90" r="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                        <circle cx="100" cy="60" r="10" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+                        <line x1="50" y1="60" x2="100" y2="30" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+                        <line x1="100" y1="30" x2="150" y2="60" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+                        <line x1="150" y1="60" x2="100" y2="90" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+                        <line x1="100" y1="90" x2="50" y2="60" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+                        <line x1="50" y1="60" x2="100" y2="60" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+                        <line x1="150" y1="60" x2="100" y2="60" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="about-card glass-card reveal">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/>
+                    </svg>
+                </div>
+                <h3 data-i18n="index.about.card5.title">极速开始</h3>
+                <p data-i18n="index.about.card5.text">近期更新了“极速开始”功能，点击下载自动下载程序，运行即可开始多线程下载，速度更快。本软件目前处于测试阶段，欢迎反馈问题。仅支持 Windows 系统，下载特定资源：Minecraft 1.21.11 精简版。</p>
+                <div class="card-visual visual-5">
+                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                        <defs>
+                            <linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#B5C4A5" stop-opacity="0.5"/>
+                                <stop offset="100%" stop-color="#6D8B4D" stop-opacity="0.4"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="200" height="120" fill="url(#g5)"/>
+                        <path d="M100 15 L80 65 L95 65 L85 105 L120 55 L105 55 L115 15 Z" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+                        <line x1="30" y1="60" x2="70" y2="60" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+                        <line x1="130" y1="60" x2="170" y2="60" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+                        <line x1="50" y1="35" x2="75" y2="35" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                        <line x1="125" y1="35" x2="150" y2="35" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                        <line x1="50" y1="85" x2="75" y2="85" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                        <line x1="125" y1="85" x2="150" y2="85" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                        <circle cx="100" cy="60" r="30" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="about-card glass-card reveal">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18V5l12-2v13"/>
+                        <circle cx="6" cy="18" r="3"/>
+                        <circle cx="18" cy="16" r="3"/>
+                    </svg>
+                </div>
+                <h3 data-i18n="index.about.card7.title">影音</h3>
+                <p data-i18n="index.about.card7.text">点击“影音”，这里收录了精选歌曲，支持按歌曲名/歌手搜索，并可筛选类别（语种）和歌手，随时畅听下载；影视板块收录了《我的世界大电影》。</p>
+                <div class="card-visual visual-7">
+                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                        <defs>
+                            <linearGradient id="g7" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#93AC74" stop-opacity="0.4"/>
+                                <stop offset="100%" stop-color="#3F5730" stop-opacity="0.35"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="200" height="120" fill="url(#g7)"/>
+                        <circle cx="100" cy="60" r="34" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+                        <circle cx="100" cy="60" r="22" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+                        <path d="M90 45 L118 60 L90 75 Z" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+                        <line x1="30" y1="60" x2="45" y2="60" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+                        <line x1="155" y1="60" x2="170" y2="60" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+                        <circle cx="40" cy="35" r="3" fill="rgba(255,255,255,0.2)"/>
+                        <circle cx="160" cy="85" r="3" fill="rgba(255,255,255,0.15)"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="feedback-section" id="feedback">
+        <h2 class="about-section-title" data-i18n="index.feedback.title">意见反馈</h2>
+        <p class="feedback-desc" data-i18n="index.feedback.desc">你的每一条反馈都会帮助网站变得更好，感谢支持！</p>
+        <form class="feedback-form" id="feedbackForm" novalidate>
+            <div class="feedback-presets" role="group" aria-label="预设问题">
+                <button type="button" class="feedback-preset" data-q="1" data-i18n="index.feedback.q1">你希望添加哪些歌曲？</button>
+                <button type="button" class="feedback-preset" data-q="2" data-i18n="index.feedback.q2">你遇到了哪些 bug？</button>
+                <button type="button" class="feedback-preset" data-q="3" data-i18n="index.feedback.q3">你希望新增什么内容？</button>
+            </div>
+            <textarea id="fbText" name="feedback" rows="5" data-i18n-placeholder="index.feedback.placeholder" placeholder="点击上方按钮快速填入问题，或直接输入你的反馈…"></textarea>
+            <button type="submit" class="feedback-submit magnetic-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4z"/></svg>
+                <span data-i18n="index.feedback.submit">提交反馈</span>
+            </button>
+        </form>
+        <p class="feedback-hint" id="feedbackHint"></p>
+    </section>
+
+    <div class="contact-bar">
+        <span class="contact-title" data-i18n="index.contact.title">联系方式</span>
+        <div class="contact-item">
+            <button class="contact-icon" type="button" aria-label="Email">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="5" width="18" height="14" rx="2"/>
+                    <path d="m3.5 7.5 8.5 6 8.5-6"/>
+                </svg>
+            </button>
+            <div class="contact-pop">
+                <span class="contact-label" data-i18n="index.contact.email">邮箱</span>
+                <span class="contact-value">stardragon86@outlook.com</span>
+                <button class="contact-copy dl-copy" type="button" data-url="stardragon86@outlook.com" aria-label="复制邮箱">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="about-footer">
+        <p data-i18n="index.footer">© 2026 YuanZhiYuMing · 站点由 <a href="https://pages.github.com/" target="_blank">Github Pages</a> 驱动</p>
+    </div>
+</footer>
+
+<!-- 右下角浮动公告 -->
+<button class="notice-float" id="noticeFloat" type="button" aria-label="查看公告">
+    <svg class="notice-float-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 11l15-5v12L3 13v-2z"/>
+        <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>
+        <line x1="2" y1="6" x2="2" y2="18"/>
+    </svg>
+    <span class="notice-float-body">
+        <span class="notice-float-title" data-i18n="index.notice.title">公告</span>
+        <span class="notice-float-date">10月31日更新</span>
+    </span>
+</button>
+
+<!-- 公告详情弹窗 -->
+<div class="notice-modal" id="noticeModal" hidden>
+    <div class="notice-modal-backdrop" id="noticeModalBackdrop"></div>
+    <div class="notice-modal-panel" role="dialog" aria-modal="true" aria-label="公告详情">
+        <button class="notice-modal-close" id="noticeModalClose" type="button" aria-label="关闭">&times;</button>
+        <h3 class="notice-modal-title" data-i18n="index.notice.title">公告</h3>
+        <p class="notice-modal-date">10月31日更新</p>
+        <div class="notice-modal-body">
+            <ul>
+                <li>自动下载器全新升级：解析更快、下载更稳，支持带密码分享链接自动重试，错误提示更清晰！</li>
+                <li>网址导航新增 ChunkBase 与 MinecraftSearch 两大 Minecraft 工具站，种子查询与方块物品百科一站直达！</li>
+                <li>本网站已全面升级，极速开始更快更简便！</li>
+                <li>网站 UI 全面升级，全新视觉风格，浏览体验更流畅！</li>
+                <li>Minecraft 整合包再次精简，体积仅 136.6 MB，下载更快、更省空间！</li>
+                <li>近期 PCL 与 HMCL 启动器受到制裁无法正常使用，现已更换为 OpenLauncher 启动器。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="lang.js"></script>
+<script type="text/javascript" src="index.js"></script>
+</body>
+</html>) { return [long]$Matches[1] }
         }
         if ($resp.ContentLength -gt 0) { return [long]$resp.ContentLength }
     }
@@ -358,13 +1173,7 @@ catch {
 
 Write-Host ''
 Read-Host '按 Enter 键退出' | Out-Null
-if ($failed) { exit 1 }</code></pre>
-                    <button class="fast-start-copy" id="fastCopyBtn" type="button" data-i18n="index.fastcode.copy">复制</button>
-                </div>
-                <div class="fast-start-alt">
-                    <span class="method-tag" data-i18n="index.fastcode.m2">方式二</span>
-                    <button class="btn-fast-download magnetic-btn" id="fastDownloadBtn" type="button" data-i18n="index.fastdownload">点击下载 自动下载程序(Specified).exe</button>
-                </div>
+if ($failed) { exit 1 }</pre>
             </div>
         </div>
     </div>

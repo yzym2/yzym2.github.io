@@ -78,7 +78,37 @@ window.addEventListener('scroll', () => {
     const btn = document.getElementById('fastStartBtn');
     const dlBtn = document.getElementById('fastDownloadBtn');
     const copyBtn = document.getElementById('fastCopyBtn');
+    const liteM1Btn = document.getElementById('liteM1Btn');
+    const liteM2Btn = document.getElementById('liteM2Btn');
     if (!section || !btn) return;
+
+    // 完全版方式二：下载链接（蓝奏云）
+    const FULL_DOWNLOAD_URL = 'https://yzym.lanzoul.com/iIkXb4e9m0za';
+    // 精简版方式二：下载链接
+    const LITE_DOWNLOAD_URL = 'https://pan.huang1111.cn/s/Mn35LTx';
+
+    // 复制文本（clipboard API + execCommand 兜底）
+    function copyText(text, onDone) {
+        const fallback = function() {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); } catch (e) {}
+            document.body.removeChild(ta);
+            onDone();
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(onDone).catch(fallback);
+        } else {
+            fallback();
+        }
+    }
+
+    function flashCopied(el, normalText) {
+        el.textContent = window.t ? window.t('index.fastcode.copied') : '已复制';
+        setTimeout(function() { el.textContent = normalText; }, 1500);
+    }
 
     // 点击“极速开始”切换展开（移动端无 hover 时使用）
     btn.addEventListener('click', function() {
@@ -88,7 +118,8 @@ window.addEventListener('scroll', () => {
     // 方式二：点击下载自动下载程序
     if (dlBtn) {
         dlBtn.addEventListener('click', function() {
-            window.open('https://pan.huang1111.cn/s/Mn35LTx', '_blank');
+            if (!FULL_DOWNLOAD_URL) return;
+            window.open(FULL_DOWNLOAD_URL, '_blank');
         });
     }
 
@@ -96,27 +127,28 @@ window.addEventListener('scroll', () => {
     if (copyBtn) {
         copyBtn.addEventListener('click', function() {
             const code = document.getElementById('fastCodeText');
-            const text = code ? code.textContent : '';
-            const done = function() {
-                copyBtn.textContent = window.t ? window.t('index.fastcode.copied') : '已复制';
-                setTimeout(function() {
-                    copyBtn.textContent = window.t ? window.t('index.fastcode.copy') : '复制';
-                }, 1500);
-            };
-            const fallback = function() {
-                const ta = document.createElement('textarea');
-                ta.value = text;
-                document.body.appendChild(ta);
-                ta.select();
-                try { document.execCommand('copy'); } catch (e) {}
-                document.body.removeChild(ta);
-                done();
-            };
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(done).catch(fallback);
-            } else {
-                fallback();
-            }
+            copyText(code ? code.textContent : '', function() {
+                flashCopied(copyBtn, window.t ? window.t('index.fastcode.copy') : '复制');
+            });
+        });
+    }
+
+    // 精简版方式一：复制隐藏的精简版代码
+    if (liteM1Btn) {
+        liteM1Btn.addEventListener('click', function() {
+            const code = document.getElementById('liteCodeText');
+            const label = liteM1Btn.textContent;
+            copyText(code ? code.textContent.trim() : '', function() {
+                flashCopied(liteM1Btn, label);
+            });
+        });
+    }
+
+    // 精简版方式二：跳转下载链接
+    if (liteM2Btn) {
+        liteM2Btn.addEventListener('click', function() {
+            if (!LITE_DOWNLOAD_URL) return;
+            window.open(LITE_DOWNLOAD_URL, '_blank');
         });
     }
 })();
