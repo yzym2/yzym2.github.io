@@ -1,43 +1,6 @@
 (function() {
     'use strict';
 
-    (function() {
-        const dot = document.getElementById('cursorDot');
-        const outline = document.getElementById('cursorOutline');
-        const glow = document.getElementById('cursorGlow');
-
-        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-        if (isTouchDevice) {
-            dot.style.display = 'none';
-            outline.style.display = 'none';
-            glow.style.display = 'none';
-            return;
-        }
-
-        document.addEventListener('mousemove', (e) => {
-            dot.style.left = e.clientX - 4 + 'px';
-            dot.style.top = e.clientY - 4 + 'px';
-            outline.style.left = e.clientX + 'px';
-            outline.style.top = e.clientY + 'px';
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
-        });
-
-        const hoverTargets = document.querySelectorAll('a, button, .back-home-btn, .lang-toggle, .toc a');
-        hoverTargets.forEach(el => {
-            el.addEventListener('mouseenter', () => outline.classList.add('hover'));
-            el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
-        });
-
-        document.addEventListener('mousedown', () => {
-            dot.style.transform = 'scale(0.5)';
-            outline.style.transform = 'translate(-50%, -50%) scale(0.8)';
-        });
-        document.addEventListener('mouseup', () => {
-            dot.style.transform = 'scale(1)';
-            outline.style.transform = 'translate(-50%, -50%)';
-        });
-    })();
 
     const content = document.getElementById('contentWrapper');
     const tocList = document.getElementById('tocList');

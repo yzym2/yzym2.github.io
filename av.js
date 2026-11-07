@@ -1,42 +1,3 @@
-(function() {
-    const dot = document.getElementById('cursorDot');
-    const outline = document.getElementById('cursorOutline');
-    const glow = document.getElementById('cursorGlow');
-
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-    if (isTouchDevice) {
-        dot.style.display = 'none';
-        outline.style.display = 'none';
-        glow.style.display = 'none';
-        return;
-    }
-
-    document.addEventListener('mousemove', (e) => {
-        dot.style.left = e.clientX - 4 + 'px';
-        dot.style.top = e.clientY - 4 + 'px';
-        outline.style.left = e.clientX + 'px';
-        outline.style.top = e.clientY + 'px';
-        glow.style.left = e.clientX + 'px';
-        glow.style.top = e.clientY + 'px';
-    });
-
-    const HOVER_SEL = 'a, button, .back-btn, .lang-toggle, .file-item, .dl-btn, .av-select, .av-search-input, .av-playlist-item';
-    document.addEventListener('mouseover', (e) => {
-        if (e.target.closest(HOVER_SEL)) outline.classList.add('hover');
-    });
-    document.addEventListener('mouseout', (e) => {
-        if (e.target.closest(HOVER_SEL)) outline.classList.remove('hover');
-    });
-
-    document.addEventListener('mousedown', () => {
-        dot.style.transform = 'scale(0.5)';
-        outline.style.transform = 'translate(-50%, -50%) scale(0.8)';
-    });
-    document.addEventListener('mouseup', () => {
-        dot.style.transform = 'scale(1)';
-        outline.style.transform = 'translate(-50%, -50%)';
-    });
-})();
 
 let songs = [];
 let activeTag = '';
@@ -307,7 +268,7 @@ function render() {
     filtered.forEach(s => {
         const li = document.createElement('li');
         li.className = 'file-item av-item';
-        li.dataset.idx = songs.indexOf(s);
+        li.dataset.idx = String(songs.indexOf(s));
         const tags = (s.tags || []).map(t => '<span class="av-tag">' + escapeHtml(t) + '</span>').join('');
         li.innerHTML = `
             <div class="file-info">

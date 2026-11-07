@@ -17,43 +17,6 @@ window.addEventListener('scroll', () => {
     }
 });
 
-(function() {
-    const dot = document.getElementById('cursorDot');
-    const outline = document.getElementById('cursorOutline');
-    const glow = document.getElementById('cursorGlow');
-
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-    if (isTouchDevice) {
-        dot.style.display = 'none';
-        outline.style.display = 'none';
-        glow.style.display = 'none';
-        return;
-    }
-
-    document.addEventListener('mousemove', (e) => {
-        dot.style.left = e.clientX - 4 + 'px';
-        dot.style.top = e.clientY - 4 + 'px';
-        outline.style.left = e.clientX + 'px';
-        outline.style.top = e.clientY + 'px';
-        glow.style.left = e.clientX + 'px';
-        glow.style.top = e.clientY + 'px';
-    });
-
-    const hoverTargets = document.querySelectorAll('a, button, .btn, .glass-card, nav a, .lang-toggle, .btn-fast-start');
-    hoverTargets.forEach(el => {
-        el.addEventListener('mouseenter', () => outline.classList.add('hover'));
-        el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
-    });
-
-    document.addEventListener('mousedown', () => {
-        dot.style.transform = 'scale(0.5)';
-        outline.style.transform = 'translate(-50%, -50%) scale(0.8)';
-    });
-    document.addEventListener('mouseup', () => {
-        dot.style.transform = 'scale(1)';
-        outline.style.transform = 'translate(-50%, -50%)';
-    });
-})();
 
 (function() {
     const reveals = document.querySelectorAll('.reveal');
@@ -78,30 +41,15 @@ window.addEventListener('scroll', () => {
     const btn = document.getElementById('fastStartBtn');
     const dlBtn = document.getElementById('fastDownloadBtn');
     const copyBtn = document.getElementById('fastCopyBtn');
-    const liteM1Btn = document.getElementById('liteM1Btn');
-    const liteM2Btn = document.getElementById('liteM2Btn');
     if (!section || !btn) return;
 
     // 完全版方式二：下载链接（蓝奏云）
-    const FULL_DOWNLOAD_URL = 'https://yzym.lanzoul.com/iIkXb4e9m0za';
-    // 精简版方式二：下载链接
-    const LITE_DOWNLOAD_URL = 'https://pan.huang1111.cn/s/Mn35LTx';
+    const FULL_DOWNLOAD_URL = 'https://yzym.lanzoul.com/idFSS4f102eh';
 
-    // 复制文本（clipboard API + execCommand 兜底）
+    // 复制文本（使用 Clipboard API）
     function copyText(text, onDone) {
-        const fallback = function() {
-            const ta = document.createElement('textarea');
-            ta.value = text;
-            document.body.appendChild(ta);
-            ta.select();
-            try { document.execCommand('copy'); } catch (e) {}
-            document.body.removeChild(ta);
-            onDone();
-        };
         if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(onDone).catch(fallback);
-        } else {
-            fallback();
+            navigator.clipboard.writeText(text).then(onDone).catch(function() {});
         }
     }
 
@@ -130,25 +78,6 @@ window.addEventListener('scroll', () => {
             copyText(code ? code.textContent : '', function() {
                 flashCopied(copyBtn, window.t ? window.t('index.fastcode.copy') : '复制');
             });
-        });
-    }
-
-    // 精简版方式一：复制隐藏的精简版代码
-    if (liteM1Btn) {
-        liteM1Btn.addEventListener('click', function() {
-            const code = document.getElementById('liteCodeText');
-            const label = liteM1Btn.textContent;
-            copyText(code ? code.textContent.trim() : '', function() {
-                flashCopied(liteM1Btn, label);
-            });
-        });
-    }
-
-    // 精简版方式二：跳转下载链接
-    if (liteM2Btn) {
-        liteM2Btn.addEventListener('click', function() {
-            if (!LITE_DOWNLOAD_URL) return;
-            window.open(LITE_DOWNLOAD_URL, '_blank');
         });
     }
 })();
@@ -225,10 +154,32 @@ window.addEventListener('scroll', () => {
     if (!floatBtn || !modal) return;
     const closeBtn = document.getElementById('noticeModalClose');
     const backdrop = document.getElementById('noticeModalBackdrop');
-    function open() { modal.hidden = false; }
-    function close() { modal.hidden = true; }
+    const historyBtn = document.getElementById('noticeHistoryToggle');
+    const historyPanel = document.getElementById('noticeHistoryPanel');
+
+    function setHistory(open) {
+        if (!historyBtn || !historyPanel) return;
+        historyPanel.hidden = !open;
+        historyBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        historyBtn.textContent = open ? '收起历史公告' : '查看历史公告';
+    }
+
+    function open() {
+        modal.hidden = false;
+        document.body.classList.add('modal-open');
+    }
+    function close() {
+        modal.hidden = true;
+        document.body.classList.remove('modal-open');
+        setHistory(false);
+    }
     floatBtn.addEventListener('click', open);
     if (closeBtn) closeBtn.addEventListener('click', close);
     if (backdrop) backdrop.addEventListener('click', close);
+    if (historyBtn) {
+        historyBtn.addEventListener('click', function() {
+            setHistory(historyPanel.hidden);
+        });
+    }
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
 })();

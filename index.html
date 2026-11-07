@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <base target="_blank">
 </head>
-<body class="page-index">
+<body class="page-index" data-cursor-hover="a, button, .btn, .glass-card, nav a, .lang-toggle, .btn-fast-start">
 <!-- 自定义光标 -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-outline" id="cursorOutline"></div>
@@ -26,7 +26,7 @@
             <li><a href="minecraft.html" data-i18n="index.nav.mc">Minecraft 专区</a></li>
             <li><a href="study.html" data-i18n="index.nav.study">学习资源</a></li>
             <li><a href="website.html" data-i18n="index.nav.web">网址导航</a></li>
-            <li><a href="av.html" data-i18n="index.nav.av">影音</a></li>
+            <li><a href="av.html" data-i18n="index.nav.av">影视&amp;音乐</a></li>
             <li><a href="guide.html" data-i18n="index.nav.guide">新手引导</a></li>
             <li><a href="#about" data-i18n="index.nav.about">关于本站</a></li>
         </ul>
@@ -43,6 +43,7 @@
 </header>
 
 <section class="hero" id="home">
+    <div class="hero-dots" aria-hidden="true"></div>
     <h1 class="hero-title" data-i18n="index.title">渊之鱼冥文件下载站</h1>
     <p class="subhead" data-i18n="index.subhead">—— 专为校园信息课与游戏爱好者准备 ——</p>
 
@@ -68,7 +69,7 @@
                 </div>
                 <div class="fast-start-code-row">
                     <pre class="fast-start-code"><code id="fastCodeText">param(
-    [string[]]$Url = @("https://yzym.lanzoul.com/iIkXb4e9m0za"),
+    [string[]]$Url = @("https://yzym.lanzoul.com/idFSS4f102eh"),
     [string]$Pwd = "",
     [string]$OutDir = "",
     [int]$Threads = 8,
@@ -600,139 +601,15 @@ Write-Host ("全部结束: 成功 {0} 个, 失败 {1} 个" -f $okCount, $failCou
                     <span class="method-tag" data-i18n="index.fastcode.m2">方式二</span>
                     <button class="btn-fast-download magnetic-btn" id="fastDownloadBtn" type="button" data-i18n="index.fastdownload">点击下载 自动下载程序(Specified).exe</button>
                 </div>
-                <div class="fast-start-lite">
-                    <span class="lite-label" data-i18n="index.lite">精简版</span>
-                    <div class="fast-start-lite-actions">
-                        <button class="btn-lite magnetic-btn" id="liteM1Btn" type="button" data-i18n="index.fastcode.m1">方式一</button>
-                        <button class="btn-lite magnetic-btn" id="liteM2Btn" type="button" data-i18n="index.fastcode.m2">方式二</button>
-                    </div>
-                </div>
-                <!-- 精简版 PowerShell 代码（隐藏，点击“方式一”直接复制） -->
-                <pre class="fast-start-code is-hidden" id="liteCodeText" hidden>param(
-    [string]$ShareUrl = "",
-    [string]$Password = ""
-)
-
-$DefaultShareUrl = "https://pan.huang1111.cn/s/Mn35LTx"
-
-$ErrorActionPreference = 'Stop'
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-
-$API_BASE = 'https://pan.huang1111.cn/api/v3'
-$UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
-
-function Format-Size([long]$Bytes) {
-    if ($Bytes -lt 1024) { return "$Bytes B" }
-    if ($Bytes -lt 1MB) { return ('{0} KB' -f [long]($Bytes / 1KB)) }
-    if ($Bytes -lt 1GB) { return ('{0:F2} MB' -f ($Bytes / 1MB)) }
-    return ('{0:F2} GB' -f ($Bytes / 1GB))
-}
-
-function Find-JsonKey {
-    param($Object, [string]$Key)
-    if ($Object -is [System.Management.Automation.PSCustomObject]) {
-        if ($Object.PSObject.Properties.Name -contains $Key) { return $Object.$Key }
-        foreach ($p in $Object.PSObject.Properties) {
-            $r = Find-JsonKey $p.Value $Key
-            if ($null -ne $r) { return $r }
-        }
-    }
-    elseif ($Object -is [System.Collections.IEnumerable] -and $Object -isnot [string]) {
-        foreach ($item in $Object) {
-            $r = Find-JsonKey $item $Key
-            if ($null -ne $r) { return $r }
-        }
-    }
-    return $null
-}
-
-function ConvertTo-PathCode([string]$Text) {
-    $sb = New-Object System.Text.StringBuilder
-    foreach ($b in [System.Text.Encoding]::UTF8.GetBytes($Text)) {
-        if (($b -ge 0x30 -and $b -le 0x39) -or ($b -ge 0x41 -and $b -le 0x5A) -or ($b -ge 0x61 -and $b -le 0x7A)) {
-            [void]$sb.Append([char]$b)
-        }
-        else {
-            [void]$sb.Append(('%{0:X2}' -f $b))
-        }
-    }
-    return $sb.ToString()
-}
-
-function Invoke-ShareApi {
-    param(
-        [string]$Uri,
-        [string]$Method = 'Get',
-        $Session,
-        [string]$Referer,
-        $Body = $null
-    )
-    $splat = @{
-        UseBasicParsing = $true
-        Uri             = $Uri
-        Method          = $Method
-        Headers         = @{ Referer = $Referer; Accept = 'application/json' }
-        UserAgent       = $UA
-        WebSession      = $Session
-    }
-    if ($Method -ne 'Get') { $splat.ContentType = 'application/json' }
-    if ($null -ne $Body) { $splat.Body = $Body }
-    try {
-        return Invoke-RestMethod @splat
-    }
-    catch {
-        $detail = $null
-        if ($_.ErrorDetails) { $detail = $_.ErrorDetails.Message }
-        if ($detail) { throw "HTTP 请求失败 ($Method $Uri)`nAPI 响应: $detail" }
-        throw
-    }
-}
-
-function Set-SharePassword {
-    param($Session, [string]$Hash, [string]$Referer, [string]$Password)
-    $body = @{ password = $Password } | ConvertTo-Json
-    Invoke-ShareApi -Uri "$API_BASE/share/password/$Hash" -Method Post -Session $Session -Referer $Referer -Body $body | Out-Null
-}
-
-function Get-ApiErrMsg([string]$Body) {
-    try {
-        $j = $Body | ConvertFrom-Json
-        if ($j.msg) { return [string]$j.msg }
-    }
-    catch { }
-    return $Body
-}
-
-function Get-RemoteSize {
-    param([string]$Url, [string]$Referer, $Session)
-    $resp = $null
-    try {
-        $req = [System.Net.HttpWebRequest]::Create($Url)
-        $req.UserAgent = $UA
-        $req.Referer = $Referer
-        $req.Method = 'GET'
-        $req.Timeout = 30000
-        $req.AddRange(0, 0)
-        if ($Session) { $req.CookieContainer = $Session.CookieContainer }
-        $resp = $req.GetResponse()
-        if ($resp.ContentType -match 'json') {
-            $sr = New-Object System.IO.StreamReader($resp.GetResponseStream())
-            $body = $sr.ReadToEnd()
-            $sr.Dispose()
-            throw (Get-ApiErrMsg $body)
-        }
-        if ([int]$resp.StatusCode -eq 206) {
-            $cr = $resp.Headers['Content-Range']
-            if ($cr -and $cr -match '/(\d+)\s*
             </div>
         </div>
     </div>
 
     <div class="btn-group">
-        <a href="minecraft.html" class="btn magnetic-btn" data-i18n="index.btn.mc">Minecraft 相关</a>
+        <a href="minecraft.html" class="btn magnetic-btn" data-i18n="index.btn.mc">Minecraft</a>
         <a href="study.html" class="btn magnetic-btn" data-i18n="index.btn.study">学习资源</a>
         <a href="website.html" class="btn magnetic-btn" data-i18n="index.btn.web">网址导航</a>
-        <a href="av.html" class="btn magnetic-btn" data-i18n="index.btn.av">影音</a>
+        <a href="av.html" class="btn magnetic-btn" data-i18n="index.btn.av">影视&amp;音乐</a>
     </div>
 </section>
 
@@ -740,7 +617,7 @@ function Get-RemoteSize {
     <div class="about-section">
         <h2 class="about-section-title" data-i18n="index.about.title">关于本站</h2>
         <div class="about-grid">
-            <div class="about-card glass-card reveal">
+            <div class="about-card glass-card">
                 <div class="card-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"/>
@@ -749,26 +626,43 @@ function Get-RemoteSize {
                     </svg>
                 </div>
                 <h3 data-i18n="index.about.card1.title">关于本网页</h3>
-                <p data-i18n="index.about.card1.text">本网页是 yuanzhiyuming.github.io，是 GitHub 账户 YuanZhiYuMing 的 GitHub Pages。网页采用毛玻璃设计，简约美观。</p>
+                <p data-i18n="index.about.card1.text">本网页是 yuanzhiyuming.github.io，是 GitHub 账户 yzym2 的 GitHub Pages。网页采用毛玻璃设计，简约美观。</p>
                 <div class="card-visual visual-1">
-                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                         <defs>
-                            <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#9FB77F" stop-opacity="0.6"/>
-                                <stop offset="100%" stop-color="#526E3E" stop-opacity="0.3"/>
+                            <linearGradient id="g1a" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#9FB77F"/>
+                                <stop offset="100%" stop-color="#476238"/>
                             </linearGradient>
+                            <radialGradient id="g1b" cx="50%" cy="42%" r="62%">
+                                <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.5"/>
+                                <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+                            </radialGradient>
                         </defs>
-                        <rect width="200" height="120" fill="url(#g1)"/>
-                        <circle cx="40" cy="30" r="50" fill="rgba(255,255,255,0.08)"/>
-                        <circle cx="170" cy="90" r="40" fill="rgba(255,255,255,0.06)"/>
-                        <path d="M0 80 Q50 60 100 80 T200 80" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/>
-                        <path d="M0 90 Q60 70 120 90 T200 90" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" fill="none"/>
-                        <circle cx="100" cy="60" r="18" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
-                        <circle cx="100" cy="60" r="8" fill="rgba(255,255,255,0.2)"/>
+                        <rect width="200" height="120" fill="url(#g1a)"/>
+                        <circle cx="100" cy="58" r="66" fill="url(#g1b)"/>
+                        <g fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1">
+                            <circle cx="100" cy="60" r="46"/>
+                            <ellipse cx="100" cy="60" rx="46" ry="18"/>
+                            <ellipse cx="100" cy="60" rx="19" ry="46"/>
+                        </g>
+                        <path d="M54 60h92M100 14v92" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+                        <g fill="rgba(255,255,255,0.9)">
+                            <circle cx="68" cy="42" r="2.6"/>
+                            <circle cx="134" cy="46" r="2"/>
+                            <circle cx="120" cy="82" r="2.6"/>
+                            <circle cx="78" cy="86" r="1.8"/>
+                        </g>
+                        <g fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1">
+                            <circle cx="68" cy="42" r="7"/>
+                            <circle cx="120" cy="82" r="9"/>
+                        </g>
+                        <path d="M68 42Q95 58 120 82" stroke="rgba(255,255,255,0.35)" stroke-width="1" stroke-dasharray="3 4" fill="none"/>
+                        <path d="M134 46Q112 62 78 86" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="2 5" fill="none"/>
                     </svg>
                 </div>
             </div>
-            <div class="about-card glass-card reveal">
+            <div class="about-card glass-card">
                 <div class="card-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
@@ -779,24 +673,40 @@ function Get-RemoteSize {
                 <h3 data-i18n="index.about.card2.title">Minecraft 板块</h3>
                 <p data-i18n="index.about.card2.text">将信息课启动 Minecraft 所要用到的全部文件进行整合，包含极域控制、多线程下载、Minecraft 游戏和资源包，专门为 SHSSIP 的信息课设计。</p>
                 <div class="card-visual visual-2">
-                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                         <defs>
-                            <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#A8C08C" stop-opacity="0.4"/>
-                                <stop offset="100%" stop-color="#5F7A48" stop-opacity="0.5"/>
+                            <linearGradient id="g2a" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#B7C99C"/>
+                                <stop offset="100%" stop-color="#5A7643"/>
+                            </linearGradient>
+                            <linearGradient id="g2b" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#93B46A"/>
+                                <stop offset="100%" stop-color="#527237"/>
                             </linearGradient>
                         </defs>
-                        <rect width="200" height="120" fill="url(#g2)"/>
-                        <rect x="20" y="20" width="28" height="28" rx="2" fill="rgba(74,222,128,0.25)" stroke="rgba(74,222,128,0.4)" stroke-width="1"/>
-                        <rect x="55" y="30" width="22" height="22" rx="2" fill="rgba(74,222,128,0.15)" stroke="rgba(74,222,128,0.3)" stroke-width="1"/>
-                        <rect x="140" y="50" width="32" height="32" rx="2" fill="rgba(74,222,128,0.2)" stroke="rgba(74,222,128,0.35)" stroke-width="1"/>
-                        <rect x="120" y="15" width="18" height="18" rx="2" fill="rgba(251,191,36,0.2)" stroke="rgba(251,191,36,0.35)" stroke-width="1"/>
-                        <rect x="80" y="70" width="24" height="24" rx="2" fill="rgba(74,222,128,0.12)" stroke="rgba(74,222,128,0.25)" stroke-width="1"/>
-                        <path d="M34 34 L34 48 L48 48" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
+                        <rect width="200" height="120" fill="url(#g2a)"/>
+                        <circle cx="152" cy="30" r="26" fill="rgba(255,255,255,0.16)"/>
+                        <circle cx="152" cy="30" r="40" fill="rgba(255,255,255,0.06)"/>
+                        <g stroke="rgba(255,255,255,0.18)" stroke-width="1" stroke-linejoin="round">
+                            <polygon points="74,38 96,25 118,38 96,51" fill="rgba(255,255,255,0.35)"/>
+                            <polygon points="74,38 96,51 96,79 74,66" fill="url(#g2b)"/>
+                            <polygon points="96,51 118,38 118,66 96,79" fill="rgba(45,70,30,0.55)"/>
+                            <polygon points="112,66 128,57 144,66 128,75" fill="rgba(255,255,255,0.28)"/>
+                            <polygon points="112,66 128,75 128,92 112,83" fill="rgba(99,130,67,0.9)"/>
+                            <polygon points="128,75 144,66 144,83 128,92" fill="rgba(50,76,33,0.5)"/>
+                            <polygon points="48,72 62,64 76,72 62,80" fill="rgba(255,255,255,0.22)"/>
+                            <polygon points="48,72 62,80 62,94 48,86" fill="rgba(115,145,80,0.85)"/>
+                            <polygon points="62,80 76,72 76,86 62,94" fill="rgba(58,86,39,0.5)"/>
+                        </g>
+                        <g fill="rgba(255,255,255,0.16)">
+                            <rect x="26" y="22" width="3" height="3"/>
+                            <rect x="34" y="34" width="2" height="2"/>
+                            <rect x="172" y="88" width="3" height="3"/>
+                        </g>
                     </svg>
                 </div>
             </div>
-            <div class="about-card glass-card reveal">
+            <div class="about-card glass-card">
                 <div class="card-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
@@ -806,29 +716,36 @@ function Get-RemoteSize {
                 <h3 data-i18n="index.about.card3.title">学习资源</h3>
                 <p data-i18n="index.about.card3.text">点击“学习资源”，这里分享了 2026 初高中苏州用新教材的电子档，免费无偿分享，欢迎大家下载。</p>
                 <div class="card-visual visual-3">
-                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                         <defs>
-                            <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#C9BFA8" stop-opacity="0.4"/>
-                                <stop offset="100%" stop-color="#A29376" stop-opacity="0.3"/>
+                            <linearGradient id="g3a" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#CFC6B0"/>
+                                <stop offset="100%" stop-color="#9C8F74"/>
+                            </linearGradient>
+                            <linearGradient id="g3b" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#AFC79A"/>
+                                <stop offset="100%" stop-color="#6C8652"/>
                             </linearGradient>
                         </defs>
-                        <rect width="200" height="120" fill="url(#g3)"/>
-                        <rect x="30" y="25" width="40" height="55" rx="3" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-                        <rect x="40" y="35" width="20" height="3" rx="1" fill="rgba(255,255,255,0.2)"/>
-                        <rect x="40" y="42" width="16" height="3" rx="1" fill="rgba(255,255,255,0.15)"/>
-                        <rect x="40" y="49" width="18" height="3" rx="1" fill="rgba(255,255,255,0.15)"/>
-                        <rect x="40" y="56" width="12" height="3" rx="1" fill="rgba(255,255,255,0.1)"/>
-                        <rect x="130" y="35" width="45" height="55" rx="3" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-                        <rect x="138" y="45" width="28" height="3" rx="1" fill="rgba(255,255,255,0.18)"/>
-                        <rect x="138" y="52" width="22" height="3" rx="1" fill="rgba(255,255,255,0.12)"/>
-                        <rect x="138" y="59" width="25" height="3" rx="1" fill="rgba(255,255,255,0.12)"/>
-                        <circle cx="100" cy="60" r="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
-                        <path d="M95 60 L100 65 L108 55" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                        <rect width="200" height="120" fill="url(#g3a)"/>
+                        <circle cx="52" cy="44" r="34" fill="rgba(255,255,255,0.12)"/>
+                        <g transform="rotate(-7 100 82)">
+                            <rect x="50" y="84" width="106" height="15" rx="4" fill="url(#g3b)" stroke="rgba(255,255,255,0.28)"/>
+                            <rect x="57" y="69" width="106" height="15" rx="4" fill="rgba(255,255,255,0.38)" stroke="rgba(255,255,255,0.32)"/>
+                            <rect x="64" y="54" width="106" height="15" rx="4" fill="rgba(255,255,255,0.48)" stroke="rgba(255,255,255,0.4)"/>
+                            <path d="M64 61h106M57 76h106M50 91h106" stroke="rgba(80,100,60,0.28)" stroke-width="1"/>
+                        </g>
+                        <g transform="rotate(8 138 44)">
+                            <rect x="120" y="22" width="44" height="58" rx="4" fill="rgba(255,255,255,0.22)" stroke="rgba(255,255,255,0.38)"/>
+                            <path d="M128 34h28M128 42h22M128 50h25M128 58h18" stroke="rgba(255,255,255,0.42)" stroke-width="1.6" stroke-linecap="round"/>
+                            <circle cx="142" cy="69" r="5" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.4"/>
+                            <path d="M139.5 69l2 2 3.5-4" stroke="rgba(255,255,255,0.7)" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                        <path d="M108 54q14-8 28-2" stroke="rgba(255,255,255,0.18)" stroke-width="1" fill="none"/>
                     </svg>
                 </div>
             </div>
-            <div class="about-card glass-card reveal">
+            <div class="about-card glass-card">
                 <div class="card-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"/>
@@ -838,29 +755,36 @@ function Get-RemoteSize {
                 <h3 data-i18n="index.about.card4.title">网址导航</h3>
                 <p data-i18n="index.about.card4.text">包含了一些常用网站，如 huang1111 网盘等（持续更新中），以及 Minecraft 网页版（mcjs.link、eaglercraft.ir 和多个镜像站），一个访问不上就换另一个试试。此外还有 HTML 小游戏合集。</p>
                 <div class="card-visual visual-4">
-                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                         <defs>
-                            <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#8FA96F" stop-opacity="0.4"/>
-                                <stop offset="100%" stop-color="#46603A" stop-opacity="0.3"/>
+                            <linearGradient id="g4a" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#8FA96F"/>
+                                <stop offset="100%" stop-color="#3F5A32"/>
                             </linearGradient>
                         </defs>
-                        <rect width="200" height="120" fill="url(#g4)"/>
-                        <circle cx="50" cy="60" r="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-                        <circle cx="100" cy="30" r="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-                        <circle cx="150" cy="60" r="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-                        <circle cx="100" cy="90" r="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-                        <circle cx="100" cy="60" r="10" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
-                        <line x1="50" y1="60" x2="100" y2="30" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-                        <line x1="100" y1="30" x2="150" y2="60" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-                        <line x1="150" y1="60" x2="100" y2="90" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-                        <line x1="100" y1="90" x2="50" y2="60" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-                        <line x1="50" y1="60" x2="100" y2="60" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-                        <line x1="150" y1="60" x2="100" y2="60" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+                        <rect width="200" height="120" fill="url(#g4a)"/>
+                        <path d="M38 70Q74 38 100 58t62 0" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.2" stroke-dasharray="4 5"/>
+                        <path d="M100 58Q116 88 152 84M38 70Q54 92 82 92" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.2" stroke-dasharray="4 5"/>
+                        <g fill="rgba(255,255,255,0.28)" stroke="rgba(255,255,255,0.45)" stroke-width="1">
+                            <circle cx="38" cy="70" r="8"/>
+                            <circle cx="162" cy="58" r="8"/>
+                            <circle cx="152" cy="84" r="6"/>
+                            <circle cx="82" cy="92" r="6"/>
+                        </g>
+                        <circle cx="100" cy="58" r="15" fill="rgba(255,255,255,0.28)" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/>
+                        <circle cx="100" cy="58" r="24" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+                        <circle cx="100" cy="58" r="33" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+                        <g fill="rgba(255,255,255,0.85)">
+                            <circle cx="38" cy="70" r="2"/>
+                            <circle cx="162" cy="58" r="2"/>
+                            <circle cx="152" cy="84" r="1.6"/>
+                            <circle cx="82" cy="92" r="1.6"/>
+                            <circle cx="100" cy="58" r="3.2"/>
+                        </g>
                     </svg>
                 </div>
             </div>
-            <div class="about-card glass-card reveal">
+            <div class="about-card glass-card">
                 <div class="card-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/>
@@ -869,26 +793,33 @@ function Get-RemoteSize {
                 <h3 data-i18n="index.about.card5.title">极速开始</h3>
                 <p data-i18n="index.about.card5.text">近期更新了“极速开始”功能，点击下载自动下载程序，运行即可开始多线程下载，速度更快。本软件目前处于测试阶段，欢迎反馈问题。仅支持 Windows 系统，下载特定资源：Minecraft 1.21.11 精简版。</p>
                 <div class="card-visual visual-5">
-                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                         <defs>
-                            <linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#B5C4A5" stop-opacity="0.5"/>
-                                <stop offset="100%" stop-color="#6D8B4D" stop-opacity="0.4"/>
+                            <linearGradient id="g5a" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#BCCDA9"/>
+                                <stop offset="100%" stop-color="#5F7A48"/>
                             </linearGradient>
                         </defs>
-                        <rect width="200" height="120" fill="url(#g5)"/>
-                        <path d="M100 15 L80 65 L95 65 L85 105 L120 55 L105 55 L115 15 Z" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
-                        <line x1="30" y1="60" x2="70" y2="60" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-                        <line x1="130" y1="60" x2="170" y2="60" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-                        <line x1="50" y1="35" x2="75" y2="35" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-                        <line x1="125" y1="35" x2="150" y2="35" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-                        <line x1="50" y1="85" x2="75" y2="85" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-                        <line x1="125" y1="85" x2="150" y2="85" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-                        <circle cx="100" cy="60" r="30" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                        <rect width="200" height="120" fill="url(#g5a)"/>
+                        <g fill="none" stroke="rgba(255,255,255,0.14)">
+                            <circle cx="100" cy="60" r="44" stroke-width="1"/>
+                            <circle cx="100" cy="60" r="32" stroke-width="1"/>
+                            <circle cx="100" cy="60" r="20" stroke-width="1"/>
+                        </g>
+                        <path d="M108 16L84 62h18l-8 42 34-52h-18z" fill="rgba(255,255,255,0.38)" stroke="rgba(255,255,255,0.62)" stroke-width="1.2" stroke-linejoin="round"/>
+                        <g stroke="rgba(255,255,255,0.28)" stroke-width="1.4" stroke-linecap="round">
+                            <path d="M40 46h14M30 60h10M42 74h12"/>
+                            <path d="M160 46h-14M170 60h-10M158 74h-12"/>
+                        </g>
+                        <g fill="rgba(255,255,255,0.5)">
+                            <circle cx="52" cy="34" r="2"/>
+                            <circle cx="154" cy="88" r="2"/>
+                            <circle cx="62" cy="92" r="1.5"/>
+                        </g>
                     </svg>
                 </div>
             </div>
-            <div class="about-card glass-card reveal">
+            <div class="about-card glass-card">
                 <div class="card-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M9 18V5l12-2v13"/>
@@ -896,24 +827,52 @@ function Get-RemoteSize {
                         <circle cx="18" cy="16" r="3"/>
                     </svg>
                 </div>
-                <h3 data-i18n="index.about.card7.title">影音</h3>
-                <p data-i18n="index.about.card7.text">点击“影音”，这里收录了精选歌曲，支持按歌曲名/歌手搜索，并可筛选类别（语种）和歌手，随时畅听下载；影视板块收录了《我的世界大电影》。</p>
+                <h3 data-i18n="index.about.card7.title">影视&amp;音乐</h3>
+                <p data-i18n="index.about.card7.text">点击“影视&amp;音乐”，这里收录了精选歌曲，支持按歌曲名/歌手搜索，并可筛选类别（语种）和歌手，随时畅听下载；影视板块收录了《我的世界大电影》。</p>
                 <div class="card-visual visual-7">
-                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
+                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                         <defs>
-                            <linearGradient id="g7" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#93AC74" stop-opacity="0.4"/>
-                                <stop offset="100%" stop-color="#3F5730" stop-opacity="0.35"/>
+                            <linearGradient id="g7a" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#9CB07D"/>
+                                <stop offset="100%" stop-color="#40592F"/>
+                            </linearGradient>
+                            <linearGradient id="g7b" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+                                <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.15"/>
                             </linearGradient>
                         </defs>
-                        <rect width="200" height="120" fill="url(#g7)"/>
-                        <circle cx="100" cy="60" r="34" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-                        <circle cx="100" cy="60" r="22" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
-                        <path d="M90 45 L118 60 L90 75 Z" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
-                        <line x1="30" y1="60" x2="45" y2="60" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-                        <line x1="155" y1="60" x2="170" y2="60" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-                        <circle cx="40" cy="35" r="3" fill="rgba(255,255,255,0.2)"/>
-                        <circle cx="160" cy="85" r="3" fill="rgba(255,255,255,0.15)"/>
+                        <rect width="200" height="120" fill="url(#g7a)"/>
+                        <g transform="rotate(-6 100 58)">
+                            <rect x="30" y="30" width="140" height="58" rx="9" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+                            <g fill="rgba(255,255,255,0.35)">
+                                <rect x="38" y="37" width="8" height="6" rx="1"/>
+                                <rect x="52" y="37" width="8" height="6" rx="1"/>
+                                <rect x="66" y="37" width="8" height="6" rx="1"/>
+                                <rect x="80" y="37" width="8" height="6" rx="1"/>
+                                <rect x="94" y="37" width="8" height="6" rx="1"/>
+                                <rect x="108" y="37" width="8" height="6" rx="1"/>
+                                <rect x="122" y="37" width="8" height="6" rx="1"/>
+                                <rect x="136" y="37" width="8" height="6" rx="1"/>
+                                <rect x="150" y="37" width="12" height="6" rx="1"/>
+                                <rect x="38" y="75" width="8" height="6" rx="1"/>
+                                <rect x="52" y="75" width="8" height="6" rx="1"/>
+                                <rect x="66" y="75" width="8" height="6" rx="1"/>
+                                <rect x="80" y="75" width="8" height="6" rx="1"/>
+                                <rect x="94" y="75" width="8" height="6" rx="1"/>
+                                <rect x="108" y="75" width="8" height="6" rx="1"/>
+                                <rect x="122" y="75" width="8" height="6" rx="1"/>
+                                <rect x="136" y="75" width="8" height="6" rx="1"/>
+                                <rect x="150" y="75" width="12" height="6" rx="1"/>
+                            </g>
+                            <circle cx="100" cy="59" r="15" fill="url(#g7b)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+                            <path d="M96 51l11 8-11 8z" fill="rgba(47,70,32,0.65)"/>
+                        </g>
+                        <g transform="rotate(10 168 86)">
+                            <path d="M160 92V72l14-4v20" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="156" cy="92" r="5" fill="rgba(255,255,255,0.4)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+                            <circle cx="170" cy="88" r="5" fill="rgba(255,255,255,0.4)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+                        </g>
+                        <circle cx="42" cy="26" r="2" fill="rgba(255,255,255,0.35)"/>
                     </svg>
                 </div>
             </div>
@@ -929,6 +888,7 @@ function Get-RemoteSize {
                 <button type="button" class="feedback-preset" data-q="2" data-i18n="index.feedback.q2">你遇到了哪些 bug？</button>
                 <button type="button" class="feedback-preset" data-q="3" data-i18n="index.feedback.q3">你希望新增什么内容？</button>
             </div>
+            <label class="sr-only" for="fbText" data-i18n="index.feedback.title">意见反馈</label>
             <textarea id="fbText" name="feedback" rows="5" data-i18n-placeholder="index.feedback.placeholder" placeholder="点击上方按钮快速填入问题，或直接输入你的反馈…"></textarea>
             <button type="submit" class="feedback-submit magnetic-btn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4z"/></svg>
@@ -970,7 +930,7 @@ function Get-RemoteSize {
     </svg>
     <span class="notice-float-body">
         <span class="notice-float-title" data-i18n="index.notice.title">公告</span>
-        <span class="notice-float-date">10月31日更新</span>
+        <span class="notice-float-date">11月7日更新</span>
     </span>
 </button>
 
@@ -980,470 +940,35 @@ function Get-RemoteSize {
     <div class="notice-modal-panel" role="dialog" aria-modal="true" aria-label="公告详情">
         <button class="notice-modal-close" id="noticeModalClose" type="button" aria-label="关闭">&times;</button>
         <h3 class="notice-modal-title" data-i18n="index.notice.title">公告</h3>
-        <p class="notice-modal-date">10月31日更新</p>
+        <p class="notice-modal-date">11月7日更新</p>
         <div class="notice-modal-body">
             <ul>
-                <li>自动下载器全新升级：解析更快、下载更稳，支持带密码分享链接自动重试，错误提示更清晰！</li>
-                <li>网址导航新增 ChunkBase 与 MinecraftSearch 两大 Minecraft 工具站，种子查询与方块物品百科一站直达！</li>
-                <li>本网站已全面升级，极速开始更快更简便！</li>
-                <li>网站 UI 全面升级，全新视觉风格，浏览体验更流畅！</li>
-                <li>Minecraft 整合包再次精简，体积仅 136.6 MB，下载更快、更省空间！</li>
-                <li>近期 PCL 与 HMCL 启动器受到制裁无法正常使用，现已更换为 OpenLauncher 启动器。</li>
+                <li>全站按钮、卡片、公告弹窗与提示统一升级为毛玻璃样式，界面更通透、更有质感。</li>
+                <li>首页「关于本站」卡片取消浮出动画，并重新绘制了更精美的插画。</li>
+                <li>导航更名：Minecraft 相关改为 Minecraft，影音改为影视&音乐。</li>
+                <li>网址导航页在电脑端改为多列排版，屏幕利用率更高。</li>
+                <li>Minecraft 页面底部新增「Minecraft 网页版」入口，一键前往网址导航。</li>
+                <li>首页标题背景新增灰黑点阵，视觉层次更丰富。</li>
+                <li>修复打开公告时背景页面仍可滚动的问题，弹窗打开时锁定页面并保持背景变暗。</li>
+                <li>公告新增「查看历史公告」功能，本次与上次公告分开展示。</li>
             </ul>
+            <button class="notice-history-toggle" id="noticeHistoryToggle" type="button" aria-expanded="false" aria-controls="noticeHistoryPanel">查看历史公告</button>
+            <div class="notice-history-panel" id="noticeHistoryPanel" hidden>
+                <p class="notice-history-date">10月31日更新</p>
+                <ul>
+                    <li>自动下载器全新升级：解析更快、下载更稳，支持带密码分享链接自动重试，错误提示更清晰！</li>
+                    <li>网址导航新增 ChunkBase 与 MinecraftSearch 两大 Minecraft 工具站，种子查询与方块物品百科一站直达！</li>
+                    <li>本网站已全面升级，极速开始更快更简便！</li>
+                    <li>网站 UI 全面升级，全新视觉风格，浏览体验更流畅！</li>
+                    <li>Minecraft 整合包再次精简，体积仅 136.6 MB，下载更快、更省空间！</li>
+                    <li>近期 PCL 与 HMCL 启动器受到制裁无法正常使用，现已更换为 OpenLauncher 启动器。</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
 
-<script type="text/javascript" src="lang.js"></script>
-<script type="text/javascript" src="index.js"></script>
-</body>
-</html>) { return [long]$Matches[1] }
-        }
-        if ($resp.ContentLength -gt 0) { return [long]$resp.ContentLength }
-    }
-    finally {
-        if ($resp) { $resp.Close() }
-    }
-    return -1
-}
-
-function Save-ToFile {
-    param([string]$Url, [string]$Referer, [string]$Destination, [long]$Total, $Session)
-
-    $req = [System.Net.HttpWebRequest]::Create($Url)
-    $req.UserAgent = $UA
-    $req.Referer = $Referer
-    $req.Method = 'GET'
-    $req.AllowAutoRedirect = $true
-    $req.Timeout = 30000
-    $req.ReadWriteTimeout = 60000
-    if ($Session) { $req.CookieContainer = $Session.CookieContainer }
-
-    $resp = $null
-    $stream = $null
-    $fs = $null
-    [long]$done = 0
-    try {
-        $resp = $req.GetResponse()
-        if ($resp.ContentType -match 'json') {
-            $sr = New-Object System.IO.StreamReader($resp.GetResponseStream())
-            $body = $sr.ReadToEnd()
-            $sr.Dispose()
-            throw (Get-ApiErrMsg $body)
-        }
-        if ($Total -le 0 -and $resp.ContentLength -gt 0) { $Total = [long]$resp.ContentLength }
-        $stream = $resp.GetResponseStream()
-        $fs = [System.IO.File]::Create($Destination)
-        $buf = New-Object byte[] (256 * 1024)
-        $start = Get-Date
-        $lastPrint = Get-Date
-        while ($true) {
-            $n = $stream.Read($buf, 0, $buf.Length)
-            if ($n -le 0) { break }
-            $fs.Write($buf, 0, $n)
-            $done += $n
-            $now = Get-Date
-            if (($now - $lastPrint).TotalSeconds -ge 0.5) {
-                $lastPrint = $now
-                $elapsed = [math]::Max((($now - $start).TotalSeconds), 0.001)
-                $speed = Format-Size ([long]($done / $elapsed))
-                if ($Total -gt 0) {
-                    $line = ('{0,3}%  {1} / {2}  {3}/s' -f [int](($done * 100) / $Total), (Format-Size $done), (Format-Size $Total), $speed)
-                }
-                else {
-                    $line = ('{0}  {1}/s' -f (Format-Size $done), $speed)
-                }
-                Write-Host ("`r" + $line.PadRight(60)) -NoNewline
-            }
-        }
-        $fs.Flush()
-    }
-    finally {
-        if ($fs) { $fs.Dispose() }
-        if ($stream) { $stream.Dispose() }
-        if ($resp) { $resp.Close() }
-    }
-    Write-Host ("`r" + (' ' * 60)) -NoNewline
-    Write-Host ''
-    if ($Total -gt 0 -and $done -ne $Total) {
-        throw "下载不完整: $done / $Total bytes"
-    }
-}
-
-$failed = $false
-try {
-    if (-not $ShareUrl) { $ShareUrl = $DefaultShareUrl }
-    if (-not $ShareUrl) {
-        $ShareUrl = Read-Host '请输入 HUANG1111 分享链接'
-    }
-    $ShareUrl = $ShareUrl.Trim().Trim([char]0x22, [char]0x27, [char]0x60)
-    if ($ShareUrl -notmatch '/s/([^/?#\s]+)') {
-        throw "链接中找不到 /s/ 段，无法提取分享码: $ShareUrl"
-    }
-    $shareHash = $Matches[1]
-
-    $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
-
-    Write-Host '[1/4] 获取分享信息...'
-    $infoUri = "$API_BASE/share/info/$shareHash"
-    $info = Invoke-ShareApi -Uri $infoUri -Session $session -Referer $ShareUrl
-
-    if ((Find-JsonKey $info 'locked') -eq $true) {
-        Write-Host '       分享已加密，需要密码' -ForegroundColor Yellow
-        if (-not $Password) { $Password = Read-Host '请输入分享密码' }
-        if (-not $Password) { throw '未输入密码，已取消' }
-        Set-SharePassword -Session $session -Hash $shareHash -Referer $ShareUrl -Password $Password
-        $info = Invoke-ShareApi -Uri $infoUri -Session $session -Referer $ShareUrl
-    }
-
-    if ((Find-JsonKey $info 'is_dir') -eq $true) {
-        throw '分享是目录，暂不支持下载目录'
-    }
-
-    $fileName = $null
-    if ($info.data.source.name) { $fileName = [string]$info.data.source.name }
-    elseif ($info.data.name) { $fileName = [string]$info.data.name }
-    else {
-        $nm = Find-JsonKey $info 'name'
-        if ($nm) { $fileName = [string]$nm }
-    }
-    if ($fileName) { $fileName = $fileName.TrimEnd([char[]]@(' ', '-')) }
-    if (-not $fileName) {
-        throw "无法提取文件名`nAPI 响应: $($info | ConvertTo-Json -Depth 6 -Compress)"
-    }
-    Write-Host "       文件名: $fileName" -ForegroundColor Green
-
-    $sizeHint = -1
-    $sv = $info.data.source.size
-    if ($null -eq $sv) { $sv = $info.data.size }
-    if ($null -eq $sv) { $sv = Find-JsonKey $info 'size' }
-    if ($null -ne $sv) {
-        try { $sizeHint = [long]$sv } catch { $sizeHint = -1 }
-    }
-
-    Write-Host '[2/4] 构造下载直链...'
-    $directUrl = "$API_BASE/share/content/$shareHash" + '?path=' + (ConvertTo-PathCode ("/$fileName"))
-    Write-Host '       直链已获取' -ForegroundColor Green
-
-    Write-Host '[3/4] 探测文件大小...'
-    $total = -1
-    for ($i = 0; $i -lt 2; $i++) {
-        try {
-            $total = Get-RemoteSize -Url $directUrl -Referer $ShareUrl -Session $session
-            break
-        }
-        catch {
-            $failMsg = $_.Exception.Message
-            if ($i -eq 0 -and -not $Password -and $failMsg -match '密码|password|pwd') {
-                Write-Host "       $failMsg" -ForegroundColor Yellow
-                $Password = Read-Host '请输入分享密码'
-                if ($Password) {
-                    Set-SharePassword -Session $session -Hash $shareHash -Referer $ShareUrl -Password $Password
-                    continue
-                }
-            }
-            throw "获取直链失败: $failMsg"
-        }
-    }
-    if ($total -le 0) { $total = $sizeHint }
-    if ($total -gt 0) {
-        Write-Host "       大小: $(Format-Size $total) ($total bytes)" -ForegroundColor Green
-    }
-    else {
-        Write-Host '       无法获取大小，将流式下载' -ForegroundColor Yellow
-    }
-
-    Write-Host '[4/4] 下载到桌面...'
-    $desktop = [Environment]::GetFolderPath('Desktop')
-    if (-not $desktop -or -not (Test-Path $desktop)) { throw '无法获取桌面路径' }
-    $dest = Join-Path $desktop $fileName
-    Write-Host "       保存到: $dest"
-    Save-ToFile -Url $directUrl -Referer $ShareUrl -Destination $dest -Total $total -Session $session
-
-    Write-Host ''
-    Write-Host "下载完成: $dest" -ForegroundColor Green
-    Write-Host '正在打开文件...'
-    Invoke-Item $dest
-}
-catch {
-    $failed = $true
-    Write-Host ''
-    Write-Host "错误: $($_.Exception.Message)" -ForegroundColor Red
-}
-
-Write-Host ''
-Read-Host '按 Enter 键退出' | Out-Null
-if ($failed) { exit 1 }</pre>
-            </div>
-        </div>
-    </div>
-
-    <div class="btn-group">
-        <a href="minecraft.html" class="btn magnetic-btn" data-i18n="index.btn.mc">Minecraft 相关</a>
-        <a href="study.html" class="btn magnetic-btn" data-i18n="index.btn.study">学习资源</a>
-        <a href="website.html" class="btn magnetic-btn" data-i18n="index.btn.web">网址导航</a>
-        <a href="av.html" class="btn magnetic-btn" data-i18n="index.btn.av">影音</a>
-    </div>
-</section>
-
-<footer id="about">
-    <div class="about-section">
-        <h2 class="about-section-title" data-i18n="index.about.title">关于本站</h2>
-        <div class="about-grid">
-            <div class="about-card glass-card reveal">
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="2" y1="12" x2="22" y2="12"/>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                    </svg>
-                </div>
-                <h3 data-i18n="index.about.card1.title">关于本网页</h3>
-                <p data-i18n="index.about.card1.text">本网页是 yuanzhiyuming.github.io，是 GitHub 账户 YuanZhiYuMing 的 GitHub Pages。网页采用毛玻璃设计，简约美观。</p>
-                <div class="card-visual visual-1">
-                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
-                        <defs>
-                            <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#9FB77F" stop-opacity="0.6"/>
-                                <stop offset="100%" stop-color="#526E3E" stop-opacity="0.3"/>
-                            </linearGradient>
-                        </defs>
-                        <rect width="200" height="120" fill="url(#g1)"/>
-                        <circle cx="40" cy="30" r="50" fill="rgba(255,255,255,0.08)"/>
-                        <circle cx="170" cy="90" r="40" fill="rgba(255,255,255,0.06)"/>
-                        <path d="M0 80 Q50 60 100 80 T200 80" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/>
-                        <path d="M0 90 Q60 70 120 90 T200 90" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" fill="none"/>
-                        <circle cx="100" cy="60" r="18" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
-                        <circle cx="100" cy="60" r="8" fill="rgba(255,255,255,0.2)"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="about-card glass-card reveal">
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                        <line x1="12" y1="22.08" x2="12" y2="12"/>
-                    </svg>
-                </div>
-                <h3 data-i18n="index.about.card2.title">Minecraft 板块</h3>
-                <p data-i18n="index.about.card2.text">将信息课启动 Minecraft 所要用到的全部文件进行整合，包含极域控制、多线程下载、Minecraft 游戏和资源包，专门为 SHSSIP 的信息课设计。</p>
-                <div class="card-visual visual-2">
-                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
-                        <defs>
-                            <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#A8C08C" stop-opacity="0.4"/>
-                                <stop offset="100%" stop-color="#5F7A48" stop-opacity="0.5"/>
-                            </linearGradient>
-                        </defs>
-                        <rect width="200" height="120" fill="url(#g2)"/>
-                        <rect x="20" y="20" width="28" height="28" rx="2" fill="rgba(74,222,128,0.25)" stroke="rgba(74,222,128,0.4)" stroke-width="1"/>
-                        <rect x="55" y="30" width="22" height="22" rx="2" fill="rgba(74,222,128,0.15)" stroke="rgba(74,222,128,0.3)" stroke-width="1"/>
-                        <rect x="140" y="50" width="32" height="32" rx="2" fill="rgba(74,222,128,0.2)" stroke="rgba(74,222,128,0.35)" stroke-width="1"/>
-                        <rect x="120" y="15" width="18" height="18" rx="2" fill="rgba(251,191,36,0.2)" stroke="rgba(251,191,36,0.35)" stroke-width="1"/>
-                        <rect x="80" y="70" width="24" height="24" rx="2" fill="rgba(74,222,128,0.12)" stroke="rgba(74,222,128,0.25)" stroke-width="1"/>
-                        <path d="M34 34 L34 48 L48 48" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="about-card glass-card reveal">
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                    </svg>
-                </div>
-                <h3 data-i18n="index.about.card3.title">学习资源</h3>
-                <p data-i18n="index.about.card3.text">点击“学习资源”，这里分享了 2026 初高中苏州用新教材的电子档，免费无偿分享，欢迎大家下载。</p>
-                <div class="card-visual visual-3">
-                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
-                        <defs>
-                            <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#C9BFA8" stop-opacity="0.4"/>
-                                <stop offset="100%" stop-color="#A29376" stop-opacity="0.3"/>
-                            </linearGradient>
-                        </defs>
-                        <rect width="200" height="120" fill="url(#g3)"/>
-                        <rect x="30" y="25" width="40" height="55" rx="3" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-                        <rect x="40" y="35" width="20" height="3" rx="1" fill="rgba(255,255,255,0.2)"/>
-                        <rect x="40" y="42" width="16" height="3" rx="1" fill="rgba(255,255,255,0.15)"/>
-                        <rect x="40" y="49" width="18" height="3" rx="1" fill="rgba(255,255,255,0.15)"/>
-                        <rect x="40" y="56" width="12" height="3" rx="1" fill="rgba(255,255,255,0.1)"/>
-                        <rect x="130" y="35" width="45" height="55" rx="3" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-                        <rect x="138" y="45" width="28" height="3" rx="1" fill="rgba(255,255,255,0.18)"/>
-                        <rect x="138" y="52" width="22" height="3" rx="1" fill="rgba(255,255,255,0.12)"/>
-                        <rect x="138" y="59" width="25" height="3" rx="1" fill="rgba(255,255,255,0.12)"/>
-                        <circle cx="100" cy="60" r="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
-                        <path d="M95 60 L100 65 L108 55" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="about-card glass-card reveal">
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
-                    </svg>
-                </div>
-                <h3 data-i18n="index.about.card4.title">网址导航</h3>
-                <p data-i18n="index.about.card4.text">包含了一些常用网站，如 huang1111 网盘等（持续更新中），以及 Minecraft 网页版（mcjs.link、eaglercraft.ir 和多个镜像站），一个访问不上就换另一个试试。此外还有 HTML 小游戏合集。</p>
-                <div class="card-visual visual-4">
-                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
-                        <defs>
-                            <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#8FA96F" stop-opacity="0.4"/>
-                                <stop offset="100%" stop-color="#46603A" stop-opacity="0.3"/>
-                            </linearGradient>
-                        </defs>
-                        <rect width="200" height="120" fill="url(#g4)"/>
-                        <circle cx="50" cy="60" r="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-                        <circle cx="100" cy="30" r="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-                        <circle cx="150" cy="60" r="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-                        <circle cx="100" cy="90" r="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-                        <circle cx="100" cy="60" r="10" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
-                        <line x1="50" y1="60" x2="100" y2="30" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-                        <line x1="100" y1="30" x2="150" y2="60" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-                        <line x1="150" y1="60" x2="100" y2="90" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-                        <line x1="100" y1="90" x2="50" y2="60" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-                        <line x1="50" y1="60" x2="100" y2="60" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-                        <line x1="150" y1="60" x2="100" y2="60" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="about-card glass-card reveal">
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/>
-                    </svg>
-                </div>
-                <h3 data-i18n="index.about.card5.title">极速开始</h3>
-                <p data-i18n="index.about.card5.text">近期更新了“极速开始”功能，点击下载自动下载程序，运行即可开始多线程下载，速度更快。本软件目前处于测试阶段，欢迎反馈问题。仅支持 Windows 系统，下载特定资源：Minecraft 1.21.11 精简版。</p>
-                <div class="card-visual visual-5">
-                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
-                        <defs>
-                            <linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#B5C4A5" stop-opacity="0.5"/>
-                                <stop offset="100%" stop-color="#6D8B4D" stop-opacity="0.4"/>
-                            </linearGradient>
-                        </defs>
-                        <rect width="200" height="120" fill="url(#g5)"/>
-                        <path d="M100 15 L80 65 L95 65 L85 105 L120 55 L105 55 L115 15 Z" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
-                        <line x1="30" y1="60" x2="70" y2="60" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-                        <line x1="130" y1="60" x2="170" y2="60" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-                        <line x1="50" y1="35" x2="75" y2="35" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-                        <line x1="125" y1="35" x2="150" y2="35" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-                        <line x1="50" y1="85" x2="75" y2="85" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-                        <line x1="125" y1="85" x2="150" y2="85" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-                        <circle cx="100" cy="60" r="30" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="about-card glass-card reveal">
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 18V5l12-2v13"/>
-                        <circle cx="6" cy="18" r="3"/>
-                        <circle cx="18" cy="16" r="3"/>
-                    </svg>
-                </div>
-                <h3 data-i18n="index.about.card7.title">影音</h3>
-                <p data-i18n="index.about.card7.text">点击“影音”，这里收录了精选歌曲，支持按歌曲名/歌手搜索，并可筛选类别（语种）和歌手，随时畅听下载；影视板块收录了《我的世界大电影》。</p>
-                <div class="card-visual visual-7">
-                    <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice">
-                        <defs>
-                            <linearGradient id="g7" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#93AC74" stop-opacity="0.4"/>
-                                <stop offset="100%" stop-color="#3F5730" stop-opacity="0.35"/>
-                            </linearGradient>
-                        </defs>
-                        <rect width="200" height="120" fill="url(#g7)"/>
-                        <circle cx="100" cy="60" r="34" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-                        <circle cx="100" cy="60" r="22" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
-                        <path d="M90 45 L118 60 L90 75 Z" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
-                        <line x1="30" y1="60" x2="45" y2="60" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-                        <line x1="155" y1="60" x2="170" y2="60" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-                        <circle cx="40" cy="35" r="3" fill="rgba(255,255,255,0.2)"/>
-                        <circle cx="160" cy="85" r="3" fill="rgba(255,255,255,0.15)"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <section class="feedback-section" id="feedback">
-        <h2 class="about-section-title" data-i18n="index.feedback.title">意见反馈</h2>
-        <p class="feedback-desc" data-i18n="index.feedback.desc">你的每一条反馈都会帮助网站变得更好，感谢支持！</p>
-        <form class="feedback-form" id="feedbackForm" novalidate>
-            <div class="feedback-presets" role="group" aria-label="预设问题">
-                <button type="button" class="feedback-preset" data-q="1" data-i18n="index.feedback.q1">你希望添加哪些歌曲？</button>
-                <button type="button" class="feedback-preset" data-q="2" data-i18n="index.feedback.q2">你遇到了哪些 bug？</button>
-                <button type="button" class="feedback-preset" data-q="3" data-i18n="index.feedback.q3">你希望新增什么内容？</button>
-            </div>
-            <textarea id="fbText" name="feedback" rows="5" data-i18n-placeholder="index.feedback.placeholder" placeholder="点击上方按钮快速填入问题，或直接输入你的反馈…"></textarea>
-            <button type="submit" class="feedback-submit magnetic-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4z"/></svg>
-                <span data-i18n="index.feedback.submit">提交反馈</span>
-            </button>
-        </form>
-        <p class="feedback-hint" id="feedbackHint"></p>
-    </section>
-
-    <div class="contact-bar">
-        <span class="contact-title" data-i18n="index.contact.title">联系方式</span>
-        <div class="contact-item">
-            <button class="contact-icon" type="button" aria-label="Email">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="5" width="18" height="14" rx="2"/>
-                    <path d="m3.5 7.5 8.5 6 8.5-6"/>
-                </svg>
-            </button>
-            <div class="contact-pop">
-                <span class="contact-label" data-i18n="index.contact.email">邮箱</span>
-                <span class="contact-value">stardragon86@outlook.com</span>
-                <button class="contact-copy dl-copy" type="button" data-url="stardragon86@outlook.com" aria-label="复制邮箱">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="about-footer">
-        <p data-i18n="index.footer">© 2026 YuanZhiYuMing · 站点由 <a href="https://pages.github.com/" target="_blank">Github Pages</a> 驱动</p>
-    </div>
-</footer>
-
-<!-- 右下角浮动公告 -->
-<button class="notice-float" id="noticeFloat" type="button" aria-label="查看公告">
-    <svg class="notice-float-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 11l15-5v12L3 13v-2z"/>
-        <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>
-        <line x1="2" y1="6" x2="2" y2="18"/>
-    </svg>
-    <span class="notice-float-body">
-        <span class="notice-float-title" data-i18n="index.notice.title">公告</span>
-        <span class="notice-float-date">10月31日更新</span>
-    </span>
-</button>
-
-<!-- 公告详情弹窗 -->
-<div class="notice-modal" id="noticeModal" hidden>
-    <div class="notice-modal-backdrop" id="noticeModalBackdrop"></div>
-    <div class="notice-modal-panel" role="dialog" aria-modal="true" aria-label="公告详情">
-        <button class="notice-modal-close" id="noticeModalClose" type="button" aria-label="关闭">&times;</button>
-        <h3 class="notice-modal-title" data-i18n="index.notice.title">公告</h3>
-        <p class="notice-modal-date">10月31日更新</p>
-        <div class="notice-modal-body">
-            <ul>
-                <li>自动下载器全新升级：解析更快、下载更稳，支持带密码分享链接自动重试，错误提示更清晰！</li>
-                <li>网址导航新增 ChunkBase 与 MinecraftSearch 两大 Minecraft 工具站，种子查询与方块物品百科一站直达！</li>
-                <li>本网站已全面升级，极速开始更快更简便！</li>
-                <li>网站 UI 全面升级，全新视觉风格，浏览体验更流畅！</li>
-                <li>Minecraft 整合包再次精简，体积仅 136.6 MB，下载更快、更省空间！</li>
-                <li>近期 PCL 与 HMCL 启动器受到制裁无法正常使用，现已更换为 OpenLauncher 启动器。</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
+<script type="text/javascript" src="cursor.js"></script>
 <script type="text/javascript" src="lang.js"></script>
 <script type="text/javascript" src="index.js"></script>
 </body>

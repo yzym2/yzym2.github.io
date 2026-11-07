@@ -116,7 +116,6 @@ header .lang-toggle {
 
     const LANGS = ['zh-CN', 'zh-TW', 'en'];
     const LANG_ATTRS = { 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', 'en': 'en' };
-    const LANG_SHORT = { 'zh-CN': '簡', 'zh-TW': '繁', 'en': 'EN' };
     const LANG_NAMES = { 'zh-CN': '简体中文', 'zh-TW': '繁體中文', 'en': 'English' };
     const FLAG_CN = '<span class="lang-flag">'
         + '<svg viewBox="0 0 30 30" preserveAspectRatio="xMidYMid slice">'
@@ -164,7 +163,7 @@ header .lang-toggle {
             'index.nav.mc': 'Minecraft 专区',
             'index.nav.study': '学习资源',
             'index.nav.web': '网址导航',
-            'index.nav.av': '影音',
+            'index.nav.av': '影视&音乐',
             'index.nav.guide': '新手引导',
             'index.nav.about': '关于本站',
             'index.notice': '<svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l15-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><line x1="2" y1="6" x2="2" y2="18"/></svg>\n<span><strong>下载器全新升级！</strong> 网址导航新增多个实用网站！</span>',
@@ -177,20 +176,19 @@ header .lang-toggle {
             'index.faststart': '极速开始',
             'index.fastcode.m1': '方式一',
             'index.fastcode.m2': '方式二',
-            'index.lite': '精简版',
             'index.fastcode.tip': '按住 Win+X，再按 I 打开 PowerShell，复制粘贴以下代码并运行即可',
             'index.fastcode.copy': '复制',
             'index.fastcode.copied': '已复制',
             'index.fastdownload': '点击下载 自动下载程序(Specified).exe',
-            'index.btn.mc': 'Minecraft 相关',
+            'index.btn.mc': 'Minecraft',
             'index.btn.study': '学习资源',
             'index.btn.web': '网址导航',
-            'index.btn.av': '影音',
+            'index.btn.av': '影视&音乐',
             'index.footer': '© 2026 YuanZhiYuMing · 站点由 <a href="https://pages.github.com/" target="_blank">Github Pages</a> 驱动',
 
             'index.about.title': '关于本站',
             'index.about.card1.title': '关于本网页',
-            'index.about.card1.text': '本网页是 yuanzhiyuming.github.io，是 GitHub 账户 YuanZhiYuMing 的 GitHub Pages。网页采用毛玻璃设计，简约美观。',
+            'index.about.card1.text': '本网页是 yuanzhiyuming.github.io，是 GitHub 账户 yzym2 的 GitHub Pages。网页采用毛玻璃设计，简约美观。',
             'index.about.card2.title': 'Minecraft 板块',
             'index.about.card2.text': '将信息课启动 Minecraft 所要用到的全部文件进行整合，包含极域控制、多线程下载、Minecraft 游戏和资源包，专门为 SHSSIP 的信息课设计。',
             'index.about.card3.title': '学习资源',
@@ -201,12 +199,14 @@ header .lang-toggle {
             'index.about.card5.text': '近期更新了“极速开始”功能，点击下载自动下载程序，运行即可开始多线程下载，速度更快。本软件目前处于测试阶段，欢迎反馈问题。仅支持 Windows 系统，下载特定资源：Minecraft 1.21.11 精简版。',
             'index.about.card6.title': '备用网站 & 联系',
             'index.about.card6.text': '若 github.io 不能访问请访问我的备用网站：https://yzym.netlify.app （更新不一定及时）。作者 QQ：3860517347，微信：stardragon142857',
-            'index.about.card7.title': '影音',
-            'index.about.card7.text': '点击“影音”，这里收录了精选歌曲，支持按歌曲名/歌手搜索，并可筛选类别（语种）和歌手，随时畅听下载；影视板块收录了《我的世界大电影》。',
+            'index.about.card7.title': '影视&音乐',
+            'index.about.card7.text': '点击“影视&音乐”，这里收录了精选歌曲，支持按歌曲名/歌手搜索，并可筛选类别（语种）和歌手，随时畅听下载；影视板块收录了《我的世界大电影》。',
 
             'mc.title': 'Minecraft 1.21.11 资源下载',
             'mc.subtitle': '专为学校信息课打造',
             'mc.guide': '新手引导',
+            'mc.webhint': '您是否在寻找：',
+            'mc.webhint.link': 'Minecraft 网页版',
             'mc.alert': '如果您第一次来到此网站，请务必阅读新手引导',
             'mc.f1': 'Survival-Minecraft-Tiny-OL-Fabric.7z(普通整合包)',
             'mc.f2': 'AutoParseDownloader(自动解析下载器)',
@@ -252,10 +252,11 @@ header .lang-toggle {
             'web.mctools.chunkbase': 'ChunkBase 种子与结构定位工具',
             'web.mctools.mcsearch': 'MinecraftSearch 百科与种子地图',
 
-            'av.title': '影视/歌曲下载',
+            'av.title': '影视&音乐',
             'av.subtitle': '精选歌曲 539 首',
             'av.movie.title': '影视',
             'av.search.placeholder': '搜索歌曲 / 歌手...',
+            'av.search.label': '搜索歌曲或歌手',
             'av.filter.category': '类别',
             'av.filter.artist': '歌手',
             'av.all': '全部',
@@ -479,7 +480,7 @@ header .lang-toggle {
             'index.nav.mc': 'Minecraft 專區',
             'index.nav.study': '學習資源',
             'index.nav.web': '網址導航',
-            'index.nav.av': '影音',
+            'index.nav.av': '影視&音樂',
             'index.nav.guide': '新手引導',
             'index.nav.about': '關於本站',
             'index.notice': '<svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l15-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><line x1="2" y1="6" x2="2" y2="18"/></svg>\n<span><strong>下載器全新升級！</strong> 網址導航新增多個實用網站！</span>',
@@ -492,20 +493,19 @@ header .lang-toggle {
             'index.faststart': '極速開始',
             'index.fastcode.m1': '方式一',
             'index.fastcode.m2': '方式二',
-            'index.lite': '精簡版',
             'index.fastcode.tip': '按住 Win+X，再按 I 打開 PowerShell，複製貼上以下程式碼並執行即可',
             'index.fastcode.copy': '複製',
             'index.fastcode.copied': '已複製',
             'index.fastdownload': '點擊下載 自動下載程式(Specified).exe',
-            'index.btn.mc': 'Minecraft 相關',
+            'index.btn.mc': 'Minecraft',
             'index.btn.study': '學習資源',
             'index.btn.web': '網址導航',
-            'index.btn.av': '影音',
+            'index.btn.av': '影視&音樂',
             'index.footer': '© 2026 YuanZhiYuMing · 站點由 <a href="https://pages.github.com/" target="_blank">Github Pages</a> 驅動',
 
             'index.about.title': '關於本站',
             'index.about.card1.title': '關於本網頁',
-            'index.about.card1.text': '本網頁是 yuanzhiyuming.github.io，是 GitHub 賬戶 YuanZhiYuMing 的 GitHub Pages。網頁採用毛玻璃設計，簡約美觀。',
+            'index.about.card1.text': '本網頁是 yuanzhiyuming.github.io，是 GitHub 賬戶 yzym2 的 GitHub Pages。網頁採用毛玻璃設計，簡約美觀。',
             'index.about.card2.title': 'Minecraft 板塊',
             'index.about.card2.text': '將資訊課啟動 Minecraft 所要用到的全部檔案進行整合，包含極域控制、多執行緒下載、Minecraft 遊戲和資源包，專門為 SHSSIP 的資訊課設計。',
             'index.about.card3.title': '學習資源',
@@ -516,12 +516,14 @@ header .lang-toggle {
             'index.about.card5.text': '近期更新了「極速開始」功能，點擊下載自動下載程式，執行即可開始多執行緒下載，速度更快。本軟體目前處於測試階段，歡迎回饋問題。僅支援 Windows 系統，下載特定資源：Minecraft 1.21.11 精簡版。',
             'index.about.card6.title': '備用網站 & 聯絡',
             'index.about.card6.text': '若 github.io 不能存取請存取我的備用網站：https://yzym.netlify.app （更新不一定及時）。作者 QQ：3860517347，微信：stardragon142857',
-            'index.about.card7.title': '影音',
-            'index.about.card7.text': '點擊「影音」，這裡收錄了精選歌曲，支援按歌曲名/歌手搜尋，並可篩選類別（語種）和歌手，隨時暢聽下載；影視板塊收錄了《我的世界大電影》。',
+            'index.about.card7.title': '影視&音樂',
+            'index.about.card7.text': '點擊「影視&音樂」，這裡收錄了精選歌曲，支援按歌曲名/歌手搜尋，並可篩選類別（語種）和歌手，隨時暢聽下載；影視板塊收錄了《我的世界大電影》。',
 
             'mc.title': 'Minecraft 1.21.11 資源下載',
             'mc.subtitle': '專為學校資訊課打造',
             'mc.guide': '新手引導',
+            'mc.webhint': '您是否在尋找：',
+            'mc.webhint.link': 'Minecraft 網頁版',
             'mc.alert': '如果您第一次來到此網站，請務必閱讀新手引導',
             'mc.f1': 'Survival-Minecraft-Tiny-OL-Fabric.7z(普通整合包)',
             'mc.f2': 'AutoParseDownloader(自動解析下載器)',
@@ -567,10 +569,11 @@ header .lang-toggle {
             'web.mctools.chunkbase': 'ChunkBase 種子與結構定位工具',
             'web.mctools.mcsearch': 'MinecraftSearch 百科與種子地圖',
 
-            'av.title': '影視/歌曲下載',
+            'av.title': '影視&音樂',
             'av.subtitle': '精選歌曲 539 首',
             'av.movie.title': '影視',
             'av.search.placeholder': '搜尋歌曲 / 歌手...',
+            'av.search.label': '搜尋歌曲或歌手',
             'av.filter.category': '類別',
             'av.filter.artist': '歌手',
             'av.all': '全部',
@@ -795,7 +798,7 @@ header .lang-toggle {
             'index.nav.mc': 'Minecraft',
             'index.nav.study': 'Study Resources',
             'index.nav.web': 'Site Navigation',
-            'index.nav.av': 'Media',
+            'index.nav.av': 'Movies & Music',
             'index.nav.guide': 'Beginner Guide',
             'index.nav.about': 'About',
             'index.notice': '<svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l15-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><line x1="2" y1="6" x2="2" y2="18"/></svg>\n<span><strong>Downloader upgraded!</strong> New useful sites added to the website directory!</span>',
@@ -808,7 +811,6 @@ header .lang-toggle {
             'index.faststart': 'Quick Start',
             'index.fastcode.m1': 'Method 1',
             'index.fastcode.m2': 'Method 2',
-            'index.lite': 'Lite Version',
             'index.fastcode.tip': 'Press Win+X, then I to open PowerShell. Copy, paste, and run the code below',
             'index.fastcode.copy': 'Copy',
             'index.fastcode.copied': 'Copied',
@@ -816,12 +818,12 @@ header .lang-toggle {
             'index.btn.mc': 'Minecraft',
             'index.btn.study': 'Study Resources',
             'index.btn.web': 'Site Navigation',
-            'index.btn.av': 'Media',
+            'index.btn.av': 'Movies & Music',
             'index.footer': '© 2026 YuanZhiYuMing · Powered by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>',
 
             'index.about.title': 'About This Site',
             'index.about.card1.title': 'About This Site',
-            'index.about.card1.text': 'This site is yuanzhiyuming.github.io, the GitHub Pages of the GitHub account YuanZhiYuMing. The site uses a glassmorphism design — clean and elegant.',
+            'index.about.card1.text': 'This site is yuanzhiyuming.github.io, the GitHub Pages of the GitHub account yzym2. The site uses a glassmorphism design — clean and elegant.',
             'index.about.card2.title': 'Minecraft Section',
             'index.about.card2.text': 'Integrates all files needed to launch Minecraft in IT class, including JiYuTrainer (classroom control bypass), multi-thread download, the Minecraft game and resource packs — designed specifically for SHSSIP IT classes.',
             'index.about.card3.title': 'Study Resources',
@@ -832,12 +834,14 @@ header .lang-toggle {
             'index.about.card5.text': 'Recently added the "Quick Start" feature — click to download the auto-downloader, run it to start multi-thread downloading at higher speeds. This software is currently in beta; feedback is welcome. Windows only; downloads a specific resource: Minecraft 1.21.11 slim edition.',
             'index.about.card6.title': 'Backup Site & Contact',
             'index.about.card6.text': 'If github.io is inaccessible, visit my backup site: https://yzym.netlify.app (updates may be delayed). Author QQ: 3860517347, WeChat: stardragon142857',
-            'index.about.card7.title': 'Media',
-            'index.about.card7.text': 'Click "Media" to find a curated collection of songs — searchable by title/artist and filterable by category (language) and artist, ready to listen and download. The video section features "A Minecraft Movie".',
+            'index.about.card7.title': 'Movies & Music',
+            'index.about.card7.text': 'Click "Movies & Music" to find a curated collection of songs — searchable by title/artist and filterable by category (language) and artist, ready to listen and download. The video section features "A Minecraft Movie".',
 
             'mc.title': 'Minecraft 1.21.11 Downloads',
             'mc.subtitle': 'Built for school IT classes',
             'mc.guide': 'Beginner Guide',
+            'mc.webhint': 'Looking for:',
+            'mc.webhint.link': 'Minecraft Web Version',
             'mc.alert': 'If this is your first visit, please read the Beginner Guide.',
             'mc.f1': 'Survival-Minecraft-Tiny-OL-Fabric.7z (Standard Pack)',
             'mc.f2': 'AutoParseDownloader (Auto Parse Downloader)',
@@ -883,10 +887,11 @@ header .lang-toggle {
             'web.mctools.chunkbase': 'ChunkBase Seed & Structure Tools',
             'web.mctools.mcsearch': 'MinecraftSearch Wiki & Seed Map',
 
-            'av.title': 'Movies/Song Downloads',
+            'av.title': 'Movies & Music',
             'av.subtitle': '539 curated songs',
             'av.movie.title': 'Videos',
             'av.search.placeholder': 'Search songs / artists...',
+            'av.search.label': 'Search songs or artists',
             'av.filter.category': 'Category',
             'av.filter.artist': 'Artist',
             'av.all': 'All',
@@ -1227,30 +1232,13 @@ header .lang-toggle {
         }, 1200);
     }
 
-    function fallbackCopy(text) {
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        let ok = false;
-        try { ok = document.execCommand('copy'); } catch (e) {}
-        document.body.removeChild(ta);
-        return ok;
-    }
-
     document.addEventListener('click', function(e) {
         const btn = e.target.closest('.dl-copy');
         if (!btn) return;
         const url = btn.getAttribute('data-url') || '';
         if (!url) return;
         if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(url).then(function() { flashCopied(btn); }, function() {
-                if (fallbackCopy(url)) flashCopied(btn);
-            });
-        } else if (fallbackCopy(url)) {
-            flashCopied(btn);
+            navigator.clipboard.writeText(url).then(function() { flashCopied(btn); }, function() {});
         }
     });
 })();

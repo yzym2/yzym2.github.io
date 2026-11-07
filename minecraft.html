@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <base target="_blank">
 </head>
-<body class="page-minecraft">
+<body class="page-minecraft" data-cursor-hover="a, button, .back-btn, .lang-toggle, .file-item, .download-btn, .guide-btn">
 <!-- 自定义光标 -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-outline" id="cursorOutline"></div>
@@ -31,8 +31,13 @@
     <p class="subtitle" data-i18n="mc.subtitle">专为学校信息课打造</p>
     <ul class="file-list" id="fileList"></ul>
     <a href="guide.html" class="guide-btn magnetic-btn" data-i18n="mc.guide">新手引导</a>
+    <p class="mc-web-hint">
+        <span data-i18n="mc.webhint">您是否在寻找：</span>
+        <a href="website.html" data-i18n="mc.webhint.link">Minecraft 网页版</a>
+    </p>
 </div>
 
+<script src="cursor.js"></script>
 <script src="lang.js"></script>
 <script src="minecraft.js"></script>
 </body>
