@@ -4,31 +4,31 @@
   }else if(typeof module!='undefined'&&module.exports){
     module.exports = factory();
   }else{
-    var o = factory();
-    for(var i in o){
+    const o = factory();
+    for(const i in o){
       root[i] = o[i];
     }
   }
 })(this,function(){
-  var Solar = (function(){
-    var _fromDate = function(date){
+  const Solar = (function(){
+    const _fromDate = function(date){
       return _fromYmdHms(date.getFullYear(),date.getMonth()+1,date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds());
     };
-    var _fromJulianDay = function(julianDay){
-      var d = Math.floor(julianDay + 0.5);
-      var f = julianDay + 0.5 - d;
-      var c;
+    const _fromJulianDay = function(julianDay){
+      let d = Math.floor(julianDay + 0.5);
+      let f = julianDay + 0.5 - d;
+      let c;
 
       if (d >= 2299161) {
         c = Math.floor((d - 1867216.25) / 36524.25);
         d += 1 + c - Math.floor(c / 4);
       }
       d += 1524;
-      var year = Math.floor((d - 122.1) / 365.25);
+      let year = Math.floor((d - 122.1) / 365.25);
       d -= Math.floor(365.25 * year);
-      var month = Math.floor(d / 30.601);
+      let month = Math.floor(d / 30.601);
       d -= Math.floor(30.601 * month);
-      var day = d;
+      let day = d;
       if (month > 13) {
         month -= 13;
         year -= 4715;
@@ -37,15 +37,15 @@
         year -= 4716;
       }
       f *= 24;
-      var hour = Math.floor(f);
+      let hour = Math.floor(f);
 
       f -= hour;
       f *= 60;
-      var minute = Math.floor(f);
+      let minute = Math.floor(f);
 
       f -= minute;
       f *= 60;
-      var second = Math.round(f);
+      let second = Math.round(f);
       if(second>59){
         second-=60;
         minute++;
@@ -60,13 +60,13 @@
       }
       return _fromYmdHms(year,month,day,hour,minute,second);
     };
-    var _fromYmdHms = function(y,m,d,hour,minute,second){
-      var oy = y;
-      var om = m;
-      var od = d;
-      var oh = hour;
-      var oi = minute;
-      var os = second;
+    const _fromYmdHms = function(y,m,d,hour,minute,second){
+      const oy = y;
+      const om = m;
+      const od = d;
+      const oh = hour;
+      const oi = minute;
+      const os = second;
       y *= 1;
       if(isNaN(y)){
         throw new Error('wrong solar year '+oy);
@@ -124,10 +124,10 @@
           return SolarUtil.getDaysBetween(solar.getYear(), solar.getMonth(), solar.getDay(), this._p.year, this._p.month, this._p.day);
         },
         subtractMinute:function(solar){
-          var days = this.subtract(solar);
-          var cm = this._p.hour * 60 + this._p.minute;
-          var sm = solar.getHour() * 60 + solar.getMinute();
-          var m = cm - sm;
+          let days = this.subtract(solar);
+          const cm = this._p.hour * 60 + this._p.minute;
+          const sm = solar.getHour() * 60 + solar.getMinute();
+          let m = cm - sm;
           if (m < 0) {
             m += 1440;
             days--;
@@ -236,13 +236,13 @@
           return SolarUtil.isLeapYear(this._p.year);
         },
         getFestivals:function(){
-          var l = [];
-          var f = SolarUtil.FESTIVAL[this._p.month+'-'+this._p.day];
+          const l = [];
+          let f = SolarUtil.FESTIVAL[this._p.month+'-'+this._p.day];
           if(f){
             l.push(f);
           }
-          var weeks = Math.ceil(this._p.day/7);
-          var week = this.getWeek();
+          const weeks = Math.ceil(this._p.day/7);
+          const week = this.getWeek();
           f = SolarUtil.WEEK_FESTIVAL[this._p.month+'-'+weeks+'-'+week];
           if(f){
             l.push(f);
@@ -256,8 +256,8 @@
           return l;
         },
         getOtherFestivals:function(){
-          var l=[];
-          var fs=SolarUtil.OTHER_FESTIVAL[this._p.month+'-'+this._p.day];
+          let l=[];
+          const fs=SolarUtil.OTHER_FESTIVAL[this._p.month+'-'+this._p.day];
           if(fs){
             l=l.concat(fs);
           }
@@ -267,8 +267,8 @@
           return this.getXingZuo();
         },
         getXingZuo:function(){
-          var index = 11;
-          var y = this._p.month*100+this._p.day;
+          let index = 11;
+          const y = this._p.month*100+this._p.day;
           if (y >= 321 && y <= 419) {
             index = 0;
           } else if (y >= 420 && y <= 520) {
@@ -295,9 +295,9 @@
           return SolarUtil.XINGZUO[index];
         },
         toYmd:function(){
-          var m = this._p.month;
-          var d = this._p.day;
-          var y = this._p.year + '';
+          const m = this._p.month;
+          const d = this._p.day;
+          let y = this._p.year + '';
           while (y.length < 4) {
             y = '0' + y;
           }
@@ -310,27 +310,27 @@
           return this.toYmd();
         },
         toFullString:function(){
-          var s = this.toYmdHms();
+          let s = this.toYmdHms();
           if(this.isLeapYear()){
             s += ' 闰年';
           }
           s += ' 星期'+this.getWeekInChinese();
-          var festivals = this.getFestivals();
-          for(var i=0,j=festivals.length;i<j;i++){
+          const festivals = this.getFestivals();
+          for(let i=0,j=festivals.length;i<j;i++){
             s += ' ('+festivals[i]+')';
           }
           s += ' '+this.getXingZuo()+'座';
           return s;
         },
         nextYear:function(years){
-          var oy = years;
+          const oy = years;
           years *= 1;
           if (isNaN(years)) {
             throw new Error('wrong years ' + oy);
           }
-          var y = this._p.year + years;
-          var m = this._p.month;
-          var d = this._p.day;
+          const y = this._p.year + years;
+          const m = this._p.month;
+          let d = this._p.day;
           if (1582 === y && 10 === m) {
             if (d > 4 && d < 15) {
               d += 10;
@@ -345,21 +345,21 @@
           return _fromYmdHms(y, m, d, this._p.hour, this._p.minute, this._p.second);
         },
         nextMonth:function(months){
-          var om = months;
+          const om = months;
           months *= 1;
           if (isNaN(months)) {
             throw new Error('wrong months ' + om);
           }
-          var month = SolarMonth.fromYm(this._p.year, this._p.month).next(months);
-          var y = month.getYear();
-          var m = month.getMonth();
-          var d = this._p.day;
+          const month = SolarMonth.fromYm(this._p.year, this._p.month).next(months);
+          const y = month.getYear();
+          const m = month.getMonth();
+          let d = this._p.day;
           if (1582 === y && 10 === m) {
             if (d > 4 && d < 15) {
               d += 10;
             }
           } else {
-            var maxDay = SolarUtil.getDaysOfMonth(y, m);
+            const maxDay = SolarUtil.getDaysOfMonth(y, m);
             if (d > maxDay) {
               d = maxDay;
             }
@@ -367,14 +367,14 @@
           return _fromYmdHms(y, m, d, this._p.hour, this._p.minute, this._p.second);
         },
         nextDay:function(days){
-          var od = days;
+          const od = days;
           days *= 1;
           if (isNaN(days)) {
             throw new Error('wrong days ' + od);
           }
-          var y = this._p.year;
-          var m = this._p.month;
-          var d = this._p.day;
+          let y = this._p.year;
+          let m = this._p.month;
+          let d = this._p.day;
           if (1582 === y && 10 === m) {
             if (d > 4) {
               d -= 10
@@ -382,7 +382,7 @@
           }
           if (days > 0) {
             d += days;
-            var daysInMonth = SolarUtil.getDaysOfMonth(y, m);
+            let daysInMonth = SolarUtil.getDaysOfMonth(y, m);
             while (d > daysInMonth) {
               d -= daysInMonth;
               m++;
@@ -411,21 +411,21 @@
           return _fromYmdHms(y, m, d, this._p.hour, this._p.minute, this._p.second);
         },
         nextWorkday:function(days){
-          var od = days;
+          const od = days;
           days *= 1;
           if (isNaN(days)) {
             throw new Error('wrong days ' + od);
           }
-          var solar = _fromYmdHms(this._p.year, this._p.month, this._p.day, this._p.hour, this._p.minute, this._p.second);
+          let solar = _fromYmdHms(this._p.year, this._p.month, this._p.day, this._p.hour, this._p.minute, this._p.second);
           if (days !== 0) {
-            var rest = Math.abs(days);
-            var add = days < 1 ? -1 : 1;
+            let rest = Math.abs(days);
+            const add = days < 1 ? -1 : 1;
             while (rest > 0) {
               solar = solar.next(add);
-              var work = true;
-              var holiday = HolidayUtil.getHoliday(solar.getYear(), solar.getMonth(), solar.getDay());
+              let work = true;
+              const holiday = HolidayUtil.getHoliday(solar.getYear(), solar.getMonth(), solar.getDay());
               if (!holiday) {
-                var week = solar.getWeek();
+                const week = solar.getWeek();
                 if (0 === week || 6 === week) {
                   work = false;
                 }
@@ -446,32 +446,32 @@
           return this.nextDay(days);
         },
         nextHour:function(hours){
-          var oh = hours;
+          const oh = hours;
           hours *= 1;
           if (isNaN(hours)) {
             throw new Error('wrong hours ' + oh);
           }
-          var h = this._p.hour + hours;
-          var n = h < 0 ? -1 : 1;
-          var hour = Math.abs(h);
-          var days = Math.floor(hour / 24) * n;
+          const h = this._p.hour + hours;
+          const n = h < 0 ? -1 : 1;
+          let hour = Math.abs(h);
+          let days = Math.floor(hour / 24) * n;
           hour = (hour % 24) * n;
           if (hour < 0) {
             hour += 24;
             days--;
           }
-          var solar = this.next(days);
+          const solar = this.next(days);
           return _fromYmdHms(solar.getYear(), solar.getMonth(), solar.getDay(), hour, solar.getMinute(), solar.getSecond());
         },
         getLunar:function(){
           return Lunar.fromSolar(this);
         },
         getJulianDay:function(){
-          var y = this._p.year;
-          var m = this._p.month;
-          var d = this._p.day + ((this._p.second / 60 + this._p.minute) / 60 + this._p.hour) / 24;
-          var n = 0;
-          var g = false;
+          let y = this._p.year;
+          let m = this._p.month;
+          const d = this._p.day + ((this._p.second / 60 + this._p.minute) / 60 + this._p.hour) / 24;
+          let n = 0;
+          let g = false;
           if (y * 372 + m * 31 + Math.floor(d) >= 588829) {
             g = true;
           }
@@ -498,7 +498,7 @@
           if (this._p.month === 10 && this._p.day >= 1 && this._p.day <= 3) {
             return 3;
           }
-          var lunar = this.getLunar();
+          const lunar = this.getLunar();
           // 春节
           if (lunar.getMonth() === 1 && lunar.getDay() >= 1 && lunar.getDay() <= 3) {
             return 3;
@@ -515,7 +515,7 @@
           if ('清明' === lunar.getJieQi()) {
             return 3;
           }
-          var holiday = HolidayUtil.getHoliday(this._p.year, this._p.month, this._p.day);
+          const holiday = HolidayUtil.getHoliday(this._p.year, this._p.month, this._p.day);
           if (holiday) {
             // 法定假日非上班
             if (!holiday.isWork()) {
@@ -523,7 +523,7 @@
             }
           } else {
             // 周末
-            var week = this.getWeek();
+            const week = this.getWeek();
             if (week === 6 || week === 0) {
               return 2;
             }
@@ -533,7 +533,7 @@
         }
       };
     };
-    var _fromBaZi=function(yearGanZhi,monthGanZhi,dayGanZhi,timeGanZhi,sect,baseYear){
+    const _fromBaZi=function(yearGanZhi,monthGanZhi,dayGanZhi,timeGanZhi,sect,baseYear){
       sect *= 1;
       if(isNaN(sect)){
         sect = 2;
@@ -545,9 +545,9 @@
       if(isNaN(baseYear)){
         baseYear = 1900;
       }
-      var l = [];
+      const l = [];
       // 月地支距寅月的偏移值
-      var m = LunarUtil.index(monthGanZhi.substring(1), LunarUtil.ZHI, -1) - 2;
+      let m = LunarUtil.index(monthGanZhi.substring(1), LunarUtil.ZHI, -1) - 2;
       if (m < 0) {
         m += 12;
       }
@@ -556,7 +556,7 @@
         return l;
       }
       // 1年的立春是辛酉，序号57
-      var y = LunarUtil.getJiaZiIndex(yearGanZhi) - 57;
+      let y = LunarUtil.getJiaZiIndex(yearGanZhi) - 57;
       if (y < 0) {
         y += 60;
       }
@@ -564,27 +564,27 @@
       // 节令偏移值
       m *= 2;
       // 时辰地支转时刻，子时按零点算
-      var h = LunarUtil.index(timeGanZhi.substring(1), LunarUtil.ZHI, -1) * 2;
-      var hours = [h];
+      const h = LunarUtil.index(timeGanZhi.substring(1), LunarUtil.ZHI, -1) * 2;
+      let hours = [h];
       if (0 === h && 2 === sect) {
         hours = [0, 23];
       }
-      var startYear = baseYear - 1;
+      const startYear = baseYear - 1;
 
       // 结束年
-      var endYear = new Date().getFullYear();
+      const endYear = new Date().getFullYear();
 
       while (y <= endYear) {
         if (y >= startYear) {
           // 立春为寅月的开始
-          var jieQiLunar = Lunar.fromYmd(y, 1, 1);
-          var jieQiList = jieQiLunar.getJieQiList();
-          var jieQiTable = jieQiLunar.getJieQiTable();
+          const jieQiLunar = Lunar.fromYmd(y, 1, 1);
+          const jieQiList = jieQiLunar.getJieQiList();
+          const jieQiTable = jieQiLunar.getJieQiTable();
           // 节令推移，年干支和月干支就都匹配上了
-          var solarTime = jieQiTable[jieQiList[4 + m]];
+          let solarTime = jieQiTable[jieQiList[4 + m]];
           if (solarTime.getYear() >= baseYear) {
             // 日干支和节令干支的偏移值
-            var d = LunarUtil.getJiaZiIndex(dayGanZhi) - LunarUtil.getJiaZiIndex(solarTime.getLunar().getDayInGanZhiExact2());
+            let d = LunarUtil.getJiaZiIndex(dayGanZhi) - LunarUtil.getJiaZiIndex(solarTime.getLunar().getDayInGanZhiExact2());
             if (d < 0) {
               d += 60;
             }
@@ -592,22 +592,22 @@
               // 从节令推移天数
               solarTime = solarTime.next(d);
             }
-            for (var i = 0, j = hours.length; i < j; i++) {
-              var hour = hours[i];
-              var mi = 0;
-              var s = 0;
+            for (let i = 0, j = hours.length; i < j; i++) {
+              const hour = hours[i];
+              let mi = 0;
+              let s = 0;
               if (d === 0 && hour === solarTime.getHour()) {
                 // 如果正好是节令当天，且小时和节令的小时数相等的极端情况，把分钟和秒钟带上
                 mi = solarTime.getMinute();
                 s = solarTime.getSecond();
               }
               // 验证一下
-              var solar = Solar.fromYmdHms(solarTime.getYear(), solarTime.getMonth(), solarTime.getDay(), hour, mi, s);
+              let solar = Solar.fromYmdHms(solarTime.getYear(), solarTime.getMonth(), solarTime.getDay(), hour, mi, s);
               if (d === 30) {
                 solar = solar.nextHour(-1);
               }
-              var lunar = solar.getLunar();
-              var dgz = (2 === sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
+              const lunar = solar.getLunar();
+              const dgz = (2 === sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
               if (lunar.getYearInGanZhiExact() === yearGanZhi && lunar.getMonthInGanZhiExact() === monthGanZhi && dgz === dayGanZhi && lunar.getTimeInGanZhi() === timeGanZhi) {
                 l.push(solar);
               }
@@ -627,22 +627,22 @@
       fromBaZi:function(yearGanZhi,monthGanZhi,dayGanZhi,timeGanZhi,sect,baseYear){return _fromBaZi(yearGanZhi,monthGanZhi,dayGanZhi,timeGanZhi,sect,baseYear);}
     };
   })();
-  var Lunar = (function(){
-    var _computeJieQi = function(o,ly) {
+  const Lunar = (function(){
+    const _computeJieQi = function(o,ly) {
       o['jieQiList'] = [];
       o['jieQi'] = {};
-      var julianDays = ly.getJieQiJulianDays();
-      for (var i = 0, j = LunarUtil.JIE_QI_IN_USE.length; i < j; i++) {
-        var key = LunarUtil.JIE_QI_IN_USE[i];
+      const julianDays = ly.getJieQiJulianDays();
+      for (let i = 0, j = LunarUtil.JIE_QI_IN_USE.length; i < j; i++) {
+        const key = LunarUtil.JIE_QI_IN_USE[i];
         o['jieQiList'].push(key);
         o['jieQi'][key] = Solar.fromJulianDay(julianDays[i]);
       }
     };
-    var _computeYear = function(o,solar,year){
+    const _computeYear = function(o,solar,year){
       //以正月初一开始
-      var offset = year - 4;
-      var yearGanIndex = offset % 10;
-      var yearZhiIndex = offset % 12;
+      const offset = year - 4;
+      let yearGanIndex = offset % 10;
+      let yearZhiIndex = offset % 12;
 
       if (yearGanIndex < 0) {
         yearGanIndex += 10;
@@ -653,24 +653,24 @@
       }
 
       //以立春作为新一年的开始的干支纪年
-      var g = yearGanIndex;
-      var z = yearZhiIndex;
+      let g = yearGanIndex;
+      let z = yearZhiIndex;
 
       //精确的干支纪年，以立春交接时刻为准
-      var gExact = yearGanIndex;
-      var zExact = yearZhiIndex;
+      let gExact = yearGanIndex;
+      let zExact = yearZhiIndex;
 
-      var solarYear = solar.getYear();
-      var solarYmd = solar.toYmd();
-      var solarYmdHms = solar.toYmdHms();
+      const solarYear = solar.getYear();
+      const solarYmd = solar.toYmd();
+      const solarYmdHms = solar.toYmdHms();
 
       //获取立春的阳历时刻
-      var liChun = o['jieQi'][I18n.getMessage('jq.liChun')];
+      let liChun = o['jieQi'][I18n.getMessage('jq.liChun')];
       if (liChun.getYear() !== solarYear) {
         liChun = o['jieQi']['LI_CHUN'];
       }
-      var liChunYmd = liChun.toYmd();
-      var liChunYmdHms = liChun.toYmdHms();
+      const liChunYmd = liChun.toYmd();
+      const liChunYmdHms = liChun.toYmdHms();
 
       //阳历和阴历年份相同代表正月初一及以后
       if(year===solarYear){
@@ -702,25 +702,25 @@
       o['yearGanIndexExact'] = (gExact<0?gExact+10:gExact)%10;
       o['yearZhiIndexExact'] = (zExact<0?zExact+12:zExact)%12;
     };
-    var _computeMonth = function(o,solar){
-      var start = null;
-      var i;
-      var end;
-      var size = LunarUtil.JIE_QI_IN_USE.length;
+    const _computeMonth = function(o,solar){
+      let start = null;
+      let i;
+      let end;
+      const size = LunarUtil.JIE_QI_IN_USE.length;
 
       //序号：大雪以前-3，大雪到小寒之间-2，小寒到立春之间-1，立春之后0
-      var index = -3;
+      let index = -3;
       for(i=0;i<size;i+=2){
         end = o.jieQi[LunarUtil.JIE_QI_IN_USE[i]];
-        var ymd = solar.toYmd();
-        var symd = null==start?ymd:start.toYmd();
+        const ymd = solar.toYmd();
+        const symd = null==start?ymd:start.toYmd();
         if(ymd>=symd&&ymd<end.toYmd()){
           break;
         }
         start = end;
         index++;
       }
-      var offset = (((o.yearGanIndexByLiChun+(index<0?1:0)) % 5 + 1) * 2) % 10;
+      let offset = (((o.yearGanIndexByLiChun+(index<0?1:0)) % 5 + 1) * 2) % 10;
       o['monthGanIndex'] = ((index<0?index+10:index) + offset) % 10;
       o['monthZhiIndex'] = ((index<0?index+12:index) + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12;
 
@@ -728,8 +728,8 @@
       index = -3;
       for(i=0;i<size;i+=2){
         end = o.jieQi[LunarUtil.JIE_QI_IN_USE[i]];
-        var time = solar.toYmdHms();
-        var stime = null==start?time:start.toYmdHms();
+        const time = solar.toYmdHms();
+        const stime = null==start?time:start.toYmdHms();
         if(time>=stime&&time<end.toYmdHms()){
           break;
         }
@@ -740,19 +740,19 @@
       o['monthGanIndexExact'] = ((index<0?index+10:index) + offset) % 10;
       o['monthZhiIndexExact'] = ((index<0?index+12:index) + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12;
     };
-    var _computeDay = function(o,solar,hour,minute){
-      var noon = Solar.fromYmdHms(solar.getYear(), solar.getMonth(), solar.getDay(), 12, 0, 0);
-      var offset = Math.floor(noon.getJulianDay()) - 11;
-      var dayGanIndex = offset % 10;
-      var dayZhiIndex = offset % 12;
+    const _computeDay = function(o,solar,hour,minute){
+      const noon = Solar.fromYmdHms(solar.getYear(), solar.getMonth(), solar.getDay(), 12, 0, 0);
+      const offset = Math.floor(noon.getJulianDay()) - 11;
+      const dayGanIndex = offset % 10;
+      const dayZhiIndex = offset % 12;
 
       o['dayGanIndex'] = dayGanIndex;
       o['dayZhiIndex'] = dayZhiIndex;
-      var dayGanExact = dayGanIndex;
-      var dayZhiExact = dayZhiIndex;
+      let dayGanExact = dayGanIndex;
+      let dayZhiExact = dayZhiIndex;
       o['dayGanIndexExact2'] = dayGanExact;
       o['dayZhiIndexExact2'] = dayZhiExact;
-      var hm = (hour<10?'0':'')+hour+':'+(minute<10?'0':'')+minute;
+      const hm = (hour<10?'0':'')+hour+':'+(minute<10?'0':'')+minute;
       if(hm>='23:00'&&hm<='23:59'){
         dayGanExact++;
         if(dayGanExact>=10){
@@ -766,16 +766,16 @@
       o['dayGanIndexExact'] = dayGanExact;
       o['dayZhiIndexExact'] = dayZhiExact;
     };
-    var _computeTime = function(o,hour,minute){
-      var timeZhiIndex = LunarUtil.getTimeZhiIndex((hour<10?'0':'')+hour+':'+(minute<10?'0':'')+minute);
+    const _computeTime = function(o,hour,minute){
+      const timeZhiIndex = LunarUtil.getTimeZhiIndex((hour<10?'0':'')+hour+':'+(minute<10?'0':'')+minute);
       o['timeZhiIndex'] = timeZhiIndex;
       o['timeGanIndex'] = (o['dayGanIndexExact']%5*2+timeZhiIndex)%10;
     };
-    var _computeWeek = function(o,solar){
+    const _computeWeek = function(o,solar){
       o['weekIndex'] = solar.getWeek();
     };
-    var _compute = function(year,hour,minute,second,solar,ly){
-      var o = {};
+    const _compute = function(year,hour,minute,_second,solar,ly){
+      const o = {};
       _computeJieQi(o, ly);
       _computeYear(o, solar, year);
       _computeMonth(o, solar);
@@ -784,15 +784,15 @@
       _computeWeek(o, solar);
       return o;
     };
-    var _fromSolar = function(solar){
-      var lunarYear = 0;
-      var lunarMonth = 0;
-      var lunarDay = 0;
-      var ly = LunarYear.fromYear(solar.getYear());
-      var lms = ly.getMonths();
-      for (var i = 0, j = lms.length; i < j; i++) {
-        var m = lms[i];
-        var days = solar.subtract(Solar.fromJulianDay(m.getFirstJulianDay()));
+    const _fromSolar = function(solar){
+      let lunarYear = 0;
+      let lunarMonth = 0;
+      let lunarDay = 0;
+      const ly = LunarYear.fromYear(solar.getYear());
+      const lms = ly.getMonths();
+      for (let i = 0, j = lms.length; i < j; i++) {
+        const m = lms[i];
+        const days = solar.subtract(Solar.fromJulianDay(m.getFirstJulianDay()));
         if (days < m.getDayCount()) {
           lunarYear = m.getYear();
           lunarMonth = m.getMonth();
@@ -802,16 +802,16 @@
       }
       return _new(lunarYear, lunarMonth, lunarDay, solar.getHour(), solar.getMinute(), solar.getSecond(), solar, ly);
     };
-    var _fromDate = function(date){
+    const _fromDate = function(date){
       return _fromSolar(Solar.fromDate(date));
     };
-    var _fromYmdHms = function(lunarYear,lunarMonth,lunarDay,hour,minute,second) {
-      var oy = lunarYear;
-      var om = lunarMonth;
-      var od = lunarDay;
-      var oh = hour;
-      var oi = minute;
-      var os = second;
+    const _fromYmdHms = function(lunarYear,lunarMonth,lunarDay,hour,minute,second) {
+      const oy = lunarYear;
+      const om = lunarMonth;
+      const od = lunarDay;
+      const oh = hour;
+      const oi = minute;
+      const os = second;
       lunarYear *= 1;
       if(isNaN(lunarYear)){
         throw new Error('wrong lunar year '+oy);
@@ -845,27 +845,27 @@
       if(second<0||second>59){
         throw new Error('wrong second '+second);
       }
-      var y = LunarYear.fromYear(lunarYear);
-      var m = y.getMonth(lunarMonth);
+      let y = LunarYear.fromYear(lunarYear);
+      const m = y.getMonth(lunarMonth);
       if (null == m) {
         throw new Error('wrong lunar year '+lunarYear+' month '+lunarMonth);
       }
       if (lunarDay < 1) {
         throw new Error('lunar day must bigger than 0');
       }
-      var days = m.getDayCount();
+      const days = m.getDayCount();
       if (lunarDay > days) {
         throw new Error('only '+days+' days in lunar year '+lunarYear+' month '+lunarMonth);
       }
-      var noon = Solar.fromJulianDay(m.getFirstJulianDay() + lunarDay - 1);
-      var solar = Solar.fromYmdHms(noon.getYear(), noon.getMonth(), noon.getDay(), hour, minute, second);
+      const noon = Solar.fromJulianDay(m.getFirstJulianDay() + lunarDay - 1);
+      const solar = Solar.fromYmdHms(noon.getYear(), noon.getMonth(), noon.getDay(), hour, minute, second);
       if (noon.getYear() !== lunarYear) {
         y = LunarYear.fromYear(noon.getYear());
       }
       return _new(lunarYear, lunarMonth, lunarDay, hour, minute, second, solar, y);
     };
-    var _new = function(year,month,day,hour,minute,second,solar,ly){
-      var gz = _compute(year,hour,minute,second,solar,ly);
+    const _new = function(year,month,day,hour,minute,second,solar,ly){
+      const gz = _compute(year,hour,minute,second,solar,ly);
       return {
         _p:{
           lang: I18n.getLanguage(),
@@ -961,16 +961,16 @@
         getDayShengXiao:function(){return LunarUtil.SHENGXIAO[this._p.dayZhiIndex+1];},
         getTimeShengXiao:function(){return LunarUtil.SHENGXIAO[this._p.timeZhiIndex+1];},
         getYearInChinese:function(){
-          var y = this._p.year+'';
-          var s = '';
-          var zero = '0'.charCodeAt(0);
-          for(var i=0,j=y.length;i<j;i++){
+          const y = this._p.year+'';
+          let s = '';
+          const zero = '0'.charCodeAt(0);
+          for(let i=0,j=y.length;i<j;i++){
             s+=LunarUtil.NUMBER[y.charCodeAt(i)-zero];
           }
           return s;
         },
         getMonthInChinese:function(){
-          var month = this._p.month;
+          const month = this._p.month;
           return (month<0?'闰':'')+LunarUtil.MONTH[Math.abs(month)];
         },
         getDayInChinese:function(){
@@ -1073,8 +1073,8 @@
           return LunarUtil.POSITION_DESC[this.getTimePositionCai()];
         },
         getDayPositionTaiSui:function(sect){
-          var dayInGanZhi;
-          var yearZhiIndex;
+          let dayInGanZhi;
+          let yearZhiIndex;
           switch (sect) {
             case 1:
               dayInGanZhi = this.getDayInGanZhi();
@@ -1088,7 +1088,7 @@
               dayInGanZhi = this.getDayInGanZhiExact2();
               yearZhiIndex = this._p.yearZhiIndexByLiChun;
           }
-          var p;
+          let p;
           if ([I18n.getMessage('jz.jiaZi'), I18n.getMessage('jz.yiChou'), I18n.getMessage('jz.bingYin'), I18n.getMessage('jz.dingMao'), I18n.getMessage('jz.wuChen'), I18n.getMessage('jz.jiSi')].join(',').indexOf(dayInGanZhi) > -1) {
             p = I18n.getMessage('bg.zhen');
           } else if ([I18n.getMessage('jz.bingZi'), I18n.getMessage('jz.dingChou'), I18n.getMessage('jz.wuYin'), I18n.getMessage('jz.jiMao'), I18n.getMessage('jz.gengChen'), I18n.getMessage('jz.xinSi')].join(',').indexOf(dayInGanZhi) > -1) {
@@ -1108,8 +1108,8 @@
           return LunarUtil.POSITION_DESC[this.getDayPositionTaiSui(sect)];
         },
         getMonthPositionTaiSui:function(sect){
-          var monthZhiIndex;
-          var monthGanIndex;
+          let monthZhiIndex;
+          let monthGanIndex;
           switch (sect) {
             case 3:
               monthZhiIndex = this._p.monthZhiIndexExact;
@@ -1119,7 +1119,7 @@
               monthZhiIndex = this._p.monthZhiIndex;
               monthGanIndex = this._p.monthGanIndex;
           }
-          var m = monthZhiIndex - LunarUtil.BASE_MONTH_ZHI_INDEX;
+          let m = monthZhiIndex - LunarUtil.BASE_MONTH_ZHI_INDEX;
           if (m < 0) {
             m += 12;
           }
@@ -1129,7 +1129,7 @@
           return LunarUtil.POSITION_DESC[this.getMonthPositionTaiSui(sect)];
         },
         getYearPositionTaiSui:function(sect){
-          var yearZhiIndex;
+          let yearZhiIndex;
           switch (sect) {
             case 1:
               yearZhiIndex = this._p.yearZhiIndex;
@@ -1146,12 +1146,12 @@
           return LunarUtil.POSITION_DESC[this.getYearPositionTaiSui(sect)];
         },
         _checkLang:function(){
-          var lang = I18n.getLanguage();
+          const lang = I18n.getLanguage();
           if (this._p.lang !== lang) {
-            for (var i = 0, j = LunarUtil.JIE_QI_IN_USE.length; i < j; i++) {
-              var newKey = LunarUtil.JIE_QI_IN_USE[i];
-              var oldKey = this._p.jieQiList[i];
-              var value = this._p.jieQi[oldKey];
+            for (let i = 0, j = LunarUtil.JIE_QI_IN_USE.length; i < j; i++) {
+              const newKey = LunarUtil.JIE_QI_IN_USE[i];
+              const oldKey = this._p.jieQiList[i];
+              const value = this._p.jieQi[oldKey];
               this._p.jieQiList[i] = newKey;
               this._p.jieQi[newKey] = value;
             }
@@ -1190,8 +1190,8 @@
           return LunarUtil.CHONG_GAN_TIE[this._p.dayGanIndex];
         },
         getDayChongShengXiao:function(){
-          var chong = this.getChong();
-          for(var i=0,j=LunarUtil.ZHI.length;i<j;i++){
+          const chong = this.getChong();
+          for(let i=0,j=LunarUtil.ZHI.length;i<j;i++){
             if(LunarUtil.ZHI[i]===chong){
               return LunarUtil.SHENGXIAO[i];
             }
@@ -1214,8 +1214,8 @@
           return LunarUtil.CHONG_GAN_TIE[this._p.timeGanIndex];
         },
         getTimeChongShengXiao:function(){
-          var chong = this.getTimeChong();
-          for(var i=0,j=LunarUtil.ZHI.length;i<j;i++){
+          const chong = this.getTimeChong();
+          for(let i=0,j=LunarUtil.ZHI.length;i<j;i++){
             if(LunarUtil.ZHI[i]===chong){
               return LunarUtil.SHENGXIAO[i];
             }
@@ -1244,7 +1244,7 @@
           return LunarUtil.SEASON[Math.abs(this._p.month)];
         },
         _convertJieQi:function(name){
-          var jq = name;
+          let jq = name;
           if ('DONG_ZHI' === jq) {
             jq = I18n.getMessage('jq.dongZhi');
           } else if ('DA_HAN' === jq) {
@@ -1263,9 +1263,9 @@
           return jq;
         },
         getJie:function(){
-          for(var i=0, j=LunarUtil.JIE_QI_IN_USE.length; i<j; i+=2){
-            var key = LunarUtil.JIE_QI_IN_USE[i];
-            var d = this._getJieQiSolar(key);
+          for(let i=0, j=LunarUtil.JIE_QI_IN_USE.length; i<j; i+=2){
+            const key = LunarUtil.JIE_QI_IN_USE[i];
+            const d = this._getJieQiSolar(key);
             if(d.getYear() === this._p.solar.getYear() && d.getMonth() === this._p.solar.getMonth() && d.getDay() === this._p.solar.getDay()){
               return this._convertJieQi(key);
             }
@@ -1273,9 +1273,9 @@
           return '';
         },
         getQi:function(){
-          for(var i=1, j=LunarUtil.JIE_QI_IN_USE.length; i<j; i+=2){
-            var key = LunarUtil.JIE_QI_IN_USE[i];
-            var d = this._getJieQiSolar(key);
+          for(let i=1, j=LunarUtil.JIE_QI_IN_USE.length; i<j; i+=2){
+            const key = LunarUtil.JIE_QI_IN_USE[i];
+            const d = this._getJieQiSolar(key);
             if(d.getYear() === this._p.solar.getYear() && d.getMonth() === this._p.solar.getMonth() && d.getDay() === this._p.solar.getDay()){
               return this._convertJieQi(key);
             }
@@ -1283,8 +1283,8 @@
           return '';
         },
         getJieQi:function(){
-          for(var key in this._p.jieQi){
-            var d = this._getJieQiSolar(key);
+          for(const key in this._p.jieQi){
+            const d = this._getJieQiSolar(key);
             if(d.getYear() === this._p.solar.getYear() && d.getMonth() === this._p.solar.getMonth() && d.getDay() === this._p.solar.getDay()){
               return this._convertJieQi(key);
             }
@@ -1319,8 +1319,8 @@
           return LunarUtil.SHOU[this.getGong()];
         },
         getFestivals:function(){
-          var l = [];
-          var f = LunarUtil.FESTIVAL[this._p.month+'-'+this._p.day];
+          const l = [];
+          const f = LunarUtil.FESTIVAL[this._p.month+'-'+this._p.day];
           if(f){
             l.push(f);
           }
@@ -1330,18 +1330,18 @@
           return l;
         },
         getOtherFestivals:function(){
-          var l=[];
-          var fs=LunarUtil.OTHER_FESTIVAL[this._p.month+'-'+this._p.day];
+          let l=[];
+          const fs=LunarUtil.OTHER_FESTIVAL[this._p.month+'-'+this._p.day];
           if(fs){
             l=l.concat(fs);
           }
-          var solarYmd = this._p.solar.toYmd();
+          const solarYmd = this._p.solar.toYmd();
           if(this._p.solar.toYmd() === this._getJieQiSolar(I18n.getMessage('jq.qingMing')).next(-1).toYmd()){
             l.push('寒食节');
           }
 
-          var jq = this._getJieQiSolar(I18n.getMessage('jq.liChun'));
-          var offset = 4 - jq.getLunar().getDayGanIndex();
+          let jq = this._getJieQiSolar(I18n.getMessage('jq.liChun'));
+          let offset = 4 - jq.getLunar().getDayGanIndex();
           if (offset < 0) {
             offset += 10;
           }
@@ -1360,8 +1360,8 @@
           return l;
         },
         getBaZi:function(){
-          var bz = this.getEightChar();
-          var l = [];
+          const bz = this.getEightChar();
+          const l = [];
           l.push(bz.getYear());
           l.push(bz.getMonth());
           l.push(bz.getDay());
@@ -1369,8 +1369,8 @@
           return l;
         },
         getBaZiWuXing:function(){
-          var bz = this.getEightChar();
-          var l = [];
+          const bz = this.getEightChar();
+          const l = [];
           l.push(bz.getYearWuXing());
           l.push(bz.getMonthWuXing());
           l.push(bz.getDayWuXing());
@@ -1378,8 +1378,8 @@
           return l;
         },
         getBaZiNaYin:function(){
-          var bz = this.getEightChar();
-          var l = [];
+          const bz = this.getEightChar();
+          const l = [];
           l.push(bz.getYearNaYin());
           l.push(bz.getMonthNaYin());
           l.push(bz.getDayNaYin());
@@ -1387,8 +1387,8 @@
           return l;
         },
         getBaZiShiShenGan:function(){
-          var bz = this.getEightChar();
-          var l = [];
+          const bz = this.getEightChar();
+          const l = [];
           l.push(bz.getYearShiShenGan());
           l.push(bz.getMonthShiShenGan());
           l.push(bz.getDayShiShenGan());
@@ -1396,8 +1396,8 @@
           return l;
         },
         getBaZiShiShenZhi:function(){
-          var bz = this.getEightChar();
-          var l = [];
+          const bz = this.getEightChar();
+          const l = [];
           l.push(bz.getYearShiShenZhi()[0]);
           l.push(bz.getMonthShiShenZhi()[0]);
           l.push(bz.getDayShiShenZhi()[0]);
@@ -1417,20 +1417,20 @@
           return this.getEightChar().getTimeShiShenZhi();
         },
         getZhiXing:function(){
-          var offset = this._p.dayZhiIndex-this._p.monthZhiIndex;
+          let offset = this._p.dayZhiIndex-this._p.monthZhiIndex;
           if(offset<0){
             offset += 12;
           }
           return LunarUtil.ZHI_XING[offset+1];
         },
         getDayTianShen:function(){
-          var monthZhi = this.getMonthZhi();
-          var offset = LunarUtil.ZHI_TIAN_SHEN_OFFSET[monthZhi];
+          const monthZhi = this.getMonthZhi();
+          const offset = LunarUtil.ZHI_TIAN_SHEN_OFFSET[monthZhi];
           return LunarUtil.TIAN_SHEN[(this._p.dayZhiIndex+offset)%12+1];
         },
         getTimeTianShen:function(){
-          var dayZhi = this.getDayZhiExact();
-          var offset = LunarUtil.ZHI_TIAN_SHEN_OFFSET[dayZhi];
+          const dayZhi = this.getDayZhiExact();
+          const offset = LunarUtil.ZHI_TIAN_SHEN_OFFSET[dayZhi];
           return LunarUtil.TIAN_SHEN[(this._p.timeZhiIndex+offset)%12+1];
         },
         getDayTianShenType:function(){
@@ -1449,7 +1449,7 @@
           return LunarUtil.POSITION_TAI_DAY[LunarUtil.getJiaZiIndex(this.getDayInGanZhi())];
         },
         getMonthPositionTai:function(){
-          var m = this._p.month;
+          const m = this._p.month;
           if(m<0){
             return '';
           }
@@ -1485,23 +1485,23 @@
           return LunarUtil.YUE_XIANG[this._p.day];
         },
         _getYearNineStar:function(yearInGanZhi){
-          var indexExact = LunarUtil.getJiaZiIndex(yearInGanZhi) + 1;
-          var index = LunarUtil.getJiaZiIndex(this.getYearInGanZhi()) + 1;
-          var yearOffset = indexExact - index;
+          const indexExact = LunarUtil.getJiaZiIndex(yearInGanZhi) + 1;
+          const index = LunarUtil.getJiaZiIndex(this.getYearInGanZhi()) + 1;
+          let yearOffset = indexExact - index;
           if (yearOffset > 1) {
             yearOffset -= 60;
           } else if (yearOffset < -1) {
             yearOffset += 60;
           }
-          var yuan = Math.floor((this._p.year + yearOffset + 2696) / 60) % 3;
-          var offset = (62 + yuan * 3 - indexExact) % 9;
+          const yuan = Math.floor((this._p.year + yearOffset + 2696) / 60) % 3;
+          let offset = (62 + yuan * 3 - indexExact) % 9;
           if(0 === offset){
             offset = 9;
           }
           return NineStar.fromIndex(offset - 1);
         },
         getYearNineStar:function(sect){
-          var yearInGanZhi;
+          let yearInGanZhi;
           switch (sect) {
             case 1:
               yearInGanZhi = this.getYearInGanZhi();
@@ -1515,8 +1515,8 @@
           return this._getYearNineStar(yearInGanZhi);
         },
         getMonthNineStar:function(sect){
-          var yearZhiIndex;
-          var monthZhiIndex;
+          let yearZhiIndex;
+          let monthZhiIndex;
           switch (sect) {
             case 1:
               yearZhiIndex = this._p.yearZhiIndex;
@@ -1530,42 +1530,42 @@
               yearZhiIndex = this._p.yearZhiIndexByLiChun;
               monthZhiIndex = this._p.monthZhiIndex;
           }
-          var n = 27 - (yearZhiIndex % 3 * 3);
+          let n = 27 - (yearZhiIndex % 3 * 3);
           if (monthZhiIndex < LunarUtil.BASE_MONTH_ZHI_INDEX) {
             n -= 3;
           }
           return NineStar.fromIndex((n - monthZhiIndex) % 9);
         },
         getDayNineStar:function(){
-          var solarYmd = this._p.solar.toYmd();
-          var dongZhi = this._getJieQiSolar(I18n.getMessage('jq.dongZhi'));
-          var dongZhi2 = this._getJieQiSolar('DONG_ZHI');
-          var xiaZhi = this._getJieQiSolar(I18n.getMessage('jq.xiaZhi'));
-          var dongZhiIndex = LunarUtil.getJiaZiIndex(dongZhi.getLunar().getDayInGanZhi());
-          var dongZhiIndex2 = LunarUtil.getJiaZiIndex(dongZhi2.getLunar().getDayInGanZhi());
-          var xiaZhiIndex = LunarUtil.getJiaZiIndex(xiaZhi.getLunar().getDayInGanZhi());
-          var solarShunBai;
-          var solarShunBai2;
-          var solarNiZi;
+          const solarYmd = this._p.solar.toYmd();
+          const dongZhi = this._getJieQiSolar(I18n.getMessage('jq.dongZhi'));
+          const dongZhi2 = this._getJieQiSolar('DONG_ZHI');
+          const xiaZhi = this._getJieQiSolar(I18n.getMessage('jq.xiaZhi'));
+          const dongZhiIndex = LunarUtil.getJiaZiIndex(dongZhi.getLunar().getDayInGanZhi());
+          const dongZhiIndex2 = LunarUtil.getJiaZiIndex(dongZhi2.getLunar().getDayInGanZhi());
+          const xiaZhiIndex = LunarUtil.getJiaZiIndex(xiaZhi.getLunar().getDayInGanZhi());
+          let solarShunBai;
+          let solarShunBai2;
+          let solarNiZi;
           if (dongZhiIndex>29) {
             solarShunBai = dongZhi.next(60 - dongZhiIndex);
           } else {
             solarShunBai = dongZhi.next(-dongZhiIndex);
           }
-          var solarShunBaiYmd = solarShunBai.toYmd();
+          const solarShunBaiYmd = solarShunBai.toYmd();
           if (dongZhiIndex2>29) {
             solarShunBai2 = dongZhi2.next(60 - dongZhiIndex2);
           } else {
             solarShunBai2 = dongZhi2.next(-dongZhiIndex2);
           }
-          var solarShunBaiYmd2 = solarShunBai2.toYmd();
+          const solarShunBaiYmd2 = solarShunBai2.toYmd();
           if (xiaZhiIndex>29) {
             solarNiZi = xiaZhi.next(60 - xiaZhiIndex);
           } else {
             solarNiZi = xiaZhi.next(-xiaZhiIndex);
           }
-          var solarNiZiYmd = solarNiZi.toYmd();
-          var offset = 0;
+          const solarNiZiYmd = solarNiZi.toYmd();
+          let offset = 0;
           if (solarYmd >= solarShunBaiYmd && solarYmd < solarNiZiYmd) {
             offset = this._p.solar.subtract(solarShunBai) % 9;
           } else if (solarYmd >= solarNiZiYmd && solarYmd < solarShunBaiYmd2){
@@ -1578,15 +1578,15 @@
           return NineStar.fromIndex(offset);
         },
         getTimeNineStar:function(){
-          var solarYmd = this._p.solar.toYmd();
-          var asc = false;
+          const solarYmd = this._p.solar.toYmd();
+          let asc = false;
           if((solarYmd >= this._getJieQiSolar(I18n.getMessage('jq.dongZhi')).toYmd() && solarYmd < this._getJieQiSolar(I18n.getMessage('jq.xiaZhi')).toYmd()) || solarYmd >= this._getJieQiSolar('DONG_ZHI').toYmd()){
             asc = true;
           }
-          var offset = asc ? [0, 3, 6] : [8, 5, 2];
-          var start = offset[this.getDayZhiIndex() % 3];
-          var timeZhiIndex = this.getTimeZhiIndex();
-          var index = asc ? (start + timeZhiIndex) : (start + 9 - timeZhiIndex);
+          const offset = asc ? [0, 3, 6] : [8, 5, 2];
+          const start = offset[this.getDayZhiIndex() % 3];
+          const timeZhiIndex = this.getTimeZhiIndex();
+          const index = asc ? (start + timeZhiIndex) : (start + 9 - timeZhiIndex);
           return NineStar.fromIndex(index % 9);
         },
         getSolar:function(){
@@ -1600,29 +1600,29 @@
           return this._p.jieQiList;
         },
         getNextJie:function(wholeDay){
-          var conditions = [];
-          for(var i=0,j=LunarUtil.JIE_QI_IN_USE.length/2;i<j;i++){
+          const conditions = [];
+          for(let i=0,j=LunarUtil.JIE_QI_IN_USE.length/2;i<j;i++){
             conditions.push(LunarUtil.JIE_QI_IN_USE[i*2]);
           }
           return this._getNearJieQi(true, conditions, wholeDay);
         },
         getPrevJie:function(wholeDay) {
-          var conditions = [];
-          for (var i = 0, j = LunarUtil.JIE_QI_IN_USE.length / 2; i < j; i++) {
+          const conditions = [];
+          for (let i = 0, j = LunarUtil.JIE_QI_IN_USE.length / 2; i < j; i++) {
             conditions.push(LunarUtil.JIE_QI_IN_USE[i * 2]);
           }
           return this._getNearJieQi(false, conditions, wholeDay);
         },
         getNextQi:function(wholeDay) {
-          var conditions = [];
-          for (var i = 0, j = LunarUtil.JIE_QI_IN_USE.length / 2; i < j; i++) {
+          const conditions = [];
+          for (let i = 0, j = LunarUtil.JIE_QI_IN_USE.length / 2; i < j; i++) {
             conditions.push(LunarUtil.JIE_QI_IN_USE[i * 2 + 1]);
           }
           return this._getNearJieQi(true, conditions, wholeDay);
         },
         getPrevQi:function(wholeDay) {
-          var conditions = [];
-          for (var i = 0, j = LunarUtil.JIE_QI_IN_USE.length / 2; i < j; i++) {
+          const conditions = [];
+          for (let i = 0, j = LunarUtil.JIE_QI_IN_USE.length / 2; i < j; i++) {
             conditions.push(LunarUtil.JIE_QI_IN_USE[i * 2 + 1]);
           }
           return this._getNearJieQi(false, conditions, wholeDay);
@@ -1630,9 +1630,9 @@
         getNextJieQi:function(wholeDay){return this._getNearJieQi(true, null, wholeDay);},
         getPrevJieQi:function(wholeDay){return this._getNearJieQi(false, null, wholeDay);},
         _buildJieQi:function(name, solar){
-          var jie=false;
-          var qi=false;
-          for(var i=0,j=LunarUtil.JIE_QI.length;i<j;i++){
+          let jie=false;
+          let qi=false;
+          for(let i=0,j=LunarUtil.JIE_QI.length;i<j;i++){
             if(LunarUtil.JIE_QI[i]===name){
               if(i%2===0){
                 qi = true;
@@ -1659,26 +1659,26 @@
           };
         },
         _getNearJieQi:function(forward, conditions, wholeDay){
-          var name = null;
-          var near = null;
-          var filters = {};
-          var filter = false;
+          let name = null;
+          let near = null;
+          const filters = {};
+          let filter = false;
           if(null!=conditions){
-            for(var i=0,j=conditions.length;i<j;i++){
+            for(let i=0,j=conditions.length;i<j;i++){
               filters[conditions[i]] = true;
               filter = true;
             }
           }
-          var today = this._p.solar[wholeDay ? 'toYmd' : 'toYmdHms']();
-          for(var key in this._p.jieQi){
-            var jq = this._convertJieQi(key);
+          const today = this._p.solar[wholeDay ? 'toYmd' : 'toYmdHms']();
+          for(const key in this._p.jieQi){
+            const jq = this._convertJieQi(key);
             if(filter){
               if(!filters[jq]){
                 continue;
               }
             }
-            var solar = this._getJieQiSolar(key);
-            var day = solar[wholeDay ? 'toYmd' : 'toYmdHms']();
+            const solar = this._getJieQiSolar(key);
+            const day = solar[wholeDay ? 'toYmd' : 'toYmdHms']();
             if(forward){
               if(day<=today){
                 continue;
@@ -1703,8 +1703,8 @@
           return this._buildJieQi(name, near);
         },
         getCurrentJieQi:function(){
-          for(var key in this._p.jieQi){
-            var d = this._getJieQiSolar(key);
+          for(const key in this._p.jieQi){
+            const d = this._getJieQiSolar(key);
             if(d.getYear() === this._p.solar.getYear() && d.getMonth() === this._p.solar.getMonth() && d.getDay() === this._p.solar.getDay()){
               return this._buildJieQi(this._convertJieQi(key), d);
             }
@@ -1712,9 +1712,9 @@
           return null;
         },
         getCurrentJie:function(){
-          for(var i=0, j=LunarUtil.JIE_QI_IN_USE.length; i<j; i+=2){
-            var key = LunarUtil.JIE_QI_IN_USE[i];
-            var d = this._getJieQiSolar(key);
+          for(let i=0, j=LunarUtil.JIE_QI_IN_USE.length; i<j; i+=2){
+            const key = LunarUtil.JIE_QI_IN_USE[i];
+            const d = this._getJieQiSolar(key);
             if(d.getYear() === this._p.solar.getYear() && d.getMonth() === this._p.solar.getMonth() && d.getDay() === this._p.solar.getDay()){
               return this._buildJieQi(this._convertJieQi(key), d);
             }
@@ -1722,9 +1722,9 @@
           return null;
         },
         getCurrentQi:function(){
-          for(var i=1, j=LunarUtil.JIE_QI_IN_USE.length; i<j; i+=2){
-            var key = LunarUtil.JIE_QI_IN_USE[i];
-            var d = this._getJieQiSolar(key);
+          for(let i=1, j=LunarUtil.JIE_QI_IN_USE.length; i<j; i+=2){
+            const key = LunarUtil.JIE_QI_IN_USE[i];
+            const d = this._getJieQiSolar(key);
             if(d.getYear() === this._p.solar.getYear() && d.getMonth() === this._p.solar.getMonth() && d.getDay() === this._p.solar.getDay()){
               return this._buildJieQi(this._convertJieQi(key), d);
             }
@@ -1798,16 +1798,16 @@
           return this.getYearInChinese()+'年'+this.getMonthInChinese()+'月'+this.getDayInChinese();
         },
         toFullString:function(){
-          var s = this.toString();
+          let s = this.toString();
           s += ' '+this.getYearInGanZhi()+'('+this.getYearShengXiao()+')年';
           s += ' '+this.getMonthInGanZhi()+'('+this.getMonthShengXiao()+')月';
           s += ' '+this.getDayInGanZhi()+'('+this.getDayShengXiao()+')日';
           s += ' '+this.getTimeZhi()+'('+this.getTimeShengXiao()+')时';
           s += ' 纳音['+this.getYearNaYin()+' '+this.getMonthNaYin()+' '+this.getDayNaYin()+' '+this.getTimeNaYin()+']';
           s += ' 星期'+this.getWeekInChinese();
-          var festivals = this.getFestivals();
-          var i;
-          var j;
+          let festivals = this.getFestivals();
+          let i;
+          let j;
           for(i=0,j=festivals.length;i<j;i++){
             s += ' ('+festivals[i]+')';
           }
@@ -1815,7 +1815,7 @@
           for(i=0,j=festivals.length;i<j;i++){
             s += ' ('+festivals[i]+')';
           }
-          var jq = this.getJieQi();
+          const jq = this.getJieQi();
           if(jq.length>0){
             s += ' ['+jq+']';
           }
@@ -1846,28 +1846,28 @@
           };
         },
         getShuJiu:function(){
-          var currentDay = Solar.fromYmd(this._p.solar.getYear(), this._p.solar.getMonth(), this._p.solar.getDay());
-          var start = this._getJieQiSolar('DONG_ZHI');
-          var startDay = Solar.fromYmd(start.getYear(), start.getMonth(), start.getDay());
+          const currentDay = Solar.fromYmd(this._p.solar.getYear(), this._p.solar.getMonth(), this._p.solar.getDay());
+          let start = this._getJieQiSolar('DONG_ZHI');
+          let startDay = Solar.fromYmd(start.getYear(), start.getMonth(), start.getDay());
           if (currentDay.isBefore(startDay)) {
             start = this._getJieQiSolar(I18n.getMessage('jq.dongZhi'));
             startDay = Solar.fromYmd(start.getYear(), start.getMonth(), start.getDay());
           }
-          var endDay = Solar.fromYmd(start.getYear(), start.getMonth(), start.getDay()).next(81);
+          const endDay = Solar.fromYmd(start.getYear(), start.getMonth(), start.getDay()).next(81);
           if (currentDay.isBefore(startDay) || (!currentDay.isBefore(endDay))) {
             return null;
           }
-          var days = currentDay.subtract(startDay);
+          const days = currentDay.subtract(startDay);
           return this._buildNameAndIndex(LunarUtil.NUMBER[Math.floor(days / 9) + 1] + '九', days % 9 + 1);
         },
         getFu:function(){
-          var currentDay = Solar.fromYmd(this._p.solar.getYear(), this._p.solar.getMonth(), this._p.solar.getDay());
-          var xiaZhi = this._getJieQiSolar(I18n.getMessage('jq.xiaZhi'));
-          var liQiu = this._getJieQiSolar(I18n.getMessage('jq.liQiu'));
-          var startDay = Solar.fromYmd(xiaZhi.getYear(), xiaZhi.getMonth(), xiaZhi.getDay());
+          const currentDay = Solar.fromYmd(this._p.solar.getYear(), this._p.solar.getMonth(), this._p.solar.getDay());
+          const xiaZhi = this._getJieQiSolar(I18n.getMessage('jq.xiaZhi'));
+          const liQiu = this._getJieQiSolar(I18n.getMessage('jq.liQiu'));
+          let startDay = Solar.fromYmd(xiaZhi.getYear(), xiaZhi.getMonth(), xiaZhi.getDay());
 
           // 第1个庚日
-          var add = 6 - xiaZhi.getLunar().getDayGanIndex();
+          let add = 6 - xiaZhi.getLunar().getDayGanIndex();
           if (add < 0) {
             add += 10;
           }
@@ -1880,7 +1880,7 @@
             return null;
           }
 
-          var days = currentDay.subtract(startDay);
+          let days = currentDay.subtract(startDay);
           if (days < 10) {
             return this._buildNameAndIndex('初伏', days + 1);
           }
@@ -1896,7 +1896,7 @@
           // 第5个庚日，中伏第11天或末伏第1天
           startDay = startDay.next(10);
 
-          var liQiuDay = Solar.fromYmd(liQiu.getYear(),liQiu.getMonth(),liQiu.getDay());
+          const liQiuDay = Solar.fromYmd(liQiu.getYear(),liQiu.getMonth(),liQiu.getDay());
 
           days = currentDay.subtract(startDay);
           // 末伏
@@ -1918,31 +1918,31 @@
           return LunarUtil.LIU_YAO[(Math.abs(this._p.month)+this._p.day-2)%6];
         },
         getWuHou:function(){
-          var jieQi = this.getPrevJieQi(true);
-          var jq = LunarUtil.find(jieQi.getName(), LunarUtil.JIE_QI);
-          var current = Solar.fromYmd(this._p.solar.getYear(),this._p.solar.getMonth(),this._p.solar.getDay());
-          var startSolar = jieQi.getSolar();
-          var start = Solar.fromYmd(startSolar.getYear(),startSolar.getMonth(),startSolar.getDay());
-          var index = Math.floor(current.subtract(start) / 5);
+          const jieQi = this.getPrevJieQi(true);
+          const jq = LunarUtil.find(jieQi.getName(), LunarUtil.JIE_QI);
+          const current = Solar.fromYmd(this._p.solar.getYear(),this._p.solar.getMonth(),this._p.solar.getDay());
+          const startSolar = jieQi.getSolar();
+          const start = Solar.fromYmd(startSolar.getYear(),startSolar.getMonth(),startSolar.getDay());
+          let index = Math.floor(current.subtract(start) / 5);
           if (index > 2) {
             index = 2;
           }
           return LunarUtil.WU_HOU[(jq.index * 3 + index) % LunarUtil.WU_HOU.length];
         },
         getHou:function(){
-          var jieQi = this.getPrevJieQi(true);
-          var days = this._p.solar.subtract(jieQi.getSolar());
-          var max = LunarUtil.HOU.length - 1;
-          var offset = Math.floor(days / 5);
+          const jieQi = this.getPrevJieQi(true);
+          const days = this._p.solar.subtract(jieQi.getSolar());
+          const max = LunarUtil.HOU.length - 1;
+          let offset = Math.floor(days / 5);
           if (offset > max) {
             offset = max;
           }
           return jieQi.getName() + ' ' + LunarUtil.HOU[offset];
         },
         getDayLu:function(){
-          var gan = LunarUtil.LU[this.getDayGan()];
-          var zhi = LunarUtil.LU[this.getDayZhi()];
-          var lu = gan + '命互禄';
+          const gan = LunarUtil.LU[this.getDayGan()];
+          const zhi = LunarUtil.LU[this.getDayZhi()];
+          let lu = gan + '命互禄';
           if (zhi) {
             lu += ' ' + zhi + '命进禄';
           }
@@ -1952,9 +1952,9 @@
           return LunarTime.fromYmdHms(this._p.year, this._p.month, this._p.day, this._p.hour, this._p.minute, this._p.second);
         },
         getTimes:function(){
-          var l = [];
+          const l = [];
           l.push(LunarTime.fromYmdHms(this._p.year, this._p.month, this._p.day, 0, 0, 0));
-          for(var i = 0; i < 12; i++){
+          for(let i = 0; i < 12; i++){
             l.push(LunarTime.fromYmdHms(this._p.year, this._p.month, this._p.day, (i+1)*2-1, 0, 0));
           }
           return l;
@@ -1970,15 +1970,15 @@
       fromDate:function(date){return _fromDate(date);}
     };
   })();
-  var SolarWeek = (function(){
-    var _fromDate = function(date,start){
-      var solar = Solar.fromDate(date);
+  const SolarWeek = (function(){
+    const _fromDate = function(date,start){
+      const solar = Solar.fromDate(date);
       return _fromYmd(solar.getYear(),solar.getMonth(), solar.getDay(), start);
     };
-    var _fromYmd = function(y,m,d,start){
-      var oy = y;
-      var om = m;
-      var od = d;
+    const _fromYmd = function(y,m,d,start){
+      const oy = y;
+      const om = m;
+      const od = d;
       y *= 1;
       if(isNaN(y)){
         throw new Error('wrong solar year '+oy);
@@ -2019,7 +2019,7 @@
          * @return number 周序号，从1开始
          */
         getIndex:function(){
-          var offset = Solar.fromYmd(this._p.year,this._p.month,1).getWeek() - this._p.start;
+          let offset = Solar.fromYmd(this._p.year,this._p.month,1).getWeek() - this._p.start;
           if(offset < 0) {
             offset += 7;
           }
@@ -2030,7 +2030,7 @@
          * @return number 周序号，从1开始
          */
         getIndexInYear:function(){
-          var offset = Solar.fromYmd(this._p.year,1,1).getWeek() - this._p.start;
+          let offset = Solar.fromYmd(this._p.year,1,1).getWeek() - this._p.start;
           if(offset < 0) {
             offset += 7;
           }
@@ -2043,30 +2043,30 @@
          * @return object 推移后的阳历周
          */
         next: function (weeks, separateMonth) {
-          var ow = weeks;
+          const ow = weeks;
           weeks *= 1;
           if(isNaN(weeks)){
             throw new Error('wrong weeks ' + ow);
           }
-          var start = this._p.start;
+          const start = this._p.start;
           if (0 === weeks) {
             return _fromYmd(this._p.year, this._p.month, this._p.day, start);
           }
-          var solar = Solar.fromYmd(this._p.year, this._p.month, this._p.day);
+          let solar = Solar.fromYmd(this._p.year, this._p.month, this._p.day);
           if (separateMonth) {
-            var n = weeks;
-            var week = _fromYmd(this._p.year, this._p.month, this._p.day, start);
-            var month = this._p.month;
-            var plus = n > 0;
+            let n = weeks;
+            let week = _fromYmd(this._p.year, this._p.month, this._p.day, start);
+            let month = this._p.month;
+            const plus = n > 0;
             while (0 !== n) {
               solar = solar.next(plus ? 7 : -7);
               week = _fromYmd(solar.getYear(), solar.getMonth(), solar.getDay(), start);
-              var weekMonth = week.getMonth();
+              let weekMonth = week.getMonth();
               if (month !== weekMonth) {
-                var index = week.getIndex();
+                const index = week.getIndex();
                 if (plus) {
                   if (1 === index) {
-                    var firstDay = week.getFirstDay();
+                    const firstDay = week.getFirstDay();
                     week = _fromYmd(firstDay.getYear(), firstDay.getMonth(), firstDay.getDay(), start);
                     weekMonth = week.getMonth();
                   } else {
@@ -2074,9 +2074,9 @@
                     week = _fromYmd(solar.getYear(), solar.getMonth(), solar.getDay(), start);
                   }
                 } else {
-                  var size = SolarUtil.getWeeksOfMonth(week.getYear(), week.getMonth(), start);
+                  const size = SolarUtil.getWeeksOfMonth(week.getYear(), week.getMonth(), start);
                   if (size === index) {
-                    var lastDay = week.getFirstDay().next(6);
+                    const lastDay = week.getFirstDay().next(6);
                     week = _fromYmd(lastDay.getYear(), lastDay.getMonth(), lastDay.getDay(), start);
                     weekMonth = week.getMonth();
                   } else {
@@ -2099,8 +2099,8 @@
          * @return object 本周第一天的阳历日期
          */
         getFirstDay:function(){
-          var solar = Solar.fromYmd(this._p.year, this._p.month, this._p.day);
-          var prev = solar.getWeek() - this._p.start;
+          const solar = Solar.fromYmd(this._p.year, this._p.month, this._p.day);
+          let prev = solar.getWeek() - this._p.start;
           if(prev < 0){
             prev += 7;
           }
@@ -2111,9 +2111,9 @@
          * @return object 本周第一天的阳历日期
          */
         getFirstDayInMonth:function(){
-          var index = 0;
-          var days = this.getDays();
-          for(var i = 0;i<days.length;i++){
+          let index = 0;
+          const days = this.getDays();
+          for(let i = 0;i<days.length;i++){
             if(this._p.month===days[i].getMonth()){
               index = i;
               break;
@@ -2126,10 +2126,10 @@
          * @return Array 本周的阳历日期列表
          */
         getDays:function(){
-          var firstDay = this.getFirstDay();
-          var l = [];
+          const firstDay = this.getFirstDay();
+          const l = [];
           l.push(firstDay);
-          for(var i = 1;i<7;i++){
+          for(let i = 1;i<7;i++){
             l.push(firstDay.next(i));
           }
           return l;
@@ -2139,10 +2139,10 @@
          * @return Array 本周的阳历日期列表（仅限当月）
          */
         getDaysInMonth:function(){
-          var days = this.getDays();
-          var l = [];
-          for(var i = 0;i<days.length;i++){
-            var day = days[i];
+          const days = this.getDays();
+          const l = [];
+          for(let i = 0;i<days.length;i++){
+            const day = days[i];
             if(this._p.month!==day.getMonth()){
               continue;
             }
@@ -2177,14 +2177,14 @@
       fromDate:function(date,start){return _fromDate(date,start);}
     };
   })();
-  var SolarMonth = (function(){
-    var _fromDate = function(date){
-      var solar = Solar.fromDate(date);
+  const SolarMonth = (function(){
+    const _fromDate = function(date){
+      const solar = Solar.fromDate(date);
       return _fromYm(solar.getYear(),solar.getMonth());
     };
-    var _fromYm = function(y,m){
-      var oy = y;
-      var om = m;
+    const _fromYm = function(y,m){
+      const oy = y;
+      const om = m;
       y *= 1;
       if(isNaN(y)){
         throw new Error('wrong solar year '+oy);
@@ -2205,14 +2205,14 @@
           return this._p.month;
         },
         next:function(months){
-          var om = months;
+          const om = months;
           months *= 1;
           if(isNaN(months)){
             throw new Error('wrong months ' + om);
           }
-          var n = months < 0 ? -1 : 1;
-          var m = Math.abs(months);
-          var y = this._p.year + Math.floor(m / 12) * n;
+          const n = months < 0 ? -1 : 1;
+          let m = Math.abs(months);
+          let y = this._p.year + Math.floor(m / 12) * n;
           m = this._p.month + m % 12 * n;
           if (m > 12) {
             m -= 12;
@@ -2224,11 +2224,11 @@
           return _fromYm(y, m);
         },
         getDays:function(){
-          var l = [];
-          var d = Solar.fromYmd(this._p.year,this._p.month,1);
+          const l = [];
+          const d = Solar.fromYmd(this._p.year,this._p.month,1);
           l.push(d);
-          var days = SolarUtil.getDaysOfMonth(this._p.year,this._p.month);
-          for(var i = 1;i<days;i++){
+          const days = SolarUtil.getDaysOfMonth(this._p.year,this._p.month);
+          for(let i = 1;i<days;i++){
             l.push(d.next(i));
           }
           return l;
@@ -2238,12 +2238,12 @@
           if(isNaN(start)){
             start = 0;
           }
-          var l = [];
-          var week = SolarWeek.fromYmd(this._p.year, this._p.month, 1, start);
+          const l = [];
+          let week = SolarWeek.fromYmd(this._p.year, this._p.month, 1, start);
           while (true) {
             l.push(week);
             week = week.next(1, false);
-            var firstDay = week.getFirstDay();
+            const firstDay = week.getFirstDay();
             if (firstDay.getYear() > this._p.year || firstDay.getMonth() > this._p.month) {
               break;
             }
@@ -2263,14 +2263,14 @@
       fromDate:function(date){return _fromDate(date);}
     };
   })();
-  var SolarSeason = (function(){
-    var _fromDate = function(date){
-      var solar = Solar.fromDate(date);
+  const SolarSeason = (function(){
+    const _fromDate = function(date){
+      const solar = Solar.fromDate(date);
       return _fromYm(solar.getYear(),solar.getMonth());
     };
-    var _fromYm = function(y,m){
-      var oy = y;
-      var om = m;
+    const _fromYm = function(y,m){
+      const oy = y;
+      const om = m;
       y *= 1;
       if(isNaN(y)){
         throw new Error('wrong solar year '+oy);
@@ -2303,12 +2303,12 @@
          * @return object 推移后的季度
          */
         next:function(seasons){
-          var os = seasons;
+          const os = seasons;
           seasons *= 1;
           if(isNaN(seasons)){
             throw new Error('wrong seasons ' + os);
           }
-          var month = SolarMonth.fromYm(this._p.year, this._p.month).next(3 * seasons);
+          const month = SolarMonth.fromYm(this._p.year, this._p.month).next(3 * seasons);
           return _fromYm(month.getYear(), month.getMonth());
         },
         /**
@@ -2316,9 +2316,9 @@
          * @return Array 本季度的月份列表
          */
         getMonths:function(){
-          var l = [];
-          var index = this.getIndex()-1;
-          for(var i=0;i<3;i++){
+          const l = [];
+          const index = this.getIndex()-1;
+          for(let i=0;i<3;i++){
             l.push(SolarMonth.fromYm(this._p.year,3*index+i+1));
           }
           return l;
@@ -2336,14 +2336,14 @@
       fromDate:function(date){return _fromDate(date);}
     };
   })();
-  var SolarHalfYear = (function(){
-    var _fromDate = function(date){
-      var solar = Solar.fromDate(date);
+  const SolarHalfYear = (function(){
+    const _fromDate = function(date){
+      const solar = Solar.fromDate(date);
       return _fromYm(solar.getYear(),solar.getMonth());
     };
-    var _fromYm = function(y,m){
-      var oy = y;
-      var om = m;
+    const _fromYm = function(y,m){
+      const oy = y;
+      const om = m;
       y *= 1;
       if(isNaN(y)){
         throw new Error('wrong solar year '+oy);
@@ -2376,12 +2376,12 @@
          * @return object 推移后的半年
          */
         next:function(halfYears){
-          var oh = halfYears;
+          const oh = halfYears;
           halfYears *= 1;
           if(isNaN(halfYears)){
             throw new Error('wong halfYears ' + oh);
           }
-          var month = SolarMonth.fromYm(this._p.year, this._p.month).next(6 * halfYears);
+          const month = SolarMonth.fromYm(this._p.year, this._p.month).next(6 * halfYears);
           return _fromYm(month.getYear(), month.getMonth());
         },
         /**
@@ -2389,9 +2389,9 @@
          * @return Array 本半年的月份列表
          */
         getMonths:function(){
-          var l = [];
-          var index = this.getIndex()-1;
-          for(var i=0;i<6;i++){
+          const l = [];
+          const index = this.getIndex()-1;
+          for(let i=0;i<6;i++){
             l.push(SolarMonth.fromYm(this._p.year,6*index+i+1));
           }
           return l;
@@ -2409,12 +2409,12 @@
       fromDate:function(date){return _fromDate(date);}
     };
   })();
-  var SolarYear = (function(){
-    var _fromDate = function(date){
+  const SolarYear = (function(){
+    const _fromDate = function(date){
       return _fromYear(Solar.fromDate(date).getYear());
     };
-    var _fromYear = function(y){
-      var oy = y;
+    const _fromYear = function(y){
+      const oy = y;
       y *= 1;
       if(isNaN(y)){
         throw new Error('wrong solar year '+oy);
@@ -2427,7 +2427,7 @@
           return this._p.year;
         },
         next:function(years){
-          var oy = years;
+          const oy = years;
           years *= 1;
           if(isNaN(years)){
             throw new Error('wrong years ' + oy);
@@ -2435,10 +2435,10 @@
           return _fromYear(this._p.year + years);
         },
         getMonths:function(){
-          var l = [];
-          var m = SolarMonth.fromYm(this._p.year,1);
+          const l = [];
+          const m = SolarMonth.fromYm(this._p.year,1);
           l.push(m);
-          for(var i = 1;i<12;i++){
+          for(let i = 1;i<12;i++){
             l.push(m.next(i));
           }
           return l;
@@ -2456,31 +2456,31 @@
       fromDate:function(date){return _fromDate(date);}
     };
   })();
-  var LunarYear = (function(){
-    var _YUAN = ['下','上','中'];
-    var _YUN = ['七','八','九','一','二','三','四','五','六'];
-    var _LEAP_11 = [75, 94, 170, 265, 322, 398, 469, 553, 583, 610, 678, 735, 754, 773, 849, 887, 936, 1050, 1069, 1126, 1145, 1164, 1183, 1259, 1278, 1308, 1373, 1403, 1441, 1460, 1498, 1555, 1593, 1612, 1631, 1642, 2033, 2128, 2147, 2242, 2614, 2728, 2910, 3062, 3244, 3339, 3616, 3711, 3730, 3825, 4007, 4159, 4197, 4322, 4341, 4379, 4417, 4531, 4599, 4694, 4713, 4789, 4808, 4971, 5085, 5104, 5161, 5180, 5199, 5294, 5305, 5476, 5677, 5696, 5772, 5791, 5848, 5886, 6049, 6068, 6144, 6163, 6258, 6402, 6440, 6497, 6516, 6630, 6641, 6660, 6679, 6736, 6774, 6850, 6869, 6899, 6918, 6994, 7013, 7032, 7051, 7070, 7089, 7108, 7127, 7146, 7222, 7271, 7290, 7309, 7366, 7385, 7404, 7442, 7461, 7480, 7491, 7499, 7594, 7624, 7643, 7662, 7681, 7719, 7738, 7814, 7863, 7882, 7901, 7939, 7958, 7977, 7996, 8034, 8053, 8072, 8091, 8121, 8159, 8186, 8216, 8235, 8254, 8273, 8311, 8330, 8341, 8349, 8368, 8444, 8463, 8474, 8493, 8531, 8569, 8588, 8626, 8664, 8683, 8694, 8702, 8713, 8721, 8751, 8789, 8808, 8816, 8827, 8846, 8884, 8903, 8922, 8941, 8971, 9036, 9066, 9085, 9104, 9123, 9142, 9161, 9180, 9199, 9218, 9256, 9294, 9313, 9324, 9343, 9362, 9381, 9419, 9438, 9476, 9514, 9533, 9544, 9552, 9563, 9571, 9582, 9601, 9639, 9658, 9666, 9677, 9696, 9734, 9753, 9772, 9791, 9802, 9821, 9886, 9897, 9916, 9935, 9954, 9973, 9992];
-    var _LEAP_12 = [37, 56, 113, 132, 151, 189, 208, 227, 246, 284, 303, 341, 360, 379, 417, 436, 458, 477, 496, 515, 534, 572, 591, 629, 648, 667, 697, 716, 792, 811, 830, 868, 906, 925, 944, 963, 982, 1001, 1020, 1039, 1058, 1088, 1153, 1202, 1221, 1240, 1297, 1335, 1392, 1411, 1422, 1430, 1517, 1525, 1536, 1574, 3358, 3472, 3806, 3988, 4751, 4941, 5066, 5123, 5275, 5343, 5438, 5457, 5495, 5533, 5552, 5715, 5810, 5829, 5905, 5924, 6421, 6535, 6793, 6812, 6888, 6907, 7002, 7184, 7260, 7279, 7374, 7556, 7746, 7757, 7776, 7833, 7852, 7871, 7966, 8015, 8110, 8129, 8148, 8224, 8243, 8338, 8406, 8425, 8482, 8501, 8520, 8558, 8596, 8607, 8615, 8645, 8740, 8778, 8835, 8865, 8930, 8960, 8979, 8998, 9017, 9055, 9074, 9093, 9112, 9150, 9188, 9237, 9275, 9332, 9351, 9370, 9408, 9427, 9446, 9457, 9465, 9495, 9560, 9590, 9628, 9647, 9685, 9715, 9742, 9780, 9810, 9818, 9829, 9848, 9867, 9905, 9924, 9943, 9962, 10000];
-    var _CACHE_YEAR = null;
-    var _YMC = [11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    var _inLeap = function(arr, n) {
-      for (var i = 0, j = arr.length; i < j; i++) {
+  const LunarYear = (function(){
+    const _YUAN = ['下','上','中'];
+    const _YUN = ['七','八','九','一','二','三','四','五','六'];
+    const _LEAP_11 = [75, 94, 170, 265, 322, 398, 469, 553, 583, 610, 678, 735, 754, 773, 849, 887, 936, 1050, 1069, 1126, 1145, 1164, 1183, 1259, 1278, 1308, 1373, 1403, 1441, 1460, 1498, 1555, 1593, 1612, 1631, 1642, 2033, 2128, 2147, 2242, 2614, 2728, 2910, 3062, 3244, 3339, 3616, 3711, 3730, 3825, 4007, 4159, 4197, 4322, 4341, 4379, 4417, 4531, 4599, 4694, 4713, 4789, 4808, 4971, 5085, 5104, 5161, 5180, 5199, 5294, 5305, 5476, 5677, 5696, 5772, 5791, 5848, 5886, 6049, 6068, 6144, 6163, 6258, 6402, 6440, 6497, 6516, 6630, 6641, 6660, 6679, 6736, 6774, 6850, 6869, 6899, 6918, 6994, 7013, 7032, 7051, 7070, 7089, 7108, 7127, 7146, 7222, 7271, 7290, 7309, 7366, 7385, 7404, 7442, 7461, 7480, 7491, 7499, 7594, 7624, 7643, 7662, 7681, 7719, 7738, 7814, 7863, 7882, 7901, 7939, 7958, 7977, 7996, 8034, 8053, 8072, 8091, 8121, 8159, 8186, 8216, 8235, 8254, 8273, 8311, 8330, 8341, 8349, 8368, 8444, 8463, 8474, 8493, 8531, 8569, 8588, 8626, 8664, 8683, 8694, 8702, 8713, 8721, 8751, 8789, 8808, 8816, 8827, 8846, 8884, 8903, 8922, 8941, 8971, 9036, 9066, 9085, 9104, 9123, 9142, 9161, 9180, 9199, 9218, 9256, 9294, 9313, 9324, 9343, 9362, 9381, 9419, 9438, 9476, 9514, 9533, 9544, 9552, 9563, 9571, 9582, 9601, 9639, 9658, 9666, 9677, 9696, 9734, 9753, 9772, 9791, 9802, 9821, 9886, 9897, 9916, 9935, 9954, 9973, 9992];
+    const _LEAP_12 = [37, 56, 113, 132, 151, 189, 208, 227, 246, 284, 303, 341, 360, 379, 417, 436, 458, 477, 496, 515, 534, 572, 591, 629, 648, 667, 697, 716, 792, 811, 830, 868, 906, 925, 944, 963, 982, 1001, 1020, 1039, 1058, 1088, 1153, 1202, 1221, 1240, 1297, 1335, 1392, 1411, 1422, 1430, 1517, 1525, 1536, 1574, 3358, 3472, 3806, 3988, 4751, 4941, 5066, 5123, 5275, 5343, 5438, 5457, 5495, 5533, 5552, 5715, 5810, 5829, 5905, 5924, 6421, 6535, 6793, 6812, 6888, 6907, 7002, 7184, 7260, 7279, 7374, 7556, 7746, 7757, 7776, 7833, 7852, 7871, 7966, 8015, 8110, 8129, 8148, 8224, 8243, 8338, 8406, 8425, 8482, 8501, 8520, 8558, 8596, 8607, 8615, 8645, 8740, 8778, 8835, 8865, 8930, 8960, 8979, 8998, 9017, 9055, 9074, 9093, 9112, 9150, 9188, 9237, 9275, 9332, 9351, 9370, 9408, 9427, 9446, 9457, 9465, 9495, 9560, 9590, 9628, 9647, 9685, 9715, 9742, 9780, 9810, 9818, 9829, 9848, 9867, 9905, 9924, 9943, 9962, 10000];
+    let _CACHE_YEAR = null;
+    const _YMC = [11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const _inLeap = function(arr, n) {
+      for (let i = 0, j = arr.length; i < j; i++) {
         if (arr[i] === n) {
           return true;
         }
       }
       return false;
     };
-    var _fromYear = function(lunarYear){
-      var oy = lunarYear;
+    const _fromYear = function(lunarYear){
+      const oy = lunarYear;
       lunarYear *= 1;
       if(isNaN(lunarYear)){
         throw new Error('wrong lunar year '+oy);
       }
-      var _y = (function(){
-        var offset = lunarYear - 4;
-        var yearGanIndex = offset % 10;
-        var yearZhiIndex = offset % 12;
+      const _y = (function(){
+        const offset = lunarYear - 4;
+        let yearGanIndex = offset % 10;
+        let yearZhiIndex = offset % 12;
         if (yearGanIndex < 0) {
           yearGanIndex += 10;
         }
@@ -2508,9 +2508,9 @@
         getGanZhi:function(){return this.getGan()+this.getZhi();},
         getJieQiJulianDays:function(){return this._p.jieQiJulianDays;},
         getDayCount:function(){
-          var n = 0;
-          for (var i = 0, j = this._p.months.length; i < j; i++) {
-            var m = this._p.months[i];
+          let n = 0;
+          for (let i = 0, j = this._p.months.length; i < j; i++) {
+            const m = this._p.months[i];
             if (m.getYear() === this._p.year) {
               n += m.getDayCount();
             }
@@ -2518,9 +2518,9 @@
           return n;
         },
         getMonthsInYear:function(){
-          var l = [];
-          for (var i = 0, j = this._p.months.length; i < j; i++) {
-            var m = this._p.months[i];
+          const l = [];
+          for (let i = 0, j = this._p.months.length; i < j; i++) {
+            const m = this._p.months[i];
             if (m.getYear() === this._p.year) {
               l.push(m);
             }
@@ -2529,13 +2529,13 @@
         },
         getMonths:function(){return this._p.months;},
         getMonth:function(lunarMonth){
-          var om = lunarMonth;
+          const om = lunarMonth;
           lunarMonth *= 1;
           if(isNaN(lunarMonth)){
             throw new Error('wrong lunarMonth ' + om);
           }
-          for (var i = 0, j = this._p.months.length; i < j; i++) {
-            var m = this._p.months[i];
+          for (let i = 0, j = this._p.months.length; i < j; i++) {
+            const m = this._p.months[i];
             if (m.getYear() === this._p.year && m.getMonth() === lunarMonth) {
               return m;
             }
@@ -2543,8 +2543,8 @@
           return null;
         },
         getLeapMonth:function(){
-          for (var i = 0, j = this._p.months.length; i < j; i++) {
-            var m = this._p.months[i];
+          for (let i = 0, j = this._p.months.length; i < j; i++) {
+            const m = this._p.months[i];
             if (m.getYear() === this._p.year && m.isLeap()) {
               return Math.abs(m.getMonth());
             }
@@ -2552,14 +2552,14 @@
           return 0;
         },
         _getZaoByGan:function(index, name){
-          var offset = index - Solar.fromJulianDay(this.getMonth(1).getFirstJulianDay()).getLunar().getDayGanIndex();
+          let offset = index - Solar.fromJulianDay(this.getMonth(1).getFirstJulianDay()).getLunar().getDayGanIndex();
           if (offset < 0) {
             offset += 10;
           }
           return name.replace('几', LunarUtil.NUMBER[offset+1]);
         },
         _getZaoByZhi:function(index, name){
-          var offset = index - Solar.fromJulianDay(this.getMonth(1).getFirstJulianDay()).getLunar().getDayZhiIndex();
+          let offset = index - Solar.fromJulianDay(this.getMonth(1).getFirstJulianDay()).getLunar().getDayZhiIndex();
           if (offset < 0) {
             offset += 12;
           }
@@ -2614,9 +2614,9 @@
           return _YUN[Math.floor((this._p.year+2696)/20)%9]+'运';
         },
         getNineStar:function(){
-          var index = LunarUtil.getJiaZiIndex(this.getGanZhi()) + 1;
-          var yuan = Math.floor((this._p.year + 2696) / 60) % 3;
-          var offset = (62 + yuan * 3 - index) % 9;
+          const index = LunarUtil.getJiaZiIndex(this.getGanZhi()) + 1;
+          const yuan = Math.floor((this._p.year + 2696) / 60) % 3;
+          let offset = (62 + yuan * 3 - index) % 9;
           if(0 === offset){
             offset = 9;
           }
@@ -2665,7 +2665,7 @@
           return this.getYear()+'年';
         },
         next:function(years){
-          var oy = years;
+          const oy = years;
           years *= 1;
           if(isNaN(years)){
             throw new Error('wrong years ' + oy);
@@ -2676,18 +2676,18 @@
           this._p.months = [];
           this._p.jieQiJulianDays = [];
           // 节气
-          var jq = [];
+          const jq = [];
           // 合朔，即每月初一
-          var hs = [];
+          const hs = [];
           // 每月天数，长度15
-          var dayCounts = [];
-          var months = [];
-          var i;
-          var j;
-          var currentYear = this._p.year;
-          var jd = Math.floor((currentYear - 2000) * 365.2422 + 180);
+          const dayCounts = [];
+          const months = [];
+          let i;
+          let j;
+          const currentYear = this._p.year;
+          let jd = Math.floor((currentYear - 2000) * 365.2422 + 180);
           // 355是2000.12冬至，得到较靠近jd的冬至估计值
-          var w = Math.floor((jd - 355 + 183) / 365.2422) * 365.2422 + 355;
+          let w = Math.floor((jd - 355 + 183) / 365.2422) * 365.2422 + 355;
           if (ShouXingUtil.calcQi(w) > jd) {
             w -= 365.2422;
           }
@@ -2721,8 +2721,8 @@
             months.push(i);
           }
 
-          var prevYear = currentYear - 1;
-          var leapIndex = 16;
+          const prevYear = currentYear - 1;
+          let leapIndex = 16;
           if (_inLeap(_LEAP_11, currentYear)) {
             leapIndex = 13;
           } else if (_inLeap(_LEAP_12, currentYear)) {
@@ -2737,13 +2737,13 @@
           for (j = leapIndex; j < 15; j++) {
             months[j] -= 1;
           }
-          var fm = -1;
-          var index = -1;
-          var y = prevYear;
+          let fm = -1;
+          let index = -1;
+          let y = prevYear;
           for (i = 0; i < 15; i++) {
-            var dm = hs[i] + Solar.J2000;
-            var v2 = months[i];
-            var mc = _YMC[v2 % 12];
+            const dm = hs[i] + Solar.J2000;
+            const v2 = months[i];
+            let mc = _YMC[v2 % 12];
             if (1724360 <= dm && dm < 1729794) {
               mc = _YMC[(v2 + 1) % 12];
             } else if (1807724 <= dm && dm < 1808699) {
@@ -2772,8 +2772,8 @@
         }
       }._compute();
     };
-    var _fromCachedYear = function(lunarYear) {
-      var y;
+    const _fromCachedYear = function(lunarYear) {
+      let y;
       if (!_CACHE_YEAR || _CACHE_YEAR.getYear() !== lunarYear) {
         y = _fromYear(lunarYear);
         _CACHE_YEAR = y;
@@ -2786,10 +2786,10 @@
       fromYear:function(lunarYear){return _fromCachedYear(lunarYear);}
     };
   })();
-  var LunarMonth = (function(){
-    var _fromYm = function(lunarYear,lunarMonth){
-      var oy = lunarYear;
-      var om = lunarMonth;
+  const LunarMonth = (function(){
+    const _fromYm = function(lunarYear,lunarMonth){
+      const oy = lunarYear;
+      const om = lunarMonth;
       lunarYear *= 1;
       if(isNaN(lunarYear)){
         throw new Error('wrong lunar year '+oy);
@@ -2800,7 +2800,7 @@
       }
       return LunarYear.fromYear(lunarYear).getMonth(lunarMonth);
     };
-    var _new = function(lunarYear, lunarMonth, dayCount, firstJulianDay, index){
+    const _new = function(lunarYear, lunarMonth, dayCount, firstJulianDay, index){
       return {
         _p: {
           year: lunarYear,
@@ -2812,7 +2812,7 @@
         },
         getIndex:function(){return this._p.index;},
         getGanIndex:function(){
-          var offset = (LunarYear.fromYear(this._p.year).getGanIndex() + 1) % 5 * 2;
+          const offset = (LunarYear.fromYear(this._p.year).getGanIndex() + 1) % 5 * 2;
           return (Math.abs(this._p.month) - 1 + offset) % 10;
         },
         getZhiIndex:function(){return this._p.zhiIndex;},
@@ -2855,8 +2855,8 @@
           return LunarUtil.POSITION_DESC.get(this.getPositionCai());
         },
         getPositionTaiSui:function(){
-          var p;
-          var m = Math.abs(this._p.month);
+          let p;
+          const m = Math.abs(this._p.month);
           switch(m) {
             case 1:
             case 5:
@@ -2882,21 +2882,21 @@
           return LunarUtil.POSITION_DESC[this.getPositionTaiSui()];
         },
         getNineStar:function(){
-          var index = LunarYear.fromYear(this._p.year).getZhiIndex() % 3;
-          var m = this._p.month;
+          const index = LunarYear.fromYear(this._p.year).getZhiIndex() % 3;
+          let m = this._p.month;
           if (m < 0) {
             m = -m;
           }
-          var monthZhiIndex = (13 + m) % 12;
-          var n = 27 - (index * 3);
+          const monthZhiIndex = (13 + m) % 12;
+          let n = 27 - (index * 3);
           if (monthZhiIndex < LunarUtil.BASE_MONTH_ZHI_INDEX) {
             n -= 3;
           }
-          var offset = (n - monthZhiIndex) % 9;
+          const offset = (n - monthZhiIndex) % 9;
           return NineStar.fromIndex(offset);
         },
         next:function(n){
-          var on = n;
+          const on = n;
           n *= 1;
           if(isNaN(n)){
             throw new Error('wrong days ' + on);
@@ -2904,15 +2904,15 @@
           if (0 === n) {
             return LunarMonth.fromYm(this._p.year, this._p.month);
           } else {
-            var rest = Math.abs(n);
-            var ny = this._p.year;
-            var iy = ny;
-            var im = this._p.month;
-            var index = 0;
-            var months = LunarYear.fromYear(ny).getMonths();
-            var i;
-            var m;
-            var size;
+            let rest = Math.abs(n);
+            let ny = this._p.year;
+            let iy = ny;
+            let im = this._p.month;
+            let index = 0;
+            let months = LunarYear.fromYear(ny).getMonths();
+            let i;
+            let m;
+            let size;
             if (n > 0) {
               while (true) {
                 size = months.length;
@@ -2923,12 +2923,12 @@
                     break;
                   }
                 }
-                var more = size - index - 1;
+                const more = size - index - 1;
                 if (rest < more) {
                   break;
                 }
                 rest -= more;
-                var lastMonth = months[size - 1];
+                const lastMonth = months[size - 1];
                 iy = lastMonth.getYear();
                 im = lastMonth.getMonth();
                 ny++;
@@ -2949,7 +2949,7 @@
                   break;
                 }
                 rest -= index;
-                var firstMonth = months[0];
+                const firstMonth = months[0];
                 iy = firstMonth.getYear();
                 im = firstMonth.getMonth();
                 ny--;
@@ -2967,10 +2967,10 @@
       _:function(lunarYear, lunarMonth, dayCount, firstJulianDay, index){return _new(lunarYear, lunarMonth, dayCount, firstJulianDay, index);}
     };
   })();
-  var ShouXingUtil = (function(){
-    var _decode = function(s) {
-      var o = '0000000000';
-      var o2 = o + o;
+  const ShouXingUtil = (function(){
+    const _decode = function(s) {
+      const o = '0000000000';
+      const o2 = o + o;
       s = s.replace(/J/g, '00');
       s = s.replace(/I/g, '000');
       s = s.replace(/H/g, '0000');
@@ -3291,10 +3291,10 @@
       SHUO_KB:[1457698.231017, 29.53067166, 1546082.512234, 29.53085106, 1640640.735300, 29.53060000, 1642472.151543, 29.53085439, 1683430.509300, 29.53086148, 1752148.041079, 29.53085097, 1807665.420323, 29.53059851, 1883618.114100, 29.53060000, 1907360.704700, 29.53060000, 1936596.224900, 29.53060000, 1939135.675300, 29.53060000, 1947168.00],
       SB:_decode('EqoFscDcrFpmEsF2DfFideFelFpFfFfFiaipqti1ksttikptikqckstekqttgkqttgkqteksttikptikq2fjstgjqttjkqttgkqtekstfkptikq2tijstgjiFkirFsAeACoFsiDaDiADc1AFbBfgdfikijFifegF1FhaikgFag1E2btaieeibggiffdeigFfqDfaiBkF1kEaikhkigeidhhdiegcFfakF1ggkidbiaedksaFffckekidhhdhdikcikiakicjF1deedFhFccgicdekgiFbiaikcfi1kbFibefgEgFdcFkFeFkdcfkF1kfkcickEiFkDacFiEfbiaejcFfffkhkdgkaiei1ehigikhdFikfckF1dhhdikcfgjikhfjicjicgiehdikcikggcifgiejF1jkieFhegikggcikFegiegkfjebhigikggcikdgkaFkijcfkcikfkcifikiggkaeeigefkcdfcfkhkdgkegieidhijcFfakhfgeidieidiegikhfkfckfcjbdehdikggikgkfkicjicjF1dbidikFiggcifgiejkiegkigcdiegfggcikdbgfgefjF1kfegikggcikdgFkeeijcfkcikfkekcikdgkabhkFikaffcfkhkdgkegbiaekfkiakicjhfgqdq2fkiakgkfkhfkfcjiekgFebicggbedF1jikejbbbiakgbgkacgiejkijjgigfiakggfggcibFifjefjF1kfekdgjcibFeFkijcfkfhkfkeaieigekgbhkfikidfcjeaibgekgdkiffiffkiakF1jhbakgdki1dj1ikfkicjicjieeFkgdkicggkighdF1jfgkgfgbdkicggfggkidFkiekgijkeigfiskiggfaidheigF1jekijcikickiggkidhhdbgcfkFikikhkigeidieFikggikhkffaffijhidhhakgdkhkijF1kiakF1kfheakgdkifiggkigicjiejkieedikgdfcggkigieeiejfgkgkigbgikicggkiaideeijkefjeijikhkiggkiaidheigcikaikffikijgkiahi1hhdikgjfifaakekighie1hiaikggikhkffakicjhiahaikggikhkijF1kfejfeFhidikggiffiggkigicjiekgieeigikggiffiggkidheigkgfjkeigiegikifiggkidhedeijcfkFikikhkiggkidhh1ehigcikaffkhkiggkidhh1hhigikekfiFkFikcidhh1hitcikggikhkfkicjicghiediaikggikhkijbjfejfeFhaikggifikiggkigiejkikgkgieeigikggiffiggkigieeigekijcijikggifikiggkideedeijkefkfckikhkiggkidhh1ehijcikaffkhkiggkidhh1hhigikhkikFikfckcidhh1hiaikgjikhfjicjicgiehdikcikggifikigiejfejkieFhegikggifikiggfghigkfjeijkhigikggifikiggkigieeijcijcikfksikifikiggkidehdeijcfdckikhkiggkhghh1ehijikifffffkhsFngErD1pAfBoDd1BlEtFqA2AqoEpDqElAEsEeB2BmADlDkqBtC1FnEpDqnEmFsFsAFnllBbFmDsDiCtDmAB2BmtCgpEplCpAEiBiEoFqFtEqsDcCnFtADnFlEgdkEgmEtEsCtDmADqFtAFrAtEcCqAE1BoFqC1F1DrFtBmFtAC2ACnFaoCgADcADcCcFfoFtDlAFgmFqBq2bpEoAEmkqnEeCtAE1bAEqgDfFfCrgEcBrACfAAABqAAB1AAClEnFeCtCgAADqDoBmtAAACbFiAAADsEtBqAB2FsDqpFqEmFsCeDtFlCeDtoEpClEqAAFrAFoCgFmFsFqEnAEcCqFeCtFtEnAEeFtAAEkFnErAABbFkADnAAeCtFeAfBoAEpFtAABtFqAApDcCGJ'),
       nutationLon2:function(t){
-        var a = -1.742 * t;
-        var t2 = t * t;
-        var dl = 0;
-        for (var i = 0, j = this.NUT_B.length; i < j; i += 5) {
+        let a = -1.742 * t;
+        const t2 = t * t;
+        let dl = 0;
+        for (let i = 0, j = this.NUT_B.length; i < j; i += 5) {
           dl += (this.NUT_B[i + 3] + a) * Math.sin(this.NUT_B[i] + this.NUT_B[i + 1] * t + this.NUT_B[i + 2] * t2);
           a = 0;
         }
@@ -3302,16 +3302,16 @@
       },
       eLon:function(t,n){
         t /= 10;
-        var v = 0;
-        var tn = 1;
-        var n1;
-        var n2;
-        var m;
-        var c;
-        var pn = 1;
-        var n0;
-        var m0 = this.XL0[pn + 1] - this.XL0[pn];
-        for (var i = 0; i < 6; i++, tn *= t) {
+        let v = 0;
+        let tn = 1;
+        let n1;
+        let n2;
+        let m;
+        let c;
+        const pn = 1;
+        let n0;
+        const m0 = this.XL0[pn + 1] - this.XL0[pn];
+        for (let i = 0; i < 6; i++, tn *= t) {
           n1 = Math.floor(this.XL0[pn + i]);
           n2 = Math.floor(this.XL0[pn + 1 + i]);
           n0 = n2 - n1;
@@ -3330,28 +3330,28 @@
             }
           }
           c = 0;
-          for (var j = n1; j < m; j += 3) {
+          for (let j = n1; j < m; j += 3) {
             c += this.XL0[j] * Math.cos(this.XL0[j + 1] + t * this.XL0[j + 2]);
           }
           v += c * tn;
         }
         v /= this.XL0[0];
-        var t2 = t * t;
+        const t2 = t * t;
         v += (-0.0728 - 2.7702 * t - 1.1019 * t2 - 0.0996 * t2 * t) / this.SECOND_PER_RAD;
         return v;
       },
       mLon:function(t,n){
-        var ob = this.XL1;
-        var obl = ob[0].length;
-        var tn = 1;
-        var v = 0;
-        var j;
-        var c;
-        var t2 = t * t;
-        var t3 = t2 * t;
-        var t4 = t3 * t;
-        var t5 = t4 * t;
-        var tx = t - 10;
+        const ob = this.XL1;
+        const obl = ob[0].length;
+        let tn = 1;
+        let v = 0;
+        let j;
+        let c;
+        let t2 = t * t;
+        let t3 = t2 * t;
+        let t4 = t3 * t;
+        const t5 = t4 * t;
+        const tx = t - 10;
         v += (3.81034409 + 8399.684730072 * t - 3.319e-05 * t2 + 3.11e-08 * t3 - 2.033e-10 * t4) * this.SECOND_PER_RAD;
         v += 5028.792262 * t + 1.1124406 * t2 + 0.00007699 * t3 - 0.000023479 * t4 - 0.0000000178 * t5;
         if (tx > 0) {
@@ -3365,10 +3365,10 @@
         if (n < 0) {
           n = obl;
         }
-        for (var i = 0, x = ob.length; i < x; i++, tn *= t) {
-          var f = ob[i];
-          var l = f.length;
-          var m = Math.floor((n * l / obl + 0.5));
+        for (let i = 0, x = ob.length; i < x; i++, tn *= t) {
+          const f = ob[i];
+          const l = f.length;
+          let m = Math.floor((n * l / obl + 0.5));
           if (i > 0) {
             m += 6;
           }
@@ -3384,55 +3384,55 @@
         return v;
       },
       gxcSunLon:function(t){
-        var t2 = t * t;
-        var v = -0.043126 + 628.301955 * t - 0.000002732 * t2;
-        var e = 0.016708634 - 0.000042037 * t - 0.0000001267 * t2;
+        const t2 = t * t;
+        const v = -0.043126 + 628.301955 * t - 0.000002732 * t2;
+        const e = 0.016708634 - 0.000042037 * t - 0.0000001267 * t2;
         return -20.49552 * (1 + e * Math.cos(v)) / this.SECOND_PER_RAD;
       },
       ev:function(t){
-        var f = 628.307585 * t;
+        const f = 628.307585 * t;
         return 628.332 + 21 * Math.sin(1.527 + f) + 0.44 * Math.sin(1.48 + f * 2) + 0.129 * Math.sin(5.82 + f) * t + 0.00055 * Math.sin(4.21 + f) * t * t;
       },
       saLon:function(t,n){
         return this.eLon(t, n) + this.nutationLon2(t) + this.gxcSunLon(t) + Math.PI;
       },
       dtExt:function(y,jsd){
-        var dy = (y - 1820) / 100;
+        const dy = (y - 1820) / 100;
         return -20 + jsd * dy * dy;
       },
       dtCalc:function(y){
-        var size = this.DT_AT.length;
-        var y0 = this.DT_AT[size - 2];
-        var t0 = this.DT_AT[size - 1];
+        const size = this.DT_AT.length;
+        const y0 = this.DT_AT[size - 2];
+        const t0 = this.DT_AT[size - 1];
         if (y >= y0) {
-          var jsd = 31;
+          const jsd = 31;
           if (y > y0 + 100) {
             return this.dtExt(y, jsd);
           }
           return this.dtExt(y, jsd) - (this.dtExt(y0, jsd) - t0) * (y0 + 100 - y) / 100;
         }
-        var i;
+        let i;
         for (i = 0; i < size; i += 5) {
           if (y < this.DT_AT[i + 5]) {
             break;
           }
         }
-        var t1 = (y - this.DT_AT[i]) / (this.DT_AT[i + 5] - this.DT_AT[i]) * 10;
-        var t2 = t1 * t1;
-        var t3 = t2 * t1;
+        const t1 = (y - this.DT_AT[i]) / (this.DT_AT[i + 5] - this.DT_AT[i]) * 10;
+        const t2 = t1 * t1;
+        const t3 = t2 * t1;
         return this.DT_AT[i + 1] + this.DT_AT[i + 2] * t1 + this.DT_AT[i + 3] * t2 + this.DT_AT[i + 4] * t3;
       },
       dtT:function(t){
         return this.dtCalc(t / 365.2425 + 2000) / this.SECOND_PER_DAY;
       },
       mv:function(t){
-        var v = 8399.71 - 914 * Math.sin(0.7848 + 8328.691425 * t + 0.0001523 * t * t);
+        let v = 8399.71 - 914 * Math.sin(0.7848 + 8328.691425 * t + 0.0001523 * t * t);
         v -= 179 * Math.sin(2.543 + 15542.7543 * t) + 160 * Math.sin(0.1874 + 7214.0629 * t) + 62 * Math.sin(3.14 + 16657.3828 * t) + 34 * Math.sin(4.827 + 16866.9323 * t) + 22 * Math.sin(4.9 + 23871.4457 * t) + 12 * Math.sin(2.59 + 14914.4523 * t) + 7 * Math.sin(0.23 + 6585.7609 * t) + 5 * Math.sin(0.9 + 25195.624 * t) + 5 * Math.sin(2.32 - 7700.3895 * t) + 5 * Math.sin(3.88 + 8956.9934 * t) + 5 * Math.sin(0.49 + 7771.3771 * t);
         return v;
       },
       saLonT:function(w){
-        var t;
-        var v = 628.3319653318;
+        let t;
+        let v = 628.3319653318;
         t = (w - 1.75347 - Math.PI) / v;
         v = this.ev(t);
         t += (w - this.saLon(t, 10)) / v;
@@ -3444,8 +3444,8 @@
         return this.mLon(t, mn) + (-3.4E-6) - (this.eLon(t, sn) + this.gxcSunLon(t) + Math.PI);
       },
       msaLonT:function(w){
-        var t;
-        var v = 7771.37714500204;
+        let t;
+        let v = 7771.37714500204;
         t = (w + 1.08472) / v;
         t += (w - this.msaLon(t, 3, 3)) / v;
         v = this.mv(t) - this.ev(t);
@@ -3454,64 +3454,63 @@
         return t;
       },
       saLonT2:function(w){
-        var v = 628.3319653318;
-        var t = (w - 1.75347 - Math.PI) / v;
+        const v = 628.3319653318;
+        let t = (w - 1.75347 - Math.PI) / v;
         t -= (0.000005297 * t * t + 0.0334166 * Math.cos(4.669257 + 628.307585 * t) + 0.0002061 * Math.cos(2.67823 + 628.307585 * t) * t) / v;
         t += (w - ShouXingUtil.eLon(t, 8) - Math.PI + (20.5 + 17.2 * Math.sin(2.1824 - 33.75705 * t)) / this.SECOND_PER_RAD) / v;
         return t;
       },
       msaLonT2:function(w){
-        var t;
-        var l;
-        var v = 7771.37714500204;
+        let t;
+        let v = 7771.37714500204;
         t = (w + 1.08472) / v;
-        var t2 = t * t;
+        let t2 = t * t;
         t -= (-0.00003309 * t2 + 0.10976 * Math.cos(0.784758 + 8328.6914246 * t + 0.000152292 * t2) + 0.02224 * Math.cos(0.18740 + 7214.0628654 * t - 0.00021848 * t2) - 0.03342 * Math.cos(4.669257 + 628.307585 * t)) / v;
         t2 = t * t;
-        l = this.mLon(t, 20) - (4.8950632 + 628.3319653318 * t + 0.000005297 * t2 + 0.0334166 * Math.cos(4.669257 + 628.307585 * t) + 0.0002061 * Math.cos(2.67823 + 628.307585 * t) * t + 0.000349 * Math.cos(4.6261 + 1256.61517 * t) - 20.5 / this.SECOND_PER_RAD);
+        const l = this.mLon(t, 20) - (4.8950632 + 628.3319653318 * t + 0.000005297 * t2 + 0.0334166 * Math.cos(4.669257 + 628.307585 * t) + 0.0002061 * Math.cos(2.67823 + 628.307585 * t) * t + 0.000349 * Math.cos(4.6261 + 1256.61517 * t) - 20.5 / this.SECOND_PER_RAD);
         v = 7771.38 - 914 * Math.sin(0.7848 + 8328.691425 * t + 0.0001523 * t2) - 179 * Math.sin(2.543 + 15542.7543 * t) - 160 * Math.sin(0.1874 + 7214.0629 * t);
         t += (w - l) / v;
         return t;
       },
       qiHigh:function(w){
-        var t = this.saLonT2(w) * 36525;
+        let t = this.saLonT2(w) * 36525;
         t = t - this.dtT(t) + this.ONE_THIRD;
-        var v = ((t + 0.5) % 1) * this.SECOND_PER_DAY;
+        const v = ((t + 0.5) % 1) * this.SECOND_PER_DAY;
         if (v < 1200 || v > this.SECOND_PER_DAY - 1200) {
           t = this.saLonT(w) * 36525 - this.dtT(t) + this.ONE_THIRD;
         }
         return t;
       },
       shuoHigh:function(w){
-        var t = this.msaLonT2(w) * 36525;
+        let t = this.msaLonT2(w) * 36525;
         t = t - this.dtT(t) + this.ONE_THIRD;
-        var v = ((t + 0.5) % 1) * this.SECOND_PER_DAY;
+        const v = ((t + 0.5) % 1) * this.SECOND_PER_DAY;
         if (v < 1800 || v > this.SECOND_PER_DAY - 1800) {
           t = this.msaLonT(w) * 36525 - this.dtT(t) + this.ONE_THIRD;
         }
         return t;
       },
       qiLow:function(w){
-        var v = 628.3319653318;
-        var t = (w - 4.895062166) / v;
+        const v = 628.3319653318;
+        let t = (w - 4.895062166) / v;
         t -= (53 * t * t + 334116 * Math.cos(4.67 + 628.307585 * t) + 2061 * Math.cos(2.678 + 628.3076 * t) * t) / v / 10000000;
-        var n = 48950621.66 + 6283319653.318 * t + 53 * t * t + 334166 * Math.cos(4.669257 + 628.307585 * t) + 3489 * Math.cos(4.6261 + 1256.61517 * t) + 2060.6 * Math.cos(2.67823 + 628.307585 * t) * t - 994 - 834 * Math.sin(2.1824 - 33.75705 * t);
+        const n = 48950621.66 + 6283319653.318 * t + 53 * t * t + 334166 * Math.cos(4.669257 + 628.307585 * t) + 3489 * Math.cos(4.6261 + 1256.61517 * t) + 2060.6 * Math.cos(2.67823 + 628.307585 * t) * t - 994 - 834 * Math.sin(2.1824 - 33.75705 * t);
         t -= (n / 10000000 - w) / 628.332 + (32 * (t + 1.8) * (t + 1.8) - 20) / this.SECOND_PER_DAY / 36525;
         return t * 36525 + this.ONE_THIRD;
       },
       shuoLow:function(w){
-        var v = 7771.37714500204;
-        var t = (w + 1.08472) / v;
+        const v = 7771.37714500204;
+        let t = (w + 1.08472) / v;
         t -= (-0.0000331 * t * t + 0.10976 * Math.cos(0.785 + 8328.6914 * t) + 0.02224 * Math.cos(0.187 + 7214.0629 * t) - 0.03342 * Math.cos(4.669 + 628.3076 * t)) / v + (32 * (t + 1.8) * (t + 1.8) - 20) / this.SECOND_PER_DAY / 36525;
         return t * 36525 + this.ONE_THIRD;
       },
       calcShuo:function(jd){
-        var size = this.SHUO_KB.length;
-        var d = 0;
-        var pc = 14;
-        var i;
+        const size = this.SHUO_KB.length;
+        let d = 0;
+        const pc = 14;
+        let i;
         jd += Solar.J2000;
-        var f1 = this.SHUO_KB[0] - pc, f2 = this.SHUO_KB[size - 1] - pc, f3 = 2436935;
+        const f1 = this.SHUO_KB[0] - pc, f2 = this.SHUO_KB[size - 1] - pc, f3 = 2436935;
         if (jd < f1 || jd >= f3) {
           d = Math.floor(this.shuoHigh(Math.floor((jd + pc - 2451551) / 29.5306) * Math.PI * 2) + 0.5);
         } else if (jd >= f1 && jd < f2) {
@@ -3528,8 +3527,8 @@
           d -= Solar.J2000;
         } else if (jd >= f2 && jd < f3) {
           d = Math.floor(this.shuoLow(Math.floor((jd + pc - 2451551) / 29.5306) * Math.PI * 2) + 0.5);
-          var from = Math.floor((jd - f2) / 29.5306);
-          var n = this.SB.substring(from, from+1);
+          const from = Math.floor((jd - f2) / 29.5306);
+          const n = this.SB.substring(from, from+1);
           if ('1' === n) {
             d += 1;
           } else if ('2' === n) {
@@ -3539,11 +3538,12 @@
         return d;
       },
       calcQi:function(jd){
-        var size = this.QI_KB.length;
-        var d = 0;
-        var pc = 7, i;
+        const size = this.QI_KB.length;
+        let d = 0;
+        const pc = 7;
+        let i;
         jd += Solar.J2000;
-        var f1 = this.QI_KB[0] - pc, f2 = this.QI_KB[size - 1] - pc, f3 = 2436935;
+        const f1 = this.QI_KB[0] - pc, f2 = this.QI_KB[size - 1] - pc, f3 = 2436935;
         if (jd < f1 || jd >= f3) {
           d = Math.floor(this.qiHigh(Math.floor((jd + pc - 2451259) / 365.2422 * 24) * Math.PI / 12) + 0.5);
         } else if (jd >= f1 && jd < f2) {
@@ -3560,8 +3560,8 @@
           d -= Solar.J2000;
         } else if (jd >= f2 && jd < f3) {
           d = Math.floor(this.qiLow(Math.floor((jd + pc - 2451259) / 365.2422 * 24) * Math.PI / 12) + 0.5);
-          var from = Math.floor((jd - f2) / 365.2422 * 24);
-          var n = this.QB.substring(from, from + 1);
+          const from = Math.floor((jd - f2) / 365.2422 * 24);
+          const n = this.QB.substring(from, from + 1);
           if ('1' === n) {
             d += 1;
           } else if ('2' === n) {
@@ -3571,13 +3571,13 @@
         return d;
       },
       qiAccurate:function(w){
-        var t = this.saLonT(w) * 36525;
+        const t = this.saLonT(w) * 36525;
         return t - this.dtT(t) + this.ONE_THIRD;
       },
       qiAccurate2:function(jd){
-        var d = Math.PI / 12;
-        var w = Math.floor((jd + 293) / 365.2422 * 24) * d;
-        var a = this.qiAccurate(w);
+        const d = Math.PI / 12;
+        const w = Math.floor((jd + 293) / 365.2422 * 24) * d;
+        const a = this.qiAccurate(w);
         if (a - jd > 5) {
           return this.qiAccurate(w - d);
         }
@@ -3588,7 +3588,7 @@
       }
     };
   })();
-  var SolarUtil = (function(){
+  const SolarUtil = (function(){
     return {
       WEEK:['{w.sun}', '{w.mon}', '{w.tues}', '{w.wed}', '{w.thur}', '{w.fri}', '{w.sat}'],
       DAYS_OF_MONTH:[31,28,31,30,31,30,31,31,30,31,30,31],
@@ -3759,8 +3759,8 @@
         return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
       },
       getDaysOfMonth:function(year, month){
-        var oy = year;
-        var om = month;
+        const oy = year;
+        const om = month;
         year *= 1;
         if(isNaN(year)){
           throw new Error('wrong solar year '+oy);
@@ -3772,15 +3772,15 @@
         if (1582 === year && 10 === month) {
           return 21;
         }
-        var m = month-1;
-        var d = this.DAYS_OF_MONTH[m];
+        const m = month-1;
+        let d = this.DAYS_OF_MONTH[m];
         if (m === 1 && this.isLeapYear(year)) {
           d++;
         }
         return d;
       },
       getDaysOfYear:function(year){
-        var oy = year;
+        const oy = year;
         year *= 1;
         if(isNaN(year)){
           throw new Error('wrong solar year '+oy);
@@ -3791,9 +3791,9 @@
         return this.isLeapYear(year) ? 366: 365;
       },
       getDaysInYear:function(year, month, day){
-        var oy = year;
-        var om = month;
-        var od = day;
+        const oy = year;
+        const om = month;
+        const od = day;
         year *= 1;
         if(isNaN(year)){
           throw new Error('wrong solar year '+oy);
@@ -3806,11 +3806,11 @@
         if(isNaN(day)){
           throw new Error('wrong solar day '+od);
         }
-        var days = 0;
-        for (var i = 1; i < month; i++) {
+        let days = 0;
+        for (let i = 1; i < month; i++) {
           days += this.getDaysOfMonth(year, i);
         }
-        var d = day;
+        let d = day;
         if (1582 === year && 10 === month) {
           if (day >= 15) {
             d -= 10;
@@ -3822,12 +3822,12 @@
         return days;
       },
       getDaysBetween:function(ay, am, ad, by, bm, bd){
-        var oay = ay;
-        var oam = am;
-        var oad = ad;
-        var oby = by;
-        var obm = bm;
-        var obd = bd;
+        const oay = ay;
+        const oam = am;
+        const oad = ad;
+        const oby = by;
+        const obm = bm;
+        const obd = bd;
         ay *= 1;
         if(isNaN(ay)){
           throw new Error('wrong solar year '+oay);
@@ -3853,9 +3853,9 @@
           throw new Error('wrong solar day '+obd);
         }
 
-        var n;
-        var days;
-        var i;
+        let n;
+        let days;
+        let i;
         if (ay === by) {
           n = this.getDaysInYear(by, bm, bd) - this.getDaysInYear(ay, am, ad);
         } else if (ay > by) {
@@ -3880,7 +3880,7 @@
       }
     };
   })();
-  var LunarUtil = (function(){
+  const LunarUtil = (function(){
     return {
       BASE_MONTH_ZHI_INDEX:2,
       JIE_QI: ['{jq.dongZhi}', '{jq.xiaoHan}', '{jq.daHan}', '{jq.liChun}', '{jq.yuShui}', '{jq.jingZhe}', '{jq.chunFen}', '{jq.qingMing}', '{jq.guYu}', '{jq.liXia}', '{jq.xiaoMan}', '{jq.mangZhong}', '{jq.xiaZhi}', '{jq.xiaoShu}', '{jq.daShu}', '{jq.liQiu}', '{jq.chuShu}', '{jq.baiLu}', '{jq.qiuFen}', '{jq.hanLu}', '{jq.shuangJiang}', '{jq.liDong}', '{jq.xiaoXue}', '{jq.daXue}'],
@@ -5124,8 +5124,8 @@
         if(hm.length>5){
           hm = hm.substring(0,5);
         }
-        var x = 1;
-        for(var i=1;i<22;i+=2){
+        let x = 1;
+        for(let i=1;i<22;i+=2){
           if(hm>=((i<10?'0':'')+i+':00')&&hm<=((i+1<10?'0':'')+(i+1)+':59')){
             return x;
           }
@@ -5140,28 +5140,28 @@
         return this.index(ganZhi, this.JIA_ZI, 0);
       },
       hex:function(n){
-        var hex = n.toString(16);
+        let hex = n.toString(16);
         if(hex.length<2){
           hex = '0'+hex;
         }
         return hex.toUpperCase();
       },
       getDayYi:function(monthGanZhi,dayGanZhi){
-        var l = [];
-        var day = this.hex(this.getJiaZiIndex(dayGanZhi));
-        var month = this.hex(this.getJiaZiIndex(monthGanZhi));
-        var right = this.DAY_YI_JI;
-        var index = right.indexOf(day+'=');
+        const l = [];
+        const day = this.hex(this.getJiaZiIndex(dayGanZhi));
+        const month = this.hex(this.getJiaZiIndex(monthGanZhi));
+        let right = this.DAY_YI_JI;
+        let index = right.indexOf(day+'=');
         while(index>-1) {
           right = right.substring(index+3);
-          var left = right;
+          let left = right;
           if (left.indexOf('=')>-1) {
             left = left.substring(0, left.indexOf('=') - 2);
           }
-          var matched = false;
-          var months = left.substring(0, left.indexOf(':'));
-          var i;
-          var j;
+          let matched = false;
+          const months = left.substring(0, left.indexOf(':'));
+          let i;
+          let j;
           for (i = 0, j = months.length; i < j; i += 2) {
             if (months.substring(i, i+2)===month) {
               matched = true;
@@ -5169,7 +5169,7 @@
             }
           }
           if(matched) {
-            var ys = left.substring(left.indexOf(':') + 1);
+            let ys = left.substring(left.indexOf(':') + 1);
             ys = ys.substring(0, ys.indexOf(','));
             for (i = 0, j = ys.length; i < j; i += 2) {
               l.push(this.YI_JI[parseInt(ys.substring(i, i+2),16)]);
@@ -5184,21 +5184,21 @@
         return l;
       },
       getDayJi:function(monthGanZhi,dayGanZhi){
-        var l = [];
-        var day = this.hex(this.getJiaZiIndex(dayGanZhi));
-        var month = this.hex(this.getJiaZiIndex(monthGanZhi));
-        var right = this.DAY_YI_JI;
-        var index = right.indexOf(day+'=');
+        const l = [];
+        const day = this.hex(this.getJiaZiIndex(dayGanZhi));
+        const month = this.hex(this.getJiaZiIndex(monthGanZhi));
+        let right = this.DAY_YI_JI;
+        let index = right.indexOf(day+'=');
         while(index>-1) {
           right = right.substring(index+3);
-          var left = right;
+          let left = right;
           if (left.indexOf('=')>-1) {
             left = left.substring(0, left.indexOf('=') - 2);
           }
-          var matched = false;
-          var months = left.substring(0, left.indexOf(':'));
-          var i;
-          var j;
+          let matched = false;
+          const months = left.substring(0, left.indexOf(':'));
+          let i;
+          let j;
           for (i = 0, j = months.length; i < j; i += 2) {
             if (months.substring(i, i+2)===month) {
               matched = true;
@@ -5206,7 +5206,7 @@
             }
           }
           if(matched) {
-            var js = left.substring(left.indexOf(',')+1);
+            const js = left.substring(left.indexOf(',')+1);
             for (i = 0, j = js.length; i < j; i += 2) {
               l.push(this.YI_JI[parseInt(js.substring(i, i+2),16)]);
             }
@@ -5220,20 +5220,20 @@
         return l;
       },
       getDayJiShen:function(monthZhiIndex, dayGanZhi){
-        var l = [];
-        var m = monthZhiIndex - 2;
+        const l = [];
+        let m = monthZhiIndex - 2;
         if (m < 0) {
           m += 12;
         }
-        var index = this.getJiaZiIndex(dayGanZhi).toString(16).toUpperCase();
+        let index = this.getJiaZiIndex(dayGanZhi).toString(16).toUpperCase();
         if (index.length < 2) {
           index = '0' + index;
         }
-        var matcher = new RegExp(';' + index + '(.[^;]*)', 'g').exec(this.DAY_SHEN_SHA[m]);
+        const matcher = new RegExp(';' + index + '(.[^;]*)', 'g').exec(this.DAY_SHEN_SHA[m]);
         if (matcher) {
-          var data = matcher[1];
-          for (var i = 0, j = data.length; i < j; i += 2) {
-            var n = parseInt(data.substring(i, i + 2), 16);
+          const data = matcher[1];
+          for (let i = 0, j = data.length; i < j; i += 2) {
+            const n = parseInt(data.substring(i, i + 2), 16);
             if (n < 60) {
               l.push(this.SHEN_SHA[n + 1]);
             }
@@ -5245,20 +5245,20 @@
         return l;
       },
       getDayXiongSha:function(monthZhiIndex, dayGanZhi){
-        var l = [];
-        var m = monthZhiIndex - 2;
+        const l = [];
+        let m = monthZhiIndex - 2;
         if (m < 0) {
           m += 12;
         }
-        var index = this.getJiaZiIndex(dayGanZhi).toString(16).toUpperCase();
+        let index = this.getJiaZiIndex(dayGanZhi).toString(16).toUpperCase();
         if (index.length < 2) {
           index = '0' + index;
         }
-        var matcher = new RegExp(';' + index + '(.[^;]*)', 'g').exec(this.DAY_SHEN_SHA[m]);
+        const matcher = new RegExp(';' + index + '(.[^;]*)', 'g').exec(this.DAY_SHEN_SHA[m]);
         if (matcher) {
-          var data = matcher[1];
-          for (var i = 0, j = data.length; i < j; i += 2) {
-            var n = parseInt(data.substring(i, i + 2), 16);
+          const data = matcher[1];
+          for (let i = 0, j = data.length; i < j; i += 2) {
+            const n = parseInt(data.substring(i, i + 2), 16);
             if (n >= 60) {
               l.push(this.SHEN_SHA[n + 1]);
             }
@@ -5270,17 +5270,17 @@
         return l;
       },
       getTimeYi:function(dayGanZhi,timeGanZhi){
-        var l = [];
-        var day = this.hex(this.getJiaZiIndex(dayGanZhi));
-        var time = this.hex(this.getJiaZiIndex(timeGanZhi));
-        var index = this.TIME_YI_JI.indexOf(day+time+'=');
+        const l = [];
+        const day = this.hex(this.getJiaZiIndex(dayGanZhi));
+        const time = this.hex(this.getJiaZiIndex(timeGanZhi));
+        const index = this.TIME_YI_JI.indexOf(day+time+'=');
         if(index>-1) {
-          var left = this.TIME_YI_JI.substring(index + 5);
+          let left = this.TIME_YI_JI.substring(index + 5);
           if (left.indexOf('=')>-1) {
             left = left.substring(0, left.indexOf('=') - 4);
           }
-          var ys = left.substring(0, left.indexOf(','));
-          for (var i = 0, j = ys.length; i < j; i += 2) {
+          const ys = left.substring(0, left.indexOf(','));
+          for (let i = 0, j = ys.length; i < j; i += 2) {
             l.push(this.YI_JI[parseInt(ys.substring(i, i+2), 16)]);
           }
         }
@@ -5290,17 +5290,17 @@
         return l;
       },
       getTimeJi:function(dayGanZhi,timeGanZhi){
-        var l = [];
-        var day = this.hex(this.getJiaZiIndex(dayGanZhi));
-        var time = this.hex(this.getJiaZiIndex(timeGanZhi));
-        var index = this.TIME_YI_JI.indexOf(day+time+'=');
+        const l = [];
+        const day = this.hex(this.getJiaZiIndex(dayGanZhi));
+        const time = this.hex(this.getJiaZiIndex(timeGanZhi));
+        const index = this.TIME_YI_JI.indexOf(day+time+'=');
         if(index>-1) {
-          var left = this.TIME_YI_JI.substring(index + 5);
+          let left = this.TIME_YI_JI.substring(index + 5);
           if (left.indexOf('=')>-1) {
             left = left.substring(0, left.indexOf('=') - 4);
           }
-          var js = left.substring(left.indexOf(',')+1);
-          for (var i = 0, j = js.length; i < j; i += 2) {
+          const js = left.substring(left.indexOf(',')+1);
+          for (let i = 0, j = js.length; i < j; i += 2) {
             l.push(this.YI_JI[parseInt(js.substring(i, i+2), 16)]);
           }
         }
@@ -5310,7 +5310,7 @@
         return l;
       },
       getXunIndex:function(ganZhi){
-        var diff = this.find(ganZhi, this.GAN).index - this.find(ganZhi, this.ZHI).index;
+        let diff = this.find(ganZhi, this.GAN).index - this.find(ganZhi, this.ZHI).index;
         if (diff < 0) {
           diff += 12;
         }
@@ -5323,7 +5323,7 @@
         return this.XUN_KONG[this.getXunIndex(ganZhi)];
       },
       index:function(name, names, offset) {
-        for (var i = 0, j = names.length; i < j; i++) {
+        for (let i = 0, j = names.length; i < j; i++) {
           if (names[i] === name) {
             return i + offset;
           }
@@ -5331,8 +5331,8 @@
         return -1;
       },
       find:function(s, arr){
-        for (var i = 0, j = arr.length; i < j; i++) {
-          var v = arr[i];
+        for (let i = 0, j = arr.length; i < j; i++) {
+          const v = arr[i];
           if (v.length < 1) {
             continue;
           }
@@ -5347,19 +5347,20 @@
       }
     };
   })();
-  var HolidayUtil = (function(_NAMES){
-    var _SIZE = 18;
-    var _ZERO='0'.charCodeAt(0);
-    var _TAG_REMOVE = '~';
-    var _NAMES_IN_USE=_NAMES,_DATA='200112290020020101200112300020020101200201010120020101200201020120020101200201030120020101200202091020020212200202101020020212200202121120020212200202131120020212200202141120020212200202151120020212200202161120020212200202171120020212200202181120020212200204273020020501200204283020020501200205013120020501200205023120020501200205033120020501200205043120020501200205053120020501200205063120020501200205073120020501200209286020021001200209296020021001200210016120021001200210026120021001200210036120021001200210046120021001200210056120021001200210066120021001200210076120021001200301010120030101200302011120030201200302021120030201200302031120030201200302041120030201200302051120030201200302061120030201200302071120030201200302081020030201200302091020030201200304263020030501200304273020030501200305013120030501200305023120030501200305033120030501200305043120030501200305053120030501200305063120030501200305073120030501200309276020031001200309286020031001200310016120031001200310026120031001200310036120031001200310046120031001200310056120031001200310066120031001200310076120031001200401010120040101200401171020040122200401181020040122200401221120040122200401231120040122200401241120040122200401251120040122200401261120040122200401271120040122200401281120040122200405013120040501200405023120040501200405033120040501200405043120040501200405053120040501200405063120040501200405073120040501200405083020040501200405093020040501200410016120041001200410026120041001200410036120041001200410046120041001200410056120041001200410066120041001200410076120041001200410096020041001200410106020041001200501010120050101200501020120050101200501030120050101200502051020050209200502061020050209200502091120050209200502101120050209200502111120050209200502121120050209200502131120050209200502141120050209200502151120050209200504303020050501200505013120050501200505023120050501200505033120050501200505043120050501200505053120050501200505063120050501200505073120050501200505083020050501200510016120051001200510026120051001200510036120051001200510046120051001200510056120051001200510066120051001200510076120051001200510086020051001200510096020051001200512310020060101200601010120060101200601020120060101200601030120060101200601281020060129200601291120060129200601301120060129200601311120060129200602011120060129200602021120060129200602031120060129200602041120060129200602051020060129200604293020060501200604303020060501200605013120060501200605023120060501200605033120060501200605043120060501200605053120060501200605063120060501200605073120060501200609306020061001200610016120061001200610026120061001200610036120061001200610046120061001200610056120061001200610066120061001200610076120061001200610086020061001200612300020070101200612310020070101200701010120070101200701020120070101200701030120070101200702171020070218200702181120070218200702191120070218200702201120070218200702211120070218200702221120070218200702231120070218200702241120070218200702251020070218200704283020070501200704293020070501200705013120070501200705023120070501200705033120070501200705043120070501200705053120070501200705063120070501200705073120070501200709296020071001200709306020071001200710016120071001200710026120071001200710036120071001200710046120071001200710056120071001200710066120071001200710076120071001200712290020080101200712300120080101200712310120080101200801010120080101200802021020080206200802031020080206200802061120080206200802071120080206200802081120080206200802091120080206200802101120080206200802111120080206200802121120080206200804042120080404200804052120080404200804062120080404200805013120080501200805023120080501200805033120080501200805043020080501200806074120080608200806084120080608200806094120080608200809135120080914200809145120080914200809155120080914200809276020081001200809286020081001200809296120081001200809306120081001200810016120081001200810026120081001200810036120081001200810046120081001200810056120081001200901010120090101200901020120090101200901030120090101200901040020090101200901241020090125200901251120090125200901261120090125200901271120090125200901281120090125200901291120090125200901301120090125200901311120090125200902011020090125200904042120090404200904052120090404200904062120090404200905013120090501200905023120090501200905033120090501200905284120090528200905294120090528200905304120090528200905314020090528200909276020091001200910016120091001200910026120091001200910036120091001200910046120091001200910055120091003200910065120091003200910075120091003200910085120091003200910105020091003201001010120100101201001020120100101201001030120100101201002131120100213201002141120100213201002151120100213201002161120100213201002171120100213201002181120100213201002191120100213201002201020100213201002211020100213201004032120100405201004042120100405201004052120100405201005013120100501201005023120100501201005033120100501201006124020100616201006134020100616201006144120100616201006154120100616201006164120100616201009195020100922201009225120100922201009235120100922201009245120100922201009255020100922201009266020101001201010016120101001201010026120101001201010036120101001201010046120101001201010056120101001201010066120101001201010076120101001201010096020101001201101010120110101201101020120110101201101030120110101201101301020110203201102021120110203201102031120110203201102041120110203201102051120110203201102061120110203201102071120110203201102081120110203201102121020110203201104022020110405201104032120110405201104042120110405201104052120110405201104303120110501201105013120110501201105023120110501201106044120110606201106054120110606201106064120110606201109105120110912201109115120110912201109125120110912201110016120111001201110026120111001201110036120111001201110046120111001201110056120111001201110066120111001201110076120111001201110086020111001201110096020111001201112310020120101201201010120120101201201020120120101201201030120120101201201211020120123201201221120120123201201231120120123201201241120120123201201251120120123201201261120120123201201271120120123201201281120120123201201291020120123201203312020120404201204012020120404201204022120120404201204032120120404201204042120120404201204283020120501201204293120120501201204303120120501201205013120120501201205023020120501201206224120120623201206234120120623201206244120120623201209295020120930201209305120120930201210016120121001201210026120121001201210036120121001201210046120121001201210056120121001201210066120121001201210076120121001201210086020121001201301010120130101201301020120130101201301030120130101201301050020130101201301060020130101201302091120130210201302101120130210201302111120130210201302121120130210201302131120130210201302141120130210201302151120130210201302161020130210201302171020130210201304042120130404201304052120130404201304062120130404201304273020130501201304283020130501201304293120130501201304303120130501201305013120130501201306084020130612201306094020130612201306104120130612201306114120130612201306124120130612201309195120130919201309205120130919201309215120130919201309225020130919201309296020131001201310016120131001201310026120131001201310036120131001201310046120131001201310056120131001201310066120131001201310076120131001201401010120140101201401261020140131201401311120140131201402011120140131201402021120140131201402031120140131201402041120140131201402051120140131201402061120140131201402081020140131201404052120140405201404062120140405201404072120140405201405013120140501201405023120140501201405033120140501201405043020140501201405314120140602201406014120140602201406024120140602201409065120140908201409075120140908201409085120140908201409286020141001201410016120141001201410026120141001201410036120141001201410046120141004201410056120141001201410066120141001201410076120141001201410116020141001201501010120150101201501020120150101201501030120150101201501040020150101201502151020150219201502181120150219201502191120150219201502201120150219201502211120150219201502221120150219201502231120150219201502241120150219201502281020150219201504042120150405201504052120150405201504062120150405201505013120150501201505023120150501201505033120150501201506204120150620201506214120150620201506224120150620201509038120150903201509048120150903201509058120150903201509068020150903201509265120150927201509275120150927201510016120151001201510026120151001201510036120151001201510046120151004201510056120151001201510066120151001201510076120151001201510106020151001201601010120160101201601020120160101201601030120160101201602061020160208201602071120160208201602081120160208201602091120160208201602101120160208201602111120160208201602121120160208201602131120160208201602141020160208201604022120160404201604032120160404201604042120160404201604303120160501201605013120160501201605023120160501201606094120160609201606104120160609201606114120160609201606124020160609201609155120160915201609165120160915201609175120160915201609185020160915201610016120161001201610026120161001201610036120161001201610046120161001201610056120161001201610066120161001201610076120161001201610086020161001201610096020161001201612310120170101201701010120170101201701020120170101201701221020170128201701271120170128201701281120170128201701291120170128201701301120170128201701311120170128201702011120170128201702021120170128201702041020170128201704012020170404201704022120170404201704032120170404201704042120170404201704293120170501201704303120170501201705013120170501201705274020170530201705284120170530201705294120170530201705304120170530201709306020171001201710016120171001201710026120171001201710036120171001201710045120171004201710056120171001201710066120171001201710076120171001201710086120171001201712300120180101201712310120180101201801010120180101201802111020180216201802151120180216201802161120180216201802171120180216201802181120180216201802191120180216201802201120180216201802211120180216201802241020180216201804052120180405201804062120180405201804072120180405201804082020180405201804283020180501201804293120180501201804303120180501201805013120180501201806164120180618201806174120180618201806184120180618201809225120180924201809235120180924201809245120180924201809296020181001201809306020181001201810016120181001201810026120181001201810036120181001201810046120181001201810056120181001201810066120181001201810076120181001201812290020190101201812300120190101201812310120190101201901010120190101201902021020190205201902031020190205201902041120190205201902051120190205201902061120190205201902071120190205201902081120190205201902091120190205201902101120190205201904052120190405201904062120190405201904072120190405201904283020190501201905013120190501201905023120190501201905033120190501201905043120190501201905053020190501201906074120190607201906084120190607201906094120190607201909135120190913201909145120190913201909155120190913201909296020191001201910016120191001201910026120191001201910036120191001201910046120191001201910056120191001201910066120191001201910076120191001201910126020191001202001010120200101202001191020200125202001241120200125202001251120200125202001261120200125202001271120200125202001281120200125202001291120200125202001301120200125202001311120200125202002011120200125202002021120200125202004042120200404202004052120200404202004062120200404202004263020200501202005013120200501202005023120200501202005033120200501202005043120200501202005053120200501202005093020200501202006254120200625202006264120200625202006274120200625202006284020200625202009277020201001202010017120201001202010026120201001202010036120201001202010046120201001202010056120201001202010066120201001202010076120201001202010086120201001202010106020201001202101010120210101202101020120210101202101030120210101202102071020210212202102111120210212202102121120210212202102131120210212202102141120210212202102151120210212202102161120210212202102171120210212202102201020210212202104032120210404202104042120210404202104052120210404202104253020210501202105013120210501202105023120210501202105033120210501202105043120210501202105053120210501202105083020210501202106124120210614202106134120210614202106144120210614202109185020210921202109195120210921202109205120210921202109215120210921202109266020211001202110016120211001202110026120211001202110036120211001202110046120211001202110056120211001202110066120211001202110076120211001202110096020211001202201010120220101202201020120220101202201030120220101202201291020220201202201301020220201202201311120220201202202011120220201202202021120220201202202031120220201202202041120220201202202051120220201202202061120220201202204022020220405202204032120220405202204042120220405202204052120220405202204243020220501202204303120220501202205013120220501202205023120220501202205033120220501202205043120220501202205073020220501202206034120220603202206044120220603202206054120220603202209105120220910202209115120220910202209125120220910202210016120221001202210026120221001202210036120221001202210046120221001202210056120221001202210066120221001202210076120221001202210086020221001202210096020221001202212310120230101202301010120230101202301020120230101202301211120230122202301221120230122202301231120230122202301241120230122202301251120230122202301261120230122202301271120230122202301281020230122202301291020230122202304052120230405202304233020230501202304293120230501202304303120230501202305013120230501202305023120230501202305033120230501202305063020230501202306224120230622202306234120230622202306244120230622202306254020230622202309295120230929202309306120231001202310016120231001202310026120231001202310036120231001202310046120231001202310056120231001202310066120231001202310076020231001202310086020231001202312300120240101202312310120240101202401010120240101202402041020240210202402101120240210202402111120240210202402121120240210202402131120240210202402141120240210202402151120240210202402161120240210202402171120240210202402181020240210202404042120240404202404052120240404202404062120240404202404072020240404202404283020240501202405013120240501202405023120240501202405033120240501202405043120240501202405053120240501202405113020240501202406084120240610202406094120240610202406104120240610202409145020240917202409155120240917202409165120240917202409175120240917202409296020241001202410016120241001202410026120241001202410036120241001202410046120241001202410056120241001202410066120241001202410076120241001202410126020241001202501010120250101202501261020250129202501281120250129202501291120250129202501301120250129202501311120250129202502011120250129202502021120250129202502031120250129202502041120250129202502081020250129202504042120250404202504052120250404202504062120250404202504273020250501202505013120250501202505023120250501202505033120250501202505043120250501202505053120250501202505314120250531202506014120250531202506024120250531202509287020251001202510017120251001202510027120251001202510037120251001202510047120251001202510057120251001202510067120251001202510077120251001202510087120251001202510117020251001202601010120260101202601020120260101202601030120260101202601040020260101202602141020260217202602151120260217202602161120260217202602171120260217202602181120260217202602191120260217202602201120260217202602211120260217202602221120260217202602231120260217202602281020260217202604042120260405202604052120260405202604062120260405202605013120260501202605023120260501202605033120260501202605043120260501202605053120260501202605093020260501202606194120260619202606204120260619202606214120260619202609206020261001202609255120260925202609265120260925202609275120260925202610016120261001202610026120261001202610036120261001202610046120261001202610056120261001202610066120261001202610076120261001202610106020261001';
-    var _DATA_IN_USE = _DATA;
-    var _padding = function(n){
+  const HolidayUtil = (function(_NAMES){
+    const _SIZE = 18;
+    const _ZERO='0'.charCodeAt(0);
+    const _TAG_REMOVE = '~';
+    let _NAMES_IN_USE=_NAMES;
+    const _DATA='200112290020020101200112300020020101200201010120020101200201020120020101200201030120020101200202091020020212200202101020020212200202121120020212200202131120020212200202141120020212200202151120020212200202161120020212200202171120020212200202181120020212200204273020020501200204283020020501200205013120020501200205023120020501200205033120020501200205043120020501200205053120020501200205063120020501200205073120020501200209286020021001200209296020021001200210016120021001200210026120021001200210036120021001200210046120021001200210056120021001200210066120021001200210076120021001200301010120030101200302011120030201200302021120030201200302031120030201200302041120030201200302051120030201200302061120030201200302071120030201200302081020030201200302091020030201200304263020030501200304273020030501200305013120030501200305023120030501200305033120030501200305043120030501200305053120030501200305063120030501200305073120030501200309276020031001200309286020031001200310016120031001200310026120031001200310036120031001200310046120031001200310056120031001200310066120031001200310076120031001200401010120040101200401171020040122200401181020040122200401221120040122200401231120040122200401241120040122200401251120040122200401261120040122200401271120040122200401281120040122200405013120040501200405023120040501200405033120040501200405043120040501200405053120040501200405063120040501200405073120040501200405083020040501200405093020040501200410016120041001200410026120041001200410036120041001200410046120041001200410056120041001200410066120041001200410076120041001200410096020041001200410106020041001200501010120050101200501020120050101200501030120050101200502051020050209200502061020050209200502091120050209200502101120050209200502111120050209200502121120050209200502131120050209200502141120050209200502151120050209200504303020050501200505013120050501200505023120050501200505033120050501200505043120050501200505053120050501200505063120050501200505073120050501200505083020050501200510016120051001200510026120051001200510036120051001200510046120051001200510056120051001200510066120051001200510076120051001200510086020051001200510096020051001200512310020060101200601010120060101200601020120060101200601030120060101200601281020060129200601291120060129200601301120060129200601311120060129200602011120060129200602021120060129200602031120060129200602041120060129200602051020060129200604293020060501200604303020060501200605013120060501200605023120060501200605033120060501200605043120060501200605053120060501200605063120060501200605073120060501200609306020061001200610016120061001200610026120061001200610036120061001200610046120061001200610056120061001200610066120061001200610076120061001200610086020061001200612300020070101200612310020070101200701010120070101200701020120070101200701030120070101200702171020070218200702181120070218200702191120070218200702201120070218200702211120070218200702221120070218200702231120070218200702241120070218200702251020070218200704283020070501200704293020070501200705013120070501200705023120070501200705033120070501200705043120070501200705053120070501200705063120070501200705073120070501200709296020071001200709306020071001200710016120071001200710026120071001200710036120071001200710046120071001200710056120071001200710066120071001200710076120071001200712290020080101200712300120080101200712310120080101200801010120080101200802021020080206200802031020080206200802061120080206200802071120080206200802081120080206200802091120080206200802101120080206200802111120080206200802121120080206200804042120080404200804052120080404200804062120080404200805013120080501200805023120080501200805033120080501200805043020080501200806074120080608200806084120080608200806094120080608200809135120080914200809145120080914200809155120080914200809276020081001200809286020081001200809296120081001200809306120081001200810016120081001200810026120081001200810036120081001200810046120081001200810056120081001200901010120090101200901020120090101200901030120090101200901040020090101200901241020090125200901251120090125200901261120090125200901271120090125200901281120090125200901291120090125200901301120090125200901311120090125200902011020090125200904042120090404200904052120090404200904062120090404200905013120090501200905023120090501200905033120090501200905284120090528200905294120090528200905304120090528200905314020090528200909276020091001200910016120091001200910026120091001200910036120091001200910046120091001200910055120091003200910065120091003200910075120091003200910085120091003200910105020091003201001010120100101201001020120100101201001030120100101201002131120100213201002141120100213201002151120100213201002161120100213201002171120100213201002181120100213201002191120100213201002201020100213201002211020100213201004032120100405201004042120100405201004052120100405201005013120100501201005023120100501201005033120100501201006124020100616201006134020100616201006144120100616201006154120100616201006164120100616201009195020100922201009225120100922201009235120100922201009245120100922201009255020100922201009266020101001201010016120101001201010026120101001201010036120101001201010046120101001201010056120101001201010066120101001201010076120101001201010096020101001201101010120110101201101020120110101201101030120110101201101301020110203201102021120110203201102031120110203201102041120110203201102051120110203201102061120110203201102071120110203201102081120110203201102121020110203201104022020110405201104032120110405201104042120110405201104052120110405201104303120110501201105013120110501201105023120110501201106044120110606201106054120110606201106064120110606201109105120110912201109115120110912201109125120110912201110016120111001201110026120111001201110036120111001201110046120111001201110056120111001201110066120111001201110076120111001201110086020111001201110096020111001201112310020120101201201010120120101201201020120120101201201030120120101201201211020120123201201221120120123201201231120120123201201241120120123201201251120120123201201261120120123201201271120120123201201281120120123201201291020120123201203312020120404201204012020120404201204022120120404201204032120120404201204042120120404201204283020120501201204293120120501201204303120120501201205013120120501201205023020120501201206224120120623201206234120120623201206244120120623201209295020120930201209305120120930201210016120121001201210026120121001201210036120121001201210046120121001201210056120121001201210066120121001201210076120121001201210086020121001201301010120130101201301020120130101201301030120130101201301050020130101201301060020130101201302091120130210201302101120130210201302111120130210201302121120130210201302131120130210201302141120130210201302151120130210201302161020130210201302171020130210201304042120130404201304052120130404201304062120130404201304273020130501201304283020130501201304293120130501201304303120130501201305013120130501201306084020130612201306094020130612201306104120130612201306114120130612201306124120130612201309195120130919201309205120130919201309215120130919201309225020130919201309296020131001201310016120131001201310026120131001201310036120131001201310046120131001201310056120131001201310066120131001201310076120131001201401010120140101201401261020140131201401311120140131201402011120140131201402021120140131201402031120140131201402041120140131201402051120140131201402061120140131201402081020140131201404052120140405201404062120140405201404072120140405201405013120140501201405023120140501201405033120140501201405043020140501201405314120140602201406014120140602201406024120140602201409065120140908201409075120140908201409085120140908201409286020141001201410016120141001201410026120141001201410036120141001201410046120141004201410056120141001201410066120141001201410076120141001201410116020141001201501010120150101201501020120150101201501030120150101201501040020150101201502151020150219201502181120150219201502191120150219201502201120150219201502211120150219201502221120150219201502231120150219201502241120150219201502281020150219201504042120150405201504052120150405201504062120150405201505013120150501201505023120150501201505033120150501201506204120150620201506214120150620201506224120150620201509038120150903201509048120150903201509058120150903201509068020150903201509265120150927201509275120150927201510016120151001201510026120151001201510036120151001201510046120151004201510056120151001201510066120151001201510076120151001201510106020151001201601010120160101201601020120160101201601030120160101201602061020160208201602071120160208201602081120160208201602091120160208201602101120160208201602111120160208201602121120160208201602131120160208201602141020160208201604022120160404201604032120160404201604042120160404201604303120160501201605013120160501201605023120160501201606094120160609201606104120160609201606114120160609201606124020160609201609155120160915201609165120160915201609175120160915201609185020160915201610016120161001201610026120161001201610036120161001201610046120161001201610056120161001201610066120161001201610076120161001201610086020161001201610096020161001201612310120170101201701010120170101201701020120170101201701221020170128201701271120170128201701281120170128201701291120170128201701301120170128201701311120170128201702011120170128201702021120170128201702041020170128201704012020170404201704022120170404201704032120170404201704042120170404201704293120170501201704303120170501201705013120170501201705274020170530201705284120170530201705294120170530201705304120170530201709306020171001201710016120171001201710026120171001201710036120171001201710045120171004201710056120171001201710066120171001201710076120171001201710086120171001201712300120180101201712310120180101201801010120180101201802111020180216201802151120180216201802161120180216201802171120180216201802181120180216201802191120180216201802201120180216201802211120180216201802241020180216201804052120180405201804062120180405201804072120180405201804082020180405201804283020180501201804293120180501201804303120180501201805013120180501201806164120180618201806174120180618201806184120180618201809225120180924201809235120180924201809245120180924201809296020181001201809306020181001201810016120181001201810026120181001201810036120181001201810046120181001201810056120181001201810066120181001201810076120181001201812290020190101201812300120190101201812310120190101201901010120190101201902021020190205201902031020190205201902041120190205201902051120190205201902061120190205201902071120190205201902081120190205201902091120190205201902101120190205201904052120190405201904062120190405201904072120190405201904283020190501201905013120190501201905023120190501201905033120190501201905043120190501201905053020190501201906074120190607201906084120190607201906094120190607201909135120190913201909145120190913201909155120190913201909296020191001201910016120191001201910026120191001201910036120191001201910046120191001201910056120191001201910066120191001201910076120191001201910126020191001202001010120200101202001191020200125202001241120200125202001251120200125202001261120200125202001271120200125202001281120200125202001291120200125202001301120200125202001311120200125202002011120200125202002021120200125202004042120200404202004052120200404202004062120200404202004263020200501202005013120200501202005023120200501202005033120200501202005043120200501202005053120200501202005093020200501202006254120200625202006264120200625202006274120200625202006284020200625202009277020201001202010017120201001202010026120201001202010036120201001202010046120201001202010056120201001202010066120201001202010076120201001202010086120201001202010106020201001202101010120210101202101020120210101202101030120210101202102071020210212202102111120210212202102121120210212202102131120210212202102141120210212202102151120210212202102161120210212202102171120210212202102201020210212202104032120210404202104042120210404202104052120210404202104253020210501202105013120210501202105023120210501202105033120210501202105043120210501202105053120210501202105083020210501202106124120210614202106134120210614202106144120210614202109185020210921202109195120210921202109205120210921202109215120210921202109266020211001202110016120211001202110026120211001202110036120211001202110046120211001202110056120211001202110066120211001202110076120211001202110096020211001202201010120220101202201020120220101202201030120220101202201291020220201202201301020220201202201311120220201202202011120220201202202021120220201202202031120220201202202041120220201202202051120220201202202061120220201202204022020220405202204032120220405202204042120220405202204052120220405202204243020220501202204303120220501202205013120220501202205023120220501202205033120220501202205043120220501202205073020220501202206034120220603202206044120220603202206054120220603202209105120220910202209115120220910202209125120220910202210016120221001202210026120221001202210036120221001202210046120221001202210056120221001202210066120221001202210076120221001202210086020221001202210096020221001202212310120230101202301010120230101202301020120230101202301211120230122202301221120230122202301231120230122202301241120230122202301251120230122202301261120230122202301271120230122202301281020230122202301291020230122202304052120230405202304233020230501202304293120230501202304303120230501202305013120230501202305023120230501202305033120230501202305063020230501202306224120230622202306234120230622202306244120230622202306254020230622202309295120230929202309306120231001202310016120231001202310026120231001202310036120231001202310046120231001202310056120231001202310066120231001202310076020231001202310086020231001202312300120240101202312310120240101202401010120240101202402041020240210202402101120240210202402111120240210202402121120240210202402131120240210202402141120240210202402151120240210202402161120240210202402171120240210202402181020240210202404042120240404202404052120240404202404062120240404202404072020240404202404283020240501202405013120240501202405023120240501202405033120240501202405043120240501202405053120240501202405113020240501202406084120240610202406094120240610202406104120240610202409145020240917202409155120240917202409165120240917202409175120240917202409296020241001202410016120241001202410026120241001202410036120241001202410046120241001202410056120241001202410066120241001202410076120241001202410126020241001202501010120250101202501261020250129202501281120250129202501291120250129202501301120250129202501311120250129202502011120250129202502021120250129202502031120250129202502041120250129202502081020250129202504042120250404202504052120250404202504062120250404202504273020250501202505013120250501202505023120250501202505033120250501202505043120250501202505053120250501202505314120250531202506014120250531202506024120250531202509287020251001202510017120251001202510027120251001202510037120251001202510047120251001202510057120251001202510067120251001202510077120251001202510087120251001202510117020251001202601010120260101202601020120260101202601030120260101202601040020260101202602141020260217202602151120260217202602161120260217202602171120260217202602181120260217202602191120260217202602201120260217202602211120260217202602221120260217202602231120260217202602281020260217202604042120260405202604052120260405202604062120260405202605013120260501202605023120260501202605033120260501202605043120260501202605053120260501202605093020260501202606194120260619202606204120260619202606214120260619202609206020261001202609255120260925202609265120260925202609275120260925202610016120261001202610026120261001202610036120261001202610046120261001202610056120261001202610066120261001202610076120261001202610106020261001';
+    let _DATA_IN_USE = _DATA;
+    const _padding = function(n){
       return (n<10?'0':'')+n;
     };
-    var _ymd = function(s){
+    const _ymd = function(s){
       return s.indexOf('-')<0?(s.substring(0,4)+'-'+s.substring(4,6)+'-'+s.substring(6)):s;
     };
-    var _buildHoliday = function(day,name,work,target){
+    const _buildHoliday = function(day,name,work,target){
       return {
         _p:{
           day:_ymd(day),
@@ -5396,28 +5397,28 @@
         }
       };
     };
-    var _buildHolidayForward = function(s){
-      var day = s.substring(0,8);
-      var name = _NAMES_IN_USE[s.charCodeAt(8)-_ZERO];
-      var work = s.charCodeAt(9)===_ZERO;
-      var target = s.substring(10, 18);
+    const _buildHolidayForward = function(s){
+      const day = s.substring(0,8);
+      const name = _NAMES_IN_USE[s.charCodeAt(8)-_ZERO];
+      const work = s.charCodeAt(9)===_ZERO;
+      const target = s.substring(10, 18);
       return _buildHoliday(day,name,work,target);
     };
-    var _buildHolidayBackward = function(s){
-      var size = s.length;
-      var day = s.substring(size-18,size-10);
-      var name = _NAMES_IN_USE[s.charCodeAt(size-10)-_ZERO];
-      var work = s.charCodeAt(size-9)===_ZERO;
-      var target = s.substring(size-8);
+    const _buildHolidayBackward = function(s){
+      const size = s.length;
+      const day = s.substring(size-18,size-10);
+      const name = _NAMES_IN_USE[s.charCodeAt(size-10)-_ZERO];
+      const work = s.charCodeAt(size-9)===_ZERO;
+      const target = s.substring(size-8);
       return _buildHoliday(day,name,work,target);
     };
-    var _findForward = function(key){
-      var start = _DATA_IN_USE.indexOf(key);
+    const _findForward = function(key){
+      const start = _DATA_IN_USE.indexOf(key);
       if(start<0) {
         return null;
       }
-      var right = _DATA_IN_USE.substring(start);
-      var n = right.length%_SIZE;
+      let right = _DATA_IN_USE.substring(start);
+      const n = right.length%_SIZE;
       if(n>0){
         right = right.substring(n);
       }
@@ -5426,15 +5427,15 @@
       }
       return right;
     };
-    var _findBackward = function(key){
-      var start = _DATA_IN_USE.lastIndexOf(key);
+    const _findBackward = function(key){
+      const start = _DATA_IN_USE.lastIndexOf(key);
       if(start<0) {
         return null;
       }
-      var keySize = key.length;
-      var left = _DATA_IN_USE.substring(0,start+keySize);
-      var size = left.length;
-      var n = size%_SIZE;
+      const keySize = key.length;
+      let left = _DATA_IN_USE.substring(0,start+keySize);
+      let size = left.length;
+      const n = size%_SIZE;
       if(n>0){
         left = left.substring(0,size-n);
       }
@@ -5445,9 +5446,9 @@
       }
       return left;
     };
-    var _findHolidaysForward = function(key){
-      var l = [];
-      var s = _findForward(key);
+    const _findHolidaysForward = function(key){
+      const l = [];
+      let s = _findForward(key);
       if(null==s) {
         return l;
       }
@@ -5457,14 +5458,14 @@
       }
       return l;
     };
-    var _findHolidaysBackward = function(key){
-      var l = [];
-      var s = _findBackward(key);
+    const _findHolidaysBackward = function(key){
+      const l = [];
+      let s = _findBackward(key);
       if(null==s) {
         return l;
       }
-      var size = s.length;
-      var keySize = key.length;
+      let size = s.length;
+      const keySize = key.length;
       while(size-keySize===s.lastIndexOf(key)){
         l.push(_buildHolidayBackward(s));
         s = s.substring(0,size-_SIZE);
@@ -5473,8 +5474,8 @@
       l.reverse();
       return l;
     };
-    var _getHoliday = function(args){
-      var l = [];
+    const _getHoliday = function(args){
+      let l = [];
       switch(args.length){
         case 1:
           l = _findHolidaysForward(args[0].replace(/-/g,''));
@@ -5485,8 +5486,8 @@
       }
       return l.length<1?null:l[0];
     };
-    var _getHolidays = function(args){
-      var l = [];
+    const _getHolidays = function(args){
+      let l = [];
       switch(args.length){
         case 1:
           l = _findHolidaysForward((args[0]+'').replace(/-/g,''));
@@ -5497,8 +5498,8 @@
       }
       return l;
     };
-    var _getHolidaysByTarget = function(args){
-      var l = [];
+    const _getHolidaysByTarget = function(args){
+      let l = [];
       switch(args.length){
         case 1:
           l = _findHolidaysBackward((args[0]+'').replace(/-/g,''));
@@ -5509,35 +5510,35 @@
       }
       return l;
     };
-    var _fixNames = function(names){
+    const _fixNames = function(names){
       if(names){
         _NAMES_IN_USE = names;
       }
     };
-    var _fixData = function(data){
+    const _fixData = function(data){
       if(!data){
         return;
       }
-      var append = [];
+      const append = [];
       while(data.length>=_SIZE){
-        var segment = data.substring(0,_SIZE);
-        var day = segment.substring(0,8);
-        var remove = _TAG_REMOVE === segment.substring(8, 9);
-        var holiday = _getHoliday([day]);
+        const segment = data.substring(0,_SIZE);
+        const day = segment.substring(0,8);
+        const remove = _TAG_REMOVE === segment.substring(8, 9);
+        const holiday = _getHoliday([day]);
         if(!holiday){
           if (!remove) {
             append.push(segment);
           }
         }else{
-          var nameIndex = -1;
-          for(var i=0,j=_NAMES_IN_USE.length;i<j;i++){
+          let nameIndex = -1;
+          for(let i=0,j=_NAMES_IN_USE.length;i<j;i++){
             if(_NAMES_IN_USE[i]===holiday.getName()){
               nameIndex = i;
               break;
             }
           }
           if(nameIndex>-1){
-            var old = day + String.fromCharCode(nameIndex + _ZERO) + (holiday.isWork() ? '0' : '1') + holiday.getTarget().replace(/-/g, '');
+            const old = day + String.fromCharCode(nameIndex + _ZERO) + (holiday.isWork() ? '0' : '1') + holiday.getTarget().replace(/-/g, '');
             _DATA_IN_USE = _DATA_IN_USE.replace(new RegExp(old, 'g'), remove ? '' : segment);
           }
         }
@@ -5547,7 +5548,7 @@
         _DATA_IN_USE += append.join('');
       }
     };
-    var _fix = function(args){
+    const _fix = function(args){
       switch(args.length){
         case 1:
           _fixData(args[0]);
@@ -5566,8 +5567,8 @@
       fix:function(){_fix(arguments);}
     };
   })(['元旦节','春节','清明节','劳动节','端午节','中秋节','国庆节','国庆中秋','抗战胜利日']);
-  var NineStar = (function(){
-    var _fromIndex=function(index){
+  const NineStar = (function(){
+    const _fromIndex=function(index){
       return {
         _p:{index:index},
         getNumber:function(){return NineStarUtil.NUMBER[this._p.index];},
@@ -5588,7 +5589,7 @@
         getIndex:function(){return this._p.index;},
         toString:function(){return this.getNumber()+this.getColor()+this.getWuXing()+this.getNameInBeiDou();},
         toFullString:function(){
-          var s = this.getNumber();
+          let s = this.getNumber();
           s += this.getColor();
           s += this.getWuXing();
           s += ' ';
@@ -5633,8 +5634,8 @@
       fromIndex:function(index){return _fromIndex(index);}
     };
   })();
-  var EightChar = (function(){
-    var _fromLunar=function(lunar){
+  const EightChar = (function(){
+    const _fromLunar=function(lunar){
       return {
         _p:{sect:2,lunar:lunar},
         setSect:function(sect){
@@ -5652,17 +5653,17 @@
         getYearNaYin:function(){return LunarUtil.NAYIN[this.getYear()];},
         getYearShiShenGan:function(){return LunarUtil.SHI_SHEN[this.getDayGan()+this.getYearGan()];},
         getYearShiShenZhi:function(){
-          var dayGan = this.getDayGan();
-          var hideGan = LunarUtil.ZHI_HIDE_GAN[this.getYearZhi()];
-          var l = [];
-          for(var i=0,j=hideGan.length;i<j;i++){
+          const dayGan = this.getDayGan();
+          const hideGan = LunarUtil.ZHI_HIDE_GAN[this.getYearZhi()];
+          const l = [];
+          for(let i=0,j=hideGan.length;i<j;i++){
             l.push(LunarUtil.SHI_SHEN[dayGan+hideGan[i]]);
           }
           return l;
         },
         _getDiShi:function(zhiIndex){
-          var offset = LunarUtil.CHANG_SHENG_OFFSET[this.getDayGan()];
-          var index = offset + (this.getDayGanIndex()%2===0?zhiIndex:-zhiIndex);
+          const offset = LunarUtil.CHANG_SHENG_OFFSET[this.getDayGan()];
+          let index = offset + (this.getDayGanIndex()%2===0?zhiIndex:-zhiIndex);
           if(index>=12){
             index -= 12;
           }
@@ -5682,10 +5683,10 @@
         getMonthNaYin:function(){return LunarUtil.NAYIN[this.getMonth()];},
         getMonthShiShenGan:function(){return LunarUtil.SHI_SHEN[this.getDayGan()+this.getMonthGan()];},
         getMonthShiShenZhi:function(){
-          var dayGan = this.getDayGan();
-          var hideGan = LunarUtil.ZHI_HIDE_GAN[this.getMonthZhi()];
-          var l = [];
-          for(var i=0,j=hideGan.length;i<j;i++){
+          const dayGan = this.getDayGan();
+          const hideGan = LunarUtil.ZHI_HIDE_GAN[this.getMonthZhi()];
+          const l = [];
+          for(let i=0,j=hideGan.length;i<j;i++){
             l.push(LunarUtil.SHI_SHEN[dayGan+hideGan[i]]);
           }
           return l;
@@ -5701,10 +5702,10 @@
         getDayNaYin:function(){return LunarUtil.NAYIN[this.getDay()];},
         getDayShiShenGan:function(){return '日主';},
         getDayShiShenZhi:function(){
-          var dayGan = this.getDayGan();
-          var hideGan = LunarUtil.ZHI_HIDE_GAN[this.getDayZhi()];
-          var l = [];
-          for(var i=0,j=hideGan.length;i<j;i++){
+          const dayGan = this.getDayGan();
+          const hideGan = LunarUtil.ZHI_HIDE_GAN[this.getDayZhi()];
+          const l = [];
+          for(let i=0,j=hideGan.length;i<j;i++){
             l.push(LunarUtil.SHI_SHEN[dayGan+hideGan[i]]);
           }
           return l;
@@ -5720,10 +5721,10 @@
         getTimeNaYin:function(){return LunarUtil.NAYIN[this.getTime()];},
         getTimeShiShenGan:function(){return LunarUtil.SHI_SHEN[this.getDayGan()+this.getTimeGan()];},
         getTimeShiShenZhi:function(){
-          var dayGan = this.getDayGan();
-          var hideGan = LunarUtil.ZHI_HIDE_GAN[this.getTimeZhi()];
-          var l = [];
-          for(var i=0,j=hideGan.length;i<j;i++){
+          const dayGan = this.getDayGan();
+          const hideGan = LunarUtil.ZHI_HIDE_GAN[this.getTimeZhi()];
+          const l = [];
+          for(let i=0,j=hideGan.length;i<j;i++){
             l.push(LunarUtil.SHI_SHEN[dayGan+hideGan[i]]);
           }
           return l;
@@ -5732,11 +5733,11 @@
         getTimeXun:function(){return this._p.lunar.getTimeXun();},
         getTimeXunKong:function(){return this._p.lunar.getTimeXunKong();},
         getTaiYuan:function(){
-          var ganIndex = this._p.lunar.getMonthGanIndexExact() + 1;
+          let ganIndex = this._p.lunar.getMonthGanIndexExact() + 1;
           if(ganIndex>=10){
             ganIndex -= 10;
           }
-          var zhiIndex = this._p.lunar.getMonthZhiIndexExact() + 3;
+          let zhiIndex = this._p.lunar.getMonthZhiIndexExact() + 3;
           if(zhiIndex>=12){
             zhiIndex -= 12;
           }
@@ -5744,18 +5745,18 @@
         },
         getTaiYuanNaYin:function(){return LunarUtil.NAYIN[this.getTaiYuan()];},
         getTaiXi:function(){
-          var lunar = this._p.lunar;
-          var ganIndex = (2 === this._p.sect) ? lunar.getDayGanIndexExact2() : lunar.getDayGanIndexExact();
-          var zhiIndex = (2 === this._p.sect) ? lunar.getDayZhiIndexExact2() : lunar.getDayZhiIndexExact();
+          const lunar = this._p.lunar;
+          const ganIndex = (2 === this._p.sect) ? lunar.getDayGanIndexExact2() : lunar.getDayGanIndexExact();
+          const zhiIndex = (2 === this._p.sect) ? lunar.getDayZhiIndexExact2() : lunar.getDayZhiIndexExact();
           return LunarUtil.HE_GAN_5[ganIndex]+LunarUtil.HE_ZHI_6[zhiIndex];
         },
         getTaiXiNaYin:function(){return LunarUtil.NAYIN[this.getTaiXi()];},
         getMingGong:function(){
-          var monthZhiIndex = LunarUtil.index(this.getMonthZhi(), LunarUtil.MONTH_ZHI, 0);
-          var timeZhiIndex = LunarUtil.index(this.getTimeZhi(), LunarUtil.MONTH_ZHI, 0);
-          var offset = monthZhiIndex + timeZhiIndex;
+          const monthZhiIndex = LunarUtil.index(this.getMonthZhi(), LunarUtil.MONTH_ZHI, 0);
+          const timeZhiIndex = LunarUtil.index(this.getTimeZhi(), LunarUtil.MONTH_ZHI, 0);
+          let offset = monthZhiIndex + timeZhiIndex;
           offset = (offset >= 14 ? 26 : 14) - offset;
-          var ganIndex = (this._p.lunar.getYearGanIndexExact() + 1) * 2 + offset;
+          let ganIndex = (this._p.lunar.getYearGanIndexExact() + 1) * 2 + offset;
           while (ganIndex > 10) {
             ganIndex -= 10;
           }
@@ -5763,13 +5764,13 @@
         },
         getMingGongNaYin:function(){return LunarUtil.NAYIN[this.getMingGong()];},
         getShenGong:function(){
-          var monthZhiIndex = LunarUtil.index(this.getMonthZhi(), LunarUtil.MONTH_ZHI, 0);
-          var timeZhiIndex = LunarUtil.index(this.getTimeZhi(), LunarUtil.ZHI, 0);
-          var offset = monthZhiIndex + timeZhiIndex;
+          const monthZhiIndex = LunarUtil.index(this.getMonthZhi(), LunarUtil.MONTH_ZHI, 0);
+          const timeZhiIndex = LunarUtil.index(this.getTimeZhi(), LunarUtil.ZHI, 0);
+          let offset = monthZhiIndex + timeZhiIndex;
           if (offset > 12) {
             offset -= 12;
           }
-          var ganIndex = (this._p.lunar.getYearGanIndexExact() + 1) * 2 + offset;
+          let ganIndex = (this._p.lunar.getYearGanIndexExact() + 1) * 2 + offset;
           while (ganIndex > 10) {
             ganIndex -= 10;
           }
@@ -5780,24 +5781,24 @@
         getYun:function(gender, sect){
           sect *= 1;
           sect = (2 === sect) ? sect : 1;
-          var lunar = this.getLunar();
-          var yang = 0 === lunar.getYearGanIndexExact() % 2;
-          var man = 1 === gender;
-          var forward = (yang && man) || (!yang && !man);
-          var start = (function(){
-            var prev = lunar.getPrevJie();
-            var next = lunar.getNextJie();
-            var current = lunar.getSolar();
-            var start = forward ? current : prev.getSolar();
-            var end = forward ? next.getSolar() : current;
+          const lunar = this.getLunar();
+          const yang = 0 === lunar.getYearGanIndexExact() % 2;
+          const man = 1 === gender;
+          const forward = (yang && man) || (!yang && !man);
+          const start = (function(){
+            const prev = lunar.getPrevJie();
+            const next = lunar.getNextJie();
+            const current = lunar.getSolar();
+            const start = forward ? current : prev.getSolar();
+            const end = forward ? next.getSolar() : current;
 
-            var year;
-            var month;
-            var day;
-            var hour = 0;
+            let year;
+            let month;
+            let day;
+            let hour = 0;
 
             if (2 === sect) {
-              var minutes = end.subtractMinute(start);
+              let minutes = end.subtractMinute(start);
               year = Math.floor(minutes / 4320);
               minutes -= year * 4320;
               month = Math.floor(minutes / 360);
@@ -5806,17 +5807,17 @@
               minutes -= day * 12;
               hour = minutes * 2;
             } else {
-              var endTimeZhiIndex = (end.getHour() === 23) ? 11 : LunarUtil.getTimeZhiIndex(end.toYmdHms().substring(11, 16));
-              var startTimeZhiIndex = (start.getHour() === 23) ? 11 : LunarUtil.getTimeZhiIndex(start.toYmdHms().substring(11, 16));
+              const endTimeZhiIndex = (end.getHour() === 23) ? 11 : LunarUtil.getTimeZhiIndex(end.toYmdHms().substring(11, 16));
+              const startTimeZhiIndex = (start.getHour() === 23) ? 11 : LunarUtil.getTimeZhiIndex(start.toYmdHms().substring(11, 16));
               // 时辰差
-              var hourDiff = endTimeZhiIndex - startTimeZhiIndex;
+              let hourDiff = endTimeZhiIndex - startTimeZhiIndex;
               // 天数差
-              var dayDiff = end.subtract(start);
+              let dayDiff = end.subtract(start);
               if (hourDiff < 0) {
                 hourDiff += 12;
                 dayDiff--;
               }
-              var monthDiff = Math.floor(hourDiff * 10 / 30);
+              const monthDiff = Math.floor(hourDiff * 10 / 30);
               month = dayDiff * 4 + monthDiff;
               day = hourDiff * 10 - monthDiff * 30;
               year = Math.floor(month / 12);
@@ -5830,7 +5831,7 @@
               hour: hour
             };
           })();
-          var buildLiuYue = function(liuNian, index){
+          const buildLiuYue = function(liuNian, index){
             return {
               _p: {
                 index: index,
@@ -5839,17 +5840,17 @@
               getIndex:function(){return this._p.index;},
               getMonthInChinese:function(){return LunarUtil.MONTH[this._p.index + 1];},
               getGanZhi:function(){
-                var yearGanIndex = LunarUtil.find(this._p.liuNian.getGanZhi(), LunarUtil.GAN).index - 1;
-                var offset = [2, 4, 6, 8, 0][yearGanIndex % 5];
-                var gan = LunarUtil.GAN[(this._p.index + offset) % 10 + 1];
-                var zhi = LunarUtil.ZHI[(this._p.index + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12 + 1];
+                const yearGanIndex = LunarUtil.find(this._p.liuNian.getGanZhi(), LunarUtil.GAN).index - 1;
+                const offset = [2, 4, 6, 8, 0][yearGanIndex % 5];
+                const gan = LunarUtil.GAN[(this._p.index + offset) % 10 + 1];
+                const zhi = LunarUtil.ZHI[(this._p.index + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12 + 1];
                 return gan + zhi;
               },
               getXun:function(){return LunarUtil.getXun(this.getGanZhi());},
               getXunKong:function(){return LunarUtil.getXunKong(this.getGanZhi());}
             };
           };
-          var buildLiuNian = function(daYun, index){
+          const buildLiuNian = function(daYun, index){
             return {
               _p: {
                 year: daYun.getStartYear() + index,
@@ -5863,7 +5864,7 @@
               getIndex: function(){return this._p.index;},
               getLunar: function(){return this._p.lunar;},
               getGanZhi: function(){
-                var offset = LunarUtil.getJiaZiIndex(this._p.lunar.getJieQiTable()[I18n.getMessage('jq.liChun')].getLunar().getYearInGanZhiExact()) + this._p.index;
+                let offset = LunarUtil.getJiaZiIndex(this._p.lunar.getJieQiTable()[I18n.getMessage('jq.liChun')].getLunar().getYearInGanZhiExact()) + this._p.index;
                 if (this._p.daYun.getIndex() > 0) {
                   offset += this._p.daYun.getStartAge() - 1;
                 }
@@ -5873,15 +5874,15 @@
               getXun:function(){return LunarUtil.getXun(this.getGanZhi());},
               getXunKong:function(){return LunarUtil.getXunKong(this.getGanZhi());},
               getLiuYue: function(){
-                var l = [];
-                for (var i = 0; i < 12; i++) {
+                const l = [];
+                for (let i = 0; i < 12; i++) {
                   l.push(buildLiuYue(this,i));
                 }
                 return l;
               }
             };
           };
-          var buildXiaoYun = function(daYun, index, forward){
+          const buildXiaoYun = function(daYun, index, forward){
             return {
               _p: {
                 year: daYun.getStartYear() + index,
@@ -5895,13 +5896,13 @@
               getAge: function(){return this._p.age;},
               getIndex: function(){return this._p.index;},
               getGanZhi: function(){
-                var offset = LunarUtil.getJiaZiIndex(this._p.lunar.getTimeInGanZhi());
-                var add = this._p.index + 1;
+                let offset = LunarUtil.getJiaZiIndex(this._p.lunar.getTimeInGanZhi());
+                let add = this._p.index + 1;
                 if (this._p.daYun.getIndex() > 0) {
                   add += this._p.daYun.getStartAge() - 1;
                 }
                 offset += this._p.forward ? add : -add;
-                var size = LunarUtil.JIA_ZI.length;
+                const size = LunarUtil.JIA_ZI.length;
                 while (offset < 0) {
                   offset += size;
                 }
@@ -5912,20 +5913,20 @@
               getXunKong:function(){return LunarUtil.getXunKong(this.getGanZhi());}
             };
           };
-          var buildDaYun = function(yun, index){
-            var birthYear = yun.getLunar().getSolar().getYear();
-            var year = yun.getStartSolar().getYear();
-            var startYear;
-            var startAge;
-            var endYear;
-            var endAge;
+          const buildDaYun = function(yun, index){
+            const birthYear = yun.getLunar().getSolar().getYear();
+            const year = yun.getStartSolar().getYear();
+            let startYear;
+            let startAge;
+            let endYear;
+            let endAge;
             if (index < 1) {
               startYear = birthYear;
               startAge = 1;
               endYear = year - 1;
               endAge = year - birthYear;
             } else {
-              var add = (index - 1) * 10;
+              const add = (index - 1) * 10;
               startYear = year + add;
               startAge = startYear - birthYear + 1;
               endYear = startYear + 9;
@@ -5951,9 +5952,9 @@
                 if (this._p.index < 1) {
                   return '';
                 }
-                var offset = LunarUtil.getJiaZiIndex(this._p.lunar.getMonthInGanZhiExact());
+                let offset = LunarUtil.getJiaZiIndex(this._p.lunar.getMonthInGanZhiExact());
                 offset += this._p.yun.isForward() ? this._p.index : -this._p.index;
-                var size = LunarUtil.JIA_ZI.length;
+                const size = LunarUtil.JIA_ZI.length;
                 if (offset >= size) {
                   offset -= size;
                 }
@@ -5971,8 +5972,8 @@
                 if (this._p.index < 1) {
                   n = this._p.endYear-this._p.startYear+1;
                 }
-                var l = [];
-                for (var i = 0; i < n; i++) {
+                const l = [];
+                for (let i = 0; i < n; i++) {
                   l.push(buildLiuNian(this,i));
                 }
                 return l;
@@ -5984,8 +5985,8 @@
                 if (this._p.index < 1) {
                   n = this._p.endYear-this._p.startYear+1;
                 }
-                var l = [];
-                for (var i = 0; i < n; i++) {
+                const l = [];
+                for (let i = 0; i < n; i++) {
                   l.push(buildXiaoYun(this,i,this._p.yun.isForward()));
                 }
                 return l;
@@ -6010,7 +6011,7 @@
             isForward: function(){return this._p.forward;},
             getLunar: function(){return this._p.lunar;},
             getStartSolar: function(){
-              var solar = this._p.lunar.getSolar();
+              let solar = this._p.lunar.getSolar();
               solar = solar.nextYear(this._p.startYear);
               solar = solar.nextMonth(this._p.startMonth);
               solar = solar.next(this._p.startDay);
@@ -6020,8 +6021,8 @@
               if (!n) {
                 n = 10;
               }
-              var l = [];
-              for (var i = 0; i < n; i++) {
+              const l = [];
+              for (let i = 0; i < n; i++) {
                 l.push(buildDaYun(this,i));
               }
               return l;
@@ -6035,11 +6036,11 @@
       fromLunar:function(lunar){return _fromLunar(lunar);}
     };
   })();
-  var LunarTime = (function(){
-    var _fromYmdHms=function(lunarYear,lunarMonth,lunarDay,hour,minute,second){
-      var lunar=Lunar.fromYmdHms(lunarYear,lunarMonth,lunarDay,hour,minute,second);
-      var zhiIndex=LunarUtil.getTimeZhiIndex([(hour<10?'0':'')+hour,(minute<10?'0':'')+minute].join(':'));
-      var ganIndex = (lunar.getDayGanIndexExact() % 5 * 2 + zhiIndex) % 10;
+  const LunarTime = (function(){
+    const _fromYmdHms=function(lunarYear,lunarMonth,lunarDay,hour,minute,second){
+      const lunar=Lunar.fromYmdHms(lunarYear,lunarMonth,lunarDay,hour,minute,second);
+      const zhiIndex=LunarUtil.getTimeZhiIndex([(hour<10?'0':'')+hour,(minute<10?'0':'')+minute].join(':'));
+      const ganIndex = (lunar.getDayGanIndexExact() % 5 * 2 + zhiIndex) % 10;
       return {
         _p:{
           ganIndex:ganIndex,
@@ -6071,8 +6072,8 @@
         getChong:function(){return LunarUtil.CHONG[this._p.zhiIndex];},
         getSha:function(){return LunarUtil.SHA[this.getZhi()];},
         getChongShengXiao:function(){
-          var chong = this.getChong();
-          for (var i = 0, j = LunarUtil.ZHI.length; i < j; i++) {
+          const chong = this.getChong();
+          for (let i = 0, j = LunarUtil.ZHI.length; i < j; i++) {
             if (LunarUtil.ZHI[i]===chong) {
               return LunarUtil.SHENGXIAO[i];
             }
@@ -6085,21 +6086,21 @@
         getYi:function(){return LunarUtil.getTimeYi(this._p.lunar.getDayInGanZhiExact(), this.getGanZhi());},
         getJi:function(){return LunarUtil.getTimeJi(this._p.lunar.getDayInGanZhiExact(), this.getGanZhi());},
         getNineStar:function(){
-          var solarYmd = this._p.lunar.getSolar().toYmd();
-          var jieQi = this._p.lunar.getJieQiTable();
-          var asc = false;
+          const solarYmd = this._p.lunar.getSolar().toYmd();
+          const jieQi = this._p.lunar.getJieQiTable();
+          let asc = false;
           if (solarYmd>=jieQi[I18n.getMessage('jq.dongZhi')].toYmd() && solarYmd<jieQi[I18n.getMessage('jq.xiaZhi')].toYmd()) {
             asc = true;
           }
-          var offset = asc ? [0, 3, 6] : [8, 5, 2];
-          var start = offset[this._p.lunar.getDayZhiIndex() % 3];
-          var index = asc ? (start + this._p.zhiIndex) : (start + 9 - this._p.zhiIndex);
+          const offset = asc ? [0, 3, 6] : [8, 5, 2];
+          const start = offset[this._p.lunar.getDayZhiIndex() % 3];
+          const index = asc ? (start + this._p.zhiIndex) : (start + 9 - this._p.zhiIndex);
           return NineStar.fromIndex(index % 9);
         },
         getXun:function(){return LunarUtil.getXun(this.getGanZhi());},
         getXunKong:function(){return LunarUtil.getXunKong(this.getGanZhi());},
         getMinHm:function(){
-          var hour = this._p.lunar.getHour();
+          let hour = this._p.lunar.getHour();
           if(hour <1){
             return '00:00';
           }else if(hour > 22){
@@ -6111,7 +6112,7 @@
           return (hour<10?'0':'')+hour+':00';
         },
         getMaxHm:function(){
-          var hour = this._p.lunar.getHour();
+          let hour = this._p.lunar.getHour();
           if (hour <1){
             return '00:59';
           } else if (hour > 22) {
@@ -6129,9 +6130,9 @@
       fromYmdHms:function(lunarYear,lunarMonth,lunarDay,hour,minute,second){return _fromYmdHms(lunarYear,lunarMonth,lunarDay,hour,minute,second);}
     };
   })();
-  var FotoUtil = (function(){
-    var XIU_OFFSET = [11, 13, 15, 17, 19, 21, 24, 0, 2, 4, 7, 9];
-    var _f=function(name,result,everyMonth,remark){
+  const FotoUtil = (function(){
+    const XIU_OFFSET = [11, 13, 15, 17, 19, 21, 24, 0, 2, 4, 7, 9];
+    const _f=function(name,result,everyMonth,remark){
       return {
         _p:{
           name:name,
@@ -6145,7 +6146,7 @@
         getRemark:function(){return this._p.remark;},
         toString:function(){return this._p.name;},
         toFullString:function(){
-          var l = [this._p.name];
+          const l = [this._p.name];
           if(this._p.result) {
             l.push(this._p.result);
           }
@@ -6156,25 +6157,25 @@
         }
       };
     };
-    var _getXiu=function(m,d){
+    const _getXiu=function(m,d){
       return FotoUtil.XIU_27[(XIU_OFFSET[Math.abs(m)-1] + d - 1) % FotoUtil.XIU_27.length];
     };
-    var dj='犯者夺纪';
-    var js='犯者减寿';
-    var ss='犯者损寿';
-    var xl='犯者削禄夺纪';
-    var jw='犯者三年内夫妇俱亡';
-    var _y=_f('杨公忌');
-    var _t=_f('四天王巡行', '', true);
-    var _d=_f('斗降', dj, true);
-    var _s=_f('月朔', dj, true);
-    var _w=_f('月望', dj, true);
-    var _h=_f('月晦', js, true);
-    var _l=_f('雷斋日', js, true);
-    var _j=_f('九毒日', '犯者夭亡，奇祸不测');
-    var _r=_f('人神在阴', '犯者得病', true, '宜先一日即戒');
-    var _m=_f('司命奏事', js, true, '如月小，即戒廿九');
-    var _hh=_f('月晦', js, true, '如月小，即戒廿九');
+    const dj='犯者夺纪';
+    const js='犯者减寿';
+    const ss='犯者损寿';
+    const xl='犯者削禄夺纪';
+    const jw='犯者三年内夫妇俱亡';
+    const _y=_f('杨公忌');
+    const _t=_f('四天王巡行', '', true);
+    const _d=_f('斗降', dj, true);
+    const _s=_f('月朔', dj, true);
+    const _w=_f('月望', dj, true);
+    const _h=_f('月晦', js, true);
+    const _l=_f('雷斋日', js, true);
+    const _j=_f('九毒日', '犯者夭亡，奇祸不测');
+    const _r=_f('人神在阴', '犯者得病', true, '宜先一日即戒');
+    const _m=_f('司命奏事', js, true, '如月小，即戒廿九');
+    const _hh=_f('月晦', js, true, '如月小，即戒廿九');
     return {
       XIU_27:[
         '{xx.jiao}',
@@ -6462,19 +6463,19 @@
       getXiu:function(m,d){return _getXiu(m,d);}
     }
   })();
-  var Foto = (function(){
-    var _fromYmdHms=function(y,m,d,hour,minute,second){
+  const Foto = (function(){
+    const _fromYmdHms=function(y,m,d,hour,minute,second){
       return _fromLunar(Lunar.fromYmdHms(y+Foto.DEAD_YEAR-1,m,d,hour,minute,second));
     };
-    var _fromLunar=function(lunar){
+    const _fromLunar=function(lunar){
       return {
         _p: {
           lunar: lunar
         },
         getLunar:function(){return this._p.lunar;},
         getYear:function(){
-          var sy = this._p.lunar.getSolar().getYear();
-          var y = sy-Foto.DEAD_YEAR;
+          const sy = this._p.lunar.getSolar().getYear();
+          let y = sy-Foto.DEAD_YEAR;
           if(sy===this._p.lunar.getYear()){
             y++;
           }
@@ -6483,10 +6484,10 @@
         getMonth:function(){return this._p.lunar.getMonth();},
         getDay:function(){return this._p.lunar.getDay();},
         getYearInChinese:function(){
-          var y = this.getYear()+'';
-          var s = '';
-          var zero = '0'.charCodeAt(0);
-          for(var i=0,j=y.length;i<j;i++){
+          const y = this.getYear()+'';
+          let s = '';
+          const zero = '0'.charCodeAt(0);
+          for(let i=0,j=y.length;i<j;i++){
             s+=LunarUtil.NUMBER[y.charCodeAt(i)-zero];
           }
           return s;
@@ -6494,24 +6495,24 @@
         getMonthInChinese:function(){return this._p.lunar.getMonthInChinese();},
         getDayInChinese:function(){return this._p.lunar.getDayInChinese();},
         getFestivals:function(){
-          var l = FotoUtil.FESTIVAL[this.getMonth()+'-'+this.getDay()];
+          const l = FotoUtil.FESTIVAL[this.getMonth()+'-'+this.getDay()];
           return l?l:[];
         },
         getOtherFestivals:function(){
-          var l=[];
-          var fs=FotoUtil.OTHER_FESTIVAL[this.getMonth()+'-'+this.getDay()];
+          let l=[];
+          const fs=FotoUtil.OTHER_FESTIVAL[this.getMonth()+'-'+this.getDay()];
           if(fs){
             l=l.concat(fs);
           }
           return l;
         },
         isMonthZhai:function(){
-          var m = this.getMonth();
+          const m = this.getMonth();
           return 1===m||5===m||9===m;
         },
         isDayYangGong:function(){
-          var l = this.getFestivals();
-          for(var i=0,j=l.length;i<j;i++){
+          const l = this.getFestivals();
+          for(let i=0,j=l.length;i<j;i++){
             if('杨公忌'===l[i].getName()){
               return true;
             }
@@ -6519,15 +6520,15 @@
           return false;
         },
         isDayZhaiShuoWang:function(){
-          var d = this.getDay();
+          const d = this.getDay();
           return 1===d||15===d;
         },
         isDayZhaiSix:function(){
-          var d = this.getDay();
+          const d = this.getDay();
           if(8===d||14===d||15===d||23===d||29===d||30===d){
             return true;
           }else if(28===d){
-            var m = LunarMonth.fromYm(this._p.lunar.getYear(), this.getMonth());
+            const m = LunarMonth.fromYm(this._p.lunar.getYear(), this.getMonth());
             if(30!==m.getDayCount()){
               return true;
             }
@@ -6535,12 +6536,12 @@
           return false;
         },
         isDayZhaiTen:function() {
-          var d = this.getDay();
+          const d = this.getDay();
           return 1===d||8===d||14===d||15===d||18===d||23===d||24===d||28===d||29===d||30===d;
         },
         isDayZhaiGuanYin:function() {
-          var k = this.getMonth()+'-'+this.getDay();
-          for(var i=0,j=FotoUtil.DAY_ZHAI_GUAN_YIN.length;i<j;i++){
+          const k = this.getMonth()+'-'+this.getDay();
+          for(let i=0,j=FotoUtil.DAY_ZHAI_GUAN_YIN.length;i<j;i++){
             if(k===FotoUtil.DAY_ZHAI_GUAN_YIN[i]){
               return true;
             }
@@ -6572,9 +6573,9 @@
           return this.getYearInChinese()+'年'+this.getMonthInChinese()+'月'+this.getDayInChinese();
         },
         toFullString:function(){
-          var s = this.toString();
-          var fs = this.getFestivals();
-          for(var i=0,j=fs.length;i<j;i++){
+          let s = this.toString();
+          const fs = this.getFestivals();
+          for(let i=0,j=fs.length;i<j;i++){
             s += ' ('+fs[i]+')';
           }
           return s;
@@ -6588,8 +6589,8 @@
       fromLunar:function(lunar){return _fromLunar(lunar);}
     };
   })();
-  var TaoFestival = (function(){
-    var _f=function(name,remark){
+  const TaoFestival = (function(){
+    const _f=function(name,remark){
       return {
         _p:{
           name:name,
@@ -6599,7 +6600,7 @@
         getRemark:function(){return this._p.remark;},
         toString:function(){return this._p.name;},
         toFullString:function(){
-          var l = [this._p.name];
+          const l = [this._p.name];
           if(this._p.remark) {
             l.push('['+this._p.remark+']');
           }
@@ -6611,8 +6612,8 @@
       create:function(name,remark){return _f(name,remark);}
     };
   })();
-  var TaoUtil = (function(){
-    var _f = TaoFestival.create;
+  const TaoUtil = (function(){
+    const _f = TaoFestival.create;
     return {
       SAN_HUI:['1-7','7-7','10-15'],
       SAN_YUAN:['1-15','7-15','10-15'],
@@ -6738,7 +6739,7 @@
       }
     }
   })();
-  var NineStarUtil = (function(){
+  const NineStarUtil = (function(){
     return {
       NUMBER:[
         '{n.one}',
@@ -6808,11 +6809,11 @@
       ]
     }
   })();
-  var Tao = (function(){
-    var _fromYmdHms=function(y,m,d,hour,minute,second){
+  const Tao = (function(){
+    const _fromYmdHms=function(y,m,d,hour,minute,second){
       return _fromLunar(Lunar.fromYmdHms(y+Tao.BIRTH_YEAR,m,d,hour,minute,second));
     };
-    var _fromLunar=function(lunar){
+    const _fromLunar=function(lunar){
       return {
         _p: {
           lunar: lunar
@@ -6824,10 +6825,10 @@
         getMonth:function(){return this._p.lunar.getMonth();},
         getDay:function(){return this._p.lunar.getDay();},
         getYearInChinese:function(){
-          var y = this.getYear()+'';
-          var s = '';
-          var zero = '0'.charCodeAt(0);
-          for(var i=0,j=y.length;i<j;i++){
+          const y = this.getYear()+'';
+          let s = '';
+          const zero = '0'.charCodeAt(0);
+          for(let i=0,j=y.length;i<j;i++){
             s+=LunarUtil.NUMBER[y.charCodeAt(i)-zero];
           }
           return s;
@@ -6835,18 +6836,18 @@
         getMonthInChinese:function(){return this._p.lunar.getMonthInChinese();},
         getDayInChinese:function(){return this._p.lunar.getDayInChinese();},
         getFestivals:function(){
-          var l=[];
-          var fs=TaoUtil.FESTIVAL[this.getMonth()+'-'+this.getDay()];
+          let l=[];
+          const fs=TaoUtil.FESTIVAL[this.getMonth()+'-'+this.getDay()];
           if(fs){
             l=l.concat(fs);
           }
-          var jq = this._p.lunar.getJieQi();
+          const jq = this._p.lunar.getJieQi();
           if(I18n.getMessage('jq.dongZhi')===jq){
             l.push(TaoFestival.create('元始天尊圣诞'));
           }else if(I18n.getMessage('jq.xiaZhi')===jq){
             l.push(TaoFestival.create('灵宝天尊圣诞'));
           }
-          var f = TaoUtil.BA_JIE[jq];
+          let f = TaoUtil.BA_JIE[jq];
           if(f){
             l.push(TaoFestival.create(f));
           }
@@ -6857,8 +6858,8 @@
           return l;
         },
         _isDayIn:function(days){
-          var md = this.getMonth() + '-' + this.getDay();
-          for(var i=0,j=days.length;i<j;i++){
+          const md = this.getMonth() + '-' + this.getDay();
+          for(let i=0,j=days.length;i<j;i++){
             if(md===days[i]){
               return true;
             }
@@ -6874,9 +6875,9 @@
         isDayAnWu:function(){return this._p.lunar.getDayZhi()===TaoUtil.AN_WU[Math.abs(this.getMonth())-1]},
         isDayWu:function(){return this.isDayMingWu()||this.isDayAnWu()},
         isDayTianShe:function(){
-          var ret = false;
-          var mz = this._p.lunar.getMonthZhi();
-          var dgz = this._p.lunar.getDayInGanZhi();
+          let ret = false;
+          const mz = this._p.lunar.getMonthZhi();
+          const dgz = this._p.lunar.getDayInGanZhi();
           if ([I18n.getMessage('dz.yin'), I18n.getMessage('dz.mao'), I18n.getMessage('dz.chen')].join(',').indexOf(mz) > -1) {
             if (I18n.getMessage('jz.wuYin') === dgz) {
               ret = true;
@@ -6911,11 +6912,11 @@
       fromLunar:function(lunar){return _fromLunar(lunar);}
     };
   })();
-  var I18n = (function(){
-    var _defaultLang = 'chs';
-    var _lang = _defaultLang;
-    var _inited = false;
-    var _messages = {
+  const I18n = (function(){
+    const _defaultLang = 'chs';
+    let _lang = _defaultLang;
+    let _inited = false;
+    const _messages = {
       'chs': {
         'tg.jia': '甲',
         'tg.yi': '乙',
@@ -8225,14 +8226,14 @@
       }
     };
 
-    var _objs = {
+    const _objs = {
       'LunarUtil': LunarUtil,
       'SolarUtil': SolarUtil,
       'TaoUtil': TaoUtil,
       'FotoUtil': FotoUtil,
       'NineStarUtil': NineStarUtil
     };
-    var _dictString = {
+    const _dictString = {
       'LunarUtil': {
         'TIAN_SHEN_TYPE': {},
         'TIAN_SHEN_TYPE_LUCK': {},
@@ -8260,18 +8261,18 @@
         'BA_JIE': {}
       }
     };
-    var _dictNumber = {
+    const _dictNumber = {
       'LunarUtil': {
         'ZHI_TIAN_SHEN_OFFSET': {},
         'CHANG_SHENG_OFFSET': {}
       }
     };
-    var _dictArray = {
+    const _dictArray = {
       'LunarUtil': {
         'ZHI_HIDE_GAN': {}
       }
     };
-    var _arrays = {
+    const _arrays = {
       'LunarUtil': {
         'GAN': [],
         'ZHI': [],
@@ -8334,42 +8335,42 @@
       }
     };
 
-    var _updateArray = function(c) {
-      var v = _arrays[c];
-      var o = _objs[c];
-      for (var k in v) {
-        var arr = v[k];
-        for (var i = 0, j = arr.length; i < j; i++) {
-          o[k][i] = arr[i].replace(/{(.[^}]*)}/g, function($0, $1) {
+    const _updateArray = function(c) {
+      const v = _arrays[c];
+      const o = _objs[c];
+      for (const k in v) {
+        const arr = v[k];
+        for (let i = 0, j = arr.length; i < j; i++) {
+          o[k][i] = arr[i].replace(/{(.[^}]*)}/g, function(_match, $1) {
             return _getMessage($1);
           });
         }
       }
     };
 
-    var _updateStringDictionary = function(c) {
-      var v = _dictString[c];
-      var o = _objs[c];
-      for (var k in v) {
-        var dict = v[k];
-        for (var key in dict){
-          var i = key.replace(/{(.[^}]*)}/g, function($0, $1) {
+    const _updateStringDictionary = function(c) {
+      const v = _dictString[c];
+      const o = _objs[c];
+      for (const k in v) {
+        const dict = v[k];
+        for (const key in dict){
+          const i = key.replace(/{(.[^}]*)}/g, function(_match, $1) {
             return _getMessage($1);
           });
-          o[k][i] = dict[key].replace(/{(.[^}]*)}/g, function($0, $1) {
+          o[k][i] = dict[key].replace(/{(.[^}]*)}/g, function(_match, $1) {
             return _getMessage($1);
           });
         }
       }
     };
 
-    var _updateNumberDictionary = function(c) {
-      var v = _dictNumber[c];
-      var o = _objs[c];
-      for (var k in v) {
-        var dict = v[k];
-        for (var key in dict){
-          var i = key.replace(/{(.[^}]*)}/g, function($0, $1) {
+    const _updateNumberDictionary = function(c) {
+      const v = _dictNumber[c];
+      const o = _objs[c];
+      for (const k in v) {
+        const dict = v[k];
+        for (const key in dict){
+          const i = key.replace(/{(.[^}]*)}/g, function(_match, $1) {
             return _getMessage($1);
           });
           o[k][i] = dict[key];
@@ -8377,18 +8378,18 @@
       }
     };
 
-    var _updateArrayDictionary = function(c) {
-      var v = _dictArray[c];
-      var o = _objs[c];
-      for (var k in v) {
-        var dict = v[k];
-        for (var key in dict){
-          var x = key.replace(/{(.[^}]*)}/g, function($0, $1) {
+    const _updateArrayDictionary = function(c) {
+      const v = _dictArray[c];
+      const o = _objs[c];
+      for (const k in v) {
+        const dict = v[k];
+        for (const key in dict){
+          const x = key.replace(/{(.[^}]*)}/g, function(_match, $1) {
             return _getMessage($1);
           });
-          var arr = dict[key];
-          for (var i = 0, j = arr.length; i < j; i++) {
-            arr[i] = arr[i].replace(/{(.[^}]*)}/g, function($0, $1) {
+          const arr = dict[key];
+          for (let i = 0, j = arr.length; i < j; i++) {
+            arr[i] = arr[i].replace(/{(.[^}]*)}/g, function(_match, $1) {
               return _getMessage($1);
             });
           }
@@ -8397,8 +8398,8 @@
       }
     };
 
-    var _update = function() {
-      var c;
+    const _update = function() {
+      let c;
       for (c in _arrays) {
         _updateArray(c);
       }
@@ -8413,32 +8414,32 @@
       }
     };
 
-    var _setLanguage = function(lang) {
+    const _setLanguage = function(lang) {
       if (_messages[lang]) {
         _lang = lang;
         _update();
       }
     };
 
-    var _getLanguage = function() {
+    const _getLanguage = function() {
       return _lang;
     };
 
-    var _setMessages = function(lang, messages) {
+    const _setMessages = function(lang, messages) {
       if (!messages) {
         return;
       }
       if (!_messages[lang]) {
         _messages[lang] = {};
       }
-      for (var key in messages) {
+      for (const key in messages) {
         _messages[lang][key] = messages[key];
       }
       _update();
     };
 
-    var _getMessage = function(key) {
-      var s = _messages[_lang][key];
+    const _getMessage = function(key) {
+      let s = _messages[_lang][key];
       if (undefined === s) {
         s = _messages[_defaultLang][key];
       }
@@ -8448,20 +8449,20 @@
       return s;
     };
 
-    var _initArray = function(c) {
-      var v = _arrays[c];
-      var o = _objs[c];
-      for (var k in v) {
+    const _initArray = function(c) {
+      const v = _arrays[c];
+      const o = _objs[c];
+      for (const k in v) {
         v[k].length = 0;
-        var arr = o[k];
-        for (var i = 0, j = arr.length; i < j; i++) {
+        const arr = o[k];
+        for (let i = 0, j = arr.length; i < j; i++) {
           v[k].push(arr[i]);
         }
       }
     };
 
-    var _initDictionary = function(c, type) {
-      var v;
+    const _initDictionary = function(c, type) {
+      let v;
       switch(type){
         case 'string':
           v = _dictString[c];
@@ -8474,21 +8475,21 @@
           break;
         default:
       }
-      var o = _objs[c];
-      for (var k in v) {
-        var dict = o[k];
-        for (var key in dict) {
+      const o = _objs[c];
+      for (const k in v) {
+        const dict = o[k];
+        for (const key in dict) {
           v[k][key] = dict[key];
         }
       }
     };
 
-    var _init = function() {
+    const _init = function() {
       if (_inited) {
         return;
       }
       _inited = true;
-      var c;
+      let c;
       for (c in _arrays) {
         _initArray(c);
       }
