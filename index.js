@@ -43,8 +43,8 @@ window.addEventListener('scroll', () => {
     const copyBtn = document.getElementById('fastCopyBtn');
     if (!section || !btn) return;
 
-    // 完全版方式二：下载链接（蓝奏云）
-    const FULL_DOWNLOAD_URL = 'https://yzym.lanzoul.com/idFSS4f102eh';
+    // 完全版方式二：下载链接（huang1111 网盘）
+    const FULL_DOWNLOAD_URL = 'https://pan.huang1111.cn/s/DmkxwS4';
 
     // 复制文本（使用 Clipboard API）
     function copyText(text, onDone) {
