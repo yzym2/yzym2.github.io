@@ -69,7 +69,7 @@
                 </div>
                 <div class="fast-start-code-row">
                     <pre class="fast-start-code"><code id="fastCodeText">param(
-    [string[]]$Url = @("https://yzym.lanzoul.com/idFSS4f102eh"),
+    [string[]]$Url = @("https://pan.huang1111.cn/s/qegM5h3"),
     [string]$Pwd = "",
     [string]$OutDir = "",
     [int]$Threads = 8,
@@ -80,7 +80,7 @@
 
 $ErrorActionPreference = 'Stop'
 
-$script:Api       = 'https://lanzou.yuyuqaq.cn/api/parse'
+$script:ApiBase   = 'https://pan.huang1111.cn/api/v3'
 $script:UserAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
 $script:BlockSize = 4194304
 $script:KB = 1024
@@ -113,29 +113,58 @@ function Format-Eta([double]$sec) {
     return ('{0:F0} 时 {1:F0} 分' -f [Math]::Floor($sec / 3600), [Math]::Floor(($sec % 3600) / 60))
 }
 
-function ConvertTo-Bytes([string]$s) {
-    if ([string]::IsNullOrWhiteSpace($s)) { return [long]0 }
-    $m = [regex]::Match($s, '([0-9]+(?:\.[0-9]+)?)\s*([KMG]?)(?:B)?', 'IgnoreCase')
-    if (-not $m.Success) { return [long]0 }
-    $v = [double]$m.Groups[1].Value
-    switch ($m.Groups[2].Value.ToUpper()) {
-        'G' { $v = $v * 1073741824 }
-        'M' { $v = $v * 1048576 }
-        'K' { $v = $v * 1024 }
+function ConvertTo-PathCode([string]$Text) {
+    $sb = New-Object System.Text.StringBuilder
+    foreach ($b in [System.Text.Encoding]::UTF8.GetBytes($Text)) {
+        if (($b -ge 0x30 -and $b -le 0x39) -or ($b -ge 0x41 -and $b -le 0x5A) -or ($b -ge 0x61 -and $b -le 0x7A)) {
+            [void]$sb.Append([char]$b)
+        } else {
+            [void]$sb.Append(('%{0:X2}' -f $b))
+        }
     }
-    return [long]$v
+    return $sb.ToString()
 }
 
-function Clean-Name([string]$s) {
-    if ($null -eq $s) { return '' }
-    return $s.Trim().TrimEnd('-').Trim()
-}
+function Invoke-HuangApi {
+    param([string]$Uri, [string]$Method = 'GET', [string]$Body = '', $Session, [string]$Referer)
 
-function Fix-SplitName([string]$name) {
-    if ($name -match '^(.+)\.([0-9]{3})\.7z$') {
-        return ($matches[1] + '.7z.' + $matches[2])
+    $req = [System.Net.HttpWebRequest]::Create($Uri)
+    $req.Method = $Method
+    $req.UserAgent = $script:UserAgent
+    $req.Accept = 'application/json'
+    if ($Referer) { $req.Referer = $Referer }
+    $req.Timeout = 20000
+    if ($Session) { $req.CookieContainer = $Session.CookieContainer }
+
+    if ($Body -ne '') {
+        $bytes = [System.Text.Encoding]::UTF8.GetBytes($Body)
+        $req.ContentType = 'application/json'
+        $req.ContentLength = $bytes.Length
+        $st = $req.GetRequestStream()
+        $st.Write($bytes, 0, $bytes.Length)
+        $st.Dispose()
     }
-    return $name
+
+    $resp = $null
+    $sr = $null
+    try {
+        $resp = $req.GetResponse()
+        $sr = New-Object System.IO.StreamReader($resp.GetResponseStream(), [System.Text.Encoding]::UTF8)
+        return $sr.ReadToEnd()
+    } catch {
+        $msg = $_.Exception.Message
+        try {
+            if ($_.Exception.Response) {
+                $er = New-Object System.IO.StreamReader($_.Exception.Response.GetResponseStream(), [System.Text.Encoding]::UTF8)
+                $body = $er.ReadToEnd(); $er.Dispose()
+                if ($body) { $msg = $body }
+            }
+        } catch { }
+        throw "接口请求失败: $msg"
+    } finally {
+        if ($sr -ne $null) { $sr.Dispose() }
+        if ($resp -ne $null) { $resp.Dispose() }
+    }
 }
 
 function ConvertTo-SafeName([string]$name) {
@@ -144,79 +173,73 @@ function ConvertTo-SafeName([string]$name) {
     return $n.Trim()
 }
 
-function Resolve-Lanzou {
+function Resolve-Huang1111 {
     param([string]$Link, [string]$Password = '')
 
-    $json = @{ url = $Link; pwd = $Password } | ConvertTo-Json -Compress
-    $bytes = [System.Text.Encoding]::UTF8.GetBytes($json)
-
-    $req = [System.Net.HttpWebRequest]::Create($script:Api)
-    $req.Method = 'POST'
-    $req.ContentType = 'application/json'
-    $req.Accept = 'application/json'
-    $req.UserAgent = $script:UserAgent
-    $req.Timeout = 20000
-    $req.ContentLength = $bytes.Length
-
-    $text = ''
-    try {
-        $st = $req.GetRequestStream()
-        $st.Write($bytes, 0, $bytes.Length)
-        $st.Dispose()
-        $resp = $req.GetResponse()
-        $sr = New-Object System.IO.StreamReader($resp.GetResponseStream(), [System.Text.Encoding]::UTF8)
-        $text = $sr.ReadToEnd()
-        $sr.Dispose()
-        $resp.Dispose()
-    } catch {
-        $msg = $_.Exception.Message
-        try {
-            if ($_.Exception.Response) {
-                $sr2 = New-Object System.IO.StreamReader($_.Exception.Response.GetResponseStream(), [System.Text.Encoding]::UTF8)
-                $body = $sr2.ReadToEnd(); $sr2.Dispose()
-                if ($body) { $msg = $body }
-            }
-        } catch { }
-        throw "接口请求失败: $msg"
+    if ($Link -notmatch '/s/([^/?#\s]+)') {
+        throw "链接中找不到 /s/ 段, 无法提取分享码: $Link"
     }
+    $hash = $matches[1]
+    $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
+    $infoUri = "$script:ApiBase/share/info/$hash"
 
-    try { $j = $text | ConvertFrom-Json }
-    catch { throw "解析 API 响应失败: $($text.Substring(0, [Math]::Min(200, $text.Length)))" }
-
+    $text = Invoke-HuangApi -Uri $infoUri -Session $session -Referer $Link
+    $j = $text | ConvertFrom-Json
     if ($j.code -ne 0) {
         $m = [string]$j.msg
         if (-not $m) { $m = "code=$($j.code)" }
         throw "解析失败: $m"
     }
 
-    $d = $j.data
-    if ($null -eq $d) { throw 'API 未返回 data 字段' }
-
-    $name = Clean-Name ([string]$d.name)
-    $name = Fix-SplitName $name
-    $direct = [string]$d.downUrl
-    if (-not $direct) { $direct = [string]$d.downurl }
-    if (-not $name -or -not $direct) {
-        throw "API 未返回文件名或直链: $($text.Substring(0, [Math]::Min(200, $text.Length)))"
+    if ($j.data.locked -eq $true) {
+        if (-not $Password) { throw '该分享已加密, 请用 -Pwd 参数传入密码' }
+        $body = @{ password = $Password } | ConvertTo-Json -Compress
+        $null = Invoke-HuangApi -Uri "$script:ApiBase/share/password/$hash" -Method 'POST' -Body $body -Session $session -Referer $Link
+        $text = Invoke-HuangApi -Uri $infoUri -Session $session -Referer $Link
+        $j = $text | ConvertFrom-Json
+        if ($j.code -ne 0) {
+            $m = [string]$j.msg
+            if (-not $m) { $m = '密码错误或分享不可用' }
+            throw "解析失败: $m"
+        }
     }
+
+    $d = $j.data
+    if ($d.is_dir -eq $true) { throw '该分享是文件夹, 请改为分享单个文件' }
+
+    $name = ''
+    if ($d.source) { $name = [string]$d.source.name }
+    if (-not $name -and $d.name) { $name = [string]$d.name }
+    $name = $name.Trim()
+    $name = $name.TrimEnd('-').Trim()
+    if (-not $name) {
+        throw "API 未返回文件名: $($text.Substring(0, [Math]::Min(200, $text.Length)))"
+    }
+
+    $size = [long]0
+    if ($d.source -and $null -ne $d.source.size) { $size = [long]$d.source.size }
+
+    $direct = "$script:ApiBase/share/content/$hash" + '?path=' + (ConvertTo-PathCode ('/' + $name))
 
     return [pscustomobject]@{
         Name      = ConvertTo-SafeName $name
         RawName   = $name
         DirectUrl = $direct
         Referer   = $Link
-        Size      = ConvertTo-Bytes ([string]$d.filesize)
+        Size      = $size
+        Cookies   = $session.CookieContainer
     }
 }
 
 function Get-RemoteInfo {
-    param([string]$Link, [string]$Referer)
+    param([string]$Link, [string]$Referer, $Cookies)
 
     $r = [pscustomobject]@{ Size = [long]0; SupportRange = $false }
     $req = [System.Net.HttpWebRequest]::Create($Link)
     $req.Method = 'GET'
     $req.UserAgent = $script:UserAgent
     if ($Referer) { $req.Referer = $Referer }
+    if ($Cookies -ne $null) { $req.CookieContainer = $Cookies }
     $req.Accept = '*/*'
     $req.Timeout = 20000
     $req.ReadWriteTimeout = 20000
@@ -247,7 +270,7 @@ function Get-RemoteInfo {
 $script:BlockWorker = @'
 param(
     [string]$Link, [string]$Referer, [string]$Ua,
-    [string]$Path, [long]$Start, [long]$End, [int]$Retry
+    [string]$Path, [long]$Start, [long]$End, [int]$Retry, $Cookies
 )
 
 $attempt = 0
@@ -264,6 +287,7 @@ while ($attempt -le $Retry) {
         $req.Timeout = 30000
         $req.ReadWriteTimeout = 60000
         $req.ServicePoint.ConnectionLimit = 64
+        if ($Cookies -ne $null) { $req.CookieContainer = $Cookies }
         [void]$req.AddRange($Start, $End)
 
         $resp = $req.GetResponse()
@@ -372,6 +396,7 @@ function Save-Parallel {
                     [void]$ps.AddParameter('Start', $s)
                     [void]$ps.AddParameter('End', $e)
                     [void]$ps.AddParameter('Retry', $Retry)
+                    [void]$ps.AddParameter('Cookies', $Info.Cookies)
 
                     $h = $ps.BeginInvoke()
                     $running.Add([pscustomobject]@{ Ps = $ps; Handle = $h; Index = $i }) | Out-Null
@@ -480,6 +505,7 @@ function Save-SingleStream {
     $req.Accept = '*/*'
     $req.Timeout = 30000
     $req.ReadWriteTimeout = 60000
+    if ($Info.Cookies -ne $null) { $req.CookieContainer = $Info.Cookies }
 
     $resp = $req.GetResponse()
     $total = [long]$resp.ContentLength
@@ -557,7 +583,7 @@ foreach ($link in $Url) {
     Write-Host "解析: $l" -ForegroundColor Cyan
     $info = $null
     try {
-        $info = Resolve-Lanzou -Link $l -Password $Pwd
+        $info = Resolve-Huang1111 -Link $l -Password $Pwd
     } catch {
         Write-Host "  失败: $($_.Exception.Message)" -ForegroundColor Red
         $failCount++
@@ -570,7 +596,7 @@ foreach ($link in $Url) {
 
     if ($ParseOnly) { $okCount++; continue }
 
-    $probe = Get-RemoteInfo -Link $info.DirectUrl -Referer $info.Referer
+    $probe = Get-RemoteInfo -Link $info.DirectUrl -Referer $info.Referer -Cookies $info.Cookies
     $size = $probe.Size
     if ($size -le 0) { $size = $info.Size }
 
@@ -930,7 +956,7 @@ Write-Host ("全部结束: 成功 {0} 个, 失败 {1} 个" -f $okCount, $failCou
     </svg>
     <span class="notice-float-body">
         <span class="notice-float-title" data-i18n="index.notice.title">公告</span>
-        <span class="notice-float-date">11月7日更新</span>
+        <span class="notice-float-date">11月21日更新</span>
     </span>
 </button>
 
@@ -940,20 +966,26 @@ Write-Host ("全部结束: 成功 {0} 个, 失败 {1} 个" -f $okCount, $failCou
     <div class="notice-modal-panel" role="dialog" aria-modal="true" aria-label="公告详情">
         <button class="notice-modal-close" id="noticeModalClose" type="button" aria-label="关闭">&times;</button>
         <h3 class="notice-modal-title" data-i18n="index.notice.title">公告</h3>
-        <p class="notice-modal-date">11月7日更新</p>
+        <p class="notice-modal-date">11月21日更新</p>
         <div class="notice-modal-body">
+            <span class="notice-tag">#邀测demo</span>
             <ul>
-                <li>全站按钮、卡片、公告弹窗与提示统一升级为毛玻璃样式，界面更通透、更有质感。</li>
-                <li>首页「关于本站」卡片取消浮出动画，并重新绘制了更精美的插画。</li>
-                <li>导航更名：Minecraft 相关改为 Minecraft，影音改为影视&音乐。</li>
-                <li>网址导航页在电脑端改为多列排版，屏幕利用率更高。</li>
-                <li>Minecraft 页面底部新增「Minecraft 网页版」入口，一键前往网址导航。</li>
-                <li>首页标题背景新增灰黑点阵，视觉层次更丰富。</li>
-                <li>修复打开公告时背景页面仍可滚动的问题，弹窗打开时锁定页面并保持背景变暗。</li>
-                <li>公告新增「查看历史公告」功能，本次与上次公告分开展示。</li>
+                <li>下载器“多人模式”上新，目前处于测试阶段，邀请好友一起下载更快速！只需要和好友在同一局域网下，一起使用“极速开始”的“渊之鱼冥下载器”，打开“多人模式”即可！</li>
             </ul>
+            <p class="notice-quote">众人拾柴火焰高。</p>
             <button class="notice-history-toggle" id="noticeHistoryToggle" type="button" aria-expanded="false" aria-controls="noticeHistoryPanel">查看历史公告</button>
             <div class="notice-history-panel" id="noticeHistoryPanel" hidden>
+                <p class="notice-history-date">11月7日更新</p>
+                <ul>
+                    <li>全站按钮、卡片、公告弹窗与提示统一升级为毛玻璃样式，界面更通透、更有质感。</li>
+                    <li>首页「关于本站」卡片取消浮出动画，并重新绘制了更精美的插画。</li>
+                    <li>导航更名：Minecraft 相关改为 Minecraft，影音改为影视&音乐。</li>
+                    <li>网址导航页在电脑端改为多列排版，屏幕利用率更高。</li>
+                    <li>Minecraft 页面底部新增「Minecraft 网页版」入口，一键前往网址导航。</li>
+                    <li>首页标题背景新增灰黑点阵，视觉层次更丰富。</li>
+                    <li>修复打开公告时背景页面仍可滚动的问题，弹窗打开时锁定页面并保持背景变暗。</li>
+                    <li>公告新增「查看历史公告」功能，本次与上次公告分开展示。</li>
+                </ul>
                 <p class="notice-history-date">10月31日更新</p>
                 <ul>
                     <li>自动下载器全新升级：解析更快、下载更稳，支持带密码分享链接自动重试，错误提示更清晰！</li>

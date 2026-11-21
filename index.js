@@ -44,7 +44,7 @@ window.addEventListener('scroll', () => {
     if (!section || !btn) return;
 
     // 完全版方式二：下载链接（huang1111 网盘）
-    const FULL_DOWNLOAD_URL = 'https://pan.huang1111.cn/s/DmkxwS4';
+    const FULL_DOWNLOAD_URL = 'https://pan.huang1111.cn/s/qegM5h3';
 
     // 复制文本（使用 Clipboard API）
     function copyText(text, onDone) {

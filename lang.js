@@ -53,8 +53,8 @@ header .lang-toggle {
 .lang-dropdown {
     position: fixed;
     background: var(--glass-bg);
-    backdrop-filter: blur(20px) saturate(1.5);
-    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    backdrop-filter: blur(10px) saturate(1.3);
+    -webkit-backdrop-filter: blur(10px) saturate(1.3);
     border: 1px solid var(--glass-border);
     border-radius: 12px;
     padding: 6px;
